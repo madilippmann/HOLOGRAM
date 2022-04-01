@@ -14,7 +14,7 @@
 
 ## Description
 
-HOLOGRAM is a clone of Instagram. TODO add better description later
+HOLOGRAM is a social-media platform where users can share and comment on images, as well as communicate via direct messages. HOLOGRAM is clone of Instagram.
 
 ## Index
 | [Features List](https://github.com/madilippmann/HOLOGRAM/wiki/features-list) | [Database Schema](https://github.com/madilippmann/HOLOGRAM/wiki/database-schema) | [Backend API Routes](https://github.com/madilippmann/HOLOGRAM/wiki/backend-api-routes) | [Frontend Routes](https://github.com/madilippmann/HOLOGRAM/wiki/frontend-routes) | [Redux Store](https://github.com/madilippmann/HOLOGRAM/wiki/redux-store) | [User Stories](https://github.com/madilippmann/HOLOGRAM/wiki/user-stories) | [Wireframes](https://github.com/madilippmann/HOLOGRAM/wiki/wireframes) |
