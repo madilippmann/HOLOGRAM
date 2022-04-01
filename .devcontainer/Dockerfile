@@ -15,7 +15,8 @@ sudo service postgresql start && \
 sudo -u postgres psql -c "CREATE USER vscode WITH PASSWORD 'password';" && \
 sudo -u postgres psql -c "ALTER USER vscode WITH SUPERUSER;" && \
 sudo -u postgres psql -c "CREATE DATABASE vscode WITH OWNER vscode" && \
-sudo -u postgres psql -c "CREATE DATABASE python_project WITH OWNER vscode"
+sudo -u postgres psql -c "CREATE USER hologram_app WITH PASSWORD 'a374ce2afc9547b786a8289bca70bb69' CREATEDB;" && \
+sudo -u postgres psql -c "CREATE DATABASE hologram_dev WITH OWNER hologram_app"
 
 # auto configure flask app to connect to internal postgres
 ENV DATABASE_URL=postgresql://vscode:password@localhost/python_project
