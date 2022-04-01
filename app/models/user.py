@@ -1,7 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .threadParticipants import users_threads
+# from .threadParticipants import users_threads
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -14,20 +14,20 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String(255), nullable=True)
     profileImageURL= db.Column(db.String(255), nullable=True)
     hashedPassword = db.Column(db.String(255), nullable=False)
-    privateStatus = db.Column(db.Boolean)
+    privateStatus = db.Column(db.Boolean, nullable=False)
 
-    posts = db.relationship('Post', back_populates='user')
-    comments = db.relationship('Comment', back_populates='user')
-    postLikes = db.relationship('PostLike', back_populates='user')
+    # posts = db.relationship('Post', back_populates='user')
+    # comments = db.relationship('Comment', back_populates='user')
+    # postLikes = db.relationship('PostLike', back_populates='user')
 
-    threads = db.relationship(
-        "Thread",
-        secondary=users_threads,
-        back_populates="users"
-    )
+    # threads = db.relationship(
+    #     "Thread",
+    #     secondary=users_threads,
+    #     back_populates="users"
+    # )
 
-    followers =db.relationship('Follow', back_populates='user_follower')
-    follows = db.relationship('Follow', back_populates='user_followed')
+    # followers =db.relationship('Follow', back_populates='user_follower')
+    # follows = db.relationship('Follow', back_populates='user_followed')
 
     @property
     def password(self):
@@ -46,5 +46,8 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'handle': self.handle,
-            'email': self.email
+            'email': self.email,
+            'bio': self.bio,
+            'profileImageURL': self.profileImageURL,
+            'privateStatus': self.privateStatus
         }

@@ -6,7 +6,7 @@ import { signUp } from '../../store/session';
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState('')
-  const [lirstName, setlirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [handle, setHandle] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
