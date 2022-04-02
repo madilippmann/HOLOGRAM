@@ -105,8 +105,10 @@ const seedFollows = num => {
     }
 
     console.log(follow, ',');
+    console.log('brug')
   }
 }
+
 // seedFollows(20)
 // !!! DON'T FORGET TO CHECK IF THERE ARE DUPLICATES AFTERWARDS !!!
 
