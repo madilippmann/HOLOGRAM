@@ -8,8 +8,9 @@ bp = Blueprint('posts', __name__, url_prefix="/posts")
 
 @bp.route('/')
 def get_posts():
-  # get all posts and return them as json
-  return 'nah'
+  posts = Post.query.all()
+  # CHECK do posts need to be converted to json?
+  return posts
   
 @bp.route('/<int:postId>')
 def get_post():
