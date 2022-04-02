@@ -8,22 +8,18 @@ const seedUsers = num => {
     const firstName = `${faker.name.firstName()}`;
     const lastName = `${faker.name.firstName()}`;
 
-    const user = {
-      firstName,
-      lastName,
-      handle: `${faker.random.word()}_${faker.name.firstName()}`.toLowerCase(),
-      email: faker.internet.email(),
-      hashedPassword: bcrypt.hashSync(faker.internet.password()),
-      bio: faker.lorem.paragraph(),
-      profileImageUrl: faker.image.avatar(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
-    console.log(user, ',')
+    const handle = `${faker.random.word()}_${faker.name.firstName()}`.toLowerCase()
+    const email = faker.internet.email()
+    const bio = faker.lorem.paragraph()
+    const profileImageUrl = faker.image.avatar()
+    
+    const user = `${firstName} = User(firstName="${firstName}", lastName="${lastName}", handle="${handle}", email="${email}", password=password, bio="${bio}", profileImageUrl="${profileImageUrl}")`
+    
+    console.log(user, '\n')
     i++
   }
 }
-// seedUsers(5);
+seedUsers(5);
 
 const seedPosts = num => {
   for (let i = 0; i < num; i++) {
