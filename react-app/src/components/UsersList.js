@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+// import * as postsActions from '../store/posts'
 
 function UsersList() {
+  // const dispatch = useDispatch();
+
   const [users, setUsers] = useState([]);
+
 
   useEffect(() => {
     async function fetchData() {

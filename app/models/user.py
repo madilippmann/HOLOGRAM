@@ -14,13 +14,13 @@ class User(db.Model, UserMixin):
     handle = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     bio = db.Column(db.String(255), nullable=True)
-    profileImageURL= db.Column(db.String(255), nullable=True)
+    profileImageUrl= db.Column(db.String(255), nullable=True)
     hashedPassword = db.Column(db.String(255), nullable=False)
     privateStatus = db.Column(db.Boolean, nullable=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
-    # posts = db.relationship('Post', back_populates='user')
+    posts = db.relationship('Post', back_populates='user')
     # comments = db.relationship('Comment', back_populates='user')
     # postLikes = db.relationship('PostLike', back_populates='user')
 
@@ -52,6 +52,6 @@ class User(db.Model, UserMixin):
             'handle': self.handle,
             'email': self.email,
             'bio': self.bio,
-            'profileImageURL': self.profileImageURL,
+            'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus
         }

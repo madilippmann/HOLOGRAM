@@ -7,14 +7,19 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import PostsList from './components/PostsList';
 import { authenticate } from './store/session';
+import ProfilePage from './components/ProfilePage';
+import Post from './components/Post';
+import PostForm from './components/PostForm';
+import EditPostForm from './components/EditPostForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -35,14 +40,38 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
+        <ProtectedRoute path='/posts' exact={true} >
+          <PostsList />
+        </ProtectedRoute>
+        <ProtectedRoute path='/users/:userId(\d+)' exact={true} >
+          {/* <User /> */}
+          <ProfilePage />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+
+        {/* FOR TESTING THE POST FORM PAGE */}
+        <ProtectedRoute exact path="/posts/new">
+          <PostForm />
+        </ProtectedRoute>
+
+        {/* FIX FIX FIX */}
+        <ProtectedRoute exact path="/posts/:postId(\d+)/edit">
+          <EditPostForm />
+        </ProtectedRoute>
+
+        {/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
+        <ProtectedRoute exact path="/posts/:postId(\d+)">
+          <Post />
+        </ProtectedRoute>
+
+        <Route>
+          Page Not Found
+        </Route>
+
       </Switch>
     </BrowserRouter>
   );
