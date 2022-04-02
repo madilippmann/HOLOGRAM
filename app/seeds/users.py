@@ -9,9 +9,6 @@ def seed_users():
         firstName='Marnie', lastName='Marnie', handle='marnie', email='marnie@aa.io', password='password', privateStatus=False)
     bobbie = User(
         firstName='Bobby', lastName='McFerrin', handle='bobbie', email='bobbie@aa.io', password='password', privateStatus=False)
-
-    print('\n\n\nPassword: ', marnie.hashedPassword, '\n\n\n\n')
-
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
