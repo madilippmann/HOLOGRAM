@@ -130,8 +130,10 @@ export const deletePost = (postId, sessionUserId) => async dispatch => {
 
     if (res.ok) {
         const postId = await res.json();
-        dispatch(removePost(postId));
-        return postId;
+        if (postId) {
+          dispatch(removePost(postId));
+          return postId;
+        }
     }
 }
 
