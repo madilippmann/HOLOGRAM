@@ -23,7 +23,7 @@ const seedUsers = num => {
     i++
   }
 }
-// seedUsers(5);
+seedUsers(5);
 
 const seedPosts = num => {
   for (let i = 0; i < num; i++) {
