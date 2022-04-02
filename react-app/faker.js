@@ -13,29 +13,25 @@ const seedUsers = num => {
     const bio = faker.lorem.paragraph()
     const profileImageUrl = faker.image.avatar()
     
-    const user = `${firstName} = User(firstName="${firstName}", lastName="${lastName}", handle="${handle}", email="${email}", password=password, bio="${bio}", profileImageUrl="${profileImageUrl}")`
+    const user = `${firstName} = User(firstName="${firstName}", lastName="${lastName}", handle="${handle}", email="${email}", password="password", bio="${bio}", profileImageUrl="${profileImageUrl}")`
     
     console.log(user, '\n')
     i++
   }
 }
-seedUsers(5);
+// seedUsers(5);
 
 const seedPosts = num => {
   for (let i = 0; i < num; i++) {
-    let postImageUrl = `https://mooa-seed.s3.amazonaws.com/seed/0${i + 1}-image.png`;
+    let postImageURL = `https://mooa-seed.s3.amazonaws.com/seed/0${i + 1}-image.png`;
+    const caption = faker.lorem.paragraph()
 
-    const user = {
-      postImageUrl,
-      caption: faker.lorem.paragraph(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
-
-    console.log(user, ',');
+    const post = `post${i + 1} = Post(postImageURL="${postImageURL}", caption="${caption}")`
+    
+    console.log(post, ',');
   }
 }
-// seedPosts(40)
+seedPosts(40)
 
 
 const seedComments = num => {
