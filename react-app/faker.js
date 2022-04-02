@@ -31,32 +31,25 @@ const seedPosts = num => {
     console.log(post, ',');
   }
 }
-seedPosts(40)
+// seedPosts(40)
 
 
 const seedComments = num => {
   for (let i = 0; i < num; i++) {
-    const postId = ~~(Math.random() * 40);
-    const userId = ~~(Math.random() * 5);
+    const postId = ~~(Math.random() * 40) || 1;
+    const userId = ~~(Math.random() * 5) || 1;
     if (postId >= 112 || postId === 0) break;
     if (userId >= 51 || userId === 0) break;
     let caption;
     if (i % 2 === 0) caption = faker.lorem.sentence();
     else caption = faker.lorem.sentences(2);
 
-    const like = {
-      userId,
-      postId,
-      caption,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
+    const comment = `comment${i + 1} = Comment(postId="${postId}", userId="${userId}", content="${caption}")`
 
-    console.log(like, ',');
+    console.log(comment, '\n');
   }
-
 }
-// seedComments(10);
+seedComments(20);
 
 
 const seedPostLikes = num => {
