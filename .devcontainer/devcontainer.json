@@ -5,14 +5,14 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
-		"args": { 
+		"args": {
 			"VARIANT": "3.9",
 			"NODE_VERSION": "16"
 		}
 	},
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		// "python.defaultInterpreterPath": "/usr/local/bin/python",
 		// "python.linting.enabled": true,
 		// "python.linting.pylintEnabled": true,
@@ -34,7 +34,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [5000, 5432, 3000],
+	"forwardPorts": [5001, 5432, 3000],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "pipenv install --dev && cd react-app && npm install",
