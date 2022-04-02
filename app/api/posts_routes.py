@@ -32,7 +32,7 @@ def create_post():
         userId = session['_user_id']
         data = {
             "userId": session['user_id'],
-            "postImageURL": form["postImageURL"].data,
+            "postImageUrl": form["postImageUrl"].data,
             "caption": form["caption"].data
         }
 

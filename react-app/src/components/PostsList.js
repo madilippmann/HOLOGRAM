@@ -17,7 +17,7 @@ function PostsList() {
             <li key={post.id}>
                 <p>{post.id}</p>
                 <p>{post.userId}</p>
-                <p>{post.postImageURL}</p>
+                <p>{post.postImageUrl}</p>
                 <p>{post.caption}</p>
             </li>
         );

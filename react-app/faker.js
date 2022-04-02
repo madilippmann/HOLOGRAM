@@ -12,9 +12,9 @@ const seedUsers = num => {
     const email = faker.internet.email()
     const bio = faker.lorem.paragraph()
     const profileImageUrl = faker.image.avatar()
-    
+
     const user = `${firstName} = User(firstName="${firstName}", lastName="${lastName}", handle="${handle}", email="${email}", password="password", bio="${bio}", profileImageUrl="${profileImageUrl}")`
-    
+
     console.log(user, '\n')
     i++
   }
@@ -23,11 +23,11 @@ const seedUsers = num => {
 
 const seedPosts = num => {
   for (let i = 0; i < num; i++) {
-    let postImageURL = `https://mooa-seed.s3.amazonaws.com/seed/0${i + 1}-image.png`;
+    let postImageUrl = `https://mooa-seed.s3.amazonaws.com/seed/0${i + 1}-image.png`;
     const caption = faker.lorem.paragraph()
 
-    const post = `post${i + 1} = Post(postImageURL="${postImageURL}", caption="${caption}")`
-    
+    const post = `post${i + 1} = Post(postImageUrl="${postImageUrl}", caption="${caption}")`
+
     console.log(post, ',');
   }
 }
