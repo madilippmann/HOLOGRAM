@@ -49,29 +49,27 @@ const seedComments = num => {
     console.log(comment, '\n');
   }
 }
-seedComments(20);
+// seedComments(20);
 
 
+let postLikePairs = []
 const seedPostLikes = num => {
   for (let i = 0; i < num; i++) {
     const postId = ~~(Math.random() * 40) || 1;
     const userId = ~~(Math.random() * 5) || 1;
-    if (postId >= 112 || postId === 0) break;
-    if (userId >= 51 || userId === 0) break;
+    if (postId >= 112 || postId === 0) continue;
+    if (userId >= 51 || userId === 0) continue;
+    
+    const duplicate = postLikePairs.find(like => like.userId === userId && like.postId === postId);
+    if (duplicate) continue;
+    postLikePairs.push({ postId, userId });
 
+    const postLike = `postLike${i + 1} = PostLike(postId="${postId}", userId="${userId}")`;
 
-    const like = {
-      userId,
-      postId,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
-
-    console.log(like, ',');
+    console.log(postLike, '\n');
   }
 }
-// seedPostLikes(70);
-// !!! DON'T FORGET TO CHECK IF THERE ARE DUPLICATES AFTERWARDS !!!
+seedPostLikes(50);
 
 
 const seedFollows = num => {
@@ -93,26 +91,33 @@ const seedFollows = num => {
     console.log('brug')
   }
 }
-
 // seedFollows(20)
 // !!! DON'T FORGET TO CHECK IF THERE ARE DUPLICATES AFTERWARDS !!!
 
 
 
+//fakeLikes(400)
+// fakeComment(15);
 
-// const userObj = {}
-// likes.forEach(like => {
-//   if (!userObj[like.userId]) {
-//     userObj[like.userId] = [like];
-//   }
-//   else {
-//     if (!userObj[like.userId].find(like1 => like1.songId === like.songId)) {
-//       userObj[like.userId].push(like);
+// const fakePairs = []
+// const fakeFollows = num => {
+//   let i = 0
+
+//   while (i < num) {
+//     const user_id = getRandomInt(28)
+//     let follower_id = getRandomInt(28)
+//     const duplicate = fakePairs.find(fake => fake.user_id === user_id && fake.follower_id === follower_id)
+//     if (duplicate) {
+//       continue;
 //     }
+//     const fakeFollowData = {
+//       user_id,
+//       follower_id,
+//     }
+//     console.log(fakeFollowData, ',')
+//     fakePairs.push(fakeFollowData)
+//     i++
 //   }
-// });
+// }
 
-// const results = [];
-// Object.values(userObj).forEach(arr => arr.forEach(like => results.push(like)))
-
-// console.dir(results, { 'maxArrayLength': null });
+// fakeFollows(250)
