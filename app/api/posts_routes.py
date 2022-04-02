@@ -3,10 +3,9 @@ from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Post
 from app.api.utils import validation_errors_to_error_messages
 
-
 posts_routes = Blueprint('posts', __name__)
 
-# POST ROUTES ##################################################################################
+# ROUTES ##################################################################################
 @posts_routes.route('/')
 def get_feed_posts():
     # FIX FIX FIX only get posts of users that session user follows
@@ -71,6 +70,3 @@ def delete_post(postId):
     return jsonify(postId)
   else:
     return jsonify('invalid'), 401
-
-
-# COMMENT ROUTES #############################################################################
