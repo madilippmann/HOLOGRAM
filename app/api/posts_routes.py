@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, url_for, request
+from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Post
 from app.api.utils import validation_errors_to_error_messages
@@ -11,8 +11,8 @@ posts_routes = Blueprint('posts', __name__)
 def get_feed_posts():
     # FIX FIX FIX only get posts of users that session user follows
     posts = Post.query.all()
-    # ??? do posts need to be converted to json ???
-    return posts
+    posts = [post.to_dict() for post in posts]
+    return jsonify(posts)
 
 @posts_routes.route('/<int:postId>')
 def get_post(postId):
