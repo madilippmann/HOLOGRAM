@@ -86,10 +86,12 @@ export const fetchPost = postId => async dispatch => {
     }
 }
 
-export const fetchPosts = (type='feed', userId=null) => async dispatch => {
+export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
     let res;
+    console.log('\n\n\nENTERED DISPATCH\n\n\n')
 
     if (type === 'feed') {
+        console.log('\n\n\nENTERED DISPATCH\n\n\n')
         res = await fetch(`/api/posts`);
     } else if (type === 'profile') {
         // TODO TODO TODO
@@ -138,8 +140,8 @@ export const deletePost = (postId, sessionUserId) => async dispatch => {
     if (res.ok) {
         const postId = await res.json();
         if (postId) {
-          dispatch(removePost(postId));
-          return postId;
+            dispatch(removePost(postId));
+            return postId;
         }
     }
 }

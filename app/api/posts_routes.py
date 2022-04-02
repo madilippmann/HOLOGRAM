@@ -16,9 +16,9 @@ def get_feed_posts():
 
 @posts_routes.route('/<int:postId>')
 def get_post(postId):
-  post = Post.query.get(postId)
+  post = Post.query.get(postId).to_dict()
   # ??? do posts need to be converted to json ???
-  return post
+  return jsonify(post)
 
 @posts_routes.route('/', methods=["POST"])
 def create_post():

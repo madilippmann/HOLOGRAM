@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import * as postsActions from '../store/posts'
 
 function PostsList() {
-    const [posts, setPosts] = useState([]);
+    const dispatch = useDispatch();
+
+    // const [posts, setPosts] = useState([]);
+    const posts = useSelector(state => state.posts)
 
     useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/posts/');
-            const posts = await response.json();
-            setPosts(posts);
-        }
-        fetchData();
-    }, []);
+        dispatch(postsActions.fetchPosts('feed', null))
 
-    const postComponents = posts.map((post) => {
+        // async function fetchData() {
+        //     const response = await fetch('/api/posts/');
+        //     const posts = await response.json();
+        //     setPosts(posts);
+        // }
+        // fetchData();
+    }, [dispatch]);
+
+
+
+    const postComponents = posts?.map((post) => {
         return (
             <li key={post.id}>
                 <p>{post.id}</p>
