@@ -1,28 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as postsActions from '../store/posts'
 
 function PostsList() {
     const dispatch = useDispatch();
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    // const [posts, setPosts] = useState([]);
-    const posts = useSelector(state => state.posts)
+    let posts = useSelector(state => state.posts);
+    console.log('PostsList ~ posts', posts);
 
     useEffect(() => {
-        dispatch(postsActions.fetchPosts('feed', null))
+        // dispatch(postsActions.fetchPosts('feed', null));
+        // setIsLoaded(true);
+        // .then(res => res.json).then(shouldBePosts => {
+        //     posts = shouldBePosts;
+        //     console.log('dispatch ~ posts', posts);
 
-        // async function fetchData() {
+        //     return;
+        // })
+        async function fetchData() {
         //     const response = await fetch('/api/posts/');
         //     const posts = await response.json();
         //     setPosts(posts);
-        // }
-        // fetchData();
+
+            await dispatch(postsActions.fetchPosts('feed', null));
+            console.log('fetchData ~ posts', posts);
+            setIsLoaded(() => !isLoaded);
+            // console.log(isLoaded)
+        }
+        fetchData();
+
     }, [dispatch]);
 
 
 
-    const postComponents = posts?.map((post) => {
+    const postComponents = posts?.allPosts.map((post) => {
         return (
             <li key={post.id}>
                 <p>{post.id}</p>
@@ -33,10 +46,21 @@ function PostsList() {
         );
     });
 
-    return (
+    return !isLoaded ? null : (
         <>
             <h1>Post List: </h1>
-            <ul>{postComponents}</ul>
+                <ul>
+                    {posts?.allPosts.map((post) => {
+                        return (
+                            <li key={post.id}>
+                                <p>{post.id}</p>
+                                <p>{post.userId}</p>
+                                <p>{post.postImageUrl}</p>
+                                <p>{post.caption}</p>
+                            </li>
+                        );
+                    })}
+                </ul>
         </>
     );
 }
