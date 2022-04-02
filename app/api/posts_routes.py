@@ -14,7 +14,7 @@ def get_feed_posts():
     posts = [post.to_dict() for post in posts]
     return jsonify(posts)
 
-@posts_routes.route('/<int:postId>')
+@posts_routes.route('/<int:postId>/')
 def get_post(postId):
   post = Post.query.get(postId).to_dict()
   # ??? do posts need to be converted to json ???
@@ -24,27 +24,24 @@ def get_post(postId):
 def create_post():
     form = CreatePostForm()
 
-    # Get the csrf_token from the request cookie and put it into the
-    # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        userId = session['_user_id']
         data = {
-            "userId": session['user_id'],
-            "postImageUrl": form["postImageUrl"].data,
-            "caption": form["caption"].data
+            "userId": session['_user_id'],
+            "postImageUrl": form.data["postImageUrl"],
+            "caption": form.data["caption"],
         }
 
         post = Post(**data)
         db.session.add(post)
         db.session.commit()
-        return post
+        return jsonify(post.to_dict())
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@posts_routes.route('/<int:postId>', methods=["PUT"])
+@posts_routes.route('/<int:postId>/', methods=["PUT"])
 def edit_post(postId):
     post = request.get_json()
     form = EditPostForm()
@@ -65,7 +62,7 @@ def edit_post(postId):
 
 
 
-@posts_routes.route('/<int:postId>', methods=["DELETE"])
+@posts_routes.route('/<int:postId>/', methods=["DELETE"])
 def delete_post(postId):
   post = Post.query.get(postId)
   userId = request.get_json(force=True)["sessionUserId"]

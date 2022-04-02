@@ -103,10 +103,16 @@ export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
 }
 
 export const createPost = post => async dispatch => {
-    const res = await fetch('/api/posts', {
+    console.log(post);
+    const res = await fetch('/api/posts/', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(post)
     });
+    
+    console.log(res);
 
     if (res.ok) {
         const newPost = await res.json();
@@ -118,6 +124,9 @@ export const createPost = post => async dispatch => {
 export const editPost = post => async dispatch => {
     const res = await fetch(`/api/posts/${post.id}`, {
         method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(post)
     });
 
@@ -131,6 +140,9 @@ export const editPost = post => async dispatch => {
 export const deletePost = (postId, sessionUserId) => async dispatch => {
     const res = await fetch(`/api/posts/${postId}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(sessionUserId)
     });
 
@@ -158,6 +170,9 @@ export const fetchComments = postId => async dispatch => {
 export const createComment = comment => async dispatch => {
     const res = await fetch(`/api/posts/${comment.postId}/comments`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(comment)
     });
 
@@ -171,6 +186,9 @@ export const createComment = comment => async dispatch => {
 export const editComment = comment => async dispatch => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
         method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(comment)
     });
 
@@ -184,6 +202,9 @@ export const editComment = comment => async dispatch => {
 export const deleteComment = (commentId, postId, sessionUserId) => async dispatch => {
     const res = await fetch(`/api/posts/${postId}/comments/${commentId}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(sessionUserId)
     });
 
