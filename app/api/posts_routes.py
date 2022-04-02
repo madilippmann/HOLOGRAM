@@ -8,4 +8,4 @@ bp = Blueprint('posts', __name__, url_prefix="/")
 
 @bp.route('/')
 def index():
-  return 'bruh'
+  return 'nah'
