@@ -1,5 +1,4 @@
 const { faker } = require('@faker-js/faker');
-const bcrypt = require('bcryptjs');
 
 const seedUsers = num => {
   let i = 0;
@@ -38,8 +37,8 @@ const seedComments = num => {
   for (let i = 0; i < num; i++) {
     const postId = ~~(Math.random() * 40) || 1;
     const userId = ~~(Math.random() * 5) || 1;
-    if (postId >= 112 || postId === 0) break;
-    if (userId >= 51 || userId === 0) break;
+    if (postId >= 112 || postId === 0) continue;
+    if (userId >= 51 || userId === 0) continue;
     let caption;
     if (i % 2 === 0) caption = faker.lorem.sentence();
     else caption = faker.lorem.sentences(2);
@@ -49,70 +48,44 @@ const seedComments = num => {
     console.log(comment, '\n');
   }
 }
-seedComments(20);
+// seedComments(20);
 
 
+let postLikePairs = []
 const seedPostLikes = num => {
   for (let i = 0; i < num; i++) {
     const postId = ~~(Math.random() * 40) || 1;
     const userId = ~~(Math.random() * 5) || 1;
-    if (postId >= 112 || postId === 0) break;
-    if (userId >= 51 || userId === 0) break;
+    if (postId >= 112 || postId === 0) continue;
+    if (userId >= 51 || userId === 0) continue;
+    
+    const duplicate = postLikePairs.find(like => like.userId === userId && like.postId === postId);
+    if (duplicate) continue;
+    postLikePairs.push({ postId, userId });
 
+    const postLike = `postLike${i + 1} = PostLike(postId="${postId}", userId="${userId}")`;
 
-    const like = {
-      userId,
-      postId,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
-
-    console.log(like, ',');
+    console.log(postLike, '\n');
   }
 }
-// seedPostLikes(70);
-// !!! DON'T FORGET TO CHECK IF THERE ARE DUPLICATES AFTERWARDS !!!
+// seedPostLikes(50);
 
 
+const followPairs = [];
 const seedFollows = num => {
   for (let i = 0; i < num; i++) {
-    const followerId = ~~(Math.random() * 5)
-    const followedId = ~~(Math.random() * 5);
-    if (followerId >= 112 || followerId === 0) break;
-    if (followedId >= 51 || followedId === 0) break;
+    const followerId = ~~(Math.random() * 8)
+    const followedId = ~~(Math.random() * 8);
+    if (followerId >= 112 || followerId === 0) continue;
+    if (followedId >= 51 || followedId === 0) continue;
 
+    const duplicate = followPairs.find(follow => follow.followerId === followerId && follow.followedId === followedId);
+    if (duplicate || followerId === followedId) continue;
+    followPairs.push({ followerId, followedId });
 
-    const follow = {
-      followerId,
-      followedId,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
+    const follow = `follow${i + 1} = Follow(followerId="${followerId}", followedId="${followedId}")`;
 
-    console.log(follow, ',');
-    console.log('brug')
+    console.log(follow, '\n');
   }
 }
-
-// seedFollows(20)
-// !!! DON'T FORGET TO CHECK IF THERE ARE DUPLICATES AFTERWARDS !!!
-
-
-
-
-// const userObj = {}
-// likes.forEach(like => {
-//   if (!userObj[like.userId]) {
-//     userObj[like.userId] = [like];
-//   }
-//   else {
-//     if (!userObj[like.userId].find(like1 => like1.songId === like.songId)) {
-//       userObj[like.userId].push(like);
-//     }
-//   }
-// });
-
-// const results = [];
-// Object.values(userObj).forEach(arr => arr.forEach(like => results.push(like)))
-
-// console.dir(results, { 'maxArrayLength': null });
+seedFollows(50)
