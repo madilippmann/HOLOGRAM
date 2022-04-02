@@ -65,10 +65,11 @@ def edit_post(postId):
 @posts_routes.route('/<int:postId>/', methods=["DELETE"])
 def delete_post(postId):
   post = Post.query.get(postId)
-  userId = request.get_json(force=True)["sessionUserId"]
+  userId = session['_user_id']
 
-  if post.userId == userId:
+  if post.to_dict()['userId'] == int(userId):
     db.session.delete(post)
-    return postId
+    db.session.commit()
+    return jsonify(postId)
   else:
-    return
+    return jsonify('invalid'), 401

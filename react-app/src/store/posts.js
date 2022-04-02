@@ -140,13 +140,9 @@ export const editPost = post => async dispatch => {
     }
 }
 
-export const deletePost = (postId, sessionUserId) => async dispatch => {
+export const deletePost = (postId) => async dispatch => {
     const res = await fetch(`/api/posts/${postId}/`, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(sessionUserId)
     });
 
     if (res.ok) {
@@ -262,7 +258,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
             newState.allPosts.splice(newState.allPosts.indexOf(newState.allPosts.find(post => post.id === action.postId)))
 
-            delete newState[action.post.id];
+            delete newState[action.postId];
             return newState;
         }
 
