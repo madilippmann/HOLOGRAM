@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import * as postsActions from '../store/posts'
 
@@ -11,6 +11,8 @@ function Post() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let post = useSelector(state => state.posts[postId]);
+    let sessionUser = useSelector(state => state.session);
+
     console.log('Post ~ posts', post);
 
     useEffect(() => {
@@ -25,7 +27,6 @@ function Post() {
         let res = dispatch(postsActions.deletePost(post.id))
         console.log(res)
         if (res !== 'invalid') {
-            // return <Redirect to='/posts/' />
             return history.push('/posts')
         }
     }
@@ -36,12 +37,15 @@ function Post() {
             <p>{post.userId}</p>
             <p>{post.postImageUrl}</p>
             <p>{post.caption}</p>
-            <button
-                type='button'
-                onClick={() => deletePost(post.id)}
-            >
-                Delete Post
-            </button>
+
+            {post.id === sessionUser.id &&
+                <button
+                    type='button'
+                    onClick={() => deletePost(post.id)}
+                >
+                    Delete Post
+                </button>
+            }
         </>
     );
 }

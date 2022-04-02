@@ -45,7 +45,7 @@ function App() {
         <ProtectedRoute path='/posts' exact={true} >
           <PostsList />
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path='/users/:userId(\d+)' exact={true} >
           {/* <User /> */}
           <ProfilePage />
         </ProtectedRoute>
@@ -59,14 +59,18 @@ function App() {
         </ProtectedRoute>
 
         {/* FIX FIX FIX */}
-        <ProtectedRoute exact path="/posts/:postId/edit">
+        <ProtectedRoute exact path="/posts/:postId(\d+)/edit">
           <EditPostForm />
         </ProtectedRoute>
 
         {/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
-        <ProtectedRoute exact path="/posts/:postId">
+        <ProtectedRoute exact path="/posts/:postId(\d+)">
           <Post />
         </ProtectedRoute>
+
+        <Route>
+          Page Not Found
+        </Route>
 
       </Switch>
     </BrowserRouter>
