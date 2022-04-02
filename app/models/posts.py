@@ -16,3 +16,13 @@ class Post(db.Model):
     # comments = db.relationship('Comment', back_populates='post')
     # postLikes = db.relationship('PostLike', back_populates='post')
     # hashtags = db.relationship('Hashtag', back_populates='post')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'postImageUrl': self.postImageUrl,
+            'caption': self.caption,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
+        }

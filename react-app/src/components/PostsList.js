@@ -6,8 +6,8 @@ function PostsList() {
     useEffect(() => {
         async function fetchData() {
             const response = await fetch('/api/posts/');
-            const responseData = await response.json();
-            setPosts(responseData.posts);
+            const posts = await response.json();
+            setPosts(posts);
         }
         fetchData();
     }, []);
