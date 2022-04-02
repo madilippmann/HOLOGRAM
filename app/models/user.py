@@ -2,6 +2,8 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from .threadParticipants import users_threads
+from sqlalchemy.sql import func
+import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -15,8 +17,10 @@ class User(db.Model, UserMixin):
     profileImageURL= db.Column(db.String(255), nullable=True)
     hashedPassword = db.Column(db.String(255), nullable=False)
     privateStatus = db.Column(db.Boolean, nullable=False)
+    createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
-    # posts = db.relationship('Post', back_populates='user')
+    posts = db.relationship('Post', back_populates='user')
     # comments = db.relationship('Comment', back_populates='user')
     # postLikes = db.relationship('PostLike', back_populates='user')
 
@@ -31,11 +35,11 @@ class User(db.Model, UserMixin):
 
     @property
     def password(self):
-        return self.hashed_password
+        return self.hashedPassword
 
     @password.setter
     def password(self, password):
-        self.hashed_password = generate_password_hash(password)
+        self.hashedPassword = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
