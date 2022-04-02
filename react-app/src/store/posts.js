@@ -92,7 +92,6 @@ export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
     if (type === 'feed') {
         res = await fetch(`/api/posts`);
     } else if (type === 'profile') {
-        // TODO TODO TODO
         res = await fetch(`/api/users/${userId}/posts`);
     }
 

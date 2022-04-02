@@ -10,6 +10,7 @@ import User from './components/User';
 import PostsList from './components/PostsList';
 import { authenticate } from './store/session';
 import ProfilePage from './components/ProfilePage';
+import Post from './components/Post';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,6 +50,12 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+        
+        {/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
+        <ProtectedRoute path="/posts/:postId">
+          <Post />
+        </ProtectedRoute>
+        
       </Switch>
     </BrowserRouter>
   );
