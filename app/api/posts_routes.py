@@ -21,9 +21,6 @@ def get_post(postId):
 
 @posts_routes.route('/', methods=["POST"])
 def create_post():
-    # get the post from request body
-    # create instance of post passing in info
-    # save to session and send the new post from db back
     form = CreatePostForm()
 
     # Get the csrf_token from the request cookie and put it into the
@@ -48,12 +45,6 @@ def create_post():
 
 @posts_routes.route('/<int:postId>', methods=["PUT"])
 def edit_post(postId):
-  # get post from req body
-  # query db for the existing post
-  # set all properties equal to request's post
-  # save to session
-  # send back new post
-
     post = request.get_json()
     form = EditPostForm()
 
@@ -70,7 +61,6 @@ def edit_post(postId):
         return post
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
 
 
 
