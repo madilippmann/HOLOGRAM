@@ -86,8 +86,15 @@ export const fetchPost = postId => async dispatch => {
     }
 }
 
-export const fetchPosts = () => async dispatch => {
-    const res = await fetch(`/api/posts`);
+export const fetchPosts = (type='feed', userId=null) => async dispatch => {
+    let res;
+
+    if (type === 'feed') {
+        res = await fetch(`/api/posts`);
+    } else if (type === 'profile') {
+        // TODO TODO TODO
+        res = await fetch(`/api/users/${userId}/posts`);
+    }
 
     if (res.ok) {
         const posts = await res.json();

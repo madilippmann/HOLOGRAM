@@ -8,10 +8,11 @@ posts_routes = Blueprint('posts', __name__)
 
 
 @posts_routes.route('/')
-def get_posts():
-  posts = Post.query.all()
-  # ??? do posts need to be converted to json ???
-  return posts
+def get_feed_posts():
+    # FIX FIX FIX only get posts of users that session user follows
+    posts = Post.query.all()
+    # ??? do posts need to be converted to json ???
+    return posts
 
 @posts_routes.route('/<int:postId>')
 def get_post(postId):
