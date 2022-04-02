@@ -1,5 +1,4 @@
 const { faker } = require('@faker-js/faker');
-const bcrypt = require('bcryptjs');
 
 const seedUsers = num => {
   let i = 0;
@@ -38,8 +37,8 @@ const seedComments = num => {
   for (let i = 0; i < num; i++) {
     const postId = ~~(Math.random() * 40) || 1;
     const userId = ~~(Math.random() * 5) || 1;
-    if (postId >= 112 || postId === 0) break;
-    if (userId >= 51 || userId === 0) break;
+    if (postId >= 112 || postId === 0) continue;
+    if (userId >= 51 || userId === 0) continue;
     let caption;
     if (i % 2 === 0) caption = faker.lorem.sentence();
     else caption = faker.lorem.sentences(2);
@@ -69,55 +68,24 @@ const seedPostLikes = num => {
     console.log(postLike, '\n');
   }
 }
-seedPostLikes(50);
+// seedPostLikes(50);
 
 
+const followPairs = [];
 const seedFollows = num => {
   for (let i = 0; i < num; i++) {
-    const followerId = ~~(Math.random() * 5)
-    const followedId = ~~(Math.random() * 5);
-    if (followerId >= 112 || followerId === 0) break;
-    if (followedId >= 51 || followedId === 0) break;
+    const followerId = ~~(Math.random() * 8)
+    const followedId = ~~(Math.random() * 8);
+    if (followerId >= 112 || followerId === 0) continue;
+    if (followedId >= 51 || followedId === 0) continue;
 
+    const duplicate = followPairs.find(follow => follow.followerId === followerId && follow.followedId === followedId);
+    if (duplicate || followerId === followedId) continue;
+    followPairs.push({ followerId, followedId });
 
-    const follow = {
-      followerId,
-      followedId,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    }
+    const follow = `follow${i + 1} = Follow(followerId="${followerId}", followedId="${followedId}")`;
 
-    console.log(follow, ',');
-    console.log('brug')
+    console.log(follow, '\n');
   }
 }
-// seedFollows(20)
-// !!! DON'T FORGET TO CHECK IF THERE ARE DUPLICATES AFTERWARDS !!!
-
-
-
-//fakeLikes(400)
-// fakeComment(15);
-
-// const fakePairs = []
-// const fakeFollows = num => {
-//   let i = 0
-
-//   while (i < num) {
-//     const user_id = getRandomInt(28)
-//     let follower_id = getRandomInt(28)
-//     const duplicate = fakePairs.find(fake => fake.user_id === user_id && fake.follower_id === follower_id)
-//     if (duplicate) {
-//       continue;
-//     }
-//     const fakeFollowData = {
-//       user_id,
-//       follower_id,
-//     }
-//     console.log(fakeFollowData, ',')
-//     fakePairs.push(fakeFollowData)
-//     i++
-//   }
-// }
-
-// fakeFollows(250)
+seedFollows(50)
