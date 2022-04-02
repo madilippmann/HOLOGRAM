@@ -99,6 +99,23 @@ export const signUp = (firstName, lastName, handle, email, password) => async (d
   }
 }
 
+
+export const editUser = (firstName, lastName, profileImageUrl, handle, email, userId) => async dispatch => {
+  const res = await fetch(`/api/users/${userId}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      firstName, lastName, profileImageUrl, handle, email, id: userId
+    })
+  });
+
+  if (res.ok) {
+    const editedUser = await res.json();
+    dispatch(setUser(editedUser));
+    return editedUser;
+  }
+}
+
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
