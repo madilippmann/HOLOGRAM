@@ -12,6 +12,7 @@ import { authenticate } from './store/session';
 import ProfilePage from './components/ProfilePage';
 import Post from './components/Post';
 import PostForm from './components/PostForm';
+import EditPostForm from './components/EditPostForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -51,17 +52,22 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
-        
+
         {/* FOR TESTING THE POST FORM PAGE */}
         <ProtectedRoute exact path="/posts/new">
-            <PostForm />
+          <PostForm />
         </ProtectedRoute>
-        
+
+        {/* FIX FIX FIX */}
+        <ProtectedRoute exact path="/posts/:postId/edit">
+          <EditPostForm />
+        </ProtectedRoute>
+
         {/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
-        <ProtectedRoute path="/posts/:postId">
+        <ProtectedRoute exact path="/posts/:postId">
           <Post />
         </ProtectedRoute>
-        
+
       </Switch>
     </BrowserRouter>
   );

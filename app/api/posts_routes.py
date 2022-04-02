@@ -56,7 +56,7 @@ def edit_post(postId):
         post = Post.query.get(postId)
         post.caption = form['caption'].data
         db.session.commit()
-        return post
+        return jsonify(post.to_dict())
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

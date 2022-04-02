@@ -107,11 +107,11 @@ export const createPost = post => async dispatch => {
     const res = await fetch('/api/posts/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(post)
     });
-    
+
     console.log(res);
 
     if (res.ok) {
@@ -122,26 +122,29 @@ export const createPost = post => async dispatch => {
 }
 
 export const editPost = post => async dispatch => {
-    const res = await fetch(`/api/posts/${post.id}`, {
+    const res = await fetch(`/api/posts/${post.id}/`, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(post)
     });
 
     if (res.ok) {
         const editedPost = await res.json();
+        console.log(
+            editedPost
+        )
         dispatch(addPost(editedPost));
         return editedPost;
     }
 }
 
 export const deletePost = (postId, sessionUserId) => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}`, {
+    const res = await fetch(`/api/posts/${postId}/`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(sessionUserId)
     });
@@ -171,7 +174,7 @@ export const createComment = comment => async dispatch => {
     const res = await fetch(`/api/posts/${comment.postId}/comments`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(comment)
     });
@@ -187,7 +190,7 @@ export const editComment = comment => async dispatch => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(comment)
     });
@@ -203,7 +206,7 @@ export const deleteComment = (commentId, postId, sessionUserId) => async dispatc
     const res = await fetch(`/api/posts/${postId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(sessionUserId)
     });
