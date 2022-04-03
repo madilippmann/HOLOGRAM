@@ -25,10 +25,10 @@ class User(db.Model, UserMixin):
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
     followers = db.relationship(
-    # this relationship allows you to access both the collection of users 
+    # this relationship allows you to access both the collection of users
     # that follow a given user (with user.followers), and the collection
     # of users that a user follows (with user.following)
-        "User", 
+        "User",
         secondary=follows,
         primaryjoin=(follows.c.followedId == id),
         secondaryjoin=(follows.c.followerId == id),
@@ -53,7 +53,8 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
+
+    def follower_following_to_dict(self):
         return {
             'id': self.id,
             'firstName': self.firstName,
@@ -63,6 +64,21 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
-            'followers' : [follower.to_dict() for follower in self.followers],
-            'following' : [followed.to_dict() for followed in self.following],
+        }
+
+    def to_dict(self):
+        followers = [follower.follower_following_to_dict() for follower in self.followers]
+        following = [following.follower_following_to_dict() for following in self.following]
+
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'handle': self.handle,
+            'email': self.email,
+            'bio': self.bio,
+            'profileImageUrl': self.profileImageUrl,
+            'privateStatus': self.privateStatus,
+            'followers': followers,
+            'following': following
         }
