@@ -86,7 +86,7 @@ const loadLikes = (likes) => {
 
 const addLike = (like) => {
     return {
-        type: ADD_LIKES,
+        type: ADD_LIKE,
         like
     }
 }
@@ -240,6 +240,7 @@ export const deleteComment = (commentId, postId) => async dispatch => {
 }
 
 
+// LIKES
 export const togglePostLike = (postId) => async dispatch => {
     const res = await fetch(`/api/posts/${postId}/like/`, {
         method: "PUT",
@@ -358,6 +359,28 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             delete newState[action.postId].comments[action.commentId]
 
             return newState
+        }
+        
+        // COMMENTS ***********************************************************
+        case ADD_LIKE: {
+            const postId = action.like.postId
+            const allLikes = Array.isArray(state[postId].likes?.allLikes) ? [...state[postId].likes?.allLikes] : [];
+
+            return {
+                ...state,
+                [postId]: {
+                    ...state[postId],
+                    likes: {
+                        ...state[postId].likes,
+                        [action.like.id]: action.like,
+                        allLikes: [action.like, ...allLikes]
+                    }
+                }
+            }
+        }
+        
+        case REMOVE_LIKE: {
+            
         }
 
         default: {

@@ -23,4 +23,4 @@ def toggle_postLikes(postId):
         like = PostLike(**data)
         db.session.add(like)
         db.session.commit()
-        return jsonify(like.id)
+        return jsonify(like.to_dict())
