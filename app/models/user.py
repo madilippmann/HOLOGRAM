@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     posts = db.relationship('Post', back_populates='user')
-    # comments = db.relationship('Comment', back_populates='user')
+    comments = db.relationship('Comment', back_populates='user')
     # postLikes = db.relationship('PostLike', back_populates='user')
 
     # threads = db.relationship(
