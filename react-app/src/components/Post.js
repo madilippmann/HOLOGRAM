@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 
 import * as postsActions from '../store/posts'
 
@@ -11,13 +11,14 @@ function Post() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let post = useSelector(state => state.posts[postId]);
-    let sessionUser = useSelector(state => state.session);
+    let sessionUser = useSelector(state => state.session.user);
 
     console.log('Post ~ posts', post);
 
     useEffect(() => {
         (async () => {
             await dispatch(postsActions.fetchPost(postId));
+            await dispatch(postsActions.fetchComments(postId));
             setIsLoaded(() => !isLoaded);
         })()
     }, [dispatch]);
@@ -31,11 +32,18 @@ function Post() {
         }
     }
 
+    const deleteComment = (commentId) => {
+        dispatch(postsActions.deleteComment(commentId, post.id))
+    }
+
     return !isLoaded ? null : (
         <>
             <p>{post.id}</p>
             <p>{post.userId}</p>
-            <p>{post.postImageUrl}</p>
+            <img
+                src={post.postImageUrl}
+                alt="bruh"
+            />
             <p>{post.caption}</p>
 
             {post.id === sessionUser.id &&
@@ -46,6 +54,33 @@ function Post() {
                     Delete Post
                 </button>
             }
+
+            <h2>COMMENTS</h2>
+            <ul>
+                {post.comments.allComments.map(comment => {
+                    console.log(comment);
+                    return (
+                        <li key={comment.id}>
+                            <div>
+                                {console.log(comment.user.id, sessionUser.id)}
+                                {comment.user.handle} - {comment.content}
+                                {comment.user.id === sessionUser.id &&
+
+                                    <>
+                                        <Link to={`/posts/${post.id}/comments/${comment.id}/edit`}>Edit</Link>
+                                        <button
+                                            type='button'
+                                            onClick={() => deleteComment(comment.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </>
+                                }
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
         </>
     );
 }

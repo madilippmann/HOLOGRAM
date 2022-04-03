@@ -167,7 +167,8 @@ export const fetchComments = postId => async dispatch => {
 }
 
 export const createComment = comment => async dispatch => {
-    const res = await fetch(`/api/posts/${comment.postId}/comments`, {
+    console.log('ENTERED CREATE COMMENT')
+    const res = await fetch(`/api/posts/${comment.postId}/comments/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -183,7 +184,7 @@ export const createComment = comment => async dispatch => {
 }
 
 export const editComment = comment => async dispatch => {
-    const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
+    const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}/`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
@@ -198,17 +199,16 @@ export const editComment = comment => async dispatch => {
     }
 }
 
-export const deleteComment = (commentId, postId, sessionUserId) => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}/comments/${commentId}`, {
+export const deleteComment = (commentId, postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/comments/${commentId}/`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(sessionUserId)
+        }
     });
 
     if (res.ok) {
-        const { postId, commentId } = await res.json();
+        const { commentId } = await res.json();
         dispatch(removeComment(postId, commentId));
         return { postId, commentId };
     }
@@ -262,9 +262,10 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             return newState;
         }
 
-        // COMMENTS
+        // COMMENTS ***********************************************************
         case ADD_COMMENT: {
             const postId = action.comment.postId
+            const allComments = Array.isArray(state[postId].comments?.allComments) ? [...state[postId].comments?.allComments] : [];
 
             return {
                 ...state,
@@ -273,14 +274,14 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     comments: {
                         ...state[postId].comments,
                         [action.comment.id]: action.comment,
-                        allComments: [action.comment, ...state[postId].comments.allComments]
+                        allComments: [action.comment, ...allComments]
                     }
                 }
             }
         }
 
         case LOAD_COMMENTS: {
-            const postId = action.comment.postId
+            const postId = action.comments[0].postId
 
             return {
                 ...state,
