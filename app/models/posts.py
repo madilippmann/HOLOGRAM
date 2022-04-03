@@ -12,8 +12,8 @@ class Post(db.Model):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     user = db.relationship('User', back_populates='posts')
-    comments = db.relationship('Comment', back_populates='post')
-    # postLikes = db.relationship('PostLike', back_populates='post')
+    comments = db.relationship('Comment', back_populates='post', cascade="all, delete")
+    postLikes = db.relationship('PostLike', back_populates='post', cascade="all, delete")
     # hashtags = db.relationship('Hashtag', back_populates='post')
 
     def to_dict(self):
@@ -22,6 +22,7 @@ class Post(db.Model):
             'userId': self.userId,
             'postImageUrl': self.postImageUrl,
             'caption': self.caption,
+            'postLikes': self.postLikes.to_dict(),
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
