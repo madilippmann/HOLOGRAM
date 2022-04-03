@@ -260,6 +260,17 @@ export const togglePostLike = (postId) => async dispatch => {
     }
 }
 
+export const fetchPostLikes = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/likes/`);
+    
+    if (res.ok) {
+        const likes = await res.json();
+        // what if there are no likes?
+        dispatch(loadLikes(likes));
+        return likes;
+    }
+}
+
 
 // REDUCER ************************************************
 const postsReducer = (state = { allPosts: [] }, action) => {
