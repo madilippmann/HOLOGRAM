@@ -29,6 +29,7 @@ function User() {
 
   const toggleFollow = (e) => {
     dispatch(userActions.toggleUserFollow(+userId))
+    //TODO ADD ANOTHER DISPATCH TO UPDATE LISTS OF FOLLOWERS AND FOLLOWED
   }
 
   return (

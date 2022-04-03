@@ -8,20 +8,24 @@ follows_routes = Blueprint('follows', __name__)
 def toggle_following():
     sessionUserId = session['_user_id']
     data = request.get_json()
-    
+
     if sessionUserId == data["followedId"]: return jsonify("users cannot follow themselves")
-    
+
     sessionUser = User.query.get(sessionUserId)
     followedUser = User.query.get(data["followedId"])
-    
+
     follow = db.session.query(follows).filter(follows.followerId == sessionUserId, follows.followedId == followedUser.id)
 
     if follow:
+      # DELETE FOLLOW
       db.session.delete(follow)
       db.session.commit()
       return jsonify({ "status": "deleted", "followerId": follow.followerId, "followedId": follow.followedId })
     else:
+      # ADD FOLLOW
       followedUser.followers.append(sessionUser)
+      sessionUser.following.append(followedUser)
       db.session.commit()
       follow = db.session.query(follows).filter(follows.followerId == sessionUserId, follows.followedId == followedUser.id)
-      return jsonify(follow.to_dict())
+
+      return jsonify(sessionUser.to_dict())
