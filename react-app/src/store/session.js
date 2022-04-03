@@ -30,7 +30,7 @@ export const authenticate = () => async (dispatch) => {
 }
 
 export const login = (email, password) => async (dispatch) => {
-  const response = await fetch('/api/auth/login', {
+  const response = await fetch('/api/auth/login/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ export const logout = () => async (dispatch) => {
 
 
 export const signUp = (firstName, lastName, handle, email, password) => async (dispatch) => {
-  const response = await fetch('/api/auth/signup', {
+  const response = await fetch('/api/auth/signup/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const signUp = (firstName, lastName, handle, email, password) => async (d
 
 
 export const editUser = (firstName, lastName, profileImageUrl, handle, email, userId) => async dispatch => {
-  const res = await fetch(`/api/users/${userId}`, {
+  const res = await fetch(`/api/users/${userId}/`, {
     method: "PUT",
     body: JSON.stringify({
       firstName, lastName, profileImageUrl, handle, email, id: userId
