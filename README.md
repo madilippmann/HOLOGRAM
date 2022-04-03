@@ -26,7 +26,7 @@ Hosted on Heroku: [HOLOGRAM](https://hologram--app.herokuapp.com/)
 
 ## Technologies
 
-Noted was built using the following technologies:
+HOLOGRAM was built using the following technologies:
 <br>
 <br>
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" style="width:75px;" />
