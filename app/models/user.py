@@ -63,6 +63,6 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
-            # CHECK if this works - might error out due to weird db.Table setup
-            'followers' : [follower.to_dict() for follower in self.followers]
+            'followers' : [follower.to_dict() for follower in self.followers],
+            'follwing' : [followed.to_dict() for followed in self.following],
         }
