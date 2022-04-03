@@ -11,7 +11,7 @@ function Post() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let post = useSelector(state => state.posts[postId]);
-    let sessionUser = useSelector(state => state.session);
+    let sessionUser = useSelector(state => state.session.user);
 
     console.log('Post ~ posts', post);
 
@@ -62,14 +62,20 @@ function Post() {
                     return (
                         <li key={comment.id}>
                             <div>
+                                {console.log(comment.user.id, sessionUser.id)}
                                 {comment.user.handle} - {comment.content}
-                                <Link to={`/posts/${post.id}/comments/${comment.id}/edit`}>Edit</Link>
-                                <button
-                                    type='button'
-                                    onClick={() => deleteComment(comment.id)}
-                                >
-                                    Delete
-                                </button>
+                                {comment.user.id === sessionUser.id &&
+
+                                    <>
+                                        <Link to={`/posts/${post.id}/comments/${comment.id}/edit`}>Edit</Link>
+                                        <button
+                                            type='button'
+                                            onClick={() => deleteComment(comment.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </>
+                                }
                             </div>
                         </li>
                     )
