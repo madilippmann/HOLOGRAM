@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
-    # postLikes = db.relationship('PostLike', back_populates='user')
+    postLikes = db.relationship('PostLike', back_populates='user')
 
     # threads = db.relationship(
     #     "Thread",
