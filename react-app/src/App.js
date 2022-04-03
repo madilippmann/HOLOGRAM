@@ -13,6 +13,7 @@ import ProfilePage from './components/ProfilePage';
 import Post from './components/Post';
 import PostForm from './components/PostForm';
 import EditPostForm from './components/EditPostForm';
+import CommentForm from './components/CommentForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -66,6 +67,11 @@ function App() {
         {/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
         <ProtectedRoute exact path="/posts/:postId(\d+)">
           <Post />
+        </ProtectedRoute>
+        
+        {/* FOR TESTING COMMENT POST */}
+        <ProtectedRoute exact path="/posts/:postId(\d+)/comments/new">
+          <CommentForm />
         </ProtectedRoute>
 
         <Route>

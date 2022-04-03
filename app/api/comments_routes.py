@@ -27,9 +27,10 @@ def create_comment(postId):
             "content": form.data["content"],
         }
 
-        post = Comment(**data)
-        db.session.add(post)
+        comment = Comment(**data)
+        db.session.add(comment)
         db.session.commit()
-        return jsonify(post.to_dict())
+        print(comment.to_dict())
+        return jsonify(comment.to_dict())
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

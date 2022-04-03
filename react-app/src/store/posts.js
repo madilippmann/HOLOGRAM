@@ -167,7 +167,7 @@ export const fetchComments = postId => async dispatch => {
 }
 
 export const createComment = comment => async dispatch => {
-    const res = await fetch(`/api/posts/${comment.postId}/comments`, {
+    const res = await fetch(`/api/posts/${comment.postId}/comments/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -183,7 +183,7 @@ export const createComment = comment => async dispatch => {
 }
 
 export const editComment = comment => async dispatch => {
-    const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
+    const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}/`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
@@ -262,10 +262,11 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             return newState;
         }
 
-        // COMMENTS
+        // COMMENTS ***********************************************************
         case ADD_COMMENT: {
             const postId = action.comment.postId
-
+            const allComments = Array.isArray(state[postId].comments?.allComments) ? [...state[postId].comments?.allComments] : [];
+            
             return {
                 ...state,
                 [postId]: {
@@ -273,7 +274,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     comments: {
                         ...state[postId].comments,
                         [action.comment.id]: action.comment,
-                        allComments: [action.comment, ...state[postId].comments.allComments]
+                        allComments: [action.comment, ...allComments]
                     }
                 }
             }
