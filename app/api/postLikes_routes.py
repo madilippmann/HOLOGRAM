@@ -9,9 +9,11 @@ def toggle_postLikes(postId):
     userId = session['_user_id']
 
     like = PostLike.query.filter(PostLike.userId == userId, PostLike.postId == postId).first()
-    print('\n\n\n', like, '\n\n\n')
+
     if like:
         db.session.delete(like)
+        db.session.commit()
+        return jsonify('deleted')
     else:
         data = {
             "postId": postId,
@@ -20,7 +22,5 @@ def toggle_postLikes(postId):
 
         like = PostLike(**data)
         db.session.add(like)
-
-    db.session.commit()
-
-    return jsonify(like.id)
+        db.session.commit()
+        return jsonify(like.id)

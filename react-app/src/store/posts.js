@@ -10,7 +10,9 @@ const ADD_COMMENT = 'comments/ADD_COMMENT';
 const LOAD_COMMENTS = 'comments/LOAD_COMMENTS';
 const REMOVE_COMMENT = 'comments/REMOVE_COMMENT';
 
-
+const LOAD_LIKES = 'likes/LOAD_LIKES'
+const ADD_LIKE = 'likes/ADD_LIKE';
+const REMOVE_LIKE = 'likes/REMOVE_LIKE';
 
 // ACTION CREATORS ****************************************
 
@@ -72,6 +74,29 @@ const removeComment = (postId, commentId) => {
 }
 
 
+
+// LIKES
+
+const loadLikes = (likes) => {
+    return {
+        type: LOAD_LIKES,
+        likes
+    }
+}
+
+const addLike = (like) => {
+    return {
+        type: ADD_LIKES,
+        like
+    }
+}
+
+const removeLike = (id) => {
+    return {
+        type: REMOVE_LIKE,
+        id
+    }
+}
 
 // THUNK ACTION CREATORS **********************************
 
@@ -215,6 +240,24 @@ export const deleteComment = (commentId, postId) => async dispatch => {
 }
 
 
+export const togglePostLike = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/like/`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (res.ok) {
+        const like = await res.json();
+        if (like === 'deleted') {
+            dispatch(removeLike(like));
+        } else {
+            dispatch(addLike(like));
+        }
+        return like;
+    }
+}
 
 
 // REDUCER ************************************************
