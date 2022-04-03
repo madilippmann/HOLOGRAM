@@ -24,7 +24,9 @@ export const fetchUser = userId => async dispatch => {
   }
 }
 
-// export const fetchUsers = () =>
+export const toggleUserFollow = () => {
+
+}
 
 // REDUCER ************************************************
 const usersReducer = (state = {}, action) => {
