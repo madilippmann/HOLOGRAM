@@ -28,7 +28,7 @@ def toggle_postLikes(postId):
 
 @postLikes_routes.route('/<int:postId>/likes/', methods=['GET'])
 def get_postLikes(postId):
-    likes = PostLike.query(PostLike.postId == postId).all()
+    likes = PostLike.query.filter(PostLike.postId == postId).all()
     likes = [like.to_dict() for like in likes]
     return jsonify(likes)
     

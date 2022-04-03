@@ -72,11 +72,9 @@ function Post() {
             <h2>COMMENTS</h2>
             <ul>
                 {post.comments.allComments.map(comment => {
-                    console.log(comment);
                     return (
                         <li key={comment.id}>
                             <div>
-                                {console.log(comment.user.id, sessionUser.id)}
                                 {comment.user.handle} - {comment.content}
                                 {comment.user.id === sessionUser.id &&
 

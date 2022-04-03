@@ -394,7 +394,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             // 'isLiked' is not getting set properly since the like cant be found inside the post in store on refresh.
             // the like is there once ADD_LIKE is ran, but goes away on refresh, since the 'likes' property hasn't been set yet
             // the 'postLikes' property inside a post in the store is from the Post.to_dict() method:
-                // should probably get rid of this once LOAD_LIKES is implemented, maybe?
+                // TODO: should probably get rid of this once LOAD_LIKES is implemented, maybe?
                 // FYI 'postLikes' does have the new like once you like a post and refresh
             
             const postId = action.likes[0].postId
