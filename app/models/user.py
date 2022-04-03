@@ -3,7 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from .threadParticipants import users_threads
 from sqlalchemy.sql import func
-import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -24,14 +23,14 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user')
     postLikes = db.relationship('PostLike', back_populates='user')
 
+    followers = db.relationship('Follow', back_populates='user_follower')
+    follows = db.relationship('Follow', back_populates='user_followed')
+
     # threads = db.relationship(
     #     "Thread",
     #     secondary=users_threads,
     #     back_populates="users"
     # )
-
-    # followers =db.relationship('Follow', back_populates='user_follower')
-    # follows = db.relationship('Follow', back_populates='user_followed')
 
     @property
     def password(self):
