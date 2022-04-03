@@ -14,6 +14,7 @@ import Post from './components/Post';
 import PostForm from './components/PostForm';
 import EditPostForm from './components/EditPostForm';
 import CommentForm from './components/CommentForm';
+import EditCommentForm from './components/EditCommentForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -68,10 +69,14 @@ function App() {
         <ProtectedRoute exact path="/posts/:postId(\d+)">
           <Post />
         </ProtectedRoute>
-        
+
         {/* FOR TESTING COMMENT POST */}
         <ProtectedRoute exact path="/posts/:postId(\d+)/comments/new">
           <CommentForm />
+        </ProtectedRoute>
+
+        <ProtectedRoute exact path="/posts/:postId(\d+)/comments/:commentId(\d+)/edit">
+          <EditCommentForm />
         </ProtectedRoute>
 
         <Route>

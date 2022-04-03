@@ -167,6 +167,7 @@ export const fetchComments = postId => async dispatch => {
 }
 
 export const createComment = comment => async dispatch => {
+    console.log('ENTERED CREATE COMMENT')
     const res = await fetch(`/api/posts/${comment.postId}/comments/`, {
         method: 'POST',
         headers: {
@@ -198,13 +199,12 @@ export const editComment = comment => async dispatch => {
     }
 }
 
-export const deleteComment = (commentId, postId, sessionUserId) => async dispatch => {
+export const deleteComment = (commentId, postId) => async dispatch => {
     const res = await fetch(`/api/posts/${postId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(sessionUserId)
+        }
     });
 
     if (res.ok) {
@@ -266,7 +266,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         case ADD_COMMENT: {
             const postId = action.comment.postId
             const allComments = Array.isArray(state[postId].comments?.allComments) ? [...state[postId].comments?.allComments] : [];
-            
+
             return {
                 ...state,
                 [postId]: {
