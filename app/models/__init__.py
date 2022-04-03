@@ -3,4 +3,4 @@ from .user import User
 from .posts import Post
 from .comments import Comment
 from .postLikes import PostLike
-from .follows import Follow
+from .follows import follows

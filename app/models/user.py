@@ -25,16 +25,16 @@ class User(db.Model, UserMixin):
     postLikes = db.relationship('PostLike', back_populates='user')
 
     followers = db.relationship(
+    # this relationship allows you to access both the collection of users 
+    # that follow a given user (with user.followers), and the collection
+    # of users that a user follows (with user.following)
         "User", 
         secondary=follows,
-        primaryjoin=(follows.c.follower_id == id),
-        secondaryjoin=(follows.c.followed_id == id),
+        primaryjoin=(follows.c.followedId == id),
+        secondaryjoin=(follows.c.followerId == id),
         backref=db.backref("following", lazy="dynamic"),
         lazy="dynamic"
     )
-
-    # followers = db.relationship('Follow', back_populates='user_follower')
-    # follows = db.relationship('Follow', back_populates='user_followed')
 
     # threads = db.relationship(
     #     "Thread",
