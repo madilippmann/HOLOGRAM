@@ -4,7 +4,7 @@ from app.models import User, Post
 
 user_routes = Blueprint('users', __name__)
 
-
+# ROUTES #######################################################################
 @user_routes.route('/')
 @login_required
 def users():
@@ -25,3 +25,18 @@ def user_profile(id):
     posts = Post.query.filter(Post.userId == id).all()
     posts = [post.to_dict() for post in posts]
     return jsonify(posts)
+
+
+@user_routes.route('/<int:userId>/follows/', methods=['GET'])
+def get_follows(userId):
+    """
+    GET /api/users/:userId/follows\n
+    get all of a user's followers and the users that they are following
+    """
+    user = User.query.get(userId)
+    follows = {
+        "followers": [user.to_dict() for user in user.followers],
+        "following": [user.to_dict() for user in user.following]
+    }
+    return jsonify(follows)
+    
