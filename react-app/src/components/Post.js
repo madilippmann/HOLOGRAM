@@ -18,6 +18,7 @@ function Post() {
         (async () => {
             await dispatch(postsActions.fetchPost(postId));
             await dispatch(postsActions.fetchComments(postId));
+            await dispatch(postsActions.fetchPostLikes(postId));
             setIsLoaded(() => !isLoaded);
         })()
     }, [dispatch]);
@@ -61,7 +62,7 @@ function Post() {
                 </button>
             }
             
-            <h2>LIKE COMMENT</h2>
+            <h2># of Likes: {post.likes.allLikes.length}</h2>
             {isLiked 
                 ? <button onClick={toggleLike}>unlike</button>
                 : <button onClick={toggleLike}>like</button>

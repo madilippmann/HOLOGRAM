@@ -1,5 +1,5 @@
 // import { csrfFetch } from "./csrf"; // ??? WILL WE BE DOING CSRF FETCHES AGAIN ???
-import { normalizePosts, normalizeComments } from "./utils";
+import { normalizePosts, normalizeOneLevel } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_POST = 'posts/ADD_POST';
 const LOAD_POST = 'posts/LOAD_POST';
@@ -343,9 +343,8 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                 [postId]: {
                     ...state[postId],
                     comments: {
-                        ...normalizeComments(action.comments),
+                        ...normalizeOneLevel(action.comments),
                         allComments: action.comments
-
                     }
                 }
             }
@@ -397,6 +396,20 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             // the 'postLikes' property inside a post in the store is from the Post.to_dict() method:
                 // should probably get rid of this once LOAD_LIKES is implemented, maybe?
                 // FYI 'postLikes' does have the new like once you like a post and refresh
+            
+            const postId = action.likes[0].postId
+
+            return {
+                ...state,
+                [postId]: {
+                    ...state[postId],
+                    likes: {
+                        ...normalizeOneLevel(action.likes),
+                        allLikes: action.likes
+                    }
+                }
+            }
+    
         }
         
         case REMOVE_LIKE: {
