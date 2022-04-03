@@ -20,6 +20,7 @@ class Comment(db.Model):
             'postId': self.postId,
             'userId': self.userId,
             'content': self.content,
+            'user': self.user.to_dict(),
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
