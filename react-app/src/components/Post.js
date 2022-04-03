@@ -35,7 +35,7 @@ function Post() {
     const deleteComment = (commentId) => {
         dispatch(postsActions.deleteComment(commentId, post.id))
     }
-    
+
     const toggleLike = (e) => {
         // PURPOSE: this should have the store force a rerender of this component since the
         // post will be updated after toggling the like, since we are
@@ -53,7 +53,7 @@ function Post() {
             />
             <p>{post.caption}</p>
 
-            {post.id === sessionUser.id &&
+            {post.userId === sessionUser.id &&
                 <button
                     type='button'
                     onClick={() => deletePost(post.id)}
@@ -61,13 +61,13 @@ function Post() {
                     Delete Post
                 </button>
             }
-            
+
             <h2># of Likes: {post.likes.allLikes.length}</h2>
-            {isLiked 
+            {isLiked
                 ? <button onClick={toggleLike}>unlike</button>
                 : <button onClick={toggleLike}>like</button>
             }
-            
+
 
             <h2>COMMENTS</h2>
             <ul>
@@ -96,5 +96,9 @@ function Post() {
         </>
     );
 }
+
+
+
+
 
 export default Post;
