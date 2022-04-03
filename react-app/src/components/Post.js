@@ -36,7 +36,10 @@ function Post() {
         <>
             <p>{post.id}</p>
             <p>{post.userId}</p>
-            <p>{post.postImageUrl}</p>
+            <img
+                src={post.postImageUrl}
+                alt="bruh"
+            />
             <p>{post.caption}</p>
 
             {post.id === sessionUser.id &&
