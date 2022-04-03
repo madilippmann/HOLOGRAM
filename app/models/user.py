@@ -2,6 +2,7 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from .threadParticipants import users_threads
+from .follows import follows
 from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
@@ -23,8 +24,17 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user')
     postLikes = db.relationship('PostLike', back_populates='user')
 
-    followers = db.relationship('Follow', back_populates='user_follower')
-    follows = db.relationship('Follow', back_populates='user_followed')
+    followers = db.relationship(
+        "User", 
+        secondary=follows,
+        primaryjoin=(follows.c.follower_id == id),
+        secondaryjoin=(follows.c.followed_id == id),
+        backref=db.backref("following", lazy="dynamic"),
+        lazy="dynamic"
+    )
+
+    # followers = db.relationship('Follow', back_populates='user_follower')
+    # follows = db.relationship('Follow', back_populates='user_followed')
 
     # threads = db.relationship(
     #     "Thread",
@@ -52,5 +62,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'bio': self.bio,
             'profileImageUrl': self.profileImageUrl,
-            'privateStatus': self.privateStatus
+            'privateStatus': self.privateStatus,
+            # CHECK if this works - might error out due to weird db.Table setup
+            'followers' : [follower.to_dict() for follower in self.followers]
         }

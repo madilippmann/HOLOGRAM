@@ -28,5 +28,5 @@ def undo():
     undo_posts()
     undo_comments()
     undo_postLikes()
-    # undo_follows() # COMMENT THIS BACK IN AFTER RUNNING SEED UNDO
+    undo_follows()
     # Add other undo functions here
