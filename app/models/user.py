@@ -60,13 +60,30 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'handle': self.handle,
-            'email': self.email,
+            # 'email': self.email,
             'bio': self.bio,
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
         }
 
     def to_dict(self):
+        followers = [follower.follower_following_to_dict() for follower in self.followers]
+        following = [following.follower_following_to_dict() for following in self.following]
+
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'handle': self.handle,
+            # 'email': self.email,
+            'bio': self.bio,
+            'profileImageUrl': self.profileImageUrl,
+            'privateStatus': self.privateStatus,
+            'followers': followers,
+            'following': following
+        }
+
+    def session_to_dict(self):
         followers = [follower.follower_following_to_dict() for follower in self.followers]
         following = [following.follower_following_to_dict() for following in self.following]
 
