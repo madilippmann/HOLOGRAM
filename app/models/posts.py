@@ -22,7 +22,7 @@ class Post(db.Model):
             'userId': self.userId,
             'postImageUrl': self.postImageUrl,
             'caption': self.caption,
-            'postLikes': self.postLikes.to_dict(),
+            'postLikes': [postLike.to_dict() for postLike in self.postLikes],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
