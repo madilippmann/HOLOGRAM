@@ -48,7 +48,7 @@ const seedComments = num => {
     console.log(comment, '\n');
   }
 }
-// seedComments(20);
+seedComments(30);
 
 
 let postLikePairs = []
@@ -88,4 +88,4 @@ const seedFollows = num => {
     console.log(follow, '\n');
   }
 }
-seedFollows(50)
+// seedFollows(50)
