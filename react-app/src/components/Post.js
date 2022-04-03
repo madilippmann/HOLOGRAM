@@ -36,9 +36,9 @@ function Post() {
     }
     
     const toggleLike = (e) => {
-        // PURPOSE: this should have the store force a rerender of this component 
-        // since the post will (i think?) be updated after toggling the like,
-        // since we are subscribed to this specific post in the store
+        // PURPOSE: this should have the store force a rerender of this component since the
+        // post will be updated after toggling the like, since we are
+        // subscribed to this specific post in the store
         dispatch(postsActions.togglePostLike(postId));
     }
 
