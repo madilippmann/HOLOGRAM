@@ -37,7 +37,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(posts_routes, url_prefix='/api/posts')
 app.register_blueprint(comments_routes, url_prefix='/api/posts')
 app.register_blueprint(postLikes_routes, url_prefix='/api/posts')
-app.register_blueprint(follows_routes, url_prefix='/api/users') # CHECK - is this the right route?
+app.register_blueprint(follows_routes, url_prefix='/api/follow')
 
 db.init_app(app)
 Migrate(app, db)
