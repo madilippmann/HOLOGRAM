@@ -280,7 +280,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
 
         case LOAD_COMMENTS: {
-            const postId = action.comment.postId
+            const postId = action.comments[0].postId
 
             return {
                 ...state,

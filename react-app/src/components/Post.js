@@ -18,6 +18,7 @@ function Post() {
     useEffect(() => {
         (async () => {
             await dispatch(postsActions.fetchPost(postId));
+            await dispatch(postsActions.fetchComments(postId));
             setIsLoaded(() => !isLoaded);
         })()
     }, [dispatch]);
@@ -46,6 +47,18 @@ function Post() {
                     Delete Post
                 </button>
             }
+            
+            <h2>COMMENTS</h2>
+            <ul>
+                {post.comments.allComments.map(comment => (
+                    <li key={comment.id}>
+                        <div>
+                            {comment.content}
+                            {/* {comment.user.firstName} */}
+                        </div>
+                    </li>
+                ))}
+            </ul>
         </>
     );
 }
