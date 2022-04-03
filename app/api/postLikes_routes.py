@@ -13,7 +13,7 @@ def toggle_postLikes(postId):
     if like:
         db.session.delete(like)
         db.session.commit()
-        return jsonify('deleted')
+        return jsonify({ "status": "deleted", "postId": postId, "likeId": like.id })
     else:
         data = {
             "postId": postId,

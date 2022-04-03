@@ -91,10 +91,11 @@ const addLike = (like) => {
     }
 }
 
-const removeLike = (id) => {
+const removeLike = (postId, likeId) => {
     return {
         type: REMOVE_LIKE,
-        id
+        postId,
+        likeId
     }
 }
 
@@ -250,13 +251,13 @@ export const togglePostLike = (postId) => async dispatch => {
     });
 
     if (res.ok) {
-        const like = await res.json();
-        if (like === 'deleted') {
-            dispatch(removeLike(like));
+        const data = await res.json();
+        if (data.status === 'deleted') {
+            dispatch(removeLike(data.postId, data.likeId));
         } else {
-            dispatch(addLike(like));
+            dispatch(addLike(data));
         }
-        return like;
+        return data;
     }
 }
 
@@ -352,6 +353,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
 
         case REMOVE_COMMENT: {
+            // this takes care of deleting from the "allComments" array...
             const allComments = state[action.postId].comments.allComments
             allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)))
 
@@ -365,7 +367,8 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     }
                 }
             }
-
+            
+            // and this takes care of deleting from the normalized "comments" object
             delete newState[action.postId].comments[action.commentId]
 
             return newState
@@ -413,7 +416,25 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
         
         case REMOVE_LIKE: {
+            // this takes care of deleting from the "allLikes" array...
+            const allLikes = state[action.postId].likes.allLikes;
+            allLikes.splice(allLikes.indexOf(allLikes.find(like => like.id === action.likeId)));
             
+            newState = {
+                ...state,
+                [action.postId]: {
+                    ...state[action.postId],
+                    likes: {
+                        ...state[action.postId].likes,
+                        allLikes
+                    }
+                }
+            }
+            
+            // and this takes care of deleting from the normalized "likes" object
+            delete newState[action.postId].likes[action.likeId];
+
+            return newState;
         }
 
         default: {
