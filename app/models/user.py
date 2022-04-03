@@ -20,9 +20,9 @@ class User(db.Model, UserMixin):
     createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
-    posts = db.relationship('Post', back_populates='user')
-    comments = db.relationship('Comment', back_populates='user')
-    # postLikes = db.relationship('PostLike', back_populates='user')
+    posts = db.relationship('Post', back_populates='user', cascade="all, delete")
+    comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
+    postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
     # threads = db.relationship(
     #     "Thread",

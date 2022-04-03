@@ -1,5 +1,5 @@
 // import { csrfFetch } from "./csrf"; // ??? WILL WE BE DOING CSRF FETCHES AGAIN ???
-import { normalizePosts, normalizeComments } from "./utils";
+import { normalizePosts, normalizeOneLevel } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_POST = 'posts/ADD_POST';
 const LOAD_POST = 'posts/LOAD_POST';
@@ -10,7 +10,9 @@ const ADD_COMMENT = 'comments/ADD_COMMENT';
 const LOAD_COMMENTS = 'comments/LOAD_COMMENTS';
 const REMOVE_COMMENT = 'comments/REMOVE_COMMENT';
 
-
+const LOAD_LIKES = 'likes/LOAD_LIKES'
+const ADD_LIKE = 'likes/ADD_LIKE';
+const REMOVE_LIKE = 'likes/REMOVE_LIKE';
 
 // ACTION CREATORS ****************************************
 
@@ -55,10 +57,11 @@ const addComment = (comment) => {
 }
 
 // GET
-const loadComments = (comments) => {
+const loadComments = (comments, postId) => {
     return {
         type: LOAD_COMMENTS,
-        comments
+        comments,
+        postId
     }
 }
 
@@ -72,6 +75,31 @@ const removeComment = (postId, commentId) => {
 }
 
 
+
+// LIKES
+
+const loadLikes = (likes, postId) => {
+    return {
+        type: LOAD_LIKES,
+        likes,
+        postId
+    }
+}
+
+const addLike = (like) => {
+    return {
+        type: ADD_LIKE,
+        like
+    }
+}
+
+const removeLike = (postId, likeId) => {
+    return {
+        type: REMOVE_LIKE,
+        postId,
+        likeId
+    }
+}
 
 // THUNK ACTION CREATORS **********************************
 
@@ -161,7 +189,7 @@ export const fetchComments = postId => async dispatch => {
 
     if (res.ok) {
         const comments = await res.json();
-        dispatch(loadComments(comments));
+        dispatch(loadComments(comments, postId));
         return comments;
     }
 }
@@ -215,6 +243,36 @@ export const deleteComment = (commentId, postId) => async dispatch => {
 }
 
 
+// LIKES
+export const togglePostLike = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/like/`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        if (data.status === 'deleted') {
+            dispatch(removeLike(data.postId, data.likeId));
+        } else {
+            dispatch(addLike(data));
+        }
+        return data;
+    }
+}
+
+export const fetchPostLikes = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/likes/`);
+
+    if (res.ok) {
+        const likes = await res.json();
+        // what if there are no likes?
+        dispatch(loadLikes(likes, postId));
+        return likes;
+    }
+}
 
 
 // REDUCER ************************************************
@@ -281,16 +339,15 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
 
         case LOAD_COMMENTS: {
-            const postId = action.comments[0].postId
+            const postId = action.postId
 
             return {
                 ...state,
                 [postId]: {
                     ...state[postId],
                     comments: {
-                        ...normalizeComments(action.comments),
+                        ...normalizeOneLevel(action.comments),
                         allComments: action.comments
-
                     }
                 }
             }
@@ -298,6 +355,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
 
         case REMOVE_COMMENT: {
+            // this takes care of deleting from the "allComments" array...
             const allComments = state[action.postId].comments.allComments
             allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)))
 
@@ -312,9 +370,74 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                 }
             }
 
+            // and this takes care of deleting from the normalized "comments" object
             delete newState[action.postId].comments[action.commentId]
 
             return newState
+        }
+
+        // COMMENTS ***********************************************************
+
+        case LOAD_LIKES: {
+            // need to load likes on Post Page load so that 'isLiked' can be set properly.
+            // 'isLiked' is not getting set properly since the like cant be found inside the post in store on refresh.
+            // the like is there once ADD_LIKE is ran, but goes away on refresh, since the 'likes' property hasn't been set yet
+            // the 'postLikes' property inside a post in the store is from the Post.to_dict() method:
+            // TODO: should probably get rid of this once LOAD_LIKES is implemented, maybe?
+            // FYI 'postLikes' does have the new like once you like a post and refresh
+
+            const postId = action.postId
+
+            return {
+                ...state,
+                [postId]: {
+                    ...state[postId],
+                    likes: {
+                        ...normalizeOneLevel(action.likes),
+                        allLikes: action.likes
+                    }
+                }
+            }
+
+        }
+
+        case ADD_LIKE: {
+            const postId = action.like.postId
+
+            const allLikes = Array.isArray(state[postId].likes?.allLikes) ? [...state[postId].likes?.allLikes] : ['hello'];
+
+            return {
+                ...state,
+                [postId]: {
+                    ...state[postId],
+                    likes: {
+                        ...state[postId].likes,
+                        [action.like.id]: action.like,
+                        allLikes: [action.like, ...allLikes]
+                    }
+                }
+            }
+        }
+
+        case REMOVE_LIKE: {
+            // this takes care of deleting from the "allLikes" array...
+            const allLikes = state[action.postId].likes.allLikes;
+            allLikes.splice(allLikes.indexOf(allLikes.find(like => like.id === action.likeId)), 1);
+            newState = {
+                ...state,
+                [action.postId]: {
+                    ...state[action.postId],
+                    likes: {
+                        ...state[action.postId].likes,
+                        allLikes
+                    }
+                }
+            }
+
+            // and this takes care of deleting from the normalized "likes" object
+            delete newState[action.postId].likes[action.likeId];
+
+            return newState;
         }
 
         default: {

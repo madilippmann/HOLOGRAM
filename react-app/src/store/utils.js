@@ -4,7 +4,7 @@ export const normalizePosts = (postsArr) => {
         // CHECK to see if we really need to check if key exists after we create our API route/db calls
         if (obj.hasOwnProperty('comments')) {
             obj[post.id].comments = {
-                ...normalizeComments(post.comments),
+                ...normalizeOneLevel(post.comments),
                 allComments: post.comments
             }
         }
@@ -12,9 +12,9 @@ export const normalizePosts = (postsArr) => {
     }, {})
 }
 
-export const normalizeComments = (commentsArr) => {
-    return commentsArr.reduce((obj, comment) => {
-        obj[comment.id] = comment
+export const normalizeOneLevel = (dataArr) => {
+    return dataArr.reduce((obj, data) => {
+        obj[data.id] = data
         return obj
     }, {})
 }
