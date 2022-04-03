@@ -64,5 +64,5 @@ class User(db.Model, UserMixin):
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
             'followers' : [follower.to_dict() for follower in self.followers],
-            'follwing' : [followed.to_dict() for followed in self.following],
+            'following' : [followed.to_dict() for followed in self.following],
         }
