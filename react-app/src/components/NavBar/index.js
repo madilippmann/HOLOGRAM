@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import SearchBar from "../SearchBar";
 
 import './NavBar.css';
 
@@ -24,7 +25,7 @@ const NavBar = () => {
 					</div>
 
 					<div className="search-bar">
-						[search bar goes here]
+						<SearchBar />
 					</div>
 				</div>
 
