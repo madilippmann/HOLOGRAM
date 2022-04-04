@@ -5,6 +5,11 @@
 
 /* Global CSS Variables */
 :root {
+
+    /* Variable Demo:
+        background-color: var(--color-background);
+    */
+
     --color-background: rgb(18, 18, 18);
     --color-nav-background: rgb(0, 0, 0);
     --color-footer-background: rgb(55, 55, 55);
@@ -31,4 +36,6 @@
 
 body {
     font-family: 'Barlow', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text-lighter);
 }
