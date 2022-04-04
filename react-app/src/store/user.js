@@ -48,6 +48,7 @@ export const toggleUserFollow = (followedId) => async (dispatch) => {
 
 	if (res.ok) {
         const data = await res.json();
+        console.log('toggleUserFollow ~ data', data);
         if (data.status === 'deleted') {
             dispatch(removeFollow(data.followerId));
         } else {
@@ -63,10 +64,11 @@ const userReducer = (state = {}, action) => {
 
   switch (action.type) {
     case ADD_USER: {
-      newState = { ...state };
-      newState[action.user.id] = action.user;
+      // newState = { ...state };
+      // newState[action.user.id] = action.user;
+      return action.user
 
-      return newState;
+      // return newState;
     }
 
 	case ADD_FOLLOW: {
@@ -80,7 +82,9 @@ const userReducer = (state = {}, action) => {
 	}
 
 	case REMOVE_FOLLOW: {
+    console.log(state.followers)
 		state.followers.splice(state.followers.indexOf(state.followers.find(follower => follower.userId === action.sessionId)), 1);
+    console.log(state.followers)
 
 		return {
 			...state,

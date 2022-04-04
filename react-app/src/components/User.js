@@ -11,8 +11,8 @@ function User() {
   const [isLoaded, setIsLoaded] = useState(false)
   const { userId }  = useParams();
   const sessionUser = useSelector(state => state.session.user);
-  const user = useSelector(state => state.user[userId]);
-  let isFollowed = user?.followers?.find(user => user.id === sessionUser.id) ? true : false
+  const user = useSelector(state => state.user);
+  const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
 
   useEffect(() => {
     (async () => {
@@ -28,6 +28,7 @@ function User() {
   const toggleFollow = (e) => {
     dispatch(userActions.toggleUserFollow(+userId));
     dispatch(sessionActions.fetchUser(sessionUser.id));
+    setIsFollowed(() => !isFollowed);
   }
 
   return !isLoaded ? null : (

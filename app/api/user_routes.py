@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, session
 from flask_login import login_required
 from app.models import User, Post
 
@@ -15,8 +15,12 @@ def users():
 @user_routes.route('/<int:id>/')
 @login_required
 def user(id):
-    user = User.query.get(id)
-    return user.to_dict()
+    if id == int(session['_user_id']):
+        user = User.query.get(id)
+        return user.session_to_dict()
+    else :
+        user = User.query.get(id)
+        return user.to_dict()
 
 
 @user_routes.route('/<int:id>/posts/')

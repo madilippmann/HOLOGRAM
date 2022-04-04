@@ -29,13 +29,12 @@ export const authenticate = () => async (dispatch) => {
   }
 }
 
-//TODO FIX
 export const fetchUser = (userId) => async (dispatch) => {
   const res = await fetch(`/api/users/${userId}/`);
 
   if (res.ok) {
     const user = await res.json();
-    dispatch(addUser(user));
+    dispatch(setUser(user));
     return user;
   }
 };
