@@ -12,12 +12,7 @@ def get_feed_posts():
     posts = Post.query.all()
 
     posts = [post.to_dict() for post in posts]
-    # print('\n\n\n START \n\n\n')
-    for post in posts:
-      # print(post.get('userId'))
-      post.update({'user' : User.query.get(post.get('userId')).to_dict()})
 
-    # print('\n\n\n END \n\n\n')
     return jsonify(posts)
 
 

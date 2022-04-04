@@ -105,7 +105,7 @@ const removeLike = (postId, likeId) => {
 
 //POSTS THUNKS
 export const fetchPost = postId => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}`);
+    const res = await fetch(`/api/posts/${postId}/`);
 
     if (res.ok) {
         const post = await res.json();
@@ -118,9 +118,9 @@ export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
     let res;
 
     if (type === 'feed') {
-        res = await fetch(`/api/posts`);
+        res = await fetch(`/api/posts/`);
     } else if (type === 'profile') {
-        res = await fetch(`/api/users/${userId}/posts`);
+        res = await fetch(`/api/users/${userId}/posts/`);
     }
 
     if (res.ok) {

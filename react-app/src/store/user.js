@@ -38,7 +38,6 @@ export const fetchUser = (userId) => async (dispatch) => {
 
 export const toggleUserFollow = (followedId) => async (dispatch) => {
   const res = await fetch(`/api/follow/`, {
-    //`/api/user/${followedId}/follow/`
     method: "PUT",
     headers: {
       'Content-Type': 'application/json'

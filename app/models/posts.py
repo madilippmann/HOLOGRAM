@@ -24,5 +24,6 @@ class Post(db.Model):
             'caption': self.caption,
             'postLikes': [postLike.to_dict() for postLike in self.postLikes],
             'createdAt': self.createdAt,
-            'updatedAt': self.updatedAt
+            'updatedAt': self.updatedAt,
+            'user': self.user.to_dict()
         }
