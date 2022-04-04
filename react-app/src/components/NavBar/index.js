@@ -9,7 +9,37 @@ const NavBar = () => {
 
 	return (
 		<div id="navbar">
-			bruh
+			<div className="nav__left">
+				<div className="logo-wrapper">
+					<img src="/hologramLogo.png"
+						alt="logo"
+						className="nav__logo"
+					/>
+					<img src="/hologramLogoText.png"
+						alt="logo-text"
+						className="nav__logo-text"
+						style={{ width: '200px' }}
+					/>
+				</div>
+
+				<div className="search-bar">
+					[search bar goes here]
+				</div>
+			</div>
+
+
+
+			<div className="nav__right">
+				<div>
+					[user actions go here]
+				</div>
+				<div>
+					[user stats go here]
+				</div>
+				<div>
+					[user profile button goes here]
+				</div>
+			</div>
 		</div>
 	);
 };
