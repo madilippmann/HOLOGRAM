@@ -61,22 +61,50 @@ function PostForm() {
     setFileUrl(() => fileUrl)
   }
 
-  const postToS3 = async (url, body) => {
+  // const postToS3 = async (presignedPostData, file) => {
+  //   console.log('URL: ', url)
+  //   console.log('BODY: ', file)
+  //   try {
+  //     const res = await fetch(url, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "multipart/form-data"
+  //       },
+  //       body: file,
+  //     });
+
+  //     if (res.ok) {
+  //       const imageUrl = res.url.split('?')[0];
+  //       return imageUrl;
+  //     } else {
+  //       console.log(res)
+  //       console.error('response from s3 fetch not ok, but did not error out');
+  //     }
+
+  //   } catch (e) {
+  //     console.log('PUT REQUEST TO S3 FAILED!');
+  //     console.log(e);
+  //   }
+  // }
+
+
+  const postToS3 = async (url, file) => {
     console.log('URL: ', url)
-    console.log('BODY: ', body)
+    console.log('BODY: ', file)
     try {
       const res = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "multipart/form-data"
         },
-        body: body,
+        body: file,
       });
 
       if (res.ok) {
         const imageUrl = res.url.split('?')[0];
         return imageUrl;
       } else {
+        console.log(res)
         console.error('response from s3 fetch not ok, but did not error out');
       }
 
