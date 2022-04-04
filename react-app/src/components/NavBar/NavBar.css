@@ -54,3 +54,16 @@
 	justify-content: space-around;
 }
 .nav__buttons * { cursor: pointer }
+
+
+.nav__stats {
+	width: 160px;
+	
+	display: flex;
+	justify-content: space-around;
+}
+.nav__stats > * {
+	display: flex;
+	flex-direction: column; 
+	align-items: center;
+}

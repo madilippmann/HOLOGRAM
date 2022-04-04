@@ -39,8 +39,19 @@ const NavBar = () => {
 						<div><FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></div>
 						<div><FontAwesomeIcon icon={faMessage}></FontAwesomeIcon></div>
 					</div>
-					<div>
-						[user stats go here]
+					<div className="nav__stats">
+						<div>
+							<span>50</span>
+							<small>posts</small>
+						</div>
+						<div>
+							<span>2.5k</span>
+							<small>followers</small>
+						</div>
+						<div>
+							<span>2.3k</span>
+							<small>following</small>
+						</div>
 					</div>
 					<div>
 						[user profile button goes here]
