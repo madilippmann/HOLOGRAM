@@ -3,6 +3,7 @@
 	height: 60px;
 	
 	background-color: var(--color-background);
+	border-bottom: 1px solid var(--color-border);
 
 	position: fixed;
 	top: 0;
@@ -19,8 +20,7 @@
 
 /* NAV LEFT */
 .nav__left {
-	border: 1px solid red;
-	width: 600px;
+	width: 500px;
 	
 	display: flex;
 	justify-content: space-between;
@@ -38,6 +38,9 @@
 
 /* NAV RIGHT */
 .nav__right {
-	border: 1px solid red;
 	width: 600px;
+	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
