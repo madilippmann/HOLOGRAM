@@ -14,6 +14,7 @@ function PostForm() {
   const [postImageUrl, setPostImageUrl] = useState('');
   const [validationErrors, setValidationErrors] = useState([])
   const [showErrors, setShowErrors] = useState(false);
+  const [fileUrl, setFileUrl] = useState()
 
 
   useEffect(() => {
@@ -49,6 +50,43 @@ function PostForm() {
       });
   }
 
+  // HELPER TO UPLOAD TO S3 onChange OF FILE INPUTS
+  const s3Upload = async (file, inputName) => {
+    if (!file) return console.log('upload a file first');
+
+    const res = await fetch('/api/s3');
+    const url = await res.json();
+    console.log('from backend: ', url)
+    const fileUrl = await postToS3(url, file);
+    setFileUrl(() => fileUrl)
+  }
+
+  const postToS3 = async (url, body) => {
+    console.log('URL: ', url)
+    console.log('BODY: ', body)
+    try {
+      const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        body: body,
+      });
+
+      if (res.ok) {
+        const imageUrl = res.url.split('?')[0];
+        return imageUrl;
+      } else {
+        console.error('response from s3 fetch not ok, but did not error out');
+      }
+
+    } catch (e) {
+      console.log('PUT REQUEST TO S3 FAILED!');
+      console.log(e);
+    }
+  }
+
+
   return (
     <div>
       <form method='POST' action="/posts" onSubmit={onSubmit}>
@@ -61,7 +99,9 @@ function PostForm() {
           onChange={(e) => setCaption(e.target.value)}
         />
         <label htmlFor='file'>Image Upload</label>
-        <input type="file" id="img" name="img" accept="image/*"></input>
+        <input type="file" id="img" name="img" accept="image/*"
+          onChange={e => s3Upload(e.target.files[0], e.target.name)}
+        />
 
         <label htmlFor='postImageUrl'>Image Url</label>
         <input

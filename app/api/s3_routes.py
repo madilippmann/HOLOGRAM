@@ -20,11 +20,14 @@ def get_presigned_url():
         aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
     )
 
-    #Generate the presigned URL
-    response = s3_client.generate_presigned_post(
-        Bucket = 'hologram--app',
-        Key = OBJECT_NAME_TO_UPLOAD,
-        ExpiresIn = 10
+    response = s3_client.generate_presigned_url(
+        'get_object',
+        Params={
+            'Bucket': os.environ.get('AWS_BUCKET_NAME'),
+            'Key': OBJECT_NAME_TO_UPLOAD
+        },
+        ExpiresIn=60,
+        HttpMethod='PUT'
     )
 
     return response
