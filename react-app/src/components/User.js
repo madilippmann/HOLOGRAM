@@ -16,7 +16,7 @@ function User() {
 
   useEffect(() => {
     (async () => {
-      dispatch(userActions.fetchUser(userId));
+      await dispatch(userActions.fetchUser(userId));
       setIsLoaded(true);
     })();
   }, [userId, dispatch]);
@@ -42,6 +42,8 @@ function User() {
       <li>
         <strong>Email</strong> {user.email}
       </li>
+      <p>Followers: {user.followers.length}</p>
+      <p>Following: {user.following.length}</p>
       <li>
         {isFollowed
           ? <button onClick={toggleFollow}>Unfollow</button>
