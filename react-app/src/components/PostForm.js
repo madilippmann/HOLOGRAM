@@ -35,7 +35,6 @@ function PostForm() {
 
     dispatch(postsActions.createPost(post))
       .then(async post => {
-        console.log(post);
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         return history.push(`/posts/${post.id}`);
       })

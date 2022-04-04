@@ -8,7 +8,6 @@ function PostsList() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let posts = useSelector(state => state.posts);
-    console.log('PostsList ~ posts', posts);
 
     useEffect(() => {
         (async () => {
@@ -21,18 +20,18 @@ function PostsList() {
     return !isLoaded ? null : (
         <>
             <h1>Post List: </h1>
-                <ul>
-                    {posts?.allPosts.map((post) => {
-                        return (
-                            <li key={post.id}>
-                                <p>{post.id}</p>
-                                <p>{post.userId}</p>
-                                <p>{post.postImageUrl}</p>
-                                <p>{post.caption}</p>
-                            </li>
-                        );
-                    })}
-                </ul>
+            <ul>
+                {posts?.allPosts.map((post) => {
+                    return (
+                        <li key={post.id}>
+                            <p>{post.id}</p>
+                            <p>{post.userId}</p>
+                            <p>{post.postImageUrl}</p>
+                            <p>{post.caption}</p>
+                        </li>
+                    );
+                })}
+            </ul>
         </>
     );
 }

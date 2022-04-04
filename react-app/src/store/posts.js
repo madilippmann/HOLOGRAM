@@ -105,7 +105,7 @@ const removeLike = (postId, likeId) => {
 
 //POSTS THUNKS
 export const fetchPost = postId => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}`);
+    const res = await fetch(`/api/posts/${postId}/`);
 
     if (res.ok) {
         const post = await res.json();
@@ -118,9 +118,9 @@ export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
     let res;
 
     if (type === 'feed') {
-        res = await fetch(`/api/posts`);
+        res = await fetch(`/api/posts/`);
     } else if (type === 'profile') {
-        res = await fetch(`/api/users/${userId}/posts`);
+        res = await fetch(`/api/users/${userId}/posts/`);
     }
 
     if (res.ok) {
@@ -131,7 +131,6 @@ export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
 }
 
 export const createPost = post => async dispatch => {
-    console.log(post);
     const res = await fetch('/api/posts/', {
         method: 'POST',
         headers: {
@@ -160,9 +159,7 @@ export const editPost = post => async dispatch => {
 
     if (res.ok) {
         const editedPost = await res.json();
-        console.log(
-            editedPost
-        )
+
         dispatch(addPost(editedPost));
         return editedPost;
     }
@@ -195,7 +192,6 @@ export const fetchComments = postId => async dispatch => {
 }
 
 export const createComment = comment => async dispatch => {
-    console.log('ENTERED CREATE COMMENT')
     const res = await fetch(`/api/posts/${comment.postId}/comments/`, {
         method: 'POST',
         headers: {

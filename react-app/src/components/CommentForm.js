@@ -15,7 +15,7 @@ function CommentForm() {
   const [validationErrors, setValidationErrors] = useState([])
   const [showErrors, setShowErrors] = useState(false);
 
-  
+
   useEffect(() => {
     (async () => {
       await dispatch(postsActions.fetchPost(postId))
@@ -30,7 +30,7 @@ function CommentForm() {
 
     setValidationErrors(errors);
   }, [content]);
-  
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (validationErrors.length) return setShowErrors(true);
@@ -41,7 +41,6 @@ function CommentForm() {
 
     dispatch(postsActions.createComment(comment))
       .then(async comment => {
-        console.log(comment);
         return;
       })
       .catch(async (res) => {

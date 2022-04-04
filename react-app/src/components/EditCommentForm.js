@@ -38,7 +38,6 @@ function EditCommentForm() {
 
         dispatch(postsActions.editComment(comment))
             .then(async comment => {
-                console.log(comment);
                 return;
             })
             .catch(async (res) => {
