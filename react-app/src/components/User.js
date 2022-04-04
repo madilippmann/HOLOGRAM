@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import * as userActions from '../store/user'
+import * as sessionActions from '../store/session'
+
 function User() {
-  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  // const [user, setUser] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false)
   const { userId }  = useParams();
+  const sessionUser = useSelector(state => state.session.user);
+  const user = useSelector(state => state.user);
+  const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
 
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
     (async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const user = await response.json();
-      setUser(user);
+      await dispatch(userActions.fetchUser(userId));
+      setIsLoaded(true);
     })();
-  }, [userId]);
+  }, [userId, dispatch]);
 
   if (!user) {
     return null;
   }
 
-  return (
+  const toggleFollow = (e) => {
+    dispatch(userActions.toggleUserFollow(+userId));
+    dispatch(sessionActions.fetchUser(sessionUser.id));
+    setIsFollowed(() => !isFollowed);
+  }
+
+  return !isLoaded ? null : (
     <ul>
       <li>
         <strong>User Id</strong> {userId}
@@ -30,6 +41,14 @@ function User() {
       </li>
       <li>
         <strong>Email</strong> {user.email}
+      </li>
+      <p>Followers: {user.followers.length}</p>
+      <p>Following: {user.following.length}</p>
+      <li>
+        {isFollowed
+          ? <button onClick={toggleFollow}>Unfollow</button>
+          : <button onClick={toggleFollow}>Follow</button>
+        }
       </li>
     </ul>
   );

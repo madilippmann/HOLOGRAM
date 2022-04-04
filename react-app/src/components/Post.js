@@ -11,7 +11,7 @@ function Post() {
     let post = useSelector(state => state.posts[postId]);
     let sessionUser = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    let isLiked = post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false;
+    const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
     // ^ this acts as a simpler version of useState for isLiked
 
     useEffect(() => {
@@ -41,6 +41,7 @@ function Post() {
         // post will be updated after toggling the like, since we are
         // subscribed to this specific post in the store
         dispatch(postsActions.togglePostLike(postId));
+        setIsLiked(() => !isLiked);
     }
 
     return !isLoaded ? null : (

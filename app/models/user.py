@@ -2,8 +2,8 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from .threadParticipants import users_threads
+from .follows import follows
 from sqlalchemy.sql import func
-import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -24,14 +24,23 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
+    followers = db.relationship(
+    # this relationship allows you to access both the collection of users
+    # that follow a given user (with user.followers), and the collection
+    # of users that a user follows (with user.following)
+        "User",
+        secondary=follows,
+        primaryjoin=(follows.c.followedId == id),
+        secondaryjoin=(follows.c.followerId == id),
+        backref=db.backref("following", lazy="dynamic"),
+        lazy="dynamic"
+    )
+
     # threads = db.relationship(
     #     "Thread",
     #     secondary=users_threads,
     #     back_populates="users"
     # )
-
-    # followers =db.relationship('Follow', back_populates='user_follower')
-    # follows = db.relationship('Follow', back_populates='user_followed')
 
     @property
     def password(self):
@@ -44,7 +53,40 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+
+    def follower_following_to_dict(self):
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'handle': self.handle,
+            # 'email': self.email,
+            'bio': self.bio,
+            'profileImageUrl': self.profileImageUrl,
+            'privateStatus': self.privateStatus,
+        }
+
     def to_dict(self):
+        followers = [follower.follower_following_to_dict() for follower in self.followers]
+        following = [following.follower_following_to_dict() for following in self.following]
+
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'handle': self.handle,
+            # 'email': self.email,
+            'bio': self.bio,
+            'profileImageUrl': self.profileImageUrl,
+            'privateStatus': self.privateStatus,
+            'followers': followers,
+            'following': following
+        }
+
+    def session_to_dict(self):
+        followers = [follower.follower_following_to_dict() for follower in self.followers]
+        following = [following.follower_following_to_dict() for following in self.following]
+
         return {
             'id': self.id,
             'firstName': self.firstName,
@@ -53,5 +95,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'bio': self.bio,
             'profileImageUrl': self.profileImageUrl,
-            'privateStatus': self.privateStatus
+            'privateStatus': self.privateStatus,
+            'followers': followers,
+            'following': following
         }
