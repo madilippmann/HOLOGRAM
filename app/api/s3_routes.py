@@ -52,3 +52,33 @@ def get_presigned_url():
 @s3_routes.route('/', methods=["GET"])
 def s3_presigned_url():
     return jsonify(get_presigned_url())
+
+
+@s3_routes.route('/upload', methods=['POST'])
+def upload_image():
+    if 'file' not in request.files:
+        print('\n\n\n\n', request.url, '\n\n\n\n')
+        print('\n\n\n\nNOT WORKING\n\n\n\n')
+        return jsonify('not working')
+
+    file = request.files['file']
+
+
+    print('\n\n\n\n\n', file, '\n\n\n\n\n')
+    # print('\n\n\n\n\n', uploadedFile.filename, '\n\n\n\n\n')
+
+    OBJECT_NAME_TO_UPLOAD = ''.join(random.choices(string.ascii_lowercase + string.digits, k=30))
+
+    # return jsonify(file.filename)
+    return jsonify('file.filename')
+
+    # response = s3_client.generate_presigned_post(
+    #     os.environ.get('AWS_BUCKET_NAME'),
+    #     OBJECT_NAME_TO_UPLOAD,
+    #     Fields=None,
+    #     Conditions=None,
+    #     ExpiresIn=60
+    # )
+
+
+    # http_response = requests.post(response['url'], data=response['fields'], files=files)

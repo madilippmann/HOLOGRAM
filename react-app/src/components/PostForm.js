@@ -52,11 +52,25 @@ function PostForm() {
 
   const uploadFile = async (file) => {
     if (!file) return console.log('upload a file first');
+    console.log(file)
+    const formData = new FormData()
 
-    setFileUrl(() => file)
-    const res = await fetch('/api/s3');
+    formData.append('file', file)
+
+    for (var p of formData) {
+      console.log(p);
+    }
+    const res = await fetch('/api/s3/upload', {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      body: formData,
+    });
+
     const url = await res.json();
   }
+  // setFileUrl(() => file)
   // HELPER TO UPLOAD TO S3 onChange OF FILE INPUTS
   const s3Upload = async (file, inputName) => {
     if (!file) return console.log('upload a file first');
@@ -121,7 +135,7 @@ function PostForm() {
           id='postImageUrl'
           name='postImageUrl'
           value={postImageUrl}
-          onChange={(e) => setPostImageUrl(e.target.value)}
+          onChange={(e) => setPostImageUrl(e.target)}
         />
 
         <button type='submit'>submit</button>
