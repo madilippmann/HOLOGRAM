@@ -5,12 +5,11 @@ import { useParams } from 'react-router-dom';
 import * as postsActions from '../store/posts'
 
 function ProfilePage() {
-    const { userId }  = useParams();
+    const { userId } = useParams();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
     let posts = useSelector(state => state.posts);
-    console.log('ProfilePage ~ posts', posts);
 
     useEffect(() => {
         (async () => {

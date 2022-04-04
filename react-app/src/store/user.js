@@ -12,17 +12,17 @@ const addUser = (user) => {
 };
 
 const addFollow = (sessionUser) => {
-	return {
-		type: ADD_FOLLOW,
-		sessionUser
-	}
+  return {
+    type: ADD_FOLLOW,
+    sessionUser
+  }
 }
 
 const removeFollow = (sessionId) => {
-	return {
-		type: REMOVE_FOLLOW,
-		sessionId
-	}
+  return {
+    type: REMOVE_FOLLOW,
+    sessionId
+  }
 }
 
 // THUNK ACTION CREATORS **********************************
@@ -37,25 +37,24 @@ export const fetchUser = (userId) => async (dispatch) => {
 };
 
 export const toggleUserFollow = (followedId) => async (dispatch) => {
-	const res = await fetch(`/api/follow/`, {
-		//`/api/user/${followedId}/follow/`
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-		body: JSON.stringify(followedId)
-    });
+  const res = await fetch(`/api/follow/`, {
+    //`/api/user/${followedId}/follow/`
+    method: "PUT",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(followedId)
+  });
 
-	if (res.ok) {
-        const data = await res.json();
-        console.log('toggleUserFollow ~ data', data);
-        if (data.status === 'deleted') {
-            dispatch(removeFollow(data.followerId));
-        } else {
-            dispatch(addFollow(data));
-        }
-        return data;
+  if (res.ok) {
+    const data = await res.json();
+    if (data.status === 'deleted') {
+      dispatch(removeFollow(data.followerId));
+    } else {
+      dispatch(addFollow(data));
     }
+    return data;
+  }
 };
 
 // REDUCER ************************************************
@@ -71,26 +70,24 @@ const userReducer = (state = {}, action) => {
       // return newState;
     }
 
-	case ADD_FOLLOW: {
-		//followers of followed user
-		const followersArray = Array.isArray(state.followers) ? [ ...state.followers ] : [];
+    case ADD_FOLLOW: {
+      //followers of followed user
+      const followersArray = Array.isArray(state.followers) ? [...state.followers] : [];
 
-		return {
-			...state,
-			followers: [ action.sessionUser, ...followersArray ]
-		}
-	}
+      return {
+        ...state,
+        followers: [action.sessionUser, ...followersArray]
+      }
+    }
 
-	case REMOVE_FOLLOW: {
-    console.log(state.followers)
-		state.followers.splice(state.followers.indexOf(state.followers.find(follower => follower.userId === action.sessionId)), 1);
-    console.log(state.followers)
+    case REMOVE_FOLLOW: {
+      state.followers.splice(state.followers.indexOf(state.followers.find(follower => follower.userId === action.sessionId)), 1);
 
-		return {
-			...state,
-			followers: [ ...state.followers ]
-		}
-	}
+      return {
+        ...state,
+        followers: [...state.followers]
+      }
+    }
 
     default: {
       return state;

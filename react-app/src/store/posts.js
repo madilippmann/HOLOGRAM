@@ -131,7 +131,6 @@ export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
 }
 
 export const createPost = post => async dispatch => {
-    console.log(post);
     const res = await fetch('/api/posts/', {
         method: 'POST',
         headers: {
@@ -140,7 +139,7 @@ export const createPost = post => async dispatch => {
         body: JSON.stringify(post)
     });
 
-    console.log(res);
+
 
     if (res.ok) {
         const newPost = await res.json();
@@ -160,9 +159,7 @@ export const editPost = post => async dispatch => {
 
     if (res.ok) {
         const editedPost = await res.json();
-        console.log(
-            editedPost
-        )
+
         dispatch(addPost(editedPost));
         return editedPost;
     }
@@ -195,7 +192,6 @@ export const fetchComments = postId => async dispatch => {
 }
 
 export const createComment = comment => async dispatch => {
-    console.log('ENTERED CREATE COMMENT')
     const res = await fetch(`/api/posts/${comment.postId}/comments/`, {
         method: 'POST',
         headers: {
