@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import SearchBar from "../SearchBar";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faCirclePlus, faMessage } from '@fortawesome/free-solid-svg-icons';
 import './NavBar.css';
 
 const NavBar = () => {
@@ -32,8 +34,10 @@ const NavBar = () => {
 
 
 				<div className="nav__right">
-					<div>
-						[user actions go here]
+					<div className="nav__buttons">
+						<div><FontAwesomeIcon icon={faHouse}></FontAwesomeIcon></div>
+						<div><FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></div>
+						<div><FontAwesomeIcon icon={faMessage}></FontAwesomeIcon></div>
 					</div>
 					<div>
 						[user stats go here]

@@ -44,3 +44,13 @@
 	justify-content: space-between;
 	align-items: center;
 }
+
+
+.nav__buttons {
+	width: 160px;
+	font-size: 18px;
+	
+	display: flex;
+	justify-content: space-around;
+}
+.nav__buttons * { cursor: pointer }
