@@ -29,6 +29,17 @@ export const authenticate = () => async (dispatch) => {
   }
 }
 
+//TODO FIX
+export const fetchUser = (userId) => async (dispatch) => {
+  const res = await fetch(`/api/users/${userId}/`);
+
+  if (res.ok) {
+    const user = await res.json();
+    dispatch(addUser(user));
+    return user;
+  }
+};
+
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/login/', {
     method: 'POST',

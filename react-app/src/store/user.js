@@ -36,12 +36,14 @@ export const fetchUser = (userId) => async (dispatch) => {
   }
 };
 
-export const toggleUserFollow = (userId) => async (dispatch) => {
-	const res = await fetch(`/api/users/${userId}/follow/`, {
+export const toggleUserFollow = (followedId) => async (dispatch) => {
+	const res = await fetch(`/api/follow/`, {
+		//`/api/user/${followedId}/follow/`
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
         },
+		body: JSON.stringify(followedId)
     });
 
 	if (res.ok) {
@@ -56,7 +58,7 @@ export const toggleUserFollow = (userId) => async (dispatch) => {
 };
 
 // REDUCER ************************************************
-const usersReducer = (state = {}, action) => {
+const userReducer = (state = {}, action) => {
   let newState;
 
   switch (action.type) {
@@ -92,4 +94,4 @@ const usersReducer = (state = {}, action) => {
   }
 };
 
-export default usersReducer;
+export default userReducer;
