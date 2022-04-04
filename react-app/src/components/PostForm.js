@@ -60,6 +60,8 @@ function PostForm() {
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
         />
+        <label htmlFor='file'>Image Upload</label>
+        <input type="file" id="img" name="img" accept="image/*"></input>
 
         <label htmlFor='postImageUrl'>Image Url</label>
         <input
