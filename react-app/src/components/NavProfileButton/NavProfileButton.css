@@ -24,7 +24,7 @@
   top: 64px;
   right: 0;
   width: 140px;
-  border: 1px solid rgba(122, 122, 255, 0.658);
+  border: 1px solid var(--color-border);
   border-top: none;
   
   background-color: var(--color-nav-background);
