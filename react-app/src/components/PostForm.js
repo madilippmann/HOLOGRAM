@@ -50,6 +50,13 @@ function PostForm() {
       });
   }
 
+  const uploadFile = async (file) => {
+    if (!file) return console.log('upload a file first');
+
+    setFileUrl(() => file)
+    const res = await fetch('/api/s3');
+    const url = await res.json();
+  }
   // HELPER TO UPLOAD TO S3 onChange OF FILE INPUTS
   const s3Upload = async (file, inputName) => {
     if (!file) return console.log('upload a file first');
@@ -61,31 +68,6 @@ function PostForm() {
     setFileUrl(() => fileUrl)
   }
 
-  // const postToS3 = async (presignedPostData, file) => {
-  //   console.log('URL: ', url)
-  //   console.log('BODY: ', file)
-  //   try {
-  //     const res = await fetch(url, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "multipart/form-data"
-  //       },
-  //       body: file,
-  //     });
-
-  //     if (res.ok) {
-  //       const imageUrl = res.url.split('?')[0];
-  //       return imageUrl;
-  //     } else {
-  //       console.log(res)
-  //       console.error('response from s3 fetch not ok, but did not error out');
-  //     }
-
-  //   } catch (e) {
-  //     console.log('PUT REQUEST TO S3 FAILED!');
-  //     console.log(e);
-  //   }
-  // }
 
 
   const postToS3 = async (url, file) => {
@@ -128,7 +110,9 @@ function PostForm() {
         />
         <label htmlFor='file'>Image Upload</label>
         <input type="file" id="img" name="img" accept="image/*"
-          onChange={e => s3Upload(e.target.files[0], e.target.name)}
+          onChange={e => uploadFile(e.target.files[0])}
+
+        // onChange={e => s3Upload(e.target.files[0], e.target.name)}
         />
 
         <label htmlFor='postImageUrl'>Image Url</label>
