@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import isURL from 'validator/lib/isURL';
+import axios from 'axios';
 
 import * as postsActions from '../store/posts'
 
 function PostForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector(state => state.session);
-  // const [isLoaded, setIsLoaded] = useState(false);
   const [caption, setCaption] = useState('');
-  const [postImageUrl, setPostImageUrl] = useState('');
   const [validationErrors, setValidationErrors] = useState([])
   const [showErrors, setShowErrors] = useState(false);
-
+  const [uploadFile, setUploadFile] = useState()
 
   useEffect(() => {
     const errors = [];
-    if (!postImageUrl.length) errors.push('please enter an image url');
-    if (!isURL(postImageUrl)) errors.push('please enter a valid url');
     if (caption.length > 255) errors.push('Caption must be less than 255 characters')
-
     setValidationErrors(errors);
-  }, [caption, postImageUrl])
+  }, [caption])
 
-  const onSubmit = (e) => {
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (validationErrors.length) return setShowErrors(true);
 
+    const url = await s3upload(uploadFile)
+
     const post = {
-      caption, postImageUrl
+      caption,
+      postImageUrl: url
     }
 
     dispatch(postsActions.createPost(post))
@@ -48,6 +46,18 @@ function PostForm() {
       });
   }
 
+  const s3upload = async (file) => {
+    if (!file) return console.log('upload a file first');
+    const formData = new FormData()
+
+    formData.append('file', file)
+
+    const res = await axios.post("/api/s3/upload/", formData);
+
+    return res.data
+  }
+
+
   return (
     <div>
       <form method='POST' action="/posts" onSubmit={onSubmit}>
@@ -59,14 +69,12 @@ function PostForm() {
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
         />
-
-        <label htmlFor='postImageUrl'>Image Url</label>
-        <input
-          type='text'
-          id='postImageUrl'
-          name='postImageUrl'
-          value={postImageUrl}
-          onChange={(e) => setPostImageUrl(e.target.value)}
+        {uploadFile &&
+          <img src={URL.createObjectURL(uploadFile)} alt='image preview' />
+        }
+        <label htmlFor='file'>Image Upload</label>
+        <input type="file" id="img" name="img" accept="image/*"
+          onChange={e => setUploadFile(() => e.target.files[0])}
         />
 
         <button type='submit'>submit</button>

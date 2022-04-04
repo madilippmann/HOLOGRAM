@@ -27,6 +27,7 @@ def create_post():
     form = CreatePostForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
+    print('\n\n\n\n\n', form.data, '\n\n\n')
 
     if form.validate_on_submit():
         data = {
@@ -34,12 +35,13 @@ def create_post():
             "postImageUrl": form.data["postImageUrl"],
             "caption": form.data["caption"],
         }
+        print('\n\n\n\n\n', data, '\n\n\n')
 
         post = Post(**data)
         db.session.add(post)
         db.session.commit()
         return jsonify(post.to_dict())
-
+    print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

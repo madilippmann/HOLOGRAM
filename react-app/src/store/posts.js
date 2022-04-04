@@ -139,7 +139,7 @@ export const createPost = post => async dispatch => {
         body: JSON.stringify(post)
     });
 
-    console.log(res);
+
 
     if (res.ok) {
         const newPost = await res.json();
