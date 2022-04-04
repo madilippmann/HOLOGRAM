@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faCirclePlus, faMessage } from '@fortawesome/free-solid-svg-icons';
 import './NavBar.css';
+import NavProfileButton from "../NavProfileButton";
 
 const NavBar = () => {
 	const user = useSelector(state => state.session.user);
@@ -53,9 +54,8 @@ const NavBar = () => {
 							<small>following</small>
 						</div>
 					</div>
-					<div>
-						[user profile button goes here]
-					</div>
+					
+					<NavProfileButton user={user}/>
 				</div>
 			</div>
 		</div>

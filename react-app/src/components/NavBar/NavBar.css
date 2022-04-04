@@ -11,6 +11,7 @@
 }
 .navbar-container {
 	width: 1280px;
+	height: 100%;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
@@ -38,7 +39,8 @@
 
 /* NAV RIGHT */
 .nav__right {
-	width: 600px;
+	width: 400px;
+	height: 100%;
 	
 	display: flex;
 	justify-content: space-between;
