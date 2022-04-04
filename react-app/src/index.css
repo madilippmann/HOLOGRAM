@@ -38,7 +38,6 @@
 }
 
 
-
 body {
     max-width: 1280px;
     min-height: 1200px;
@@ -48,4 +47,15 @@ body {
     /* TODO Change later or as needed */
     background-color: var(--color-background);
     color: var(--color-text-lighter);
+}
+
+
+/* BASE ELEMENT STYLES */
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }

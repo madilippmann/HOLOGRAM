@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import SearchBar from "../SearchBar";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faCirclePlus, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faCirclePlus, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import './NavBar.css';
 import NavProfileButton from "../NavProfileButton";
 
@@ -38,7 +38,7 @@ const NavBar = () => {
 					<div className="nav__buttons">
 						<div><FontAwesomeIcon icon={faHouse}></FontAwesomeIcon></div>
 						<div><FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></div>
-						<div><FontAwesomeIcon icon={faMessage}></FontAwesomeIcon></div>
+						<div><FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></div>
 					</div>
 					<div className="nav__stats">
 						<div>
