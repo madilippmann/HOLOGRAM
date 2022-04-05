@@ -19,6 +19,9 @@
     --color-apricot: rgb(255, 201, 181);
 }
 
+* {
+    box-sizing: border-box;
+}
 
 body {
     max-width: 1280px;
@@ -31,7 +34,7 @@ body {
     background-color: var(--color-white);
     /* color: var(--color-text-lighter); */
     color: black;
-    
+
     box-sizing: border-box;
 }
 

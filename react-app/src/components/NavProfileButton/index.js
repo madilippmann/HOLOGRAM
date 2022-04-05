@@ -55,13 +55,13 @@ export default function NavProfileButton({ user }) {
 			{showMenu && (
 				<div className="profile_nav_dropdown">
 					<div>
-						<NavLink to={`/users/${user.id}`} onClick={() => window.scrollTo(0, 0)}>
+						<NavLink to={`/${user.handle}`} onClick={() => window.scrollTo(0, 0)}>
 							profile&nbsp;&nbsp;
 							<FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
 						</NavLink>
 					</div>
 					<div>
-						<NavLink to={`/users/${user.id}`} onClick={() => window.scrollTo(0, 310)}>
+						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 310)}>
 							settings&nbsp;&nbsp;
 							<FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
 						</NavLink>

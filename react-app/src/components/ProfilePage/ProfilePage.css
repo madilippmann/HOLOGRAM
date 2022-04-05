@@ -1,0 +1,19 @@
+.profile-page {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    margin: auto;
+}
+
+
+.user-posts {
+    flex-direction: row;
+    /* flex-basis: 33.33%; */
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.post-div {
+    width: 33%;
+    flex: 50%;
+}

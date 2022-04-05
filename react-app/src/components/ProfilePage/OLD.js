@@ -6,8 +6,6 @@ import * as postsActions from '../../store/posts'
 import * as userActions from '../../store/user'
 import * as sessionActions from '../../store/session'
 
-import './ProfilePage.css'
-import PostModalPopup from '../Modals/PostModalPopup';
 
 function ProfilePage() {
     const { handle } = useParams();
@@ -41,22 +39,40 @@ function ProfilePage() {
 
 
     return !isLoaded ? null : (
-        <div>
-            <div className='profile-page user-header'>
-                user profile
-            </div>
-
-            <div className='profile-page user-posts' >
-                {posts.allPosts.map(post => {
+        <>
+            <ul>
+                <li>
+                    <strong>User Id</strong> {user.id}
+                </li>
+                <li>
+                    <strong>Handle</strong> {user.handle}
+                </li>
+                <li>
+                    <strong>Email</strong> {user.email}
+                </li>
+                <p>Followers: {user.followers.length}</p>
+                <p>Following: {user.following.length}</p>
+                <li>
+                    {isFollowed
+                        ? <button onClick={toggleFollow}>Unfollow</button>
+                        : <button onClick={toggleFollow}>Follow</button>
+                    }
+                </li>
+            </ul>
+            
+            <ul>
+                {posts?.allPosts.map((post) => {
                     return (
-                        <div key={post.id} className='post-div'>
-                            <PostModalPopup post={post} />
-                        </div>
-
-                    )
+                        <li key={post.id}>
+                            <p>{post.id}</p>
+                            <p>{post.userId}</p>
+                            <p>{post.postImageUrl}</p>
+                            <p>{post.caption}</p>
+                        </li>
+                    );
                 })}
-            </div>
-        </div>
+            </ul>
+        </>
     );
 }
 
