@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
-
 import * as postsActions from '../../store/posts'
 import CommentCard from '../CommentCard';
+import ProfileIcon from '../ProfileIcon';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import './PostModal.css'
+
 
 export default function PostModal({ postId }) {
     const dispatch = useDispatch();
@@ -22,11 +27,10 @@ export default function PostModal({ postId }) {
     }, [dispatch]);
 
 
-    const deletePost = () => {
-        let res = dispatch(postsActions.deletePost(post.id))
-        console.log(res)
-        if (res !== 'invalid') {
-            return history.push('/posts')
+    const deletePost = async () => {
+        if (window.confirm('Are you sure you want to delete your post?')) {
+            await dispatch(postsActions.deletePost(post.id))
+            return history.push('/')
         }
     }
 
@@ -39,16 +43,52 @@ export default function PostModal({ postId }) {
     }
 
     return !isLoaded ? null : (
-        <>
-            <p>{post.id}</p>
-            <p>{post.userId}</p>
-            <img
-                src={post.postImageUrl}
-                alt="bruh"
-            />
-            <p>{post.caption}</p>
+        <div className='post-modal-wrapper'>
+            <div className='post-image-wrapper'>
+                <img
+                    src={post.postImageUrl}
+                    alt="bruh"
+                />
+            </div>
 
-            {post.userId === sessionUser.id &&
+            <div className='post-modal__right'>
+                <div className='post-header'>
+                    <div className='post-icon' style={{ minWidth: '50px', width: '50px' }}>
+                        <ProfileIcon user={post.user} />
+                    </div>
+
+                    <div className='post-details-container'>
+                        <div className='post-details'>
+                            <h4 className='post-user-handle'>{post.user.handle}</h4>
+                            <span className='post-caption'>{post.caption}</span>
+                        </div>
+                        {sessionUser.id !== post.user.id ? null : (
+                            <div className='post-buttons'>
+                                <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                                <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()}></FontAwesomeIcon>
+
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className='comment-section'>
+                    <div>
+                        {post.comments.allComments.map(comment => {
+                            return (
+                                <div key={comment.id}>
+                                    <CommentCard post={post} comment={comment} />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            {/* {post.userId === sessionUser.id &&
                 <button
                     type='button'
                     onClick={() => deletePost()}
@@ -61,19 +101,9 @@ export default function PostModal({ postId }) {
             {isLiked
                 ? <button onClick={toggleLike}>unlike</button>
                 : <button onClick={toggleLike}>like</button>
-            }
+            } */}
 
 
-            <h2>COMMENTS</h2>
-            <ul>
-                {post.comments.allComments.map(comment => {
-                    return (
-                        <li key={comment.id}>
-                            <CommentCard post={post} comment={comment} />
-                        </li>
-                    )
-                })}
-            </ul>
-        </>
+        </div>
     );
 }
