@@ -60,25 +60,33 @@ export default function CreatePostPage() {
 
 
   return (
-    <div>
-      <form method='POST' action="/posts" onSubmit={onSubmit}>
-        <label htmlFor='caption'>Caption</label>
+    <div id='post-upload'>
+      <form method='POST' action="/posts" onSubmit={onSubmit} id='post-form'>
+        <div id='upload-and-preview-section'>
+          <div id='preview'>
+            {uploadFile &&
+              <img src={URL.createObjectURL(uploadFile)} alt='image preview' id='image-preview'/>
+            }
+          </div>
+          <div id='upload'>
+            <label htmlFor='img' id='upload-button'>Select Image</label>
+            <input type="file" id="img" name="img" accept="image/*"
+              onChange={e => setUploadFile(() => e.target.files[0])}
+              hidden
+            />
+          </div>
+        </div>
+        {/* <label htmlFor='caption'>Caption</label> */}
         <input
           type='text'
           id='caption'
           name='caption'
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-        />
-        {uploadFile &&
-          <img src={URL.createObjectURL(uploadFile)} alt='image preview' />
-        }
-        <label htmlFor='file'>Image Upload</label>
-        <input type="file" id="img" name="img" accept="image/*"
-          onChange={e => setUploadFile(() => e.target.files[0])}
+          placeholder='enter a caption...'
         />
 
-        <button type='submit'>submit</button>
+        <button type='submit'>UPLOAD</button>
       </form>
 
       {!showErrors ? null : (
@@ -89,5 +97,6 @@ export default function CreatePostPage() {
         </ul>
       )}
     </div>
+
   );
 }
