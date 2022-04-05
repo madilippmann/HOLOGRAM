@@ -48,10 +48,6 @@ const NavBar = () => {
 					
 					<div className="nav__stats">
 						<div>
-							<span>50</span>
-							<small>posts</small>
-						</div>
-						<div>
 							<span>2.5k</span>
 							<small>followers</small>
 						</div>
