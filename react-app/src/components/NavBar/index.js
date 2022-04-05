@@ -36,6 +36,7 @@ const NavBar = () => {
 						<div><FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></div>
 						<div><FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></div>
 					</div>
+					
 					<div className="nav__stats">
 						<div>
 							<span>50</span>
