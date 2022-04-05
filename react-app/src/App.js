@@ -10,7 +10,7 @@ import FeedPage from './components/FeedPage';
 import { authenticate } from './store/session';
 import ProfilePage from './components/ProfilePage/index.js';
 import Post from './components/Post';
-import PostForm from './components/PostForm';
+import CreatePostPage from './components/CreatePostPage';
 import EditPostForm from './components/EditPostForm';
 import CommentForm from './components/CommentForm';
 import EditCommentForm from './components/EditCommentForm';
@@ -59,7 +59,7 @@ function App() {
 
 					{/* FOR TESTING THE POST FORM PAGE */}
 					<ProtectedRoute exact path="/posts/new">
-						<PostForm />
+						<CreatePostPage />
 					</ProtectedRoute>
 
 					{/* FIX FIX FIX */}
