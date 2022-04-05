@@ -35,7 +35,7 @@ export default function CreatePostPage() {
 		dispatch(postsActions.createPost(post))
 			.then(async post => {
 				window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-				return history.push(`/posts/${post.id}`);
+				return history.push(`/`);
 			})
 			.catch(async (res) => {
 				console.log(res);
@@ -70,7 +70,7 @@ export default function CreatePostPage() {
 					</div>
 
 					<div id='upload'>
-						<label htmlFor='img' id='upload-button'>SELECT IMAGE</label>
+						<label htmlFor='img' id='select-file-button'>SELECT IMAGE</label>
 						<input type="file" id="img" name="img" accept="image/*"
 							onChange={e => setUploadFile(() => e.target.files[0])}
 							hidden
@@ -80,17 +80,16 @@ export default function CreatePostPage() {
 				</div>
 
 
-				{/* <label htmlFor='caption'>Caption</label> */}
-				<input
+				<textarea
 					type='text'
 					id='caption'
+					rows={5}
+					placeholder='enter a caption...'
 					name='caption'
 					value={caption}
 					onChange={(e) => setCaption(e.target.value)}
-					placeholder='enter a caption...'
-				/>
-
-				<button type='submit'>UPLOAD</button>
+				></textarea>
+				<button type='submit' id='upload-button'>UPLOAD</button>
 			</form>
 
 			{!showErrors ? null : (
