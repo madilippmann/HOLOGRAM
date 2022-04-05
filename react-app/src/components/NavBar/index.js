@@ -12,7 +12,7 @@ const NavBar = () => {
 	const user = useSelector(state => state.session.user);
 
 
-	return (
+	return !user ? null : (
 		<div id="navbar">
 			<div className="navbar-container">
 				<div className="nav__left">

@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import * as postsActions from '../store/posts'
+import * as postsActions from '../../store/posts'
+import './CreatePostPage.css'
 
-function PostForm() {
+export default function CreatePostPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [caption, setCaption] = useState('');
@@ -90,5 +91,3 @@ function PostForm() {
     </div>
   );
 }
-
-export default PostForm;

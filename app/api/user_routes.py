@@ -12,15 +12,16 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:id>/')
+@user_routes.route('/<handle>/')
 @login_required
-def user(id):
-    if id == int(session['_user_id']):
-        user = User.query.get(id)
-        return user.session_to_dict()
-    else :
-        user = User.query.get(id)
-        return user.to_dict()
+def user(handle):
+    user = User.query.filter(User.handle == handle).first()
+    print(user.to_dict())
+    if user:
+        if user.id == int(session['_user_id']):
+            return user.session_to_dict()
+        else :
+            return user.to_dict()
 
 
 @user_routes.route('/<int:id>/posts/')

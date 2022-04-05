@@ -15,7 +15,6 @@ export default function NavProfileButton({ user }) {
 	const openMenu = () => {
 		if (showMenu) return;
 		document.querySelector('.nav-profile-button')
-			.style.backgroundColor = '#111213';
 		setShowMenu(true);
 	};
 
@@ -24,16 +23,19 @@ export default function NavProfileButton({ user }) {
 
 		const closeMenu = () => {
 			document.querySelector('.nav-profile-button')
-				.style.backgroundColor = '#212121'
 			setShowMenu(false);
 		};
 
 		document.addEventListener('click', closeMenu);
 
-		return () => document.removeEventListener("click", closeMenu);
+		return () => {
+			setShowMenu(false);
+			document.removeEventListener("click", closeMenu);	
+		}
 	}, [showMenu]);
 
 	const logoutUser = (e) => {
+		setShowMenu(false);
 		if (window.confirm('Are you sure you want to log out?')) {
 			dispatch(logout());
 			window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });

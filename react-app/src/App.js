@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import LoginForm from './components/LoginForm';
-import SignUpForm from './components/SignUpForm';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import Feed from './components/Feed';
 import { authenticate } from './store/session';
-import ProfilePage from './components/ProfilePage';
-import Post from './components/Post';
-import PostForm from './components/PostForm';
-import EditPostForm from './components/EditPostForm';
-import CommentForm from './components/CommentForm';
-import EditCommentForm from './components/EditCommentForm';
+import CommentForm from './components/PostModal/CommentForm';
+import CreatePostPage from './components/CreatePostPage';
+import EditPostForm from './components/PostModal/EditPostForm';
+import EditCommentForm from './components/PostModal/EditCommentForm';
+import FeedPage from './components/FeedPage';
 import HeaderFooterWrapper from './components/HeaderFooterWrapper';
+import LoginPage from './components/LoginPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import PageNotFound from './components/PageNotFound';
+import ProfilePage from './components/ProfilePage/index.js';
+import SignUpPage from './components/SignUpPage';
+import SearchPage from './components/SearchPage';
+
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -33,42 +33,28 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			{/* <NavBar /> */}
 			<HeaderFooterWrapper>
 				<Switch>
 					<Route path='/login' exact={true}>
-						<LoginForm />
+						<LoginPage />
 					</Route>
+
 					<Route path='/sign-up' exact={true}>
-						<SignUpForm />
+						<SignUpPage />
 					</Route>
-					<ProtectedRoute path='/users' exact={true} >
-						<UsersList />
-					</ProtectedRoute>
+
 					<ProtectedRoute path='/' exact={true} >
-						<Feed />
+						<FeedPage />
 					</ProtectedRoute>
-					<ProtectedRoute path='/users/:userId(\d+)' exact={true} >
-						<User />
-						{/* <ProfilePage /> */}
-					</ProtectedRoute>
-					{/* <ProtectedRoute path='/' exact={true} >
-						<h1>My Home Page</h1>
-					</ProtectedRoute> */}
 
 					{/* FOR TESTING THE POST FORM PAGE */}
 					<ProtectedRoute exact path="/posts/new">
-						<PostForm />
+						<CreatePostPage />
 					</ProtectedRoute>
 
 					{/* FIX FIX FIX */}
 					<ProtectedRoute exact path="/posts/:postId(\d+)/edit">
 						<EditPostForm />
-					</ProtectedRoute>
-
-					{/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
-					<ProtectedRoute exact path="/posts/:postId(\d+)">
-						<Post />
 					</ProtectedRoute>
 
 					{/* FOR TESTING COMMENT POST */}
@@ -79,9 +65,17 @@ function App() {
 					<ProtectedRoute exact path="/posts/:postId(\d+)/comments/:commentId(\d+)/edit">
 						<EditCommentForm />
 					</ProtectedRoute>
+					
+					<ProtectedRoute exact path="/search/:query">
+						<SearchPage />
+					</ProtectedRoute>
+
+					<ProtectedRoute path='/:handle' exact={true} >
+						<ProfilePage />
+					</ProtectedRoute>
 
 					<Route>
-						Page Not Found
+						<PageNotFound />
 					</Route>
 
 				</Switch>

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
+export default function SignUpPage() {
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -118,5 +118,3 @@ const SignUpForm = () => {
     </form>
   );
 };
-
-export default SignUpForm;
