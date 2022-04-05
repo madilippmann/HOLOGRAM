@@ -6,6 +6,7 @@ import './Feed.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
+import FeedColumn from './feedColumn';
 
 function Feed() {
     const dispatch = useDispatch();
@@ -49,88 +50,11 @@ function Feed() {
     return !isLoaded ? null : (
         <>
             <h1>Post List: </h1>
-            {/* <ul>
-                    {posts?.allPosts.map((post) => {
-                        return (
-                            <li key={post.id}>
-                                <p>{post.id}</p>
-                                <p>{post.userId}</p>
-                                <p>{post.postImageUrl}</p>
-                                <p>{post.caption}</p>
-                            </li>
-                        );
-                    })}
-                </ul> */}
+
             <div id='all-posts'>
-                <div className='posts-list'>
-                    {postsForListOne.map(post => {
-                        return (
-                            <div className='single-feed-post' key={post.id}>
-                                <div className='post-image-div'>
-                                    <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
-                                </div>
-                                <div className='post-info'>
-                                    <a href={`/users/${post.userId}/`}>
-                                        <div className='user-image-and-handle'>
-                                            <img className='user-image' src='https://hologram--app.s3.amazonaws.com/default-profile-image.png' alt={post.user.id} />
-                                            <p className='user-handle'>{post.user.handle}</p>
-                                        </div>
-                                    </a>
-                                    <div className='post-like-and-comment-count'>
-                                        <p><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
-                                        <p><FontAwesomeIcon icon={faCommentAlt} className={`feed__post__icon`} />: 2</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div className='posts-list'>
-                    {postsForListTwo.map(post => {
-                        return (
-                            <div className='single-feed-post' key={post.id}>
-                                <div className='post-image-div'>
-                                    <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
-                                </div>
-                                <div className='post-info'>
-                                    <a href={`/users/${post.userId}/`}>
-                                        <div className='≈'>
-                                            <img className='user-image' src={post.user.profileImageUrl} alt={post.user.id} />
-                                            <p className='user-handle'>{post.user.handle}</p>
-                                        </div>
-                                    </a>
-                                    <div className='post-like-and-comment-count'>
-                                        <p><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
-                                        <p><FontAwesomeIcon icon={faCommentAlt} className={`feed__post__icon`} />: 2</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div className='posts-list'>
-                    {postsForListThree.map(post => {
-                        return (
-                            <div className='single-feed-post' key={post.id}>
-                                <div className='post-image-div'>
-                                    <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
-                                </div>
-                                <div className='post-info'>
-                                    <a href={`/users/${post.userId}/`}>
-                                        <div className='user-image-and-handle'>
-                                            <img className='user-image' src={post.user.profileImageUrl} alt={post.user.id} />
-                                            <p className='user-handle'>{post.user.handle}</p>
-                                        </div>
-                                    </a>
-                                    <div className='post-like-and-comment-count'>
-                                        <p><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
-                                        <p><FontAwesomeIcon icon={faCommentAlt} className='feed__post__icon' />: 2</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
+                <FeedColumn column={postsForListOne} />
+                <FeedColumn column={postsForListTwo} />
+                <FeedColumn column={postsForListThree} />
             </div>
         </>
     );
