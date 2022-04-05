@@ -34,7 +34,7 @@ export default function SearchBar() {
 					onChange={e => setQuery(e.target.value)}
 					onFocus={e => setShowMenu(true)}
 				/>
-				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-text-less-light)' }}></FontAwesomeIcon>
+				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }}></FontAwesomeIcon>
 			</form>
 
 			{showMenu && (

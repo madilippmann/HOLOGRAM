@@ -8,33 +8,14 @@
     /* Variable Demo:
         background-color: var(--color-background);
     */
-    --color-background: #fefefe;
-    --color-nav-background: rgb(255, 243, 239);
-    --color-footer-background: rgb(55, 55, 55);
-    --color-login-container-background: rgb(55, 55, 55);
-    --color-border: rgb(235, 235, 235);
-
-    --color-input-grey: rgb(204, 204, 204, .95);
-
+    --color-white: #fefefe;
+    --color-light-gray: rgb(235, 235, 235);
+    --color-dark-gray: rgb(90, 90, 90);
+    --color-black: rgb(0, 0, 0);
+    
     --color-purple: rgb(122, 123, 255);
+    --color-light-apricot: rgb(255, 243, 239);
     --color-apricot: rgb(255, 201, 181);
-
-    --color-text-lightest: rgb(255, 255, 255);
-    /* --color-text-lightest-hover */
-    --color-text-lighter: rgb(237, 237, 237);
-    /* --color-text-lightest-hover */
-
-    --color-text-light: rgb(205, 203, 203);
-    /* --color-text-lightest-hover */
-
-    --color-text-less-light: rgb(188, 188, 188);
-    /* --color-text-lightest-hover */
-
-    --color-text-dark-1: rgb(58, 56, 56);
-    /* --color-text-lightest-hover */
-
-    --color-button-purple: rgb(122, 123, 255, .6);
-    --color-button-apricot: rgb(255, 201, 181, .47);
 }
 
 
@@ -45,7 +26,7 @@ body {
     
     font-family: 'Barlow', sans-serif;
     /* TODO Change later or as needed */
-    background-color: var(--color-background);
+    background-color: var(--color-white);
     /* color: var(--color-text-lighter); */
     color: black;
 }
