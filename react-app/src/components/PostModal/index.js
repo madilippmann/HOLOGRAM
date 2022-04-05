@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
-
 import * as postsActions from '../../store/posts'
 import CommentCard from '../CommentCard';
+import ProfileIcon from '../ProfileIcon';
+
+import './PostModal.css'
+
 
 export default function PostModal({ postId }) {
     const dispatch = useDispatch();
@@ -39,13 +42,28 @@ export default function PostModal({ postId }) {
     }
 
     return !isLoaded ? null : (
-        <>
-            <p>{post.id}</p>
-            <p>{post.userId}</p>
-            <img
-                src={post.postImageUrl}
-                alt="bruh"
-            />
+        <div className='post-modal-wrapper'>
+            <div className='post-image-wrapper'>
+                <img
+                    src={post.postImageUrl}
+                    alt="bruh"
+                />
+            </div>
+
+            <div className='post-modal__right'>
+                <div className='post-header'>
+                    {/* <img
+                        src={user.profileImageUrl ? user.profileImageUrl : "https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGdyYWRpZW50fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"}
+                        alt="profile-picture"
+                    /> */}
+                    <ProfileIcon />
+                </div>
+            </div>
+
+
+
+            {/*         
+            <p>{post.user.handle}</p>
             <p>{post.caption}</p>
 
             {post.userId === sessionUser.id &&
@@ -73,7 +91,7 @@ export default function PostModal({ postId }) {
                         </li>
                     )
                 })}
-            </ul>
-        </>
+            </ul> */}
+        </div>
     );
 }
