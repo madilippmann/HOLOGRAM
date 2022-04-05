@@ -12,7 +12,6 @@ import LoginPage from './components/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PageNotFound from './components/PageNotFound';
 import ProfilePage from './components/ProfilePage/index.js';
-import Post from './components/Post';
 import SignUpPage from './components/SignUpPage';
 import SearchPage from './components/SearchPage';
 import UsersList from './components/UsersList';
@@ -65,11 +64,6 @@ function App() {
 					{/* FIX FIX FIX */}
 					<ProtectedRoute exact path="/posts/:postId(\d+)/edit">
 						<EditPostForm />
-					</ProtectedRoute>
-
-					{/* FOR TESTING THE POST PAGE (WILL BE MODAL LATER) */}
-					<ProtectedRoute exact path="/posts/:postId(\d+)">
-						<Post />
 					</ProtectedRoute>
 
 					{/* FOR TESTING COMMENT POST */}

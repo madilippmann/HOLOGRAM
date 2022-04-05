@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 
-import * as postsActions from '../store/posts'
+import * as postsActions from '../../store/posts'
 
-function Post({ postId }) {
+export default function PostModal({ postId }) {
     // const { postId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -96,9 +96,3 @@ function Post({ postId }) {
         </>
     );
 }
-
-
-
-
-
-export default Post;

@@ -5,7 +5,7 @@ import './FeedPage.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
-import PostModal from '../Modals/PostModal';
+import PostModalPopup from '../Modals/PostModalPopup';
 
 function FeedColumn({ column }) {
     return (
@@ -15,7 +15,7 @@ function FeedColumn({ column }) {
                 return (
                     <div className='single-feed-post' key={post.id}>
                         <div className='post-image-div'>
-                            <PostModal post={post} />
+                            <PostModalPopup post={post} />
                             
                         </div>
                         <div className='post-info'>
