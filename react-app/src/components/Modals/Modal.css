@@ -1,25 +1,29 @@
 #modal {
-  position: absolute;
-  top: 0; right: 0; left: 0; bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #modal_background {
-  position: fixed;
-  top: 0; right: 0; left: 0; bottom: 0;
-  background-color: rgba(0, 0, 0, 0.598);
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.598);
 }
 
 #modal_content {
-  height: 800px;
-  width: 1000px;
-  padding: 16px;
-  color: white;
-  
-  border: 1px solid var(--color-light-gray);
-  background-color: rgb(0, 0, 0);
+	height: 640px;
+	width: 1000px;
+	color: black;
 
-  position: relative;
+	background-color: var(--color-white);
+
+	position: relative;
 }
