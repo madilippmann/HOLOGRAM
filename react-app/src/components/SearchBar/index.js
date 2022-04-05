@@ -34,9 +34,7 @@ export default function SearchBar() {
 					onChange={e => setQuery(e.target.value)}
 					onFocus={e => setShowMenu(true)}
 				/>
-				<button type="submit" className="" style={{ boxShadow: "none" }}>
-					<FontAwesomeIcon icon={faSearch} style={{ color: '#535353', transform: 'scale(1.2)' }}></FontAwesomeIcon>
-				</button>
+				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-text-less-light)' }}></FontAwesomeIcon>
 			</form>
 
 			{showMenu && (
