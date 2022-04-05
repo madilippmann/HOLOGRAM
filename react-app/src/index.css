@@ -31,8 +31,7 @@ body {
     /* TODO Change later or as needed */
     background-color: var(--color-white);
     /* color: var(--color-text-lighter); */
-    color: black;
-    
+    color: black; 
 }
 
 * {

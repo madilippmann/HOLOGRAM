@@ -3,12 +3,12 @@
     max-width: 1280px;
     display: flex;
     flex-flow: row nowrap;
-    margin: auto;
+    margin: 100px auto;
 }
 
 .posts-list {
     display: flex;
-    width: calc(1/3);
+    width: 33.33%;
     flex-flow: column nowrap;
     overflow: hidden;
 }
@@ -29,7 +29,8 @@
 
 .post-image-div img {
     border-radius: 20px;
-    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 .user-image {
@@ -73,4 +74,16 @@ img {
 
 .feed__post__icon {
     color: var(--color-apricot);
+}
+
+.feed__post__icon {
+    padding: 10px;
+}
+
+.post-like, .post-comment {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
 }
