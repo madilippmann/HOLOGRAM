@@ -8,7 +8,7 @@
     /* Variable Demo:
         background-color: var(--color-background);
     */
-    --color-background: rgb(250, 250, 250);
+    --color-background: #fefefe;
     --color-nav-background: rgb(255, 243, 239);
     --color-footer-background: rgb(55, 55, 55);
     --color-login-container-background: rgb(55, 55, 55);

@@ -57,8 +57,10 @@ h1 {
 
 
 .nav__buttons {
-	width: 160px;
+	width: 150px;
 	font-size: 18px;
+	
+	color: #777777;
 	
 	display: flex;
 	justify-content: space-around;
