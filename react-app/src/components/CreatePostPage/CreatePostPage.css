@@ -6,52 +6,60 @@
 
 #post-form {
     display: flex;
-    flex-flow: column nowrap;
+    flex-direction: column;
     height: 100%;
     width: 100%;
-}
-
-#preview {
-    width: 100%;
-    z-index: 1;
-    height: 100%;
-    margin: auto;
-}
-
-#preview img {
-    width: 100%;
-
-    margin: auto;
 }
 
 #upload-and-preview-section {
-    height: 50%;
-    width: 90%;
-    border: 2px solid blue;
     margin: auto;
+    
+    position: relative;
     display: flex;
-    flex-flow: column nowrap;
+    flex-direction: column;
     justify-content: center;
 }
+
+#preview {
+    width: 500px;
+    height: 500px;
+    
+    object-fit: cover;
+    
+    border: 1px solid red;
+}
+#preview img {
+    width: 100%;
+
+    object-fit: cover;
+    margin: auto;
+}
+
 
 #upload {
     z-index: 2;
-    height: 100%;
-    width: 100%;
     display: flex;
-    flex-flow: column nowrap;
+    flex-direction: column;
     justify-content: center;
-    border: 2px solid black;
+    align-items: center;
+    
+    position: absolute;
+    bottom: 24px; left: 0; right: 0;
+    
 }
 
 #upload-button {
-    width: 100px;
-    height: 20px;
+    width: 136px;
+    height: 26px;
+    padding: 12px;
     border-radius: 7px;
-    font-size: 16px;
-    background-color: purple;
-    padding: 10px 70px;
+    font-size: 12px;
+    background-color: var(--color-purple);
+    
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #upload-button:hover {
