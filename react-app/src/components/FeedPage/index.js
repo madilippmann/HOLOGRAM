@@ -48,7 +48,7 @@ function FeedPage() {
 
     return !isLoaded ? null : (
         <>
-            <h1>Post List: </h1>
+            {/* <h1>Post List: </h1> */}
 
             <div id='all-posts'>
                 <FeedColumn column={postsForListOne} />

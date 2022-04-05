@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Post, User
 from app.api.utils import validation_errors_to_error_messages
+from sqlalchemy import desc
 
 posts_routes = Blueprint('posts', __name__)
 
@@ -9,7 +10,7 @@ posts_routes = Blueprint('posts', __name__)
 @posts_routes.route('/')
 def get_feed_posts():
     # FIX FIX FIX only get posts of users that session user follows
-    posts = Post.query.all()
+    posts = Post.query.order_by(desc(Post.createdAt)).all()
 
     posts = [post.to_dict() for post in posts]
 
