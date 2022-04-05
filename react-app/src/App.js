@@ -15,6 +15,7 @@ import EditPostForm from './components/EditPostForm';
 import CommentForm from './components/CommentForm';
 import EditCommentForm from './components/EditCommentForm';
 import HeaderFooterWrapper from './components/HeaderFooterWrapper';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -81,7 +82,7 @@ function App() {
 					</ProtectedRoute>
 
 					<Route>
-						Page Not Found
+						<PageNotFound />
 					</Route>
 
 				</Switch>
