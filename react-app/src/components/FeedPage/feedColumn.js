@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import * as postsActions from '../../store/posts';
-import './Feed.css';
+import './FeedPage.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +15,6 @@ function FeedColumn({ column }) {
                 return (
                     <div className='single-feed-post' key={post.id}>
                         <div className='post-image-div'>
-                            {/* <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} /> */}
                             <PostModal post={post} />
                             
                         </div>

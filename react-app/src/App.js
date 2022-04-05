@@ -6,7 +6,7 @@ import SignUpForm from './components/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import Feed from './components/Feed';
+import FeedPage from './components/FeedPage';
 import { authenticate } from './store/session';
 import ProfilePage from './components/ProfilePage/index.js';
 import Post from './components/Post';
@@ -35,7 +35,6 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			{/* <NavBar /> */}
 			<HeaderFooterWrapper>
 				<Switch>
 					<Route path='/login' exact={true}>
@@ -48,10 +47,9 @@ function App() {
 						<UsersList />
 					</ProtectedRoute>
 					<ProtectedRoute path='/' exact={true} >
-						<Feed />
+						<FeedPage />
 					</ProtectedRoute>
 					<ProtectedRoute path='/users/:userId(\d+)' exact={true} >
-						{/* COMBINE THE USER AND PROFILE PAGE COMPONENTS */}
 						{/* <User /> */}
 						<ProfilePage />
 					</ProtectedRoute>
