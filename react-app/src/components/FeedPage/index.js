@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as postsActions from '../../store/posts';
 import './FeedPage.css';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 import FeedColumn from './feedColumn';
 
 function FeedPage() {
