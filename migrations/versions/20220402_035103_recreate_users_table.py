@@ -25,7 +25,7 @@ def upgrade():
     sa.Column('handle', sa.String(length=50), nullable=False),
     sa.Column('email', sa.String(length=150), nullable=False),
     sa.Column('bio', sa.String(length=255), nullable=True),
-    sa.Column('profileImageUrl', sa.String(length=255), nullable=False, default='https://hologram--app.s3.amazonaws.com/default-profile-image.png'),
+    sa.Column('profileImageUrl', sa.String(length=255), nullable=False, default='/default-profile-image.png'),
     sa.Column('hashedPassword', sa.String(length=255), nullable=False),
     sa.Column('privateStatus', sa.Boolean(), nullable=False),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
