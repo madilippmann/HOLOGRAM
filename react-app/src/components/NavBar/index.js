@@ -25,11 +25,12 @@ const NavBar = () => {
 						</div>
 					</Link>
 
-					<div className="search-bar">
-						<SearchBar />
-					</div>
 				</div>
-
+				
+				
+				<div className="search-bar">
+					<SearchBar />
+				</div>
 
 
 				<div className="nav__right">
@@ -45,11 +46,8 @@ const NavBar = () => {
 							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
 						</Link>
 					</div>
+					
 					<div className="nav__stats">
-						<div>
-							<span>50</span>
-							<small>posts</small>
-						</div>
 						<div>
 							<span>2.5k</span>
 							<small>followers</small>
