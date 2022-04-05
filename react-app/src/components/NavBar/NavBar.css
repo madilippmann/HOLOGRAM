@@ -86,7 +86,9 @@ h1 {
 
 
 .nav__icon {
-	color: #777777;
+	/* color: #777777; */
+	/* color: rgb(189, 189, 248); */
+	color: #848484;
 	transition: color .15s linear;
 }
 

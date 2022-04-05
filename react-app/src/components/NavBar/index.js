@@ -21,7 +21,7 @@ const NavBar = () => {
 								alt="logo"
 								className="nav__logo"
 							/>
-							<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: '#F1F1F1' }}>gram</span></h1>
+							<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: 'rgb(215, 155, 134)' }}>gram</span></h1>
 						</div>
 					</Link>
 
