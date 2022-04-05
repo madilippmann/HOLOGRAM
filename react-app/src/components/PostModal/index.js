@@ -27,11 +27,10 @@ export default function PostModal({ postId }) {
     }, [dispatch]);
 
 
-    const deletePost = () => {
-        let res = dispatch(postsActions.deletePost(post.id))
-        console.log(res)
-        if (res !== 'invalid') {
-            return history.push('/posts')
+    const deletePost = async () => {
+        if (window.confirm('Are you sure you want to delete your post?')) {
+            await dispatch(postsActions.deletePost(post.id))
+            return history.push('/')
         }
     }
 
@@ -63,11 +62,13 @@ export default function PostModal({ postId }) {
                             <h4 className='post-user-handle'>{post.user.handle}</h4>
                             <span className='post-caption'>{post.caption}</span>
                         </div>
-                        <div className='post-buttons'>
-                            <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
-                            <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                        {sessionUser.id !== post.user.id ? null : (
+                            <div className='post-buttons'>
+                                <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                                <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()}></FontAwesomeIcon>
 
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 

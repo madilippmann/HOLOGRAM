@@ -37,17 +37,18 @@
 .post-details-container {
     width: 100%;
     display: flex;    
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 .post-details {
-    max-width: 220px;
+    /* max-width: 220px; */
     padding: 0 12px;
     overflow: hidden;
     word-wrap: break-word;
-    
 }
 .post-buttons {
+    padding: 4px;
+    cursor: pointer;
     display: flex;
     gap: 12px;
 }
