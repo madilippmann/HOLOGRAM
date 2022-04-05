@@ -25,11 +25,12 @@ const NavBar = () => {
 						</div>
 					</Link>
 
-					<div className="search-bar">
-						<SearchBar />
-					</div>
 				</div>
-
+				
+				
+				<div className="search-bar">
+					<SearchBar />
+				</div>
 
 
 				<div className="nav__right">
