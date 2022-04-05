@@ -16,7 +16,6 @@
 
 /* IMAGE PREVIEW ************************/
 #upload-and-preview-section {
-    
     position: relative;
     display: flex;
     flex-direction: column;
@@ -70,11 +69,19 @@
 
 
 /* CAPTION/UPLOAD SECTION */
+.upload__bottom {
+    height: 100%;
+ 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 #caption {
     width: 500px;
     padding: 10px;
     border-radius: 4px;
-    resize: vertical;
+    resize: none;
     
     outline: none;
 }
@@ -102,4 +109,12 @@
     justify-content: center;
     align-items: center;
 
+}
+
+
+
+/* MISC */
+.character-count {
+    position: relative;
+    top: -10px;
 }

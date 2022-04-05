@@ -12,11 +12,12 @@ export default function CreatePostPage() {
 	const [caption, setCaption] = useState('');
 	const [validationErrors, setValidationErrors] = useState([])
 	const [showErrors, setShowErrors] = useState(false);
-	const [uploadFile, setUploadFile] = useState()
+	const [uploadFile, setUploadFile] = useState('')
 
 	useEffect(() => {
 		const errors = [];
-		if (caption.length > 255) errors.push('Caption must be less than 255 characters')
+		if (caption.length > 255) errors.push('Caption must be less than 255 characters');
+		if (!uploadFile) errors.push('Please choose an image first before uploading.')
 		setValidationErrors(errors);
 	}, [caption])
 
@@ -76,20 +77,25 @@ export default function CreatePostPage() {
 							hidden
 						/>
 					</div>
-
 				</div>
 
 
-				<textarea
-					type='text'
-					id='caption'
-					rows={5}
-					placeholder='enter a caption...'
-					name='caption'
-					value={caption}
-					onChange={(e) => setCaption(e.target.value)}
-				></textarea>
-				<button type='submit' id='upload-button'>UPLOAD</button>
+				<div className='upload__bottom'>
+					<textarea
+						type='text'
+						id='caption'
+						className={validationErrors.includes('Caption must be less than 255 characters') ? 'red-outline' : ''}
+						rows={4}
+						placeholder='enter a caption...'
+						name='caption'
+						value={caption}
+						onChange={(e) => setCaption(e.target.value)}
+					></textarea>
+					<small className='character-count'
+						style={caption.length > 255 ? { color: 'red' } : {}}
+					>{caption.length}/255</small>
+					<button type='submit' id='upload-button'>UPLOAD</button>
+				</div>
 			</form>
 
 			{!showErrors ? null : (
