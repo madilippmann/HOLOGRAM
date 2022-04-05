@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     handle = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     bio = db.Column(db.String(255), nullable=True)
-    profileImageUrl= db.Column(db.String(255), nullable=True)
+    profileImageUrl= db.Column(db.String(255), nullable=False, default='https://hologram--app.s3.amazonaws.com/default-profile-image.png')
     hashedPassword = db.Column(db.String(255), nullable=False)
     privateStatus = db.Column(db.Boolean, nullable=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
