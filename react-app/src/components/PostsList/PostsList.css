@@ -28,14 +28,14 @@
 } */
 
 .post-image-div img {
-    border-radius: 10px;
+    border-radius: 20px;
     width: 100%;
 }
 
 .user-image {
     width: 30px;
     height: 30px;
-    border-radius: 20px;
+    border-radius: 100%;
 }
 
 .user-handle {

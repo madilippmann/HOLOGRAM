@@ -20,11 +20,7 @@ const NavBar = () => {
 							alt="logo"
 							className="nav__logo"
 						/>
-						<img src="/hologramLogoText.png"
-							alt="logo-text"
-							className="nav__logo-text"
-							style={{ width: '200px' }}
-						/>
+						<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: 'var(--color-apricot)' }}>gram</span></h1>
 					</div>
 
 					<div className="search-bar">

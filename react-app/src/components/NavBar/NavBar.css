@@ -21,7 +21,7 @@
 
 /* NAV LEFT */
 .nav__left {
-	width: 560px;
+	width: 500px;
 	
 	display: flex;
 	justify-content: space-between;
@@ -29,11 +29,19 @@
 }
 
 .logo-wrapper {
+	height: 100%;
 	display: flex;
 	align-items: center;
 }
 .nav__logo {
-	width: 60px;
+	width: 40px;
+}
+h1 {
+	margin: 0 12px;
+	text-shadow: 5px 5px rgba(0, 0, 0, 0.205);
+	letter-spacing: 2px;
+	font-weight: 200;
+	font-size: 24px;
 }
 
 
@@ -59,7 +67,7 @@
 
 
 .nav__stats {
-	width: 160px;
+	width: 180px;
 	
 	display: flex;
 	justify-content: space-around;
