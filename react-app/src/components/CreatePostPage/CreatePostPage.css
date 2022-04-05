@@ -118,3 +118,17 @@
     position: relative;
     top: -10px;
 }
+
+.error-container {
+    padding: 16px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-container > div::before {
+    content: '* ';
+    color: red;
+}

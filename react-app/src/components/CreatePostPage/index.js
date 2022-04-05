@@ -64,7 +64,10 @@ export default function CreatePostPage() {
 		<div id='post-upload'>
 			<form onSubmit={onSubmit} id='post-form'>
 				<div id='upload-and-preview-section'>
-					<div id='preview'>
+					<div 
+						id='preview'
+						style={validationErrors.includes('Please choose an image first before uploading.') && showErrors ? { border: '1.4px solid red' } : {}}
+					>
 						{uploadFile &&
 							<img src={URL.createObjectURL(uploadFile)} alt='image preview' id='image-preview' />
 						}
@@ -99,11 +102,11 @@ export default function CreatePostPage() {
 			</form>
 
 			{!showErrors ? null : (
-				<ul>
+				<div className='error-container'>
 					{validationErrors.map(err => (
-						<li key={err}>{err}</li>
+						<div key={err}>{err}</div>
 					))}
-				</ul>
+				</div>
 			)}
 		</div>
 
