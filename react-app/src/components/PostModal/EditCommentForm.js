@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import * as postsActions from '../store/posts'
+import * as postsActions from '../../store/posts'
 
 function EditCommentForm() {
     const dispatch = useDispatch();
