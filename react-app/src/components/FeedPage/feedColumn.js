@@ -7,7 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 import PostModalPopup from '../Modals/PostModalPopup';
 
+import defaultProfileImage from '../../static/default-profile-image.png'
+
 function FeedColumn({ column }) {
+
+    const [profileImage, setProfileImage] = useState()
     return (
         <div className='posts-list'>
             {column.map(post => {
@@ -21,7 +25,7 @@ function FeedColumn({ column }) {
                         <div className='post-info'>
                             <a href={`/users/${post.userId}/`}>
                                 <div className='user-image-and-handle'>
-                                    <img className='user-image' src={post.user.profileImageUrl} alt={post.user.id} />
+                                    <img className='user-image' src={post.user.profileImageUrl !== '/default-profile-image.png' ? post.user.profileImageUrl : defaultProfileImage} alt={post.user.id} />
                                     <p className='user-handle'>{post.user.handle}</p>
                                 </div>
                             </a>
