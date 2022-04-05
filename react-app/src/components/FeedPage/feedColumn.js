@@ -11,12 +11,12 @@ function FeedColumn({ column }) {
     return (
         <div className='posts-list'>
             {column.map(post => {
-                
+
                 return (
                     <div className='single-feed-post' key={post.id}>
                         <div className='post-image-div'>
                             <PostModalPopup post={post} />
-                            
+
                         </div>
                         <div className='post-info'>
                             <a href={`/users/${post.userId}/`}>
