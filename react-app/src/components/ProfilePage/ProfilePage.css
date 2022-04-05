@@ -69,3 +69,31 @@
     padding: 10px;
     font-size: 25px;
 }
+
+button.like-button {
+    color: blue;
+}
+
+/* .profile__post__icon.true, .profile__post__icon.comment {
+    color:rgb(229, 155, 128);
+    padding: 10px;
+    font-size: 25px;
+} */
+
+
+.like-button  .profile__post__icon.false:hover {
+    color:rgb(233, 178, 158);
+}
+
+.like-button .profile__post__icon.true {
+    color: rgb(122, 123, 255);
+}
+
+.like-button .profile__post__icon.true:hover  {
+    color: rgb(151, 151, 226);
+}
+
+.like-button {
+    background-color: transparent;
+    border: none;
+}

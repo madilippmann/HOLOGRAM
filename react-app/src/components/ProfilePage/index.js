@@ -44,6 +44,13 @@ function ProfilePage() {
         setIsFollowed(() => !isFollowed);
     }
 
+    const toggleLike = (postId) => {
+        // PURPOSE: this should have the store force a rerender of this component since the
+        // post will be updated after toggling the like, since we are
+        // subscribed to this specific post in the store
+        dispatch(postsActions.togglePostLike(postId));
+        // setIsLiked(() => !isLiked);
+    }
 
     return !isLoaded ? null : (
         <div>
@@ -53,6 +60,7 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => {
+
                     return (
                         <div
                             key={post.id}
@@ -62,11 +70,18 @@ function ProfilePage() {
                             <div className='overlay'>
                                 <div className='overlay__div'>
                                     <div className='centering-container like-container'>
-                                        <FontAwesomeIcon icon={faHeart} className={`profile__post__icon`} />
+                                        <button
+                                            type='button'
+                                            onClick={() => toggleLike(post.id)}
+                                            className={`like-button`}
+
+                                        >
+                                            <FontAwesomeIcon icon={faHeart} className={`profile__post__icon ${post.postLikes.includes(post.postLikes.find(like => like.user.id === sessionUser.id))}`} />
+                                        </button>
                                         <span>10</span>
                                     </div>
                                     <div className='centering-container comment-container'>
-                                        <FontAwesomeIcon icon={faCommentAlt} className='profile__post__icon' />
+                                        <FontAwesomeIcon icon={faCommentAlt} className={`profile__post__icon `} />
                                         <span>4</span>
                                     </div>
 
