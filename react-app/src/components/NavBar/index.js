@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,13 +15,15 @@ const NavBar = () => {
 		<div id="navbar">
 			<div className="navbar-container">
 				<div className="nav__left">
-					<div className="logo-wrapper">
-						<img src="/hologramLogo.png"
-							alt="logo"
-							className="nav__logo"
-						/>
-						<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: 'var(--color-apricot)' }}>gram</span></h1>
-					</div>
+					<Link to='/'>
+						<div className="logo-wrapper">
+							<img src="/hologramLogo.png"
+								alt="logo"
+								className="nav__logo"
+							/>
+							<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: 'rgb(215, 155, 134)' }}>gram</span></h1>
+						</div>
+					</Link>
 
 					<div className="search-bar">
 						<SearchBar />
@@ -32,9 +34,16 @@ const NavBar = () => {
 
 				<div className="nav__right">
 					<div className="nav__buttons">
-						<div><FontAwesomeIcon icon={faHouse}></FontAwesomeIcon></div>
-						<div><FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></div>
-						<div><FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></div>
+						<Link to='/'>
+							<FontAwesomeIcon icon={faHouse} className='nav__icon' />
+						</Link>
+						<Link to='/posts/new'>
+							<FontAwesomeIcon icon={faCirclePlus} className='nav__icon' />
+						</Link>
+						{/* TODO Change route to /messages */}
+						<Link to={`/`}>
+							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
+						</Link>
 					</div>
 					
 					<div className="nav__stats">
@@ -51,8 +60,8 @@ const NavBar = () => {
 							<small>following</small>
 						</div>
 					</div>
-					
-					<NavProfileButton user={user}/>
+
+					<NavProfileButton user={user} />
 				</div>
 			</div>
 		</div>
