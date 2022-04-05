@@ -1,0 +1,10 @@
+.profile-icon-border {
+    width: 100%;
+    height: 100%;
+    
+    border-radius: 100%;
+}
+
+.profile-icon {
+    width: 100%;
+}
