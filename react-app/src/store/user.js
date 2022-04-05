@@ -26,8 +26,9 @@ const removeFollow = (sessionId) => {
 }
 
 // THUNK ACTION CREATORS **********************************
-export const fetchUser = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/${userId}/`);
+export const fetchUser = (handle) => async (dispatch) => {
+  console.log(handle);
+  const res = await fetch(`/api/users/${handle}/`);
 
   if (res.ok) {
     const user = await res.json();

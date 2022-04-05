@@ -14,8 +14,7 @@ import PageNotFound from './components/PageNotFound';
 import ProfilePage from './components/ProfilePage/index.js';
 import SignUpPage from './components/SignUpPage';
 import SearchPage from './components/SearchPage';
-import UsersList from './components/UsersList';
-import User from './components/User';
+
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -44,16 +43,8 @@ function App() {
 						<SignUpPage />
 					</Route>
 
-					<ProtectedRoute path='/users' exact={true} >
-						<UsersList />
-					</ProtectedRoute>
-
 					<ProtectedRoute path='/' exact={true} >
 						<FeedPage />
-					</ProtectedRoute>
-
-					<ProtectedRoute path='/users/:userId(\d+)' exact={true} >
-						<ProfilePage />
 					</ProtectedRoute>
 
 					{/* FOR TESTING THE POST FORM PAGE */}
@@ -77,6 +68,10 @@ function App() {
 					
 					<ProtectedRoute exact path="/search/:query">
 						<SearchPage />
+					</ProtectedRoute>
+
+					<ProtectedRoute path='/:handle' exact={true} >
+						<ProfilePage />
 					</ProtectedRoute>
 
 					<Route>

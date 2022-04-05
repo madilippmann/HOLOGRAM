@@ -8,7 +8,7 @@ import * as sessionActions from '../../store/session'
 
 
 function ProfilePage() {
-    const { userId } = useParams();
+    const { handle } = useParams();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
@@ -20,18 +20,19 @@ function ProfilePage() {
 
     useEffect(() => {
         (async () => {
-            await dispatch(postsActions.fetchPosts('profile', userId));
-            await dispatch(userActions.fetchUser(userId));
+            const user = await dispatch(userActions.fetchUser(handle));
+            console.log(user);
+            await dispatch(postsActions.fetchPosts('profile', user.id));
             setIsLoaded(() => !isLoaded);
         })()
-    }, [dispatch, userId]);
+    }, [dispatch]);
 
     if (!user) {
         return null;
     }
 
     const toggleFollow = (e) => {
-        dispatch(userActions.toggleUserFollow(+userId));
+        dispatch(userActions.toggleUserFollow(user.id));
         dispatch(sessionActions.fetchUser(sessionUser.id));
         setIsFollowed(() => !isFollowed);
     }
@@ -41,7 +42,7 @@ function ProfilePage() {
         <>
             <ul>
                 <li>
-                    <strong>User Id</strong> {userId}
+                    <strong>User Id</strong> {user.id}
                 </li>
                 <li>
                     <strong>Handle</strong> {user.handle}
