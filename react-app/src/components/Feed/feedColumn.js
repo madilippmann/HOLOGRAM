@@ -6,15 +6,19 @@ import './Feed.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
+import PostModal from '../Modals/PostModal';
 
 function FeedColumn({ column }) {
     return (
         <div className='posts-list'>
             {column.map(post => {
+                
                 return (
                     <div className='single-feed-post' key={post.id}>
                         <div className='post-image-div'>
-                            <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
+                            {/* <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} /> */}
+                            <PostModal post={post} />
+                            
                         </div>
                         <div className='post-info'>
                             <a href={`/users/${post.userId}/`}>

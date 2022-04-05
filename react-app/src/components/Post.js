@@ -4,19 +4,18 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 
 import * as postsActions from '../store/posts'
 
-function Post() {
-    const { postId } = useParams();
+function Post({ postId }) {
+    // const { postId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     let post = useSelector(state => state.posts[postId]);
     let sessionUser = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
-    // ^ this acts as a simpler version of useState for isLiked
 
     useEffect(() => {
         (async () => {
-            await dispatch(postsActions.fetchPost(postId));
+            // await dispatch(postsActions.fetchPost(postId));
             await dispatch(postsActions.fetchComments(postId));
             await dispatch(postsActions.fetchPostLikes(postId));
             setIsLoaded(() => !isLoaded);
@@ -24,7 +23,7 @@ function Post() {
     }, [dispatch]);
 
 
-    const deletePost = (postId) => {
+    const deletePost = () => {
         let res = dispatch(postsActions.deletePost(post.id))
         console.log(res)
         if (res !== 'invalid') {
@@ -57,7 +56,7 @@ function Post() {
             {post.userId === sessionUser.id &&
                 <button
                     type='button'
-                    onClick={() => deletePost(post.id)}
+                    onClick={() => deletePost()}
                 >
                     Delete Post
                 </button>

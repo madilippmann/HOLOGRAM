@@ -9,14 +9,17 @@
 #modal_background {
   position: fixed;
   top: 0; right: 0; left: 0; bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.598);
 }
 
 #modal_content {
-  min-width: 500px;
-  background-color: #070707;
+  height: 800px;
+  width: 1000px;
   padding: 16px;
-  border: 1px solid #535353;
+  color: white;
+  
+  border: 1px solid var(--color-light-gray);
+  background-color: rgb(0, 0, 0);
 
   position: relative;
 }
