@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as postsActions from '../../store/posts';
-import './Feed.css';
+import './FeedPage.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 import FeedColumn from './feedColumn';
 
-function Feed() {
+function FeedPage() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
     let posts = useSelector(state => state.posts);
-    console.log('PostsList ~ posts', Object.values(posts));
 
     const postsForListOne = [], postsForListTwo = [], postsForListThree = [];
     let counter = 0;
@@ -60,4 +59,4 @@ function Feed() {
     );
 }
 
-export default Feed;
+export default FeedPage;

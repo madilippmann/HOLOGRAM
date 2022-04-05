@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 
-import * as postsActions from '../store/posts'
+import * as postsActions from '../../store/posts'
+import CommentCard from '../CommentCard';
 
-function Post({ postId }) {
-    // const { postId } = useParams();
+export default function PostModal({ postId }) {
     const dispatch = useDispatch();
     const history = useHistory();
     let post = useSelector(state => state.posts[postId]);
@@ -15,7 +15,6 @@ function Post({ postId }) {
 
     useEffect(() => {
         (async () => {
-            // await dispatch(postsActions.fetchPost(postId));
             await dispatch(postsActions.fetchComments(postId));
             await dispatch(postsActions.fetchPostLikes(postId));
             setIsLoaded(() => !isLoaded);
@@ -29,10 +28,6 @@ function Post({ postId }) {
         if (res !== 'invalid') {
             return history.push('/posts')
         }
-    }
-
-    const deleteComment = (commentId) => {
-        dispatch(postsActions.deleteComment(commentId, post.id))
     }
 
     const toggleLike = (e) => {
@@ -74,21 +69,7 @@ function Post({ postId }) {
                 {post.comments.allComments.map(comment => {
                     return (
                         <li key={comment.id}>
-                            <div>
-                                {comment.user.handle} - {comment.content}
-                                {comment.user.id === sessionUser.id &&
-
-                                    <>
-                                        <Link to={`/posts/${post.id}/comments/${comment.id}/edit`}>Edit</Link>
-                                        <button
-                                            type='button'
-                                            onClick={() => deleteComment(comment.id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </>
-                                }
-                            </div>
+                            <CommentCard post={post} comment={comment} />
                         </li>
                     )
                 })}
@@ -96,9 +77,3 @@ function Post({ postId }) {
         </>
     );
 }
-
-
-
-
-
-export default Post;
