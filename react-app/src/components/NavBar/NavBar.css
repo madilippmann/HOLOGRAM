@@ -4,8 +4,9 @@
 
 	background-color: var(--color-light-apricot);
 	background-color: rgb(253, 241, 236);
+	background-color: rgb(253, 223, 211);
 	border-bottom: 1px solid var(--color-light-gray);
-	border-bottom: 1px solid rgb(252, 234, 228);
+	border-bottom: 1px solid rgb(255, 242, 237);
 
 	position: fixed;
 	top: 0;

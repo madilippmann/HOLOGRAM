@@ -8,6 +8,9 @@ footer {
   display: flex;
   flex-flow: row nowrap;
   background-color: var(--color-footer-background);
+  background-color: #e5e5e5;
+	background-color: rgb(255, 242, 239);
+
 }
 
 #information-button {
@@ -42,4 +45,5 @@ footer {
 #languages ul li {
   list-style-type: none;
   font-size: 16px;
+  color: rgb(214, 153, 130);
 }

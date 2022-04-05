@@ -8,11 +8,12 @@
     /* Variable Demo:
         background-color: var(--color-background);
     */
-    --color-white: #fefefe;
+    /* #fefefe */
+    --color-white: rgb(252, 248, 247);
     --color-light-gray: rgb(235, 235, 235);
     --color-dark-gray: rgb(90, 90, 90);
     --color-black: rgb(0, 0, 0);
-    
+
     --color-purple: rgb(122, 123, 255);
     --color-light-apricot: rgb(255, 243, 239);
     --color-apricot: rgb(255, 201, 181);
@@ -23,7 +24,7 @@ body {
     max-width: 1280px;
     min-height: 1200px;
     margin: 72px auto 60px;
-    
+
     font-family: 'Barlow', sans-serif;
     /* TODO Change later or as needed */
     background-color: var(--color-white);
