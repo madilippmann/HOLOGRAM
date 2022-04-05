@@ -7,6 +7,8 @@ import { faHouse, faCirclePlus, faEnvelope } from '@fortawesome/free-solid-svg-i
 import './NavBar.css';
 import NavProfileButton from "../NavProfileButton";
 
+import logo from '../../static/hologram-logo.png'
+
 const NavBar = () => {
 	const user = useSelector(state => state.session.user);
 
@@ -17,7 +19,7 @@ const NavBar = () => {
 				<div className="nav__left">
 					<Link to='/'>
 						<div className="logo-wrapper">
-							<img src="/hologramLogo.png"
+							<img src={logo}
 								alt="logo"
 								className="nav__logo"
 							/>
@@ -26,8 +28,8 @@ const NavBar = () => {
 					</Link>
 
 				</div>
-				
-				
+
+
 				<div className="search-bar">
 					<SearchBar />
 				</div>
@@ -46,7 +48,7 @@ const NavBar = () => {
 							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
 						</Link>
 					</div>
-					
+
 					<div className="nav__stats">
 						<div>
 							<span>2.5k</span>
