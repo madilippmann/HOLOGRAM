@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as postsActions from '../../store/posts';
 import './Feed.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
+
 function Feed() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
@@ -64,18 +67,18 @@ function Feed() {
                         return (
                             <div className='single-feed-post' key={post.id}>
                                 <div className='post-image-div'>
-                                    <img className='post-image' src={post.postImageUrl} alt='there should be something here, bruh' />
+                                    <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
                                 </div>
                                 <div className='post-info'>
                                     <a href={`/users/${post.userId}/`}>
                                         <div className='user-image-and-handle'>
-                                            <img className='user-image' src={post.user.profileImageUrl} alt={post.user.id} />
+                                            <img className='user-image' src='https://hologram--app.s3.amazonaws.com/default-profile-image.png' alt={post.user.id} />
                                             <p className='user-handle'>{post.user.handle}</p>
                                         </div>
                                     </a>
                                     <div className='post-like-and-comment-count'>
-                                        <p>&#x2665; {post.postLikes.length}</p>
-                                        <p>Comments: 2</p>
+                                        <p><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
+                                        <p><FontAwesomeIcon icon={faCommentAlt} className={`feed__post__icon`} />: 2</p>
                                     </div>
                                 </div>
                             </div>
@@ -87,18 +90,18 @@ function Feed() {
                         return (
                             <div className='single-feed-post' key={post.id}>
                                 <div className='post-image-div'>
-                                    <img className='post-image' src={post.postImageUrl} alt='there should be something here, bruh' />
+                                    <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
                                 </div>
                                 <div className='post-info'>
                                     <a href={`/users/${post.userId}/`}>
-                                        <div className='user-image-and-handle'>
+                                        <div className='≈'>
                                             <img className='user-image' src={post.user.profileImageUrl} alt={post.user.id} />
                                             <p className='user-handle'>{post.user.handle}</p>
                                         </div>
                                     </a>
                                     <div className='post-like-and-comment-count'>
-                                        <p>&#x2665; {post.postLikes.length}</p>
-                                        <p>Comments: 2</p>
+                                        <p><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
+                                        <p><FontAwesomeIcon icon={faCommentAlt} className={`feed__post__icon`} />: 2</p>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +113,7 @@ function Feed() {
                         return (
                             <div className='single-feed-post' key={post.id}>
                                 <div className='post-image-div'>
-                                    <img className='post-image' src={post.postImageUrl} alt='there should be something here, bruh' />
+                                    <img className='post-image' src={post.postImageUrl} alt={`${post.user.handle}'s avatar`} />
                                 </div>
                                 <div className='post-info'>
                                     <a href={`/users/${post.userId}/`}>
@@ -120,8 +123,8 @@ function Feed() {
                                         </div>
                                     </a>
                                     <div className='post-like-and-comment-count'>
-                                        <p>&#x2665; {post.postLikes.length}</p>
-                                        <p>Comments: 2</p>
+                                        <p><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
+                                        <p><FontAwesomeIcon icon={faCommentAlt} className='feed__post__icon' />: 2</p>
                                     </div>
                                 </div>
                             </div>

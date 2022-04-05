@@ -41,11 +41,15 @@
 .user-handle {
     text-decoration: none;
     color: white;
+    color: rgb(226, 159, 135);
+    color: #818080;
     padding: 5px 20px;
 }
 
 .post-info {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .user-image-and-handle {
@@ -64,4 +68,9 @@ img {
 
 .post-like-and-comment-count {
     display: flex;
+}
+
+
+.feed__post__icon {
+    color: var(--color-apricot);
 }
