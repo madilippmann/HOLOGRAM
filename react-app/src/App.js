@@ -6,7 +6,7 @@ import SignUpForm from './components/auth/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import PostsList from './components/PostsList';
+import Feed from './components/Feed';
 import { authenticate } from './store/session';
 import ProfilePage from './components/ProfilePage';
 import Post from './components/Post';
@@ -45,16 +45,16 @@ function App() {
 					<ProtectedRoute path='/users' exact={true} >
 						<UsersList />
 					</ProtectedRoute>
-					<ProtectedRoute path='/posts' exact={true} >
-						<PostsList />
+					<ProtectedRoute path='/' exact={true} >
+						<Feed />
 					</ProtectedRoute>
 					<ProtectedRoute path='/users/:userId(\d+)' exact={true} >
 						<User />
 						{/* <ProfilePage /> */}
 					</ProtectedRoute>
-					<ProtectedRoute path='/' exact={true} >
+					{/* <ProtectedRoute path='/' exact={true} >
 						<h1>My Home Page</h1>
-					</ProtectedRoute>
+					</ProtectedRoute> */}
 
 					{/* FOR TESTING THE POST FORM PAGE */}
 					<ProtectedRoute exact path="/posts/new">
