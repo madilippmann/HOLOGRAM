@@ -5,6 +5,8 @@ import * as postsActions from '../../store/posts'
 import CommentCard from '../CommentCard';
 import ProfileIcon from '../ProfileIcon';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import './PostModal.css'
 
 
@@ -52,19 +54,40 @@ export default function PostModal({ postId }) {
 
             <div className='post-modal__right'>
                 <div className='post-header'>
-                    <div style={{ width: '60px' }}>
+                    <div className='post-icon' style={{ minWidth: '50px', width: '50px' }}>
                         <ProfileIcon user={post.user} />
+                    </div>
+
+                    <div className='post-details-container'>
+                        <div className='post-details'>
+                            <h4 className='post-user-handle'>{post.user.handle}</h4>
+                            <span className='post-caption'>{post.caption}</span>
+                        </div>
+                        <div className='post-buttons'>
+                            <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div className='comment-section'>
+                    <div>
+                        {post.comments.allComments.map(comment => {
+                            return (
+                                <div key={comment.id}>
+                                    <CommentCard post={post} comment={comment} />
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </div>
 
 
 
-            {/*         
-            <p>{post.user.handle}</p>
-            <p>{post.caption}</p>
 
-            {post.userId === sessionUser.id &&
+            {/* {post.userId === sessionUser.id &&
                 <button
                     type='button'
                     onClick={() => deletePost()}
@@ -77,19 +100,9 @@ export default function PostModal({ postId }) {
             {isLiked
                 ? <button onClick={toggleLike}>unlike</button>
                 : <button onClick={toggleLike}>like</button>
-            }
+            } */}
 
 
-            <h2>COMMENTS</h2>
-            <ul>
-                {post.comments.allComments.map(comment => {
-                    return (
-                        <li key={comment.id}>
-                            <CommentCard post={post} comment={comment} />
-                        </li>
-                    )
-                })}
-            </ul> */}
         </div>
     );
 }

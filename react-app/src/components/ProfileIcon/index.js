@@ -1,6 +1,7 @@
 import React from 'react'
 
 import defaultProfileImage from '../../static/default-profile-image.png'
+
 import './ProfileIcon.css'
 
 export default function ProfileIcon({ user }) {

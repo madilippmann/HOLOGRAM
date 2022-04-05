@@ -7,4 +7,5 @@
 
 .profile-icon {
     width: 100%;
+    object-fit: cover;
 }
