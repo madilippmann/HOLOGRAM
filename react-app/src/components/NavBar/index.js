@@ -18,7 +18,7 @@ const NavBar = () => {
 				<div className="nav__left">
 					<Link to='/'>
 						<div className="logo-wrapper">
-							<img src='/hologramLogo.png'
+							<img src='/hologram-logo.png'
 								alt="logo"
 								className="nav__logo"
 							/>
