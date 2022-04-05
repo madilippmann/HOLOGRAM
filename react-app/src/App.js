@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import LoginForm from './components/LoginForm';
-import SignUpForm from './components/SignUpForm';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import FeedPage from './components/FeedPage';
 import { authenticate } from './store/session';
-import ProfilePage from './components/ProfilePage/index.js';
-import Post from './components/Post';
+import CommentForm from './components/CommentForm';
 import CreatePostPage from './components/CreatePostPage';
 import EditPostForm from './components/EditPostForm';
-import CommentForm from './components/CommentForm';
 import EditCommentForm from './components/EditCommentForm';
+import FeedPage from './components/FeedPage';
 import HeaderFooterWrapper from './components/HeaderFooterWrapper';
+import LoginPage from './components/LoginPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import PageNotFound from './components/PageNotFound';
+import ProfilePage from './components/ProfilePage/index.js';
+import Post from './components/Post';
+import SignUpPage from './components/SignUpPage';
 import SearchPage from './components/SearchPage';
+import UsersList from './components/UsersList';
+import User from './components/User';
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -38,24 +38,24 @@ function App() {
 			<HeaderFooterWrapper>
 				<Switch>
 					<Route path='/login' exact={true}>
-						<LoginForm />
+						<LoginPage />
 					</Route>
+
 					<Route path='/sign-up' exact={true}>
-						<SignUpForm />
+						<SignUpPage />
 					</Route>
+
 					<ProtectedRoute path='/users' exact={true} >
 						<UsersList />
 					</ProtectedRoute>
+
 					<ProtectedRoute path='/' exact={true} >
 						<FeedPage />
 					</ProtectedRoute>
+
 					<ProtectedRoute path='/users/:userId(\d+)' exact={true} >
-						{/* <User /> */}
 						<ProfilePage />
 					</ProtectedRoute>
-					{/* <ProtectedRoute path='/' exact={true} >
-						<h1>My Home Page</h1>
-					</ProtectedRoute> */}
 
 					{/* FOR TESTING THE POST FORM PAGE */}
 					<ProtectedRoute exact path="/posts/new">

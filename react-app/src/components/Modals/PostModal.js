@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Modal from '.';
-import LoginForm from '../LoginForm';
+import LoginForm from '../LoginPage';
 import Post from '../Post';
 
 
