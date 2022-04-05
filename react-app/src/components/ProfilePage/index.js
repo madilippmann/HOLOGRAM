@@ -46,7 +46,7 @@ function ProfilePage() {
                 user profile
             </div>
 
-            <div className='profile-page user-posts' >
+            <div className='post-image-div profile-page user-posts' >
                 {posts.allPosts.map(post => {
                     return (
                         <div key={post.id} className='post-div'>
