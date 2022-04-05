@@ -16,6 +16,7 @@ import CommentForm from './components/CommentForm';
 import EditCommentForm from './components/EditCommentForm';
 import HeaderFooterWrapper from './components/HeaderFooterWrapper';
 import PageNotFound from './components/PageNotFound';
+import SearchPage from './components/SearchPage';
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -79,6 +80,10 @@ function App() {
 
 					<ProtectedRoute exact path="/posts/:postId(\d+)/comments/:commentId(\d+)/edit">
 						<EditCommentForm />
+					</ProtectedRoute>
+					
+					<ProtectedRoute exact path="/search/:query">
+						<SearchPage />
 					</ProtectedRoute>
 
 					<Route>
