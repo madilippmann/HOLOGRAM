@@ -8,7 +8,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import Feed from './components/Feed';
 import { authenticate } from './store/session';
-import ProfilePage from './components/ProfilePage';
+import ProfilePage from './components/ProfilePage/index.js';
 import Post from './components/Post';
 import PostForm from './components/PostForm';
 import EditPostForm from './components/EditPostForm';
@@ -51,8 +51,9 @@ function App() {
 						<Feed />
 					</ProtectedRoute>
 					<ProtectedRoute path='/users/:userId(\d+)' exact={true} >
-						<User />
-						{/* <ProfilePage /> */}
+						{/* COMBINE THE USER AND PROFILE PAGE COMPONENTS */}
+						{/* <User /> */}
+						<ProfilePage />
 					</ProtectedRoute>
 					{/* <ProtectedRoute path='/' exact={true} >
 						<h1>My Home Page</h1>
