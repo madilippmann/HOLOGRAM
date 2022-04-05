@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './NavProfileButton.css'
 
+import defaultProfileImage from '../../static/default-profile-image.png'
+
 export default function NavProfileButton({ user }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -30,7 +32,7 @@ export default function NavProfileButton({ user }) {
 
 		return () => {
 			setShowMenu(false);
-			document.removeEventListener("click", closeMenu);	
+			document.removeEventListener("click", closeMenu);
 		}
 	}, [showMenu]);
 
@@ -46,7 +48,7 @@ export default function NavProfileButton({ user }) {
 	return (
 		<div className="nav-profile-button" onClick={openMenu}>
 			<img
-				src={user.profileImageUrl}
+				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
 				alt="profile-picture"
 			/>
 
