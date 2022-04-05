@@ -12,18 +12,26 @@
     flex-wrap: wrap;
 
     justify-content: space-between;
-    /* row-gap: 20px; */
+    row-gap: 20px;
     /* gap: 20px; */
 
 }
 
 .post-div {
     width: 32%;
-    aspect-ratio: 1 / 1;
     /* height: 100%; */
+    transition: opacity .15s linear;
 }
 
 
 .post-image-div .post-div img {
     border-radius: 0px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+
+.post-div:hover {
+    opacity: 40%;
 }

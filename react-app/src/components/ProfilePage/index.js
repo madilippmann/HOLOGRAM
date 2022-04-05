@@ -19,6 +19,7 @@ function ProfilePage() {
 
 
     let posts = useSelector(state => state.posts);
+    const orderedPosts = [...posts.allPosts].reverse()
 
     useEffect(() => {
         (async () => {
@@ -47,7 +48,7 @@ function ProfilePage() {
             </div>
 
             <div className='post-image-div profile-page user-posts' >
-                {posts.allPosts.map(post => {
+                {orderedPosts.map(post => {
                     return (
                         <div key={post.id} className='post-div'>
                             <PostModalPopup post={post} />
