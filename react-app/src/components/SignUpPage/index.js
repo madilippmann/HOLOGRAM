@@ -23,6 +23,7 @@ export default function SignUpPage() {
     document.body.style.display = "flex"
     document.body.style.justifyContent = "center"
     document.body.style.alignItems = "center"
+    document.body.style.width = "100%"
     // return () => {
     //   document.body.style.backgroundColor = "rgb(252, 248, 247)";
     //   document.body.style.minHeight = "1200px"
@@ -73,65 +74,88 @@ export default function SignUpPage() {
   return (
     <div className='signup-login-container'>
 
-      <form onSubmit={onSignUp}>
+      <form
+        className='signup-login-form'
+        onSubmit={onSignUp}
+      >
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div>
-          <label>First Name</label>
+        <div className='signup-login-input-container'>
+          {/* <label>First Name</label> */}
           <input
             type='text'
             name='firstName'
             onChange={updateFirstName}
             value={firstName}
+            className='signup-login-input'
+            placeholder='first name'
+          // autoComplete='new-password'
           ></input>
         </div>
-        <div>
-          <label>Last Name</label>
+        <div className='signup-login-input-container'>
+          {/* <label>Last Name</label> */}
           <input
             type='text'
             name='handle'
             onChange={updateLastName}
             value={lastName}
+            className='signup-login-input'
+            placeholder='last name'
+            autoComplete='new-password'
           ></input>
         </div>
-        <div>
-          <label>User Handle</label>
+        <div className='signup-login-input-container'>
+          {/* <label>User Handle</label> */}
           <input
             type='text'
             name='handle'
             onChange={updateHandle}
             value={handle}
+            className='signup-login-input'
+            placeholder='handle'
+            autoComplete='new-password'
           ></input>
         </div>
-        <div>
-          <label>Email</label>
+        <div className='signup-login-input-container'>
+          {/* <label>Email</label> */}
           <input
             type='text'
             name='email'
             onChange={updateEmail}
             value={email}
+            className='signup-login-input'
+            placeholder='email'
+            autoComplete='new-password'
           ></input>
         </div>
-        <div>
-          <label>Password</label>
+
+        <div className='signup-login-input-container'>
+          {/* <label>Password</label> */}
           <input
             type='password'
             name='password'
             onChange={updatePassword}
             value={password}
+            className='signup-login-input'
+            placeholder='password'
+          // autoComplete='new-password'
           ></input>
         </div>
-        <div>
-          <label>Repeat Password</label>
+
+        <div className='signup-login-input-container'>
+          {/* <label>Repeat Password</label> */}
           <input
             type='password'
             name='repeat_password'
             onChange={updateRepeatPassword}
             value={repeatPassword}
             required={true}
+            className='signup-login-input'
+            placeholder='confirm password'
+          // autoComplete='new-password'
           ></input>
         </div>
         <button type='submit'>Sign Up</button>
