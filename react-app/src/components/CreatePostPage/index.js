@@ -27,20 +27,20 @@ export default function CreatePostPage() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (validationErrors.length) return setShowErrors(true);
-		
+
 		dispatch(showLoading());
 		const url = await s3upload(uploadFile)
-		
+
 		const post = {
 			caption,
 			postImageUrl: url
 		}
-		
+
 		dispatch(postsActions.createPost(post))
 			.then(async post => {
-					dispatch(hideLoading());
-					window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-					return history.push(`/`);
+				dispatch(hideLoading());
+				window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+				return history.push(`/`);
 			})
 			.catch(async (res) => {
 				console.log(res);
@@ -62,7 +62,7 @@ export default function CreatePostPage() {
 
 		return res.data
 	}
-	
+
 	const cancelUpload = (e) => {
 		if (window.confirm('Are you sure you want to cancel your upload?')) {
 			history.push('/');
@@ -75,7 +75,7 @@ export default function CreatePostPage() {
 			<form onSubmit={onSubmit} id='post-form'>
 				<LoadingBar style={{ backgroundColor: 'var(--color-apricot)', height: '12px', maxWidth: '500px', position: 'absolute', top: '0', left: '0', right: '0', margin: '0 auto' }} updateTime={100} progressIncrease={5} maxProgress={95} />
 				<div id='upload-and-preview-section'>
-					<div 
+					<div
 						id='preview'
 						style={validationErrors.includes('Please choose an image first before uploading.') && showErrors ? { border: '1.4px solid red' } : {}}
 					>
@@ -111,11 +111,13 @@ export default function CreatePostPage() {
 					<small className='character-count'
 						style={caption.length > 255 ? { color: 'red' } : {}}
 					>{caption.length}/255</small>
-					<button type='submit' id='upload-button'>UPLOAD</button>
-					<button type='button' 
-						id='cancel-button'
-						onClick={cancelUpload}
-					>CANCEL</button>
+					<div className='upload-button-container'>
+						<button type='submit' id='upload-button'>UPLOAD</button>
+						<button type='button'
+							id='cancel-button'
+							onClick={cancelUpload}
+						>CANCEL</button>
+					</div>
 				</div>
 			</form>
 

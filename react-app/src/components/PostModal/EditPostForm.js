@@ -51,7 +51,6 @@ function EditPostForm({ post, editCaption, toggleEditCaption }) {
     return edit ? (
         <div>
             <form method='POST' action="/posts" onSubmit={onSubmit}>
-                {/* <label htmlFor='caption'>Caption</label> */}
                 <textarea
                     id='caption-input'
                     name='caption'
