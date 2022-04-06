@@ -14,7 +14,6 @@ export default function PostCard({ post }) {
     const sessionUser = useSelector(state => state.session.user);
     const [isLiked, setIsLiked] = useState(post.postLikes.find(like => like.userId === sessionUser.id) ? true : false);
     const [likeCount, setLikeCount] = useState(post.postLikes.length);
-    const [commentCount, setCommentCount] = useState(post.postLikes.length);
     
     const toggleLike = (e) => {
         dispatch(postsActions.togglePostLike(post.id));
@@ -53,7 +52,7 @@ export default function PostCard({ post }) {
                             ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likeCount}</span>
                         )
                     }
-                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{post.postLikes.length}</span>
+                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />PH</span>
                 </div>
             </div>
         </div>
