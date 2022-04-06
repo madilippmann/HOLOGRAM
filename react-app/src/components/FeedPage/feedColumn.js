@@ -12,6 +12,7 @@ import PostModalPopup from '../Modals/PostModalPopup';
 import defaultProfileImage from '../../static/default-profile-image.png'
 
 function FeedColumn({ column }) {
+    const sessionUser = useSelector(state => state.session.user);
 
     return (
         <div className='posts-list'>
@@ -22,8 +23,8 @@ function FeedColumn({ column }) {
                         <div className='post-image-div'>
                             <PostModalPopup post={post} />
                         </div>
-                        
-                        
+
+
                         <div className='post-info'>
                             <Link to={`/${post.user.handle}/`}>
                                 <div className='user-image-and-handle'>
@@ -31,8 +32,16 @@ function FeedColumn({ column }) {
                                     <p className='user-handle'>{post.user.handle}</p>
                                 </div>
                             </Link>
+
                             <div className='post-like-and-comment-count'>
-                                <span><FontAwesomeIcon icon={emptyHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                                {post.postLikes.find(like => like.userId === sessionUser.id)
+                                    ? (
+                                        <span><FontAwesomeIcon icon={fullHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                                    )
+                                    : (
+                                        <span><FontAwesomeIcon icon={emptyHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                                    )
+                                }
                                 <span><FontAwesomeIcon icon={emptyComment} className={`feed__post__icon`} />{post.postLikes.length}</span>
                             </div>
                         </div>
