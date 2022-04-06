@@ -20,7 +20,7 @@ export default function PostCard({ post }) {
 
             <div className='post-info'>
                 <div className='user-image-and-handle'>
-                    <div style={{ width: '42px', height: '42px' }}>
+                    <div style={{ width: '40px', height: '40px' }}>
                         <ProfileIcon user={post.user} />
                     </div>
                     <span className='user-handle'>{post.user.handle}</span>

@@ -43,6 +43,8 @@
     font-size: 20px;
     padding: 0 6px;
     
+    cursor: pointer;
+    
     position: relative;
     top: -1px;
     transform: scale(1.1);
@@ -51,6 +53,7 @@
     color: var(--color-apricot);
     font-size: 20px;
     padding: 0 6px;
+    cursor: pointer;
 }
 
 .post-like, .post-comment {

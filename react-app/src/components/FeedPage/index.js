@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as postsActions from '../../store/posts';
 import './FeedPage.css';
 
-import FeedColumn from './feedColumn';
+import FeedColumn from './FeedColumn';
 
 function FeedPage() {
     const dispatch = useDispatch();
