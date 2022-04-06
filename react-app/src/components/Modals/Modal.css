@@ -27,3 +27,15 @@
 
 	position: relative;
 }
+
+#post-image {
+	cursor: pointer;
+	box-shadow: none;
+	transition: box-shadow .15s ease-in-out, transform .2s ease-in-out;
+
+}
+
+#post-image:hover {
+	transform: scale(1.005);
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

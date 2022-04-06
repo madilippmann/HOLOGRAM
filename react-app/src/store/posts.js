@@ -418,27 +418,31 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
         case REMOVE_LIKE: {
             // this takes care of deleting from the "allLikes" array...
-            // console.log('State: ', state[action.postId].postLikes)
+            // console.log('State: ', state[action.postId])
             // console.log('Likes: ', state[action.postId].likes)
             // console.log('All Likes: ', state[action.postId].likes.allLikes)
-            let allLikes = state[action.postId].likes.allLikes;
-            allLikes.splice(allLikes.indexOf(allLikes.find(like => like.id === action.likeId)), 1);
+            if (state[action.postId].likes) {
+                let allLikes = state[action.postId].likes.allLikes
+                allLikes.splice(allLikes.indexOf(allLikes.find(like => like.id === action.likeId)), 1);
 
-            newState = {
-                ...state,
-                [action.postId]: {
-                    ...state[action.postId],
-                    likes: {
-                        ...state[action.postId].likes,
-                        allLikes
+                newState = {
+                    ...state,
+                    [action.postId]: {
+                        ...state[action.postId],
+                        likes: {
+                            ...state[action.postId].likes,
+                            allLikes
+                        }
                     }
                 }
+                delete newState[action.postId].likes[action.likeId];
+                return newState;
+            } else {
+                return { ...state }
             }
 
             // and this takes care of deleting from the normalized "likes" object
-            delete newState[action.postId].likes[action.likeId];
 
-            return newState;
         }
 
         default: {
