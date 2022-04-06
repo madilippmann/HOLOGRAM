@@ -63,10 +63,12 @@ function ProfilePage() {
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
                         <h3 style={{ display: 'inline' }}>{user.handle}</h3>
-                        <button className='remove-button-styling' type='button'>Follow</button>
-                        <button className='remove-button-styling' type='button'>
+                        {user.id !== sessionUser.id &&
+                            <button className='remove-button-styling' type='button'>Follow</button>
+                        }
+                        {/* <button className='remove-button-styling' type='button'>
                             <FontAwesomeIcon icon={faEllipsis} />
-                        </button>
+                        </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
                         <p>{posts.allPosts.length} posts</p>
