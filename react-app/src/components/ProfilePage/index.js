@@ -10,7 +10,9 @@ import './ProfilePage.css'
 
 import defaultProfileImage from '../../static/default-profile-image.png'
 
+
 import ProfilePostCard from '../PostCard/ProfilePostCard';
+
 
 
 function ProfilePage() {
@@ -19,7 +21,10 @@ function ProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
+
+    const [isFollowed, setIsFollowed] = useState();
+    const postImageRef = useRef();
+
 
     let posts = useSelector(state => state.posts);
     const orderedPosts = [...posts?.allPosts].reverse()
@@ -29,6 +34,9 @@ function ProfilePage() {
             const user = await dispatch(userActions.fetchUser(handle));
             await dispatch(postsActions.fetchPosts('profile', user.id));
             setIsLoaded(true);
+            setIsFollowed(() => sessionUser?.following.find(followed => followed.id === user?.id) ? true : false)
+
+
         })()
     }, [dispatch]);
 
@@ -36,10 +44,12 @@ function ProfilePage() {
         return null;
     }
 
-    const toggleFollow = (e) => {
-        dispatch(userActions.toggleUserFollow(user.id));
-        dispatch(sessionActions.fetchUser(sessionUser.id));
+    const toggleFollow = async () => {
+        const follow = await dispatch(userActions.toggleUserFollow(user.id));
+        await dispatch(sessionActions.fetchUser(sessionUser.handle));
         setIsFollowed(() => !isFollowed);
+        console.log("FOLLOW: ", isFollowed)
+
     }
 
 
@@ -54,9 +64,23 @@ function ProfilePage() {
                     <div className='handle-follow-options-div '>
                         <h3 className='profile-page-handle' style={{ display: 'inline' }}>{user.handle}</h3>
                         {user.id !== sessionUser.id ?
-                            <button className='follow-new-post-button remove-button-styling' type='button'>Follow</button> :
+                            <button
+                                className={`follow-new-post-button remove-button-styling ${isFollowed}`}
+                                type='button'
+                                onClick={toggleFollow}
+                            >
+                                {isFollowed ? <span>Unfollow</span> : <span>Follow</span>}
+                            </button> :
                             <Link to='/posts/new'>
-                                <button className='follow-new-post-button remove-button-styling' type='button'>New Post</button>
+                                <button
+                                    type='button'
+                                    className='follow-new-post-button remove-button-styling different-padding'
+                                >
+                                    <FontAwesomeIcon icon={faPlus}
+                                        style={{ paddingLeft: '0', paddingRight: '10px' }}
+                                    />
+                                    New Post
+                                </button>
                             </Link>
                         }
                         {/* <button className='remove-button-styling' type='button'>
@@ -81,6 +105,7 @@ function ProfilePage() {
                 {orderedPosts.map(post => (
                     <ProfilePostCard post={post} />
                 ))}
+                {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
             </div>
         </div>
     );
