@@ -6,7 +6,8 @@ import CommentCard from '../CommentCard';
 import ProfileIcon from '../ProfileIcon';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
@@ -19,6 +20,7 @@ export default function PostModal({ postId }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, toggleEditCaption] = useState(false);
+    const [likeCount, setLikeCount] = useState(post?.likes?.allLikes?.length)
 
     useEffect(() => {
         (async () => {
@@ -67,8 +69,8 @@ export default function PostModal({ postId }) {
                         </div>
                         {sessionUser.id !== post.user.id ? null : (
                             <div className='post-buttons'>
-                                <FontAwesomeIcon id ='' icon={faEdit} onClick={() => toggleEditCaption(!editCaption)}></FontAwesomeIcon>
-                                <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()}></FontAwesomeIcon>
+                                <FontAwesomeIcon id ='' icon={faEdit} onClick={() => toggleEditCaption(!editCaption)} />
+                                <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()} />
 
                             </div>
                         )}
@@ -76,15 +78,31 @@ export default function PostModal({ postId }) {
                 </div>
 
                 <div className='comment-section'>
-                    <div>
-                        {post?.comments?.allComments?.map(comment => {
-                            return (
-                                <div key={comment.id}>
-                                    <CommentCard post={post} comment={comment} />
-                                </div>
-                            )
-                        })}
+                    {post?.comments?.allComments?.length > 0 ?
+                        <div>
+                            {post?.comments?.allComments?.map(comment => {
+                                return (
+                                    <div key={comment.id}>
+                                        <CommentCard post={post} comment={comment} />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    :
+                        <p>Leave the first comment!</p>
+                    }
+                </div>
+                <hr/>
+                <div id='likes-div'>
+                    <div id='likes-div-icons'>
+                        {!isLiked ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ "fontSize": "20px" }} onClick={() => toggleLike()} /> : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ "color": "red", "fontSize": "20px" }} onClick={() => toggleLike()} /> }
+                        <FontAwesomeIcon icon={faComment} id='comment-icon' style={{ "fontSize": "20px" }}/>
                     </div>
+                    <p>{post.likes?.allLikes?.length} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</p>
+                </div>
+                <hr />
+                <div id='create-comment'>
+
                 </div>
             </div>
 

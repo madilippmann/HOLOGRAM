@@ -73,4 +73,9 @@
 /* COMMENT SECTION */
 .comment-section {
     padding: 16px;
+    height: 65%;
+}
+
+#like-button {
+    padding: 0 20px;
 }
