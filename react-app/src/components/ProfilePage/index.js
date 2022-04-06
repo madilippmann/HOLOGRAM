@@ -12,7 +12,7 @@ import PostModalPopup from '../Modals/PostModalPopup';
 import defaultProfileImage from '../../static/default-profile-image.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faHeart, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faHeart, faEllipsis, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 
@@ -23,7 +23,7 @@ function ProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
+    const [isFollowed, setIsFollowed] = useState();
     const postImageRef = useRef();
 
     let posts = useSelector(state => state.posts);
@@ -35,6 +35,8 @@ function ProfilePage() {
             console.log(user);
             await dispatch(postsActions.fetchPosts('profile', user.id));
             setIsLoaded(() => !isLoaded);
+            setIsFollowed(() => sessionUser?.following.find(followed => followed.id === user?.id) ? true : false)
+
         })()
     }, [dispatch]);
 
@@ -42,10 +44,12 @@ function ProfilePage() {
         return null;
     }
 
-    const toggleFollow = (e) => {
-        dispatch(userActions.toggleUserFollow(user.id));
-        dispatch(sessionActions.fetchUser(sessionUser.id));
+    const toggleFollow = async () => {
+        const follow = await dispatch(userActions.toggleUserFollow(user.id));
+        await dispatch(sessionActions.fetchUser(sessionUser.handle));
         setIsFollowed(() => !isFollowed);
+        console.log("FOLLOW: ", isFollowed)
+
     }
 
     const toggleLike = (postId) => {
@@ -66,9 +70,23 @@ function ProfilePage() {
                     <div className='handle-follow-options-div '>
                         <h3 className='profile-page-handle' style={{ display: 'inline' }}>{user.handle}</h3>
                         {user.id !== sessionUser.id ?
-                            <button className='follow-new-post-button remove-button-styling' type='button'>Follow</button> :
+                            <button
+                                className={`follow-new-post-button remove-button-styling ${isFollowed}`}
+                                type='button'
+                                onClick={toggleFollow}
+                            >
+                                {isFollowed ? <span>Unfollow</span> : <span>Follow</span>}
+                            </button> :
                             <Link to='/posts/new'>
-                                <button className='follow-new-post-button remove-button-styling' type='button'>New Post</button>
+                                <button
+                                    type='button'
+                                    className='follow-new-post-button remove-button-styling different-padding'
+                                >
+                                    <FontAwesomeIcon icon={faPlus}
+                                        style={{ paddingLeft: '0', paddingRight: '10px' }}
+                                    />
+                                    New Post
+                                </button>
                             </Link>
                         }
                         {/* <button className='remove-button-styling' type='button'>
@@ -90,6 +108,8 @@ function ProfilePage() {
             </div>
 
             <div className='post-image-div profile-page user-posts' >
+                {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
+
                 {orderedPosts.map(post => {
                     return (
                         <div
@@ -98,7 +118,7 @@ function ProfilePage() {
                         >
                             <div className='overlay' onClick={() => postImageRef.current.click()}>
                                 <div className='overlay__button-container'>
-                                    
+
                                     <div className='centering-container like-container'>
                                         <button
                                             type='button'
@@ -117,19 +137,19 @@ function ProfilePage() {
                                                 )
                                             }
                                         </button>
-                                        
+
                                         {/* TODO Not automatically re-rendering on change yet */}
                                         <span>{post.postLikes.length}</span>
                                     </div>
-                                    
+
                                     <div className='centering-container comment-container'>
                                         <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
                                         {/* TODO ADD CORRECT COMMENT NUMBER */}
                                         <span>4</span>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
                             </div>
                             <PostModalPopup post={post} postImageRef={postImageRef} />
@@ -138,6 +158,7 @@ function ProfilePage() {
                     )
 
                 })}
+
             </div>
         </div>
     );
