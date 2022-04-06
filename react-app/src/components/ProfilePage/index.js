@@ -23,7 +23,7 @@ function ProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isFollowed, setIsFollowed] = useState(sessionUser?.following.find(user => user.id === sessionUser.id) ? true : false);
+    const [isFollowed, setIsFollowed] = useState();
     const postImageRef = useRef();
 
     let posts = useSelector(state => state.posts);
@@ -35,7 +35,8 @@ function ProfilePage() {
             console.log(user);
             await dispatch(postsActions.fetchPosts('profile', user.id));
             setIsLoaded(() => !isLoaded);
-            console.log('First render isFollowed: ', isFollowed)
+            setIsFollowed(() => sessionUser?.following.find(followed => followed.id === user?.id) ? true : false)
+
         })()
     }, [dispatch]);
 
