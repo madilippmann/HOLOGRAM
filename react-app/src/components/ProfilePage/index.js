@@ -12,7 +12,7 @@ import PostModalPopup from '../Modals/PostModalPopup';
 import defaultProfileImage from '../../static/default-profile-image.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faHeart, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faHeart, faEllipsis, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 
@@ -67,9 +67,12 @@ function ProfilePage() {
                     <div className='handle-follow-options-div '>
                         <h3 className='profile-page-handle' style={{ display: 'inline' }}>{user.handle}</h3>
                         {user.id !== sessionUser.id ?
-                            <button className='follow-new-post-button remove-button-styling' type='button'>Follow</button> :
+                            <button className={`follow-new-post-button remove-button-styling ${isFollowed}`} type='button'>Follow</button> :
                             <Link to='/posts/new'>
-                                <button className='follow-new-post-button remove-button-styling' type='button'>New Post</button>
+                                <button className='follow-new-post-button remove-button-styling different-padding' type='button'>
+                                    <FontAwesomeIcon icon={faPlus} style={{ paddingLeft: '0', paddingRight: '10px' }} />
+                                    New Post
+                                </button>
                             </Link>
                         }
                         {/* <button className='remove-button-styling' type='button'>
@@ -91,6 +94,8 @@ function ProfilePage() {
             </div>
 
             <div className='post-image-div profile-page user-posts' >
+                {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
+
                 {orderedPosts.map(post => {
                     return (
                         <div
@@ -139,6 +144,7 @@ function ProfilePage() {
                     )
 
                 })}
+
             </div>
         </div>
     );

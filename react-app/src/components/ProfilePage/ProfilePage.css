@@ -61,19 +61,27 @@
 button.follow-new-post-button {
     /* background-color: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%); */
     background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
-    padding: 0px 20px;
     border-radius: 6px;
     color: white;
+    padding: 0 20px;
+
     height: 30px;
     box-shadow: none;
     transition: background-color 1s linear, box-shaddow .15s linear;
 }
 
-button.follow-new-post-button.followed {
+button.follow-new-post-button.true {
     background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
     background-color:  rgba(122,123,255,1);
 
 }
+
+button.follow-new-post-button.different-padding {
+    padding: 0 20px 0 15px;
+
+}
+
+
 
 button.follow-new-post-button:hover {
     /* background-color: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%); */
@@ -191,4 +199,14 @@ button.follow-new-post-button:hover {
 
 .like-container .like-icon {
     transform: scale(1.4);
+}
+
+
+.no-posts {
+    padding-top: 15px;
+    margin: auto;
+    font-weight: 600;
+    font-size: larger;
+
+    color: rgba(0, 0, 0, 0.736);
 }
