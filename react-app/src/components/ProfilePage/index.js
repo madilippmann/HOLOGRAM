@@ -13,6 +13,9 @@ import defaultProfileImage from '../../static/default-profile-image.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faHeart, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
+
 
 function ProfilePage() {
     const { handle } = useParams();
@@ -94,7 +97,8 @@ function ProfilePage() {
                             className={`post-div`}
                         >
                             <div className='overlay' onClick={() => postImageRef.current.click()}>
-                                <div className='overlay__div'>
+                                <div className='overlay__button-container'>
+                                    
                                     <div className='centering-container like-container'>
                                         <button
                                             type='button'
@@ -104,22 +108,35 @@ function ProfilePage() {
                                             }}
                                             className={`like-button`}
                                         >
-                                            <FontAwesomeIcon icon={faHeart} className={`profile__post__icon ${post.postLikes.includes(post.postLikes.find(like => like.user.id === sessionUser.id))}`} />
+                                            {post.postLikes.find(like => like.userId === sessionUser.id)
+                                                ? (
+                                                    <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
+                                                )
+                                                : (
+                                                    <FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />
+                                                )
+                                            }
                                         </button>
+                                        
                                         {/* TODO Not automatically re-rendering on change yet */}
                                         <span>{post.postLikes.length}</span>
                                     </div>
+                                    
                                     <div className='centering-container comment-container'>
-                                        <FontAwesomeIcon icon={faCommentAlt} className={`profile__post__icon `} />
+                                        <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
                                         {/* TODO ADD CORRECT COMMENT NUMBER */}
                                         <span>4</span>
                                     </div>
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                             <PostModalPopup post={post} postImageRef={postImageRef} />
                         </div>
 
                     )
+
                 })}
             </div>
         </div>

@@ -14,10 +14,11 @@
     --color-gray: rgb(177, 177, 177);
     --color-dark-gray: rgb(90, 90, 90);
     --color-black: rgb(36, 36, 36);
-
+    
     --color-purple: rgb(122, 123, 255);
     --color-light-apricot: rgb(255, 243, 239);
     --color-apricot: rgb(255, 201, 181);
+    --color-red: rgb(255, 88, 88);
 }
 
 * {
