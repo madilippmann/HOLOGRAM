@@ -57,22 +57,41 @@
 .profile-page-handle {
     padding-right: 50px;
 }
-
 button.follow-new-post-button {
-    /* background-color: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%); */
-    background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
     border-radius: 6px;
     color: white;
     padding: 0 20px;
-
     height: 30px;
     box-shadow: none;
-    transition: background-color 1s linear, box-shaddow .15s linear;
+    transition: background-color 1s linear;
 }
 
+
 button.follow-new-post-button.true {
+    /* background-color: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%); */
+    background: rgba(122,123,255,1);
+}
+
+button.follow-new-post-button.false {
     background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
     background-color:  rgba(122,123,255,1);
+
+}
+
+
+
+
+button.follow-new-post-button.false:hover {
+    /* background-color: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%); */
+    background: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+button.follow-new-post-button.true:hover {
+    background: rgb(113, 113, 249, .6);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    background-color:  rgba(122, 122, 255, 0.6);
 
 }
 
@@ -80,15 +99,6 @@ button.follow-new-post-button.different-padding {
     padding: 0 20px 0 15px;
 
 }
-
-
-
-button.follow-new-post-button:hover {
-    /* background-color: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%); */
-    background: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
 /*****************************************************************/
 /*  POSTS */
 /*****************************************************************/

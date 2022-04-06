@@ -74,7 +74,7 @@ function ProfilePage() {
                                 type='button'
                                 onClick={toggleFollow}
                             >
-                                {isFollowed ? <span>Follow</span> : <span>Unfollow</span>}
+                                {isFollowed ? <span>Unfollow</span> : <span>Follow</span>}
                             </button> :
                             <Link to='/posts/new'>
                                 <button
