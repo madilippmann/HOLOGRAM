@@ -35,6 +35,7 @@ function ProfilePage() {
             console.log(user);
             await dispatch(postsActions.fetchPosts('profile', user.id));
             setIsLoaded(() => !isLoaded);
+            console.log('First render isFollowed: ', isFollowed)
         })()
     }, [dispatch]);
 
@@ -98,7 +99,7 @@ function ProfilePage() {
                         >
                             <div className='overlay' onClick={() => postImageRef.current.click()}>
                                 <div className='overlay__button-container'>
-                                    
+
                                     <div className='centering-container like-container'>
                                         <button
                                             type='button'
@@ -117,19 +118,19 @@ function ProfilePage() {
                                                 )
                                             }
                                         </button>
-                                        
+
                                         {/* TODO Not automatically re-rendering on change yet */}
                                         <span>{post.postLikes.length}</span>
                                     </div>
-                                    
+
                                     <div className='centering-container comment-container'>
                                         <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
                                         {/* TODO ADD CORRECT COMMENT NUMBER */}
                                         <span>4</span>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
                             </div>
                             <PostModalPopup post={post} postImageRef={postImageRef} />
