@@ -22,7 +22,6 @@ export default function SignUpPage() {
 	useEffect(() => {
 		document.body.style.background = "linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%)";
 		document.body.style.minHeight = "100vh"
-		document.body.style.margin = "auto"
 		document.body.style.display = "flex"
 		document.body.style.justifyContent = "center"
 		document.body.style.alignItems = "center"
