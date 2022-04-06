@@ -29,12 +29,8 @@ function FeedColumn({ column }) {
                                 </div>
                             </Link>
                             <div className='post-like-and-comment-count'>
-                                <p className='post-like'
-                                    style={{ 'color': '#818080', 'textAlign': 'center', 'top': '100%' }}
-                                ><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} /> {post.postLikes.length}</p>
-                                <p className='post-comment'
-                                    style={{ 'color': '#818080', 'textAlign': 'center', 'marginBottom': '5px' }}
-                                ><FontAwesomeIcon icon={faCommentAlt} className='feed__post__icon' /> 2</p>
+                                <span><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                                <span><FontAwesomeIcon icon={faCommentAlt} className={`feed__post__icon`} />{post.postLikes.length}</span>
                             </div>
                         </div>
                     </div>

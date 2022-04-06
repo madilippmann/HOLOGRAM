@@ -68,16 +68,20 @@ img {
 }
 
 .post-like-and-comment-count {
+    width: 110px;
     display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 
 .feed__post__icon {
     color: var(--color-apricot);
+    font-size: 20px;
+    padding: 0 6px;
 }
 
 .feed__post__icon {
-    padding: 10px;
 }
 
 .post-like, .post-comment {
