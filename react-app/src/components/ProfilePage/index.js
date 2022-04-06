@@ -42,7 +42,7 @@ function ProfilePage() {
         setIsFollowed(() => !isFollowed);
     }
 
-    
+
 
     return !isLoaded ? null : (
         <div>
@@ -78,58 +78,9 @@ function ProfilePage() {
             </div>
 
             <div className='post-image-div profile-page user-posts' >
-                {orderedPosts.map(post => {
-                    // let isLiked = post.postLikes.find(like => like.userId === sessionUser.id);
-                    
-                    return (
-                        <ProfilePostCard post={post} />
-                        // <div
-                        //     key={post.id}
-                        //     className={`post-div`}
-                        // >
-                        //     <div className='overlay' onClick={(e) => {
-                        //         if (e.currentTarget === e.target) {
-                        //             postImageRef.current.click()
-                        //         }
-                        //     }}>
-                        //         <div className='overlay__button-container'>
-                        //             <div className='centering-container like-container'>
-                        //                 <button
-                        //                     type='button'
-                        //                     onClick={(e) => {
-                        //                         console.log(e.currentTarget);
-                        //                         toggleLike(post?.id)
-                        //                     }}
-                        //                     className={`like-button`}
-                        //                 >
-                        //                     {isLiked
-                        //                         ? (
-                        //                             <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
-                        //                         )
-                        //                         : (
-                        //                             <FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />
-                        //                         )
-                        //                     }
-                        //                 </button>
-
-                        //                 {/* TODO Not automatically re-rendering on change yet */}
-                        //                 <span>{post.postLikes.length}</span>
-                        //             </div>
-
-                        //             <div className='centering-container comment-container'>
-                        //                 <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
-                        //                 {/* TODO ADD CORRECT COMMENT NUMBER */}
-                        //                 <span>4</span>
-                        //             </div>
-                        //         </div>
-                        //     </div>
-
-                        //     <PostModalPopup post={post} postImageRef={postImageRef} />
-                        // </div>
-
-                    )
-
-                })}
+                {orderedPosts.map(post => (
+                    <ProfilePostCard post={post} />
+                ))}
             </div>
         </div>
     );
