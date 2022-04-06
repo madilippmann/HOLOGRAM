@@ -14,10 +14,18 @@
 .user-header {
     display: flex;
     justify-content: center;
-    border-bottom: 3px solid var(--color-apricot);
+    align-items: center;
+    border-bottom: 2px solid #Fddfd3;
     padding: 20px 0;
     gap: 50px;
+    animation: border-bottom-gradient 5s infinite;
 }
+
+  @keyframes border-bottom-gradient {
+    0% { border-color: rgb(167, 167, 246) }
+    50% { border-color: rgba(255,201,181,1) }
+    100% { border-color: rgba(167, 167, 246) }
+  }
 
 .profile-picture {
     border-radius: 100%;
@@ -122,6 +130,12 @@
 }
 
 .like-button {
+    background-color: transparent;
+    border: none;
+}
+
+
+.remove-button-styling {
     background-color: transparent;
     border: none;
 }

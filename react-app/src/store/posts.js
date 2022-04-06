@@ -354,7 +354,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             // this takes care of deleting from the "allComments" array...
             const allComments = state[action.postId].comments.allComments
             allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)))
-
+            console.log(allComments)
             newState = {
                 ...state,
                 [action.postId]: {
@@ -417,8 +417,12 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
         case REMOVE_LIKE: {
             // this takes care of deleting from the "allLikes" array...
-            const allLikes = state[action.postId].likes.allLikes;
+            // console.log('State: ', state[action.postId].postLikes)
+            // console.log('Likes: ', state[action.postId].likes)
+            // console.log('All Likes: ', state[action.postId].likes.allLikes)
+            let allLikes = state[action.postId].likes.allLikes;
             allLikes.splice(allLikes.indexOf(allLikes.find(like => like.id === action.likeId)), 1);
+
             newState = {
                 ...state,
                 [action.postId]: {

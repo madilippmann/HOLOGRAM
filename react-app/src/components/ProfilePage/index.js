@@ -63,8 +63,10 @@ function ProfilePage() {
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
                         <h3 style={{ display: 'inline' }}>{user.handle}</h3>
-                        <button type='button'>Follow</button>
-                        <FontAwesomeIcon icon={faEllipsis} />
+                        <button className='remove-button-styling' type='button'>Follow</button>
+                        <button className='remove-button-styling' type='button'>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </button>
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
                         <p>{posts.allPosts.length} posts</p>
@@ -73,7 +75,8 @@ function ProfilePage() {
                     </div>
                     <div className='name-bio-div'>
                         <h4>{user.firstName} {user.lastName}</h4>
-                        <p>{user.bio}</p>
+                        {/* <p>{user.bio}</p> */}
+                        <p>This is a temporary bio</p>
                     </div>
 
                 </div>
@@ -81,21 +84,21 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => {
-
                     return (
                         <div
                             key={post.id}
                             className={`post-div`}
-
                         >
                             <div className='overlay'>
                                 <div className='overlay__div'>
                                     <div className='centering-container like-container'>
                                         <button
                                             type='button'
-                                            onClick={() => toggleLike(post.id)}
+                                            onClick={() => {
+                                                console.log(post.id)
+                                                toggleLike(post?.id)
+                                            }}
                                             className={`like-button`}
-
                                         >
                                             <FontAwesomeIcon icon={faHeart} className={`profile__post__icon ${post.postLikes.includes(post.postLikes.find(like => like.user.id === sessionUser.id))}`} />
                                         </button>
@@ -107,8 +110,6 @@ function ProfilePage() {
                                         {/* TODO ADD CORRECT COMMENT NUMBER */}
                                         <span>4</span>
                                     </div>
-
-
                                 </div>
                             </div>
                             <PostModalPopup post={post} />
