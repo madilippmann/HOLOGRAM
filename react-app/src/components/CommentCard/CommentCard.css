@@ -1,0 +1,43 @@
+.comment-info {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+}
+
+.comment-top-half {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    width: 80%;
+    position: relative;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+.comment-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+.handle-and-comment-content {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.comment-user-handle {
+    font-weight: 500;
+}
+
+#edit-comment-button, #delete-comment-button {
+    margin-right: 10px;
+}
+
+.edit-and-delete-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#post-like-count {
+    margin-left: 20px;
+}

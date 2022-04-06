@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import Picker from 'emoji-picker-react';
+
 
 import * as postsActions from '../../store/posts'
 
@@ -52,19 +54,28 @@ function CommentForm() {
       });
   }
 
+  const onEmojiClick = (event, emojiObject) => {
+    console.log(emojiObject.emoji);
+    let temp = content + emojiObject.emoji;
+    setContent(temp)
+    console.log('onEmojiClick ~ temp', temp);
+    console.log(content)
+  };
+
   return !isLoaded ? null : (
     <div>
       <form onSubmit={onSubmit}>
-        <label htmlFor='content'>Comment</label>
-        <input
-          type='text'
+        {/* <label htmlFor='content'>Comment</label> */}
+        <textarea
           id='content'
           name='content'
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          placeholder='add a commen...t'
         />
+        {/* <Picker onEmojiClick={onEmojiClick} /> */}
 
-        <button type='submit'>submit</button>
+        <button type='submit'>post</button>
       </form>
 
       {!showErrors ? null : (

@@ -29,6 +29,16 @@
 .post-modal__right {
     grid-area: right;
     height: 100%;
+    border: 2px solid purple;
+    overflow: hidden;
+}
+
+#post-info-and-comments {
+    height: 50%;
+    border: 2px solid blue;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 70%;
 }
 
 /* POST HEADER */
@@ -48,6 +58,7 @@
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .post-details {
     /* max-width: 220px; */
     width: 100%;
@@ -55,26 +66,32 @@
     overflow: hidden;
     word-wrap: break-word;
 }
+
 .post-buttons {
     padding: 4px;
     cursor: pointer;
     display: flex;
     gap: 12px;
 }
+
 .post-user-handle {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 .post-caption {
     font-size: 14px;
 }
 
-
 /* COMMENT SECTION */
 .comment-section {
     padding: 16px;
-    height: 65%;
+    /* height: 100%; */
+    overflow-y: scroll;
+    border: 2px solid red;
+    display: flex;
+    flex: 1 1 auto;
 }
 
 #like-button {
