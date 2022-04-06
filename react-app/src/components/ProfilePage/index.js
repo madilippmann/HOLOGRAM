@@ -23,7 +23,7 @@ function ProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
+    const [isFollowed, setIsFollowed] = useState(sessionUser?.following.find(user => user.id === sessionUser.id) ? true : false);
     const postImageRef = useRef();
 
     let posts = useSelector(state => state.posts);
@@ -43,10 +43,12 @@ function ProfilePage() {
         return null;
     }
 
-    const toggleFollow = (e) => {
-        dispatch(userActions.toggleUserFollow(user.id));
-        dispatch(sessionActions.fetchUser(sessionUser.id));
+    const toggleFollow = async () => {
+        const follow = await dispatch(userActions.toggleUserFollow(user.id));
+        await dispatch(sessionActions.fetchUser(sessionUser.handle));
         setIsFollowed(() => !isFollowed);
+        console.log("FOLLOW: ", isFollowed)
+
     }
 
     const toggleLike = (postId) => {
@@ -67,10 +69,21 @@ function ProfilePage() {
                     <div className='handle-follow-options-div '>
                         <h3 className='profile-page-handle' style={{ display: 'inline' }}>{user.handle}</h3>
                         {user.id !== sessionUser.id ?
-                            <button className={`follow-new-post-button remove-button-styling ${isFollowed}`} type='button'>Follow</button> :
+                            <button
+                                className={`follow-new-post-button remove-button-styling ${isFollowed}`}
+                                type='button'
+                                onClick={toggleFollow}
+                            >
+                                {isFollowed ? <span>Follow</span> : <span>Unfollow</span>}
+                            </button> :
                             <Link to='/posts/new'>
-                                <button className='follow-new-post-button remove-button-styling different-padding' type='button'>
-                                    <FontAwesomeIcon icon={faPlus} style={{ paddingLeft: '0', paddingRight: '10px' }} />
+                                <button
+                                    type='button'
+                                    className='follow-new-post-button remove-button-styling different-padding'
+                                >
+                                    <FontAwesomeIcon icon={faPlus}
+                                        style={{ paddingLeft: '0', paddingRight: '10px' }}
+                                    />
                                     New Post
                                 </button>
                             </Link>
