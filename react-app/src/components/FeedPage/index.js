@@ -34,8 +34,6 @@ function FeedPage() {
         }
     }
 
-    console.log(postsForListTwo)
-
     useEffect(() => {
         (async () => {
             await dispatch(postsActions.fetchPosts('feed', null));

@@ -1,0 +1,53 @@
+.single-feed-post {
+    padding: 4px 12px;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.post-image-div img {
+    max-width: 100%;
+    height: auto;
+}
+
+.post-info {
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-handle {
+    text-decoration: none;
+    color: #818080;
+    padding: 0 12px;
+}
+
+.user-image-and-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* LIKE AND COMMENT BUTTONS */
+.post-like-and-comment-count {
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.feed__post__icon {
+    color: var(--color-apricot);
+    font-size: 20px;
+    padding: 0 6px;
+}
+
+.post-like, .post-comment {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+}
