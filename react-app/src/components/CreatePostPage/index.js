@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import LoadingBar, { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 
 import * as postsActions from '../../store/posts'
 import './CreatePostPage.css'
@@ -10,33 +12,35 @@ export default function CreatePostPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [caption, setCaption] = useState('');
-	const [validationErrors, setValidationErrors] = useState([])
+	const [uploadFile, setUploadFile] = useState();
 	const [showErrors, setShowErrors] = useState(false);
-	const [uploadFile, setUploadFile] = useState('')
+	const [validationErrors, setValidationErrors] = useState([]);
 
 	useEffect(() => {
 		const errors = [];
 		if (caption.length > 255) errors.push('Caption must be less than 255 characters');
 		if (!uploadFile) errors.push('Please choose an image first before uploading.')
 		setValidationErrors(errors);
-	}, [caption])
+	}, [caption, uploadFile]);
 
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (validationErrors.length) return setShowErrors(true);
-
+		
+		dispatch(showLoading());
 		const url = await s3upload(uploadFile)
-
+		
 		const post = {
 			caption,
 			postImageUrl: url
 		}
-
+		
 		dispatch(postsActions.createPost(post))
 			.then(async post => {
-				window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-				return history.push(`/`);
+					dispatch(hideLoading());
+					window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+					return history.push(`/`);
 			})
 			.catch(async (res) => {
 				console.log(res);
@@ -69,6 +73,7 @@ export default function CreatePostPage() {
 	return (
 		<div id='post-upload'>
 			<form onSubmit={onSubmit} id='post-form'>
+				<LoadingBar style={{ backgroundColor: 'var(--color-apricot)', height: '12px', maxWidth: '500px', position: 'absolute', top: '0', left: '0', right: '0', margin: '0 auto' }} updateTime={100} progressIncrease={5} maxProgress={95} />
 				<div id='upload-and-preview-section'>
 					<div 
 						id='preview'
@@ -82,7 +87,10 @@ export default function CreatePostPage() {
 					<div id='upload'>
 						<label htmlFor='img' id='select-file-button'>SELECT IMAGE</label>
 						<input type="file" id="img" name="img" accept="image/*"
-							onChange={e => setUploadFile(() => e.target.files[0])}
+							onChange={e => setUploadFile(() => {
+								console.log(e.target.files[0]);
+								return e.target.files[0];
+							})}
 							hidden
 						/>
 					</div>
