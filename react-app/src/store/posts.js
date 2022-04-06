@@ -159,6 +159,7 @@ export const editPost = post => async dispatch => {
 
     if (res.ok) {
         const editedPost = await res.json();
+        console.log('editedPost', editedPost);
 
         dispatch(addPost(editedPost));
         return editedPost;
@@ -310,7 +311,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                 allPosts: [...state.allPosts]
             };
 
-            newState.allPosts.splice(newState.allPosts.indexOf(newState.allPosts.find(post => post.id === action.postId)))
+            newState.allPosts.splice(newState.allPosts.indexOf(newState.allPosts.find(post => post.id === action.postId)), 1)
 
             delete newState[action.postId];
             return newState;
@@ -353,8 +354,8 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         case REMOVE_COMMENT: {
             // this takes care of deleting from the "allComments" array...
             const allComments = state[action.postId].comments.allComments
-            allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)))
-            console.log(allComments)
+            allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)), 1)
+
             newState = {
                 ...state,
                 [action.postId]: {

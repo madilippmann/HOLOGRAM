@@ -1,0 +1,155 @@
+#post-upload {
+    height: 700px;
+    width: 600px;
+    margin: 100px auto;
+}
+
+#post-form {
+    height: 100%;
+    width: 100%;
+    padding: 16px 0;
+    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* IMAGE PREVIEW ************************/
+#upload-and-preview-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#preview {
+    width: 500px;
+    height: 500px;
+    
+    object-fit: cover;
+    
+    border: 1px solid var(--color-gray);
+}
+#preview img {
+    width: 100%;
+
+    object-fit: cover;
+    margin: auto;
+}
+
+#upload {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+    bottom: 24px; left: 0; right: 0;
+    
+}
+
+#select-file-button {
+    height: 26px;
+    width: 160px;
+    margin: 0 auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    
+    font-size: 12px;
+    background-color: var(--color-purple);
+    cursor: pointer;
+    
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* CAPTION/UPLOAD SECTION */
+.upload__bottom {
+    height: 100%;
+ 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+#caption {
+    width: 500px;
+    padding: 10px;
+    border-radius: 4px;
+    resize: none;
+    
+    outline: none;
+}
+#caption:focus {
+    border-radius: 4px;
+    border: 1px solid var(--color-purple)
+}
+
+
+#upload-button {
+    height: 32px;
+    width: 250px;
+    margin: 0 auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    
+    font-family: inherit;
+    font-size: 14px;
+    background-color: var(--color-purple);
+    cursor: pointer;
+    
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cancel-button {
+    height: 32px;
+    width: 250px;
+    margin: 0 auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    
+    font-family: inherit;
+    font-size: 14px;
+    border: 1px solid var(--color-purple);
+    background-color: transparent;
+    cursor: pointer;
+    
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* MISC */
+.character-count {
+    position: relative;
+    top: -10px;
+}
+
+.error-container {
+    padding: 16px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-container > div::before {
+    content: '* ';
+    color: red;
+}
