@@ -75,7 +75,7 @@ function ProfilePage() {
                             <Link to='/posts/new'>
                                 <button
                                     type='button'
-                                    className='follow-new-post-button remove-button-styling different-padding'
+                                    className='follow-new-post-button true remove-button-styling different-padding'
                                 >
                                     <FontAwesomeIcon icon={faPlus}
                                         style={{ paddingLeft: '0', paddingRight: '10px' }}
