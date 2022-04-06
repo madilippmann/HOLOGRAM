@@ -64,7 +64,7 @@ export default function LoginPage() {
 
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div className='error-styling' key={ind}>{error.split(': ')[1]}</div>
             ))}
           </div>
           <div className='signup-login-input-container'>

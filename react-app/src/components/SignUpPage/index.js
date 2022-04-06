@@ -90,7 +90,7 @@ export default function SignUpPage() {
 					</div>
 					<div>
 						{errors.map((error, ind) => (
-							<div key={ind}>{error}</div>
+							<div className='error-styling' key={ind}>{error.split(': ')[1]}</div>
 						))}
 					</div>
 

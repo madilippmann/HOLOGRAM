@@ -14,6 +14,11 @@
 
 }
 
+.error-styling {
+    color: rgb(214, 9, 9);
+    font-size: 13px;
+}
+
 .signup-login-form-container {
     padding: 25px 50px;
     display: flex;
