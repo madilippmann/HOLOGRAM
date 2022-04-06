@@ -19,16 +19,7 @@
     overflow: hidden;
 }
 
-/* #post-image {
-    margin: auto;
-    width: 10%;
-    border: none;
-    overflow: hidden;
-    border-radius: 10px;
-} */
-
 .post-image-div img {
-    /* border-radius: 20px; */
     max-width: 100%;
     height: auto;
 }
@@ -41,13 +32,12 @@
 
 .user-handle {
     text-decoration: none;
-    color: white;
-    color: rgb(226, 159, 135);
     color: #818080;
     padding: 5px 20px;
 }
 
 .post-info {
+    height: 56px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,14 +49,9 @@
     justify-content: center;
 }
 
-.post-info a {
-    text-decoration: none;
-}
 
-img {
-    color: white;
-}
 
+/* LIKE AND COMMENT BUTTONS */
 .post-like-and-comment-count {
     width: 110px;
     display: flex;
