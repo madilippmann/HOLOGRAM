@@ -1,15 +1,24 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 import PostModalPopup from '../Modals/PostModalPopup';
 import ProfileIcon from '../ProfileIcon';
+import * as postsActions from '../../store/posts';
 import './PostCard.css'
 
 export default function PostCard({ post }) {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const [isLiked, setIsLiked] = useState(post.postLikes.find(like => like.userId === sessionUser.id) ? true : false);
+    const [likeCount, setLikeCount] = useState(post.postLikes.length);
+    
+    const toggleLike = (e) => {
+        dispatch(postsActions.togglePostLike(post.id));
+        setIsLiked(() => !isLiked);
+    }
     
     return (
         <div className='single-feed-post' key={post.id}>
@@ -27,15 +36,23 @@ export default function PostCard({ post }) {
                 </div>
 
                 <div className='post-like-and-comment-count'>
-                    {post.postLikes.find(like => like.userId === sessionUser.id)
+                    {isLiked
                         ? (
-                            <span><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{post.postLikes.length}</span>
+                            <span onClick={() => {
+                                toggleLike();
+                                setLikeCount(prev => prev - 1);
+                            }}
+                            ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likeCount}</span>
                         )
                         : (
-                            <span><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{post.postLikes.length}</span>
+                            <span onClick={() => {
+                                toggleLike();
+                                setLikeCount(prev => prev + 1);
+                            }}
+                            ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likeCount}</span>
                         )
                     }
-                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{post.postLikes.length}</span>
+                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />PH</span>
                 </div>
             </div>
         </div>
