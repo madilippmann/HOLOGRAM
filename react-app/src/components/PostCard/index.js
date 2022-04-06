@@ -29,13 +29,13 @@ export default function PostCard({ post }) {
                 <div className='post-like-and-comment-count'>
                     {post.postLikes.find(like => like.userId === sessionUser.id)
                         ? (
-                            <span><FontAwesomeIcon icon={fullHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                            <span><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{post.postLikes.length}</span>
                         )
                         : (
-                            <span><FontAwesomeIcon icon={emptyHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                            <span><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{post.postLikes.length}</span>
                         )
                     }
-                    <span><FontAwesomeIcon icon={emptyComment} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{post.postLikes.length}</span>
                 </div>
             </div>
         </div>

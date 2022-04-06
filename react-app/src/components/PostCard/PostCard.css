@@ -38,7 +38,16 @@
 }
 
 
-.feed__post__icon {
+.like-icon {
+    color: var(--color-purple);
+    font-size: 20px;
+    padding: 0 6px;
+    
+    position: relative;
+    top: -1px;
+    transform: scale(1.1);
+}
+.comment-icon {
     color: var(--color-apricot);
     font-size: 20px;
     padding: 0 6px;
