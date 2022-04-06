@@ -3,7 +3,7 @@ import Modal from '.';
 import PostModal from '../PostModal/index.js';
 
 
-export default function PostModalPopup({ post }) {
+export default function PostModalPopup({ postImageRef, post }) {
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
@@ -18,6 +18,7 @@ export default function PostModalPopup({ post }) {
 			<img
 				src={post.postImageUrl}
 				id='post-image'
+				ref={postImageRef}
 				alt={`${post.user.handle}'s avatar`}
 				onClick={() => {
 					window.scrollTo({ top: 0, left: 0, });

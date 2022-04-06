@@ -10,7 +10,7 @@ footer {
   background-color: var(--color-footer-background);
   background-color: #e5e5e5;
 	background-color: rgb(255, 242, 239);
-
+  z-index: 5;
 }
 
 #information-button {

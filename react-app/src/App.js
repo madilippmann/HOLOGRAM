@@ -65,7 +65,7 @@ function App() {
 					<ProtectedRoute exact path="/posts/:postId(\d+)/comments/:commentId(\d+)/edit">
 						<EditCommentForm />
 					</ProtectedRoute>
-					
+
 					<ProtectedRoute exact path="/search/:query">
 						<SearchPage />
 					</ProtectedRoute>
