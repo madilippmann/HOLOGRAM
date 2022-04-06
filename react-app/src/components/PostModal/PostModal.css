@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .post-image-wrapper img {
     height: 100%;
     max-height: 100%;
@@ -29,16 +30,17 @@
 .post-modal__right {
     grid-area: right;
     height: 100%;
-    border: 2px solid purple;
-    overflow: hidden;
+    border: 1px solid red;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-#post-info-and-comments {
-    height: 50%;
-    border: 2px solid blue;
+#post-info {
+    border: 1px solid black;
     display: flex;
-    flex-flow: column nowrap;
-    height: 70%;
+    flex-direction: column;
 }
 
 /* POST HEADER */
@@ -87,12 +89,21 @@
 /* COMMENT SECTION */
 .comment-section {
     padding: 16px;
-    /* height: 100%; */
+    border-bottom: 1px solid var(--color-gray);
     overflow-y: scroll;
-    border: 2px solid red;
     display: flex;
     flex: 1 1 auto;
 }
+
+.comment-section::-webkit-scrollbar {
+    width: 0px;
+}
+
+.comment-section::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
 
 #like-button {
     padding: 0 20px;
