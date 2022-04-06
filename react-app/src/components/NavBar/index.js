@@ -10,10 +10,10 @@ import NavProfileButton from "../NavProfileButton";
 import logo from '../../static/hologram-logo.png'
 
 const NavBar = () => {
-	const user = useSelector(state => state.session.user);
+	const sessionUser = useSelector(state => state.session.user);
 
 
-	return !user ? null : (
+	return !sessionUser ? null : (
 		<div id="navbar">
 			<div className="navbar-container">
 				<div className="nav__left">
@@ -51,16 +51,16 @@ const NavBar = () => {
 
 					<div className="nav__stats">
 						<div>
-							<span>2.5k</span>
+							<span>{sessionUser?.followers.length}</span>
 							<small>followers</small>
 						</div>
 						<div>
-							<span>2.3k</span>
+							<span>{sessionUser?.following.length}</span>
 							<small>following</small>
 						</div>
 					</div>
 
-					<NavProfileButton user={user} />
+					<NavProfileButton user={sessionUser} />
 				</div>
 			</div>
 		</div>
