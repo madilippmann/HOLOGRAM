@@ -6,6 +6,33 @@
 }
 
 
+
+/*****************************************************************/
+/*  USER INFO */
+/*****************************************************************/
+
+.user-header {
+    display: flex;
+    justify-content: center;
+    border-bottom: 3px solid var(--color-apricot);
+    padding: 20px 0;
+
+}
+
+.profile-picture {
+    border-radius: 100%;
+    width: 150px;
+}
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*****************************************************************/
+/*  POSTS */
+/*****************************************************************/
+
 .user-posts {
     flex-direction: row;
     /* flex-basis: 20%; */
@@ -14,6 +41,7 @@
     justify-content: space-between;
     row-gap: 20px;
     /* gap: 20px; */
+    padding-top: 20px;
 
 }
 
@@ -69,16 +97,6 @@
     padding: 10px;
     font-size: 25px;
 }
-
-button.like-button {
-    color: blue;
-}
-
-/* .profile__post__icon.true, .profile__post__icon.comment {
-    color:rgb(229, 155, 128);
-    padding: 10px;
-    font-size: 25px;
-} */
 
 
 .like-button  .profile__post__icon.false:hover {
