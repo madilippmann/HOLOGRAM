@@ -5,7 +5,7 @@
   margin: 10px;
 
   cursor: pointer;
-  
+
   background-color: transparent;
   border: 2px solid var(--color-purple);
   border-radius: 100%;
@@ -21,6 +21,7 @@
   height: 40px;
   border-radius: 100%;
   object-fit: cover;
+  padding: 2px;
 }
 
 .profile_nav_dropdown {
@@ -30,7 +31,7 @@
   width: 140px;
   border: 1px solid var(--color-light-gray);
   border-top: none;
-  
+
   background-color: var(--color-light-apricot);
 
   text-align: right;
@@ -38,9 +39,9 @@
 .profile_nav_dropdown > div {
   height: 42px;
   padding: 0 12px;
-  
+
   cursor: pointer;
-  
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
