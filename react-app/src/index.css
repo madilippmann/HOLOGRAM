@@ -59,3 +59,10 @@ h4 {
     padding: 0;
     margin: 0;
 }
+
+
+
+/* REUSABLE CLASS RULES */
+.red-outline {
+    border: 1px solid red;
+}
