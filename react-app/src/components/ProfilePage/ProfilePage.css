@@ -71,6 +71,16 @@
 }
 
 
+.profile-picture-container {
+    padding: 1px;
+    border: 2px solid rgb(167, 167, 246);
+    border-radius: 100%;
+    /* animation: border-bottom-gradient 5s infinite; */
+
+}
+
+
+
 .post-image-div .post-div img {
     border-radius: 0px;
     width: 100%;
