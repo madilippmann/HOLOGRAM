@@ -1,0 +1,31 @@
+.signup-login-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+    width: 60%;
+    height: 40%;
+    background-color: var(--color-light-apricot);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+body.signup-login-body {
+}
+.login-link {
+    color: var(--color-purple);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    opacity: 80%;
+}
+
+
+/* body {
+    background: rgb(122,123,255);
+    background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
+
+} */
