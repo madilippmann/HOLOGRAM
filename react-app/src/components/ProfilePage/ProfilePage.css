@@ -16,7 +16,7 @@
     justify-content: center;
     border-bottom: 3px solid var(--color-apricot);
     padding: 20px 0;
-
+    gap: 50px;
 }
 
 .profile-picture {
@@ -27,6 +27,16 @@
 .flex-space-between {
     display: flex;
     justify-content: space-between;
+}
+.user-info-container {
+    flex-direction: column;
+    width: 40%;
+}
+
+
+.posts-followers-following-div, .handle-follow-options-div {
+    display: flex;
+    gap: 20px;
 }
 
 /*****************************************************************/

@@ -61,12 +61,12 @@ function ProfilePage() {
                     <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile picture`} />
                 </div>
                 <div className='user-info-container flex-space-between '>
-                    <div className='handle-follow-options-div'>
+                    <div className='handle-follow-options-div '>
                         <h3 style={{ display: 'inline' }}>{user.handle}</h3>
                         <button type='button'>Follow</button>
                         <FontAwesomeIcon icon={faEllipsis} />
                     </div>
-                    <div className='posts-followers-following-div flex-space-between '>
+                    <div className='posts-followers-following-div flex-gap flex'>
                         <p>{posts.allPosts.length} posts</p>
                         <p>{user.followers.length} followers</p>
                         <p>{user.following.length} following</p>
