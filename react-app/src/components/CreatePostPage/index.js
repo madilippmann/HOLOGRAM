@@ -58,6 +58,12 @@ export default function CreatePostPage() {
 
 		return res.data
 	}
+	
+	const cancelUpload = (e) => {
+		if (window.confirm('Are you sure you want to cancel your upload?')) {
+			history.push('/');
+		}
+	}
 
 
 	return (
@@ -98,6 +104,10 @@ export default function CreatePostPage() {
 						style={caption.length > 255 ? { color: 'red' } : {}}
 					>{caption.length}/255</small>
 					<button type='submit' id='upload-button'>UPLOAD</button>
+					<button type='button' 
+						id='cancel-button'
+						onClick={cancelUpload}
+					>CANCEL</button>
 				</div>
 			</form>
 
