@@ -22,6 +22,7 @@ export default function LoginPage() {
     document.body.style.width = "100vw"
     return () => {
       document.body.style.backgroundColor = "rgb(252, 248, 247)";
+      document.body.style.background = "rgb(252, 248, 247)";
       document.body.style.minHeight = "1200px"
 
     };
@@ -48,8 +49,8 @@ export default function LoginPage() {
     return <Redirect to='/' />;
   }
 
-  const loginDemoUser = () => {
-
+  const loginDemoUser = async () => {
+    await dispatch(login('demo@aa.io', 'password'))
   }
 
   return (

@@ -29,6 +29,7 @@ export default function SignUpPage() {
 		document.body.style.width = "100vw"
 		return () => {
 			document.body.style.backgroundColor = "rgb(252, 248, 247)";
+			document.body.style.background = "rgb(252, 248, 247)";
 			document.body.style.minHeight = "1200px"
 
 		};
