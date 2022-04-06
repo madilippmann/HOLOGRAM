@@ -14,7 +14,7 @@
 }
 
 .single-feed-post {
-    padding: 10px;
+    padding: 4px 12px;
     justify-content: center;
     overflow: hidden;
 }
@@ -28,7 +28,7 @@
 } */
 
 .post-image-div img {
-    border-radius: 20px;
+    /* border-radius: 20px; */
     max-width: 100%;
     height: auto;
 }

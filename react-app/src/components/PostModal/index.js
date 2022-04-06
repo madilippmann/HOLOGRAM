@@ -7,6 +7,7 @@ import ProfileIcon from '../ProfileIcon';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
 
@@ -17,6 +18,7 @@ export default function PostModal({ postId }) {
     let sessionUser = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
+    const [editCaption, toggleEditCaption] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -60,11 +62,12 @@ export default function PostModal({ postId }) {
                     <div className='post-details-container'>
                         <div className='post-details'>
                             <h4 className='post-user-handle'>{post.user.handle}</h4>
-                            <span className='post-caption'>{post.caption}</span>
+                            {/* <span className='post-caption' id={`caption-${post.id}`}>{post.caption}</span> */}
+                            <EditPostForm post={post} editCaption={editCaption} toggleEditCaption={() => toggleEditCaption(!editCaption)}/>
                         </div>
                         {sessionUser.id !== post.user.id ? null : (
                             <div className='post-buttons'>
-                                <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                                <FontAwesomeIcon id ='' icon={faEdit} onClick={() => toggleEditCaption(!editCaption)}></FontAwesomeIcon>
                                 <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()}></FontAwesomeIcon>
 
                             </div>
@@ -74,7 +77,7 @@ export default function PostModal({ postId }) {
 
                 <div className='comment-section'>
                     <div>
-                        {post.comments.allComments.map(comment => {
+                        {post?.comments?.allComments?.map(comment => {
                             return (
                                 <div key={comment.id}>
                                     <CommentCard post={post} comment={comment} />

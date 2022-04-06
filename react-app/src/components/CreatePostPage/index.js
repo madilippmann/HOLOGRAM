@@ -35,7 +35,7 @@ export default function CreatePostPage() {
 		dispatch(postsActions.createPost(post))
 			.then(async post => {
 				window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-				return history.push(`/posts/${post.id}`);
+				return history.push(`/`);
 			})
 			.catch(async (res) => {
 				console.log(res);

@@ -1,0 +1,26 @@
+#caption-input {
+    height: 125px;
+    width: 240px;
+    font-size: 14;
+    resize: none;
+    background-color: transparent;
+    border: 2px solid black;
+}
+
+#cancel-caption-button, #save-caption-button {
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    width: 30%;
+    height: 30px;
+    margin: 5px 0 0 10px;
+}
+
+#edit-caption-submit-and-cancel-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#cancel-caption-button:hover, #save-caption-button:hover {
+    cursor: pointer;
+}

@@ -4,16 +4,18 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 
-function EditPostForm() {
+import './EditPostForm.css';
+
+function EditPostForm({ post, editCaption, toggleEditCaption }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session);
-    const { postId } = useParams()
+    const postId = post.id;
     // const [isLoaded, setIsLoaded] = useState(false);
-    const [caption, setCaption] = useState('');
+    const [caption, setCaption] = useState(post.caption);
     const [validationErrors, setValidationErrors] = useState([])
     const [showErrors, setShowErrors] = useState(false);
-
+    let edit = editCaption;
 
     useEffect(() => {
         const errors = [];
@@ -25,6 +27,8 @@ function EditPostForm() {
         e.preventDefault();
         if (validationErrors.length) return setShowErrors(true);
 
+        toggleEditCaption();
+
         const post = {
             id: postId,
             caption
@@ -33,11 +37,10 @@ function EditPostForm() {
         dispatch(postsActions.editPost(post))
             .then(async post => {
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                return history.push(`/posts/${post.id}`);
             })
             .catch(async (res) => {
                 console.log(res);
-                const data = await res.json();
+                const data = res
                 if (data && data.errors) {
                     setValidationErrors(data.errors);
                     setShowErrors(true);
@@ -45,19 +48,20 @@ function EditPostForm() {
             });
     }
 
-    return (
+    return edit ? (
         <div>
             <form method='POST' action="/posts" onSubmit={onSubmit}>
-                <label htmlFor='caption'>Caption</label>
-                <input
-                    type='text'
-                    id='caption'
+                {/* <label htmlFor='caption'>Caption</label> */}
+                <textarea
+                    id='caption-input'
                     name='caption'
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
                 />
-
-                <button type='submit'>submit</button>
+                <div id='edit-caption-submit-and-cancel-buttons'>
+                    <button type='button' id='cancel-caption-button' onClick={() => toggleEditCaption()}>Cancel</button>
+                    <button type='submit' id='save-caption-button'>Save</button>
+                </div>
             </form>
 
             {!showErrors ? null : (
@@ -68,7 +72,9 @@ function EditPostForm() {
                 </ul>
             )}
         </div>
-    );
+    )
+    :
+        <span className='post-caption'>{caption}</span>
 }
 
 export default EditPostForm;
