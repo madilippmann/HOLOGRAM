@@ -7,14 +7,10 @@ import * as userActions from '../../store/user'
 import * as sessionActions from '../../store/session'
 
 import './ProfilePage.css'
-import PostModalPopup from '../Modals/PostModalPopup';
 
 import defaultProfileImage from '../../static/default-profile-image.png'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faHeart, faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
+import ProfilePostCard from '../PostCard/ProfilePostCard';
 
 
 function ProfilePage() {
@@ -24,7 +20,6 @@ function ProfilePage() {
     const user = useSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
-    const postImageRef = useRef();
 
     let posts = useSelector(state => state.posts);
     const orderedPosts = [...posts?.allPosts].reverse()
@@ -32,9 +27,8 @@ function ProfilePage() {
     useEffect(() => {
         (async () => {
             const user = await dispatch(userActions.fetchUser(handle));
-            console.log(user);
             await dispatch(postsActions.fetchPosts('profile', user.id));
-            setIsLoaded(() => !isLoaded);
+            setIsLoaded(true);
         })()
     }, [dispatch]);
 
@@ -48,13 +42,7 @@ function ProfilePage() {
         setIsFollowed(() => !isFollowed);
     }
 
-    const toggleLike = (postId) => {
-        // PURPOSE: this should have the store force a rerender of this component since the
-        // post will be updated after toggling the like, since we are
-        // subscribed to this specific post in the store
-        dispatch(postsActions.togglePostLike(postId));
-        // setIsLiked(() => !isLiked);
-    }
+    
 
     return !isLoaded ? null : (
         <div>
@@ -91,49 +79,53 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => {
+                    // let isLiked = post.postLikes.find(like => like.userId === sessionUser.id);
+                    
                     return (
-                        <div
-                            key={post.id}
-                            className={`post-div`}
-                        >
-                            <div className='overlay' onClick={() => postImageRef.current.click()}>
-                                <div className='overlay__button-container'>
-                                    
-                                    <div className='centering-container like-container'>
-                                        <button
-                                            type='button'
-                                            onClick={() => {
-                                                console.log(post.id)
-                                                toggleLike(post?.id)
-                                            }}
-                                            className={`like-button`}
-                                        >
-                                            {post.postLikes.find(like => like.userId === sessionUser.id)
-                                                ? (
-                                                    <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
-                                                )
-                                                : (
-                                                    <FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />
-                                                )
-                                            }
-                                        </button>
-                                        
-                                        {/* TODO Not automatically re-rendering on change yet */}
-                                        <span>{post.postLikes.length}</span>
-                                    </div>
-                                    
-                                    <div className='centering-container comment-container'>
-                                        <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
-                                        {/* TODO ADD CORRECT COMMENT NUMBER */}
-                                        <span>4</span>
-                                    </div>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                            <PostModalPopup post={post} postImageRef={postImageRef} />
-                        </div>
+                        <ProfilePostCard post={post} />
+                        // <div
+                        //     key={post.id}
+                        //     className={`post-div`}
+                        // >
+                        //     <div className='overlay' onClick={(e) => {
+                        //         if (e.currentTarget === e.target) {
+                        //             postImageRef.current.click()
+                        //         }
+                        //     }}>
+                        //         <div className='overlay__button-container'>
+                        //             <div className='centering-container like-container'>
+                        //                 <button
+                        //                     type='button'
+                        //                     onClick={(e) => {
+                        //                         console.log(e.currentTarget);
+                        //                         toggleLike(post?.id)
+                        //                     }}
+                        //                     className={`like-button`}
+                        //                 >
+                        //                     {isLiked
+                        //                         ? (
+                        //                             <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
+                        //                         )
+                        //                         : (
+                        //                             <FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />
+                        //                         )
+                        //                     }
+                        //                 </button>
+
+                        //                 {/* TODO Not automatically re-rendering on change yet */}
+                        //                 <span>{post.postLikes.length}</span>
+                        //             </div>
+
+                        //             <div className='centering-container comment-container'>
+                        //                 <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
+                        //                 {/* TODO ADD CORRECT COMMENT NUMBER */}
+                        //                 <span>4</span>
+                        //             </div>
+                        //         </div>
+                        //     </div>
+
+                        //     <PostModalPopup post={post} postImageRef={postImageRef} />
+                        // </div>
 
                     )
 
