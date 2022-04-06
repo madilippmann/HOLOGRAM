@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 import * as userActions from '../../store/user'
@@ -21,8 +21,7 @@ function ProfilePage() {
     const user = useSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isFollowed, setIsFollowed] = useState(user?.followers?.find(user => user.id === sessionUser.id) ? true : false);
-
-    const [hover, setHover] = useState();
+    const postImageRef = useRef();
 
     let posts = useSelector(state => state.posts);
     const orderedPosts = [...posts?.allPosts].reverse()
@@ -62,9 +61,12 @@ function ProfilePage() {
                 </div>
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
-                        <h3 style={{ display: 'inline' }}>{user.handle}</h3>
-                        {user.id !== sessionUser.id &&
-                            <button className='remove-button-styling' type='button'>Follow</button>
+                        <h3 className='profile-page-handle' style={{ display: 'inline' }}>{user.handle}</h3>
+                        {user.id !== sessionUser.id ?
+                            <button className='follow-new-post-button remove-button-styling' type='button'>Follow</button> :
+                            <Link to='/posts/new'>
+                                <button className='follow-new-post-button remove-button-styling' type='button'>New Post</button>
+                            </Link>
                         }
                         {/* <button className='remove-button-styling' type='button'>
                             <FontAwesomeIcon icon={faEllipsis} />
@@ -91,7 +93,7 @@ function ProfilePage() {
                             key={post.id}
                             className={`post-div`}
                         >
-                            <div className='overlay'>
+                            <div className='overlay' onClick={() => postImageRef.current.click()}>
                                 <div className='overlay__div'>
                                     <div className='centering-container like-container'>
                                         <button
@@ -114,7 +116,7 @@ function ProfilePage() {
                                     </div>
                                 </div>
                             </div>
-                            <PostModalPopup post={post} />
+                            <PostModalPopup post={post} postImageRef={postImageRef} />
                         </div>
 
                     )

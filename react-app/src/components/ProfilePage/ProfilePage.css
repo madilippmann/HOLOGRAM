@@ -45,6 +45,34 @@
 .posts-followers-following-div, .handle-follow-options-div {
     display: flex;
     gap: 20px;
+    align-items: center;
+}
+
+
+.remove-button-styling {
+    background-color: transparent;
+    border: none;
+}
+
+.profile-page-handle {
+    padding-right: 50px;
+}
+
+button.follow-new-post-button {
+    /* background-color: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%); */
+    background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
+    padding: 0px 20px;
+    border-radius: 6px;
+    color: white;
+    height: 30px;
+    box-shadow: none;
+    transition: background-color 1s linear, box-shaddow .15s linear;
+}
+
+button.follow-new-post-button:hover {
+    /* background-color: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%); */
+    background: linear-gradient(135deg, rgb(113, 113, 249) 18%, rgb(254, 192, 170) 91%);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 /*****************************************************************/
@@ -75,7 +103,6 @@
     padding: 1px;
     border: 2px solid rgb(167, 167, 246);
     border-radius: 100%;
-    /* animation: border-bottom-gradient 5s infinite; */
 
 }
 
@@ -140,12 +167,6 @@
 }
 
 .like-button {
-    background-color: transparent;
-    border: none;
-}
-
-
-.remove-button-styling {
     background-color: transparent;
     border: none;
 }
