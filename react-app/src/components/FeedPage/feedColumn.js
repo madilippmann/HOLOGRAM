@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import './FeedPage.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 import PostModalPopup from '../Modals/PostModalPopup';
 
 import defaultProfileImage from '../../static/default-profile-image.png'
@@ -21,6 +22,8 @@ function FeedColumn({ column }) {
                         <div className='post-image-div'>
                             <PostModalPopup post={post} />
                         </div>
+                        
+                        
                         <div className='post-info'>
                             <Link to={`/${post.user.handle}/`}>
                                 <div className='user-image-and-handle'>
@@ -29,8 +32,8 @@ function FeedColumn({ column }) {
                                 </div>
                             </Link>
                             <div className='post-like-and-comment-count'>
-                                <span><FontAwesomeIcon icon={faHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
-                                <span><FontAwesomeIcon icon={faCommentAlt} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                                <span><FontAwesomeIcon icon={emptyHeart} className={`feed__post__icon`} />{post.postLikes.length}</span>
+                                <span><FontAwesomeIcon icon={emptyComment} className={`feed__post__icon`} />{post.postLikes.length}</span>
                             </div>
                         </div>
                     </div>

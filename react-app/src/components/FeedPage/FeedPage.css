@@ -81,9 +81,6 @@ img {
     padding: 0 6px;
 }
 
-.feed__post__icon {
-}
-
 .post-like, .post-comment {
     display: flex;
     flex-flow: row nowrap;
