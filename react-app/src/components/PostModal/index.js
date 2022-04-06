@@ -105,9 +105,7 @@ export default function PostModal({ postId }) {
 
                 </div>
             </div>
-
-
-
+            
 
             {/* {post.userId === sessionUser.id &&
                 <button
