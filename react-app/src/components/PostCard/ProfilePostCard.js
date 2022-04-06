@@ -19,8 +19,11 @@ export default function ProfilePostCard({ post }) {
     const sessionUser = useSelector(state => state.session.user);
     const postImageRef = useRef();
     const [isLiked, setIsLiked] = useState(post.postLikes.find(like => like.userId === sessionUser.id) ? true : false);
+    const [likeCount, setLikeCount] = useState(post.postLikes.length);
     
     const toggleLike = (postId) => {
+        if (isLiked) setLikeCount(prev => prev - 1);
+        else setLikeCount(prev => prev + 1);
         setIsLiked(prev => !prev);
         dispatch(postsActions.togglePostLike(postId));
     }
@@ -37,11 +40,7 @@ export default function ProfilePostCard({ post }) {
             }}>
                 <div className='overlay__button-container'>
                     <div className='centering-container like-container'>
-                        <button
-                            type='button'
-                            onClick={(e) => toggleLike(post?.id)}
-                            className={`like-button`}
-                        >
+                        <button type='button' onClick={(e) => toggleLike(post?.id)} className={`like-button`}>
                             {isLiked
                                 ? (
                                     <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
@@ -51,9 +50,7 @@ export default function ProfilePostCard({ post }) {
                                 )
                             }
                         </button>
-
-                        {/* TODO Not automatically re-rendering on change yet */}
-                        <span>{post.postLikes.length}</span>
+                        <span>{likeCount}</span>
                     </div>
 
                     <div className='centering-container comment-container'>
