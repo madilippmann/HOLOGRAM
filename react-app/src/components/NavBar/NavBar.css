@@ -3,12 +3,15 @@
 	height: 64px;
 
 	background-color: rgb(253, 223, 211);
-	border-bottom: 1px solid rgb(255, 242, 237);
+	/* border-bottom: 1px solid rgb(255, 242, 237); */
+	border-bottom: 1px solid rgb(251, 227, 217);
 
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 10;
+	box-shadow: rgba(0, 0, 0, 0.035) 0px 5px 5px;
+
 }
 .navbar-container {
 	width: 1280px;
