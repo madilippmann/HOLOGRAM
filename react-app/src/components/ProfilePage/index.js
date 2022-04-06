@@ -9,7 +9,8 @@ import * as sessionActions from '../../store/session'
 import './ProfilePage.css'
 
 import defaultProfileImage from '../../static/default-profile-image.png'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ProfilePostCard from '../PostCard/ProfilePostCard';
 
