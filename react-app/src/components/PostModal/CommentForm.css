@@ -1,0 +1,32 @@
+/* CREATE COMMENT *****************************
+**********************************************/
+#comment-form-wrapper,
+#comment-form-wrapper form {
+    width: 100%;
+    height: 100%;
+}
+
+#comment-input {
+    height: 100%;
+    width: 85%;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    
+    outline: none;
+}
+
+#comment-submit {
+    background-color: transparent;
+    border: none;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: var(--color-purple);
+}
+
+
+
+
+
+/* UPDATE COMMENT *****************************
+**********************************************/
