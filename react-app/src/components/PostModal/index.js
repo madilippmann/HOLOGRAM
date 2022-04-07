@@ -31,13 +31,7 @@ export default function PostModal({ postId }) {
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [orderedComments, setOrderedComments] = useState([]);
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(postsActions.fetchComments(postId));
-            await dispatch(postsActions.fetchPostLikes(postId));
-            setIsLoaded(true);
-        })()
-    }, [dispatch]);
+
 
     useEffect(() => {
         setOrderedComments(() => sortByCreatedAt(Object.values(post.comments)))

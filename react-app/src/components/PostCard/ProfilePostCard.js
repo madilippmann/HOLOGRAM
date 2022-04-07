@@ -29,7 +29,7 @@ export default function ProfilePostCard({ post }) {
 
 
     const toggleLike = () => {
-        dispatch(postsActions.togglePostLike(postId));
+        dispatch(postsActions.togglePostLike(post.id));
     }
 
     return (
