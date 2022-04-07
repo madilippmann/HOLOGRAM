@@ -57,7 +57,7 @@ function EditCommentForm({ comment, setShowEdit }) {
             />
 
             <div id='edit-comment-button-container'>
-                <button type='button' id='cancel-edit-comment'>cancel</button>
+                <button type='button' id='cancel-edit-comment' onClick={() => setShowEdit(false)}>cancel</button>
                 <button type='submit' id='submit-edit-comment' style={{ color: 'var(--color-purple)' }}>submit</button>
             </div>
         </form>

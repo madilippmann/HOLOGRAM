@@ -29,7 +29,7 @@ export default function CommentCard({ post, comment }) {
 
 			<div className='comment-body'>
 				{showEdit ? (
-					<EditCommentForm comment={comment} showEdit={setShowEdit} />
+					<EditCommentForm comment={comment} setShowEdit={setShowEdit} />
 				) : (
 					<div className='handle-and-comment-content'>
 						<span className='comment-user-handle'>{comment.user.handle}</span>
