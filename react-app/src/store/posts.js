@@ -282,9 +282,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
         case ADD_POST: {
             const newState = { ...state };
-            newState[action.post.id] = {
-                ...action.post,
-            };
+            newState[action.post.id] = { ...action.post };
 
             return newState;
         }
