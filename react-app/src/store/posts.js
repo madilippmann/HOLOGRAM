@@ -1,16 +1,13 @@
 // import { csrfFetch } from "./csrf"; // ??? WILL WE BE DOING CSRF FETCHES AGAIN ???
-import { normalizePosts, normalizeOneLevel } from "./utils";
+import { normalizePosts } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_POST = 'posts/ADD_POST';
-const LOAD_POST = 'posts/LOAD_POST';
 const LOAD_POSTS = 'posts/LOAD_POSTS';
 const REMOVE_POST = 'posts/REMOVE_POST';
 
 const ADD_COMMENT = 'comments/ADD_COMMENT';
-const LOAD_COMMENTS = 'comments/LOAD_COMMENTS';
 const REMOVE_COMMENT = 'comments/REMOVE_COMMENT';
 
-const LOAD_LIKES = 'likes/LOAD_LIKES'
 const ADD_LIKE = 'likes/ADD_LIKE';
 const REMOVE_LIKE = 'likes/REMOVE_LIKE';
 
