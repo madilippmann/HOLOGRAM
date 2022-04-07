@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar";
 
@@ -11,6 +12,58 @@ import logo from '../../static/hologram-logo.png'
 
 const NavBar = () => {
 	const sessionUser = useSelector(state => state.session.user);
+	const [showFollowers, setShowFollowers] = useState(false)
+	const [showFollowings, setShowFollowings] = useState(false)
+
+	const openFollows = (type) => {
+		if (type === 'following') {
+			if (showFollowings) return;
+			document.querySelector('.sessionUser-following')
+			setShowFollowings(true);
+		} else if (type === 'followers') {
+			if (showFollowers) return;
+			document.querySelector('.sessionUser-followers')
+			setShowFollowers(true);
+		}
+	}
+
+
+	useEffect(() => {
+		if (showFollowings) setShowFollowings(() => false)
+		if (!showFollowers) return;
+
+		const closeFollowers = () => {
+			document.querySelector('.sessionUser-followers')
+			setShowFollowers(false);
+		};
+
+		document.addEventListener('click', closeFollowers);
+
+		return () => {
+			setShowFollowers(false);
+			document.removeEventListener("click", closeFollowers);
+		}
+
+	}, [showFollowers]);
+
+	useEffect(() => {
+		if (showFollowers) setShowFollowers(() => false)
+		if (!showFollowings) return;
+
+		const closeFollowings = () => {
+			document.querySelector('.sessionUser-followings')
+			setShowFollowings(false);
+		};
+
+		document.addEventListener('click', closeFollowings);
+
+		return () => {
+			setShowFollowings(false);
+			document.removeEventListener("click", closeFollowings);
+		}
+
+	}, [setShowFollowings]);
+
 
 
 	return !sessionUser ? null : (
@@ -51,12 +104,44 @@ const NavBar = () => {
 
 					<div className="nav__stats">
 						<div>
-							<span>{sessionUser?.followers.length}</span>
-							<small>followers</small>
+							<button
+								type='button'
+								onClick={() => openFollows('followers')}
+							>
+								<span>{sessionUser?.followers.length}</span>
+								<small>followers</small>
+							</button>
+
+							{showFollowers && (
+								<div className="profile_nav_dropdown">
+									<div>
+										profile&nbsp;&nbsp;
+									</div>
+									<div>
+										settings&nbsp;&nbsp;
+									</div>
+								</div>
+							)}
 						</div>
 						<div>
-							<span>{sessionUser?.following.length}</span>
-							<small>following</small>
+							<button
+								type='button'
+								onClick={() => openFollows('following')}
+							>
+								<span>{sessionUser?.following.length}</span>
+								<small>following</small>
+							</button>
+							{showFollowings && (
+								<div className="profile_nav_dropdown">
+									<div>
+										profile&nbsp;&nbsp;
+
+									</div>
+									<div>
+										settings&nbsp;&nbsp;
+									</div>
+								</div>
+							)}
 						</div>
 					</div>
 
