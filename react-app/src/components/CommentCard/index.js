@@ -5,20 +5,26 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import * as postsActions from '../../store/posts'
+import ProfileIcon from '../ProfileIcon/index';
 import './CommentCard.css'
 
 export default function CommentCard({ post, comment }) {
 	const dispatch = useDispatch();
 	let sessionUser = useSelector(state => state.session.user);
+	
 
 	const deleteComment = (commentId) => {
-		dispatch(postsActions.deleteComment(commentId, post.id))
+		if (window.confirm('Are you sure you would like to delete your comment?')) {
+			dispatch(postsActions.deleteComment(commentId, post.id))
+		}
 	}
 
 	return (
 		<div className='comment-container'>
-			<img className='comment-profile-image' alt={comment.user.handle} src={comment.user.profileImageUrl} />
-			
+			<div style={{ width: '30px', height: '30px' }}>
+				<ProfileIcon user={comment.user} />
+			</div>
+
 			<div className='comment-body'>
 				<div className='handle-and-comment-content'>
 					<span className='comment-user-handle'>{comment.user.handle}</span>
@@ -26,10 +32,10 @@ export default function CommentCard({ post, comment }) {
 				</div>
 
 			</div>
-			
+
 			{comment.user.id === sessionUser.id &&
 				<div className='edit-and-delete-buttons'>
-					<FontAwesomeIcon icon={faEdit} id='edit-comment-button' onClick={() => deleteComment(comment.id)} />
+					<FontAwesomeIcon icon={faEdit} id='edit-comment-button' onClick={() => alert('Sorry! This feature is under construction')} />
 					<FontAwesomeIcon icon={faTrash} id='delete-comment-button' onClick={() => deleteComment(comment.id)} />
 				</div>
 			}
