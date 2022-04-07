@@ -12,22 +12,30 @@ import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 
 
-
-
 export default function ProfilePostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const postImageRef = useRef();
-    const [isLiked, setIsLiked] = useState(post.postLikes.find(like => like.userId === sessionUser.id) ? true : false);
-    const [likeCount, setLikeCount] = useState(post.postLikes.length);
-    
-    const toggleLike = (postId) => {
-        if (isLiked) setLikeCount(prev => prev - 1);
-        else setLikeCount(prev => prev + 1);
-        setIsLiked(prev => !prev);
-        dispatch(postsActions.togglePostLike(postId));
+    const [likes, setLikes] = useState(Object.values(post.postLikes))
+    const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
+
+
+    useEffect(() => {
+    }, [])
+
+    // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
+    useEffect(() => {
+        // setIsLiked(() => likes?.find(like => like.userId === sessionUser.id) ? true : false);
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
+    }, [post.postLikes])
+
+
+    const toggleLike = async () => {
+        await dispatch(postsActions.togglePostLike(post.id));
+
     }
-    
+
     return (
         <div
             key={post.id}
@@ -40,7 +48,7 @@ export default function ProfilePostCard({ post }) {
             }}>
                 <div className='overlay__button-container'>
                     <div className='centering-container like-container'>
-                        <button type='button' onClick={(e) => toggleLike(post?.id)} className={`like-button`}>
+                        <button type='button' onClick={(e) => toggleLike(post.id)} className={`like-button`}>
                             {isLiked
                                 ? (
                                     <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
@@ -50,13 +58,13 @@ export default function ProfilePostCard({ post }) {
                                 )
                             }
                         </button>
-                        <span>{likeCount}</span>
+                        <span>{likes.length}</span>
                     </div>
 
                     <div className='centering-container comment-container'>
                         <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
                         {/* TODO ADD CORRECT COMMENT NUMBER */}
-                        <span>4</span>
+                        <span>{post.comments.length}</span>
                     </div>
                 </div>
             </div>

@@ -6,16 +6,31 @@ import './FeedPage.css';
 
 import FeedColumn from './FeedColumn';
 
+import { sortByCreatedAt } from '../../utils';
+
 function FeedPage() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
     let posts = useSelector(state => state.posts);
 
+    const [orderedPosts, setOrderedPosts] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(postsActions.fetchPosts('feed', null));
+            setIsLoaded(() => !isLoaded);
+        })()
+    }, [dispatch]);
+
+    useEffect(() => {
+        setOrderedPosts(() => sortByCreatedAt(Object.values(posts)));
+    }, [posts])
+
     const postsForListOne = [], postsForListTwo = [], postsForListThree = [];
     let counter = 0;
 
-    for (let post of posts.allPosts) {
+    for (let post of orderedPosts) {
         switch (counter) {
             case 0:
                 postsForListOne.push(post);
@@ -34,24 +49,15 @@ function FeedPage() {
         }
     }
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(postsActions.fetchPosts('feed', null));
-            setIsLoaded(() => !isLoaded);
-        })()
-    }, [dispatch]);
-
 
     return !isLoaded ? null : (
-        <>
-            {/* <h1>Post List: </h1> */}
 
-            <div id='all-posts'>
-                <FeedColumn column={postsForListOne} />
-                <FeedColumn column={postsForListTwo} />
-                <FeedColumn column={postsForListThree} />
-            </div>
-        </>
+        <div id='all-posts'>
+            <FeedColumn column={postsForListOne} />
+            <FeedColumn column={postsForListTwo} />
+            <FeedColumn column={postsForListThree} />
+        </div>
+
     );
 }
 

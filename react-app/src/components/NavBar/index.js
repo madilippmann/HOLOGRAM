@@ -8,28 +8,26 @@ import { faHouse, faCirclePlus, faEnvelope } from '@fortawesome/free-solid-svg-i
 import './NavBar.css';
 import NavProfileButton from "../NavProfileButton";
 
+import defaultProfileImage from '../../static/default-profile-image.png'
 import logo from '../../static/hologram-logo.png'
+import FollowsList from "../FollowsList";
 
 const NavBar = () => {
 	const sessionUser = useSelector(state => state.session.user);
 	const [showFollowers, setShowFollowers] = useState(false)
 	const [showFollowings, setShowFollowings] = useState(false)
 
-	const openFollows = (type) => {
-		if (type === 'following') {
-			if (showFollowings) return;
-			document.querySelector('.sessionUser-following')
-			setShowFollowings(true);
-		} else if (type === 'followers') {
-			if (showFollowers) return;
-			document.querySelector('.sessionUser-followers')
-			setShowFollowers(true);
-		}
+	const openFollowers = () => {
+
+		if (showFollowers) return;
+		document.querySelector('.sessionUser-followers')
+		setShowFollowers(true);
+
 	}
 
 
 	useEffect(() => {
-		if (showFollowings) setShowFollowings(() => false)
+		// if (showFollowings) setShowFollowings(() => false)
 		if (!showFollowers) return;
 
 		const closeFollowers = () => {
@@ -46,8 +44,15 @@ const NavBar = () => {
 
 	}, [showFollowers]);
 
+
+	const openFollowings = () => {
+		if (showFollowings) return;
+		document.querySelector('.sessionUser-following')
+		setShowFollowings(true);
+	}
+
 	useEffect(() => {
-		if (showFollowers) setShowFollowers(() => false)
+		// if (showFollowers) setShowFollowers(() => false)
 		if (!showFollowings) return;
 
 		const closeFollowings = () => {
@@ -62,7 +67,7 @@ const NavBar = () => {
 			document.removeEventListener("click", closeFollowings);
 		}
 
-	}, [setShowFollowings]);
+	}, [showFollowings]);
 
 
 
@@ -103,42 +108,37 @@ const NavBar = () => {
 					</div>
 
 					<div className="nav__stats">
-						<div>
+						<div className='sessionUser-followers'>
 							<button
+								className='remove-button-styling stack add-hover '
 								type='button'
-								onClick={() => openFollows('followers')}
+								onClick={openFollowers}
 							>
 								<span>{sessionUser?.followers.length}</span>
 								<small>followers</small>
 							</button>
 
 							{showFollowers && (
-								<div className="profile_nav_dropdown">
-									<div>
-										profile&nbsp;&nbsp;
-									</div>
-									<div>
-										settings&nbsp;&nbsp;
+								<div className="follows-dropdown">
+									<div className='followers-list'>
+										<FollowsList follows={sessionUser?.followers} />
 									</div>
 								</div>
 							)}
 						</div>
-						<div>
+						<div className='sessionUser-followings'>
 							<button
+								className='remove-button-styling stack add-hover'
 								type='button'
-								onClick={() => openFollows('following')}
+								onClick={openFollowings}
 							>
 								<span>{sessionUser?.following.length}</span>
 								<small>following</small>
 							</button>
 							{showFollowings && (
-								<div className="profile_nav_dropdown">
-									<div>
-										profile&nbsp;&nbsp;
-
-									</div>
-									<div>
-										settings&nbsp;&nbsp;
+								<div className="follows-dropdown">
+									<div className='followings-list'>
+										<FollowsList follows={sessionUser?.following} />
 									</div>
 								</div>
 							)}

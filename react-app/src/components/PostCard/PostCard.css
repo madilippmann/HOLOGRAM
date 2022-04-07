@@ -42,9 +42,9 @@
     color: var(--color-red);
     font-size: 20px;
     padding: 0 6px;
-    
+
     cursor: pointer;
-    
+
     position: relative;
     top: -1px;
     transform: scale(1.1);
@@ -54,7 +54,7 @@
     font-size: 22px;
     padding: 0 6px;
     cursor: pointer;
-    
+
     position: relative;
     top: -1px;
 }
@@ -83,23 +83,23 @@
     height: 100%;
     margin: 0 auto;
     aspect-ratio: 1 / 1;
-    
+
     color: var(--color-white);
-    
+
     position: absolute;
-    bottom: calc(100%-20px);
+    /* bottom: calc(100%-20px); */
     opacity: 0%;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     transition: opacity .15s linear;
 }
 .overlay:hover {
     opacity: 100%;
     background-color: rgba(0, 0, 0, 0.516);
-    
+
 }
 
 
@@ -109,7 +109,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     position: absolute;
     top: 50%;
     left: 50%;

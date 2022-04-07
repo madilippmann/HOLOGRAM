@@ -6,6 +6,7 @@ import * as postsActions from '../../store/posts'
 import * as userActions from '../../store/user'
 import * as sessionActions from '../../store/session'
 
+import FollowsList from '../FollowsList';
 import './ProfilePage.css'
 
 import defaultProfileImage from '../../static/default-profile-image.png'
@@ -14,21 +15,23 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ProfilePostCard from '../PostCard/ProfilePostCard';
 
-
+import { sortByCreatedAt } from '../../utils';
 
 function ProfilePage() {
     const { handle } = useParams();
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
-    const user = useSelector(state => state.user);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const [isFollowed, setIsFollowed] = useState();
     const postImageRef = useRef();
 
-
+    const sessionUser = useSelector(state => state.session.user);
+    const user = useSelector(state => state.user);
     let posts = useSelector(state => state.posts);
-    const orderedPosts = [...posts?.allPosts].reverse()
+
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isFollowed, setIsFollowed] = useState();
+    const [showFollowers, setShowFollowers] = useState(false)
+    const [showFollowings, setShowFollowings] = useState(false)
+    const [orderedPosts, setOrderedPosts] = useState([])
+
 
     useEffect(() => {
         (async () => {
@@ -41,6 +44,60 @@ function ProfilePage() {
         })()
     }, [dispatch]);
 
+    useEffect(() => {
+        setOrderedPosts(() => sortByCreatedAt(Object.values(posts)));
+    }, [posts])
+
+    const openFollowers = () => {
+        if (showFollowers) return;
+        document.querySelector('.sessionUser-followers')
+        setShowFollowers(true);
+    }
+
+    useEffect(() => {
+        // if (showFollowings) setShowFollowings(() => false)
+        if (!showFollowers) return;
+
+        const closeFollowers = () => {
+            document.querySelector('.sessionUser-followers')
+            setShowFollowers(false);
+        };
+
+        document.addEventListener('click', closeFollowers);
+
+        return () => {
+            setShowFollowers(false);
+            document.removeEventListener("click", closeFollowers);
+        }
+
+    }, [showFollowers]);
+
+
+    const openFollowings = () => {
+        if (showFollowings) return;
+        document.querySelector('.sessionUser-following')
+        setShowFollowings(true);
+    }
+
+    useEffect(() => {
+        // if (showFollowers) setShowFollowers(() => false)
+        if (!showFollowings) return;
+
+        const closeFollowings = () => {
+            document.querySelector('.sessionUser-followings')
+            setShowFollowings(false);
+        };
+
+        document.addEventListener('click', closeFollowings);
+
+        return () => {
+            setShowFollowings(false);
+            document.removeEventListener("click", closeFollowings);
+        }
+
+    }, [showFollowings]);
+
+
     if (!user) {
         return null;
     }
@@ -49,8 +106,6 @@ function ProfilePage() {
         const follow = await dispatch(userActions.toggleUserFollow(user.id));
         await dispatch(sessionActions.fetchUser(sessionUser.handle));
         setIsFollowed(() => !isFollowed);
-        console.log("FOLLOW: ", isFollowed)
-
     }
 
 
@@ -89,14 +144,44 @@ function ProfilePage() {
                         </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <p>{posts.allPosts.length} posts</p>
-                        <p>{user.followers.length} followers</p>
-                        <p>{user.following.length} following</p>
+                        <p>{orderedPosts.length} posts</p>
+                        <div className='sessionUser-followers'>
+                            <button
+                                className='remove-button-styling stack'
+                                type='button'
+                                onClick={openFollowers}
+                            >
+
+                                <p className='follows-profile'>{user.followers.length} followers</p>
+                            </button>
+                            {showFollowers && (
+                                <div className="follows-dropdown">
+                                    <div className='followers-list'>
+                                        <FollowsList follows={user?.followers} />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        <div className='sessionUser-followings'>
+                            <button
+                                className='remove-button-styling stack'
+                                type='button'
+                                onClick={openFollowings}
+                            >
+                                <p className='follows-profile'>{user.following.length} following</p>
+                            </button>
+                            {showFollowings && (
+                                <div className="follows-dropdown">
+                                    <div className='followings-list'>
+                                        <FollowsList follows={user?.following} />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <div className='name-bio-div'>
                         <h4>{user.firstName} {user.lastName}</h4>
-                        {/* <p>{user.bio}</p> */}
-                        <p>This is a temporary bio</p>
+                        <p>{user.bio}</p>
                     </div>
 
                 </div>

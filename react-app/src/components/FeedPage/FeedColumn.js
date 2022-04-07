@@ -9,7 +9,7 @@ function FeedColumn({ column }) {
     return (
         <div className='posts-list'>
             {column.map(post => (
-                <PostCard post={post} />
+                <PostCard post={post} key={post.id} />
             ))}
         </div>
     );

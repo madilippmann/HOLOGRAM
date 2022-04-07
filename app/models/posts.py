@@ -16,6 +16,18 @@ class Post(db.Model):
     postLikes = db.relationship('PostLike', back_populates='post', cascade="all, delete")
     # hashtags = db.relationship('Hashtag', back_populates='post')
 
+
+    def to_dict_lite(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'postImageUrl': self.postImageUrl,
+            'caption': self.caption,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
+            'user': self.user.to_dict_lite()
+        }
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -23,6 +35,7 @@ class Post(db.Model):
             'postImageUrl': self.postImageUrl,
             'caption': self.caption,
             'postLikes': [postLike.to_dict() for postLike in self.postLikes],
+            'comments': [comment.to_dict() for comment in self.comments],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt,
             'user': self.user.to_dict()
