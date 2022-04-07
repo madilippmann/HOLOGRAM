@@ -11,23 +11,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 
-
-
+import { sortByCreatedAt } from '../../utils.js'
 
 export default function ProfilePostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const postImageRef = useRef();
-    const [isLiked, setIsLiked] = useState(post.postLikes.find(like => like.userId === sessionUser.id) ? true : false);
-    const [likeCount, setLikeCount] = useState(post.postLikes.length);
-    
-    const toggleLike = (postId) => {
-        if (isLiked) setLikeCount(prev => prev - 1);
-        else setLikeCount(prev => prev + 1);
-        setIsLiked(prev => !prev);
+    const [likes, setLikes] = useState([])
+    const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
+
+
+    // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
+    useEffect(() => {
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => !isLiked);
+    }, [post.postLikes])
+
+
+    const toggleLike = () => {
         dispatch(postsActions.togglePostLike(postId));
     }
-    
+
     return (
         <div
             key={post.id}
@@ -50,13 +54,13 @@ export default function ProfilePostCard({ post }) {
                                 )
                             }
                         </button>
-                        <span>{likeCount}</span>
+                        <span>{likes.length}</span>
                     </div>
 
                     <div className='centering-container comment-container'>
                         <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
                         {/* TODO ADD CORRECT COMMENT NUMBER */}
-                        <span>4</span>
+                        <span>{post.comments.length}</span>
                     </div>
                 </div>
             </div>
