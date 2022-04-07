@@ -54,17 +54,6 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
 
-    def follower_following_to_dict(self):
-        return {
-            'id': self.id,
-            'firstName': self.firstName,
-            'lastName': self.lastName,
-            'handle': self.handle,
-            # 'email': self.email,
-            'bio': self.bio,
-            'profileImageUrl': self.profileImageUrl,
-            'privateStatus': self.privateStatus,
-        }
 
     def to_dict(self):
         followers = [follower.follower_following_to_dict() for follower in self.followers]
@@ -75,13 +64,24 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'handle': self.handle,
-            # 'email': self.email,
             'bio': self.bio,
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
             'followers': followers,
             'following': following
         }
+
+    def to_dict_lite(self):
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'handle': self.handle,
+            'bio': self.bio,
+            'profileImageUrl': self.profileImageUrl,
+            'privateStatus': self.privateStatus,
+        }
+
 
     def session_to_dict(self):
         followers = [follower.follower_following_to_dict() for follower in self.followers]
@@ -98,4 +98,15 @@ class User(db.Model, UserMixin):
             'privateStatus': self.privateStatus,
             'followers': followers,
             'following': following
+        }
+
+    def follower_following_to_dict(self):
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'handle': self.handle,
+            'bio': self.bio,
+            'profileImageUrl': self.profileImageUrl,
+            'privateStatus': self.privateStatus,
         }
