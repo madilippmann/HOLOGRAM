@@ -8,13 +8,9 @@ import './CommentForm.css';
 
 function CommentForm({ postId }) {
 	const dispatch = useDispatch();
-	// const user = useSelector(state => state.session);
-	// const post = useSelector(state => state.posts[postId]);
-	const [isLoaded, setIsLoaded] = useState(false);
 	const [content, setContent] = useState('');
 	const [validationErrors, setValidationErrors] = useState([])
 	const [showErrors, setShowErrors] = useState(false);
-
 
 	useEffect(() => {
 		const errors = [];
@@ -50,6 +46,7 @@ function CommentForm({ postId }) {
 		console.log(content)
 	};
 
+	
 	return (
 		<div id='comment-form-wrapper'>
 			<form onSubmit={onSubmit}>
