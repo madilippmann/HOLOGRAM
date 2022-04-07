@@ -39,6 +39,8 @@ export default function PostModal({ postId }) {
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
         console.log(`Post${post.id} Modal Likes: `, likes)
         console.log(`Post ${post.id} Modal isLiked: `, isLiked)
 
@@ -53,8 +55,6 @@ export default function PostModal({ postId }) {
 
     const toggleLike = async () => {
         await dispatch(postsActions.togglePostLike(postId));
-        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
-        setLikes(() => Object.values(post.postLikes))
 
     }
 

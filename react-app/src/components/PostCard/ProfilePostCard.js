@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 
-import { sortByCreatedAt } from '../../utils.js'
 
 export default function ProfilePostCard({ post }) {
     const dispatch = useDispatch();
@@ -20,22 +19,22 @@ export default function ProfilePostCard({ post }) {
     const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
 
+
     useEffect(() => {
     }, [])
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
         // setIsLiked(() => likes?.find(like => like.userId === sessionUser.id) ? true : false);
-
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
+        console.log(`Post${post.id} Profile Likes: `, likes)
+        console.log(`Post ${post.id} Profile isLiked: `, isLiked)
     }, [post.postLikes])
 
 
     const toggleLike = async () => {
         await dispatch(postsActions.togglePostLike(post.id));
-        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
-        setLikes(() => Object.values(post.postLikes))
-        console.log(`Post${post.id} Profile Likes: `, likes)
-        console.log(`Post ${post.id} Profile isLiked: `, isLiked)
 
     }
 
