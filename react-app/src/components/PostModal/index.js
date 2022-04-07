@@ -26,7 +26,7 @@ export default function PostModal({ postId }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [likes, setLikes] = useState([])
     const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
-    const [editCaption, toggleEditCaption] = useState(false);
+    const [editCaption, setEditCaption] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [orderedComments, setOrderedComments] = useState([]);
@@ -82,11 +82,11 @@ export default function PostModal({ postId }) {
                             <div className='post-details'>
                                 <h4 className='post-user-handle'>{post.user.handle}</h4>
                                 {/* <span className='post-caption' id={`caption-${post.id}`}>{post.caption}</span> */}
-                                <EditPostForm post={post} editCaption={editCaption} toggleEditCaption={() => toggleEditCaption(!editCaption)} />
+                                <EditPostForm post={post} editCaption={editCaption} setEditCaption={() => setEditCaption(!editCaption)} />
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
-                                    <FontAwesomeIcon id='' icon={faEdit} onClick={() => toggleEditCaption(!editCaption)} />
+                                    <FontAwesomeIcon id='' icon={faEdit} onClick={() => setEditCaption(!editCaption)} />
                                     <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()} />
 
                                 </div>
