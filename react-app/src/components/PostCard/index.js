@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,18 +8,29 @@ import PostModalPopup from '../Modals/PostModalPopup';
 import ProfileIcon from '../ProfileIcon';
 import * as postsActions from '../../store/posts';
 import './PostCard.css'
+import { sortByCreatedAt } from '../../utils';
 
 export default function PostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const [isLiked, setIsLiked] = useState(post.postLikes.find(like => like.userId === sessionUser.id) ? true : false);
-    const [likeCount, setLikeCount] = useState(post.postLikes.length);
-    
+    const [likes, setLikes] = useState([])
+    const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
+    const [comments, setComments] = useState([])
+
+    // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
+    useEffect(() => {
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => !isLiked);
+    }, [post.postLikes])
+
+    useEffect(() => {
+        setComments(sortByCreatedAt(Object.values(post.comments)))
+    }, [post.comments])
+
     const toggleLike = (e) => {
         dispatch(postsActions.togglePostLike(post.id));
-        setIsLiked(() => !isLiked);
     }
-    
+
     return (
         <div className='single-feed-post' key={post.id}>
             <div className='post-image-div'>
@@ -38,21 +49,15 @@ export default function PostCard({ post }) {
                 <div className='post-like-and-comment-count'>
                     {isLiked
                         ? (
-                            <span onClick={() => {
-                                toggleLike();
-                                setLikeCount(prev => prev - 1);
-                            }}
-                            ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likeCount}</span>
+                            <span onClick={toggleLike}
+                            ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likes.length}</span>
                         )
                         : (
-                            <span onClick={() => {
-                                toggleLike();
-                                setLikeCount(prev => prev + 1);
-                            }}
-                            ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likeCount}</span>
+                            <span onClick={toggleLike}
+                            ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likes.length}</span>
                         )
                     }
-                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />PH</span>
+                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{comments.length}</span>
                 </div>
             </div>
         </div>
