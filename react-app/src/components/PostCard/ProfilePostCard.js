@@ -28,8 +28,6 @@ export default function ProfilePostCard({ post }) {
         // setIsLiked(() => likes?.find(like => like.userId === sessionUser.id) ? true : false);
         setLikes(() => Object.values(post.postLikes))
         setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
-        console.log(`Post${post.id} Profile Likes: `, likes)
-        console.log(`Post ${post.id} Profile isLiked: `, isLiked)
     }, [post.postLikes])
 
 

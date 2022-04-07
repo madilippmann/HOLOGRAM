@@ -41,9 +41,6 @@ export default function PostModal({ postId }) {
     useEffect(() => {
         setLikes(() => Object.values(post.postLikes))
         setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
-        console.log(`Post${post.id} Modal Likes: `, likes)
-        console.log(`Post ${post.id} Modal isLiked: `, isLiked)
-
     }, [post.postLikes])
 
     const deletePost = async () => {
@@ -55,7 +52,6 @@ export default function PostModal({ postId }) {
 
     const toggleLike = async () => {
         await dispatch(postsActions.togglePostLike(postId));
-
     }
 
 
