@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticate } from './store/session';
-import CommentForm from './components/PostModal/CommentForm';
 import CreatePostPage from './components/CreatePostPage';
-import EditPostForm from './components/PostModal/EditPostForm';
-import EditCommentForm from './components/PostModal/EditCommentForm';
 import FeedPage from './components/FeedPage';
 import HeaderFooterWrapper from './components/HeaderFooterWrapper';
 import LoginPage from './components/LoginPage';
@@ -47,23 +44,8 @@ function App() {
 						<FeedPage />
 					</ProtectedRoute>
 
-					{/* FOR TESTING THE POST FORM PAGE */}
 					<ProtectedRoute exact path="/posts/new">
 						<CreatePostPage />
-					</ProtectedRoute>
-
-					{/* FIX FIX FIX */}
-					<ProtectedRoute exact path="/posts/:postId(\d+)/edit">
-						<EditPostForm />
-					</ProtectedRoute>
-
-					{/* FOR TESTING COMMENT POST */}
-					<ProtectedRoute exact path="/posts/:postId(\d+)/comments/new">
-						<CommentForm />
-					</ProtectedRoute>
-
-					<ProtectedRoute exact path="/posts/:postId(\d+)/comments/:commentId(\d+)/edit">
-						<EditCommentForm />
 					</ProtectedRoute>
 
 					<ProtectedRoute exact path="/search/:query">
@@ -77,7 +59,6 @@ function App() {
 					<Route>
 						<PageNotFound />
 					</Route>
-
 				</Switch>
 			</HeaderFooterWrapper>
 		</BrowserRouter>

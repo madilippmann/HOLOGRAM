@@ -1,0 +1,49 @@
+.edit-comment-form {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#edit-comment-input {
+    width: 100%;
+    padding: 4px;
+    border-radius: 2px;
+
+    font-family: inherit;
+    background-color: transparent;
+    outline: none;
+    resize: vertical;
+}
+#edit-comment-input:focus {
+    border-color: var(--color-purple);
+}
+#edit-comment-input::-webkit-scrollbar {
+	width: 8px;
+}
+#edit-comment-input::-webkit-scrollbar-thumb {
+	border-radius: 25px;
+    cursor: pointer;
+	background-color: var(--color-gray);
+
+}
+#edit-comment-input::-webkit-scrollbar-track {
+	margin: 2px;
+}
+
+
+#edit-comment-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+}
+
+#submit-edit-comment,
+#cancel-edit-comment {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
