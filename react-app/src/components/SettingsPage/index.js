@@ -16,7 +16,7 @@ function SettingsPage() {
     const [newFirstName, setNewFirstName] = useState(sessionUser.firstName);
     const [newLastName, setNewLastName] = useState(sessionUser.lastName);
     const [newBio, setNewBio] = useState(sessionUser.bio || '');
-    const [uploadFile, setUploadFile] = useState();
+    const [uploadFile, setUploadFile] = useState(null);
     const [validationErrors, setValidationErrors] = useState([]);
 
     useEffect(() => {
@@ -67,11 +67,9 @@ function SettingsPage() {
                     <ProfileIcon user={sessionUser} />
                 </div> */}
 
-                <div id='upload-and-preview-section'>
+                <div id='upload-and-preview-section' style={{'display':'block'}}>
 					<div id='preview'>
-						{uploadFile &&
-							<img src={URL.createObjectURL(uploadFile)} alt='preview' id='image-preview' />
-						}
+							<img src={uploadFile ? URL.createObjectURL(uploadFile) : sessionUser.profileImageUrl } alt='preview' id='image-preview' />
 					</div>
 
 					<div id='upload'>

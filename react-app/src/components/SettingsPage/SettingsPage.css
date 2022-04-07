@@ -2,7 +2,6 @@
     display: flex;
     flex-flow: column nowrap;
     margin: auto;
-    border: 2px solid red;
 }
 
 #settings-form > input, label, textarea {
@@ -41,6 +40,10 @@
 }
 
 #settings-form > #upload-and-preview-section {
-    display: flex;
-    flex-flow: column nowrap;
+    margin: auto;
+}
+
+#settings-form > #upload-and-preview-section > #preview > img {
+    max-height: 500px;
+    max-width: 500px;
 }
