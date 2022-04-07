@@ -11,7 +11,6 @@ function EditCommentForm({ comment, setShowEdit }) {
     // const comment = useSelector(state => state.posts[postId].comments[commentId])
     const [content, setContent] = useState(comment.content);
     const [validationErrors, setValidationErrors] = useState([])
-    const [showErrors, setShowErrors] = useState(false);
 
     useEffect(() => {
         const errors = [];
@@ -24,7 +23,7 @@ function EditCommentForm({ comment, setShowEdit }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (validationErrors.length) return setShowErrors(true);
+        if (validationErrors.length) return;
 
         const newComment = {
             id: comment.id,
@@ -40,7 +39,6 @@ function EditCommentForm({ comment, setShowEdit }) {
                 const data = await res.json();
                 if (data && data.errors) {
                     setValidationErrors(data.errors);
-                    setShowErrors(true);
                 }
             });
     }
@@ -53,6 +51,7 @@ function EditCommentForm({ comment, setShowEdit }) {
                 id='edit-comment-input'
                 name='content'
                 value={content}
+                style={content.length > 255 || content.length === 0 ? { borderColor: 'red' } : {}}
                 onChange={(e) => setContent(e.target.value)}
             />
 
@@ -61,7 +60,11 @@ function EditCommentForm({ comment, setShowEdit }) {
                 >{content.length}/255</small>
                 <div>
                     <button type='button' id='cancel-edit-comment' onClick={() => setShowEdit(false)}>cancel</button>
-                    <button type='submit' id='submit-edit-comment' style={{ color: 'var(--color-purple)' }}>submit</button>
+                    <button type='submit'
+                        id='submit-edit-comment'
+                        style={{ color: 'var(--color-purple)', cursor: validationErrors.length ? 'not-allowed' : 'pointer' }}
+
+                    >submit</button>
                 </div>
             </div>
 

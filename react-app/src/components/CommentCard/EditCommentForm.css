@@ -18,7 +18,7 @@
     resize: vertical;
 }
 #edit-comment-input:focus {
-    border-color: var(--color-purple)
+    border-color: var(--color-purple);
 }
 #edit-comment-input::-webkit-scrollbar {
 	width: 8px;
