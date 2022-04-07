@@ -8,8 +8,8 @@ import ProfileIcon from '../ProfileIcon';
 import CommentForm from './CommentForm';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit, faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
+import { faTrash, faEdit, faHeart as faHeartSolid, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faMessage, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons'
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
@@ -100,15 +100,20 @@ export default function PostModal({ postId }) {
                         <p>Leave the first comment!</p>
                     }
                 </div>
-                
+
                 <div id='likes-div'>
                     <div id='likes-div-icons'>
-                        {!isLiked ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ "fontSize": "20px" }} onClick={() => toggleLike()} /> : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ "color": "red", "fontSize": "20px" }} onClick={() => toggleLike()} />}
-                        <FontAwesomeIcon icon={faComment} id='comment-icon' style={{ "fontSize": "20px" }} />
+                        {!isLiked
+                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ "fontSize": "20px" }} onClick={() => toggleLike()} />
+                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ "color": "red", "fontSize": "20px" }} onClick={() => toggleLike()} />
+                        }
+
+                        <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />
                     </div>
-                    <p id='post-like-count'>{post.likes?.allLikes?.length} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</p>
+                    <span id='post-like-count'>{post.likes?.allLikes?.length} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</span>
+                    <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
                 </div>
-                
+
                 <div id='create-comment'>
                     <CommentForm />
                     {/* <input id='new-comment' value={newComment} onChange={(e) => {setNewComment(() => e.target.value)}}/> */}

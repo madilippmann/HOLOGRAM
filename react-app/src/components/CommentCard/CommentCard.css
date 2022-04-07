@@ -37,7 +37,3 @@
     display: flex;
     flex-flow: row nowrap;
 }
-
-#post-like-count {
-    margin-left: 20px;
-}
