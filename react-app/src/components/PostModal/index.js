@@ -87,7 +87,7 @@ export default function PostModal({ postId }) {
 
                 <div className='comment-section'>
                     {post?.comments?.allComments?.length > 0 ?
-                        <div>
+                        <>
                             {post?.comments?.allComments?.map(comment => {
                                 return (
                                     <div key={comment.id} className='single-comment'>
@@ -95,7 +95,7 @@ export default function PostModal({ postId }) {
                                     </div>
                                 )
                             })}
-                        </div>
+                        </>
                         :
                         <span style={{ color: 'var(--color-gray)', fontSize: '14px' }}>Be the first to leave a comment!</span>
                     }

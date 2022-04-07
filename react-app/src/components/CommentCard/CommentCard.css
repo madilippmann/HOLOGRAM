@@ -1,17 +1,19 @@
-.comment-info {
+.comment-container {
+    width: 100%;
+    min-height: 50px;
     display: flex;
     flex-flow: row nowrap;
-    width: 100%;
 }
 
-.comment-top-half {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
+.comment-body {
     width: 80%;
-    position: relative;
-    padding-left: 10px;
+    padding: 0 10px;
+    
     font-size: 13px;
+    
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .comment-profile-image {
@@ -29,11 +31,10 @@
     font-weight: 500;
 }
 
-#edit-comment-button, #delete-comment-button {
-    margin-right: 10px;
-}
-
 .edit-and-delete-buttons {
+    font-size: 12px;
+    cursor: pointer;
     display: flex;
-    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 8px;
 }
