@@ -61,6 +61,7 @@ def update_profile(userId):
         user.firstName = form.data['firstName']
         user.lastName = form.data['lastName']
         user.bio = form.data['bio']
+        user.profileImageUrl = form.data['profileImageUrl']
 
         db.session.commit()
         print('\n\n\nsuccess\n\n\n')

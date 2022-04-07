@@ -6,4 +6,4 @@ class UpdateUserForm(FlaskForm):
     firstName = StringField('firstName', validators=[DataRequired()])
     lastName = StringField('lastName', validators=[DataRequired()])
     bio = StringField('bio', validators=[DataRequired()])
-    # profileImageUrl = StringField('profileImageUrl', validators=[DataRequired()])
+    profileImageUrl = StringField('profileImageUrl', validators=[DataRequired()])

@@ -116,7 +116,7 @@ export const signUp = (firstName, lastName, handle, email, password) => async (d
 }
 
 
-export const editUser = ({ firstName, lastName, bio, userId }) => async dispatch => {
+export const editUser = ({ firstName, lastName, bio, userId, profileImageUrl }) => async dispatch => {
   console.log('HERE')
   const res = await fetch(`/api/users/${userId}/`, {
     method: "PUT",
@@ -124,7 +124,7 @@ export const editUser = ({ firstName, lastName, bio, userId }) => async dispatch
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      firstName, lastName, bio
+      firstName, lastName, bio, profileImageUrl
     })
   });
 

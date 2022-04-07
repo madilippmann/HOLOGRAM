@@ -7,16 +7,16 @@ import './ProfileIcon.css'
 
 export default function ProfileIcon({ user }) {
     const history = useHistory();
-    
+
     return (
-        <div 
-            className='profile-icon-border' 
+        <div
+            className='profile-icon-border'
             onClick={(e) => history.push(`/${user.handle}`)}
         >
             <img
                 className='profile-icon'
 				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
-                alt="profile-picture"
+                alt="profile"
             />
         </div>
     )
