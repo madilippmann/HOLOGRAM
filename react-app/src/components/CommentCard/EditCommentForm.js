@@ -6,8 +6,6 @@ import * as postsActions from '../../store/posts'
 
 function EditCommentForm() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector(state => state.session);
     const { commentId, postId } = useParams()
     const comment = useSelector(state => state.posts[postId].comments[commentId])
     // const [isLoaded, setIsLoaded] = useState(false);
@@ -47,8 +45,7 @@ function EditCommentForm() {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="edit-comment-form">
                 <label htmlFor='content'>Caption</label>
                 <input
                     type='text'
@@ -60,16 +57,15 @@ function EditCommentForm() {
 
                 <button type='submit'>submit</button>
             </form>
-
-            {!showErrors ? null : (
-                <ul>
-                    {validationErrors.map(err => (
-                        <li key={err}>{err}</li>
-                    ))}
-                </ul>
-            )}
-        </div>
     );
 }
 
 export default EditCommentForm;
+
+// {!showErrors ? null : (
+//     <ul>
+//         {validationErrors.map(err => (
+//             <li key={err}>{err}</li>
+//         ))}
+//     </ul>
+// )}
