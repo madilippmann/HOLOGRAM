@@ -5,6 +5,10 @@
     border: 2px solid red;
 }
 
+#settings-form > input {
+    width: 20%;
+}
+
 .profile-picture-container-settings-page {
     margin: auto;
     width: 20%;
