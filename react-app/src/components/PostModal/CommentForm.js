@@ -7,86 +7,84 @@ import * as postsActions from '../../store/posts'
 import './CommentForm.css';
 
 function CommentForm() {
-  const dispatch = useDispatch();
-  // TODO PASS IN postId AS PROP TO COMMENT COMPONENT TO USE AS ARG FOR createComment THUNK
-  const { postId } = useParams();
-  // const user = useSelector(state => state.session);
-  // const post = useSelector(state => state.posts[postId]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [content, setContent] = useState('');
-  const [validationErrors, setValidationErrors] = useState([])
-  const [showErrors, setShowErrors] = useState(false);
+	const dispatch = useDispatch();
+	// TODO PASS IN postId AS PROP TO COMMENT COMPONENT TO USE AS ARG FOR createComment THUNK
+	const { postId } = useParams();
+	// const user = useSelector(state => state.session);
+	// const post = useSelector(state => state.posts[postId]);
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [content, setContent] = useState('');
+	const [validationErrors, setValidationErrors] = useState([])
+	const [showErrors, setShowErrors] = useState(false);
 
 
-  useEffect(() => {
-    (async () => {
-      await dispatch(postsActions.fetchPost(postId))
-    })();
-    setIsLoaded(() => true);
-  }, [dispatch])
+	useEffect(() => {
+		(async () => {
+			await dispatch(postsActions.fetchPost(postId))
+		})();
+		setIsLoaded(() => true);
+	}, [dispatch])
 
-  useEffect(() => {
-    const errors = [];
-    if (!content.length) errors.push('please type something before commenting');
-    if (content.length > 255) errors.push('comment must be less than 255 characters')
+	useEffect(() => {
+		const errors = [];
+		if (!content.length) errors.push('please type something before commenting');
+		if (content.length > 255) errors.push('comment must be less than 255 characters')
 
-    setValidationErrors(errors);
-  }, [content]);
+		setValidationErrors(errors);
+	}, [content]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (validationErrors.length) return setShowErrors(true);
+	const onSubmit = (e) => {
+		e.preventDefault();
+		if (validationErrors.length) return setShowErrors(true);
 
-    const comment = {
-      content, postId
-    }
+		const comment = {
+			content, postId
+		}
 
-    dispatch(postsActions.createComment(comment))
-      .then(async comment => {
-        return;
-      })
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setValidationErrors(data.errors);
-          setShowErrors(true);
-        }
-      });
-  }
+		dispatch(postsActions.createComment(comment))
+			.catch(async (res) => {
+				const data = await res.json();
+				if (data && data.errors) {
+					setValidationErrors(data.errors);
+					setShowErrors(true);
+				}
+			});
+	}
 
-  const onEmojiClick = (event, emojiObject) => {
-    console.log(emojiObject.emoji);
-    let temp = content + emojiObject.emoji;
-    setContent(temp)
-    console.log('onEmojiClick ~ temp', temp);
-    console.log(content)
-  };
+	const onEmojiClick = (event, emojiObject) => {
+		console.log(emojiObject.emoji);
+		let temp = content + emojiObject.emoji;
+		setContent(temp)
+		console.log('onEmojiClick ~ temp', temp);
+		console.log(content)
+	};
 
-  return !isLoaded ? null : (
-    <div id='comment-form-wrapper'>
-      <form onSubmit={onSubmit}>
-        <input
-          id='comment-input'
-          name='content'
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder='add a comment'
-        />
-        {/* <Picker onEmojiClick={onEmojiClick} /> */}
+	return !isLoaded ? null : (
+		<div id='comment-form-wrapper'>
+			<form onSubmit={onSubmit}>
+				<input
+					id='comment-input'
+					name='content'
+					value={content}
+					onChange={(e) => setContent(e.target.value)}
+					placeholder='add a comment'
+					autoComplete='off'
+				/>
+				{/* <Picker onEmojiClick={onEmojiClick} /> */}
 
-        <button type='submit' id='comment-submit'>post</button>
-      </form>
+				<button type='submit' id='comment-submit'>post</button>
+			</form>
 
-      {!showErrors ? null : (
-        <ul>
-          {validationErrors.map(err => (
-            <li key={err}>{err}</li>
-          ))}
-        </ul>
-      )}
-      
-    </div>
-  );
+			{!showErrors ? null : (
+				<ul>
+					{validationErrors.map(err => (
+						<li key={err}>{err}</li>
+					))}
+				</ul>
+			)}
+
+		</div>
+	);
 }
 
 export default CommentForm;

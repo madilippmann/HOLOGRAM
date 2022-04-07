@@ -115,7 +115,7 @@ export default function PostModal({ postId }) {
                 </div>
 
                 <div id='create-comment'>
-                    <CommentForm />
+                    <CommentForm postId={postId} />
                     {/* <input id='new-comment' value={newComment} onChange={(e) => {setNewComment(() => e.target.value)}}/> */}
                 </div>
             </div>
