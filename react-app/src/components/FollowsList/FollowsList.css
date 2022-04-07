@@ -39,6 +39,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: left;
+    width: 130px;
 }
 
 
@@ -46,7 +48,7 @@
 .follows-name {
     font-size: 11px;
     font-weight: 500;
-    width:
+
 }
 
 .follows-handle {

@@ -129,4 +129,29 @@ h1 {
 	z-index: 5;
 
 	text-align: right;
+
+	max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+	/* scrollbar-width: thin; */
+}
+
+
+
+
+.follows-dropdown::-webkit-scrollbar {
+	width: 8px;
+}
+
+
+/* notes-page-container */
+.follows-dropdown::-webkit-scrollbar-thumb {
+	border-radius: 25px;
+	background-color: rgb(237, 237, 237);
+
+}
+
+.follows-dropdown::-webkit-scrollbar-track {
+	margin: 2px;
+
 }
