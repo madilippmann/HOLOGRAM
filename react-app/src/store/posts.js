@@ -282,7 +282,9 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
         case ADD_POST: {
             const newState = { ...state };
-            newState[action.post.id] = action.post;
+            newState[action.post.id] = {
+                ...action.post,
+            };
 
             return newState;
         }
@@ -290,7 +292,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         case LOAD_POST: {
             const newState = {
                 ...state,
-                allPosts: [action.post, ...state.allPosts]
             };
             newState[action.post.id] = action.post;
             return newState;
@@ -300,7 +301,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             return {
                 ...state,
                 ...normalizePosts(action.posts),
-                allPosts: [...action.posts]
             };
         }
 
@@ -308,10 +308,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
             newState = {
                 ...state,
-                allPosts: [...state.allPosts]
             };
-
-            newState.allPosts.splice(newState.allPosts.indexOf(newState.allPosts.find(post => post.id === action.postId)), 1)
 
             delete newState[action.postId];
             return newState;
@@ -320,7 +317,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         // COMMENTS ***********************************************************
         case ADD_COMMENT: {
             const postId = action.comment.postId
-            const allComments = Array.isArray(state[postId].comments?.allComments) ? [...state[postId].comments?.allComments] : [];
 
             return {
                 ...state,
@@ -329,7 +325,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     comments: {
                         ...state[postId].comments,
                         [action.comment.id]: action.comment,
-                        allComments: [action.comment, ...allComments]
                     }
                 }
             }
@@ -344,7 +339,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     ...state[postId],
                     comments: {
                         ...normalizeOneLevel(action.comments),
-                        allComments: action.comments
                     }
                 }
             }
@@ -353,9 +347,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
 
         case REMOVE_COMMENT: {
             // this takes care of deleting from the "allComments" array...
-            const allComments = state[action.postId].comments.allComments
-            const bruh = allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)), 1)
-            console.log(bruh);
+
 
             newState = {
                 ...state,
@@ -363,7 +355,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     ...state[action.postId],
                     comments: {
                         ...state[action.postId].comments,
-                        allComments
                     }
                 }
             }
@@ -392,7 +383,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     ...state[postId],
                     likes: {
                         ...normalizeOneLevel(action.likes),
-                        allLikes: action.likes
                     }
                 }
             }
@@ -402,8 +392,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         case ADD_LIKE: {
             const postId = action.like.postId
 
-            const allLikes = Array.isArray(state[postId].likes?.allLikes) ? [...state[postId].likes?.allLikes] : ['hello'];
-
             return {
                 ...state,
                 [postId]: {
@@ -411,7 +399,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                     likes: {
                         ...state[postId].likes,
                         [action.like.id]: action.like,
-                        allLikes: [action.like, ...allLikes]
                     }
                 }
             }
