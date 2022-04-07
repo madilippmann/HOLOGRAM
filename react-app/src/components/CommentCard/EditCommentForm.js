@@ -26,13 +26,13 @@ function EditCommentForm({ comment, setShowEdit }) {
         e.preventDefault();
         if (validationErrors.length) return setShowErrors(true);
 
-        const comment = {
+        const newComment = {
             id: comment.id,
             content,
             postId: comment.postId
         }
 
-        dispatch(postsActions.editComment(comment))
+        dispatch(postsActions.editComment(newComment))
             .then(_ => {
                 setShowEdit(false);
             })
