@@ -14,13 +14,12 @@ export default function PostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [likes, setLikes] = useState(Object.values(post.postLikes))
-    const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
+    const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [comments, setComments] = useState(Object.values(post.comments))
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
         setLikes(() => Object.values(post.postLikes))
-        setIsLiked(() => !isLiked);
         console.log(`Post ${post.id} Card Likes: `, likes)
         console.log(`Post ${post.id} Card isLiked: `, isLiked)
     }, [post.postLikes])
@@ -29,8 +28,9 @@ export default function PostCard({ post }) {
         setComments(sortByCreatedAt(Object.values(post.comments)))
     }, [post.comments])
 
-    const toggleLike = (e) => {
-        dispatch(postsActions.togglePostLike(post.id));
+    const toggleLike = async (e) => {
+        await dispatch(postsActions.togglePostLike(post.id));
+        setIsLiked(() => likes.find(like => like.userId === sessionUser.id) ? true : false);
     }
 
     return (
@@ -49,7 +49,7 @@ export default function PostCard({ post }) {
                 </div>
 
                 <div className='post-like-and-comment-count'>
-                    {isLiked
+                    {!isLiked
                         ? (
                             <span onClick={toggleLike}
                             ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likes.length}</span>

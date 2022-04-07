@@ -24,15 +24,13 @@ export default function PostModal({ postId }) {
     let sessionUser = useSelector(state => state.session.user);
 
     const [isLoaded, setIsLoaded] = useState(true);
-    const [likes, setLikes] = useState(Object.values(post?.postLikes))
+    const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
 
-    const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
+    const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
-
-    React.useEffect(() => { console.log('RENDERED POST MODAL: ', post) }, [])
 
 
     useEffect(() => {
@@ -41,9 +39,7 @@ export default function PostModal({ postId }) {
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
-        setLikes(() => Object.values(post.postLikes))
-        setIsLiked(() => !isLiked);
-        console.log(`Post ${post.id} Modal Likes: `, likes)
+        console.log(`Post${post.id} Modal Likes: `, likes)
         console.log(`Post ${post.id} Modal isLiked: `, isLiked)
 
     }, [post.postLikes])
@@ -55,8 +51,11 @@ export default function PostModal({ postId }) {
         }
     }
 
-    const toggleLike = () => {
-        dispatch(postsActions.togglePostLike(postId));
+    const toggleLike = async () => {
+        await dispatch(postsActions.togglePostLike(postId));
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
+        setLikes(() => Object.values(post.postLikes))
+
     }
 
 
@@ -114,7 +113,7 @@ export default function PostModal({ postId }) {
 
                 <div id='likes-div'>
                     <div id='likes-div-icons'>
-                        {isLiked
+                        {!isLiked
                             ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
                                 onClick={toggleLike}
                             />

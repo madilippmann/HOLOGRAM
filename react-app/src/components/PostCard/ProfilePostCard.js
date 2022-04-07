@@ -17,19 +17,26 @@ export default function ProfilePostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const postImageRef = useRef();
-    const [likes, setLikes] = useState([])
-    const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
+    const [likes, setLikes] = useState(Object.values(post.postLikes))
+    const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
 
+    useEffect(() => {
+    }, [])
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
-        setLikes(() => Object.values(post.postLikes))
-        setIsLiked(() => !isLiked);
+        // setIsLiked(() => likes?.find(like => like.userId === sessionUser.id) ? true : false);
+
     }, [post.postLikes])
 
 
-    const toggleLike = () => {
-        dispatch(postsActions.togglePostLike(post.id));
+    const toggleLike = async () => {
+        await dispatch(postsActions.togglePostLike(post.id));
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
+        setLikes(() => Object.values(post.postLikes))
+        console.log(`Post${post.id} Profile Likes: `, likes)
+        console.log(`Post ${post.id} Profile isLiked: `, isLiked)
+
     }
 
     return (
@@ -44,7 +51,7 @@ export default function ProfilePostCard({ post }) {
             }}>
                 <div className='overlay__button-container'>
                     <div className='centering-container like-container'>
-                        <button type='button' onClick={(e) => toggleLike(post?.id)} className={`like-button`}>
+                        <button type='button' onClick={(e) => toggleLike(post.id)} className={`like-button`}>
                             {isLiked
                                 ? (
                                     <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
