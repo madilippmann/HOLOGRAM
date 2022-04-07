@@ -24,7 +24,6 @@ const addPost = (post) => {
     }
 }
 
-
 const loadPosts = (posts) => {
     return {
         type: LOAD_POSTS,
@@ -50,14 +49,6 @@ const addComment = (comment) => {
     }
 }
 
-// GET
-const loadComments = (comments, postId) => {
-    return {
-        type: LOAD_COMMENTS,
-        comments,
-        postId
-    }
-}
 
 // DELETE
 const removeComment = (postId, commentId) => {
@@ -71,7 +62,6 @@ const removeComment = (postId, commentId) => {
 
 
 // LIKES
-
 const addLike = (like) => {
     return {
         type: ADD_LIKE,
@@ -117,7 +107,6 @@ export const createPost = post => async dispatch => {
     });
 
 
-
     if (res.ok) {
         const newPost = await res.json();
         dispatch(addPost(newPost));
@@ -159,15 +148,6 @@ export const deletePost = (postId) => async dispatch => {
 
 
 // COMMENTS THUNKS
-export const fetchComments = postId => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}/comments/`);
-
-    if (res.ok) {
-        const comments = await res.json();
-        dispatch(loadComments(comments, postId));
-        return comments;
-    }
-}
 
 export const createComment = comment => async dispatch => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/`, {
@@ -242,7 +222,6 @@ export const togglePostLike = (postId) => async dispatch => {
 // REDUCER ************************************************
 const postsReducer = (state = { allPosts: [] }, action) => {
 
-
     let newState;
 
     switch (action.type) {
@@ -287,24 +266,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             }
         }
 
-        case LOAD_COMMENTS: {
-            const postId = action.postId
-
-            return {
-                ...state,
-                [postId]: {
-                    ...state[postId],
-                    comments: {
-                        ...normalizeOneLevel(action.comments),
-                    }
-                }
-            }
-
-        }
-
         case REMOVE_COMMENT: {
-            // this takes care of deleting from the "allComments" array...
-
 
             newState = {
                 ...state,
@@ -316,7 +278,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                 }
             }
 
-            // and this takes care of deleting from the normalized "comments" object
             delete newState[action.postId].comments[action.commentId]
 
             return newState
