@@ -88,7 +88,7 @@
 
     position: absolute;
     /* bottom: calc(100%-20px); */
-    opacity: 0%;
+    opacity: 0;
 
     display: flex;
     justify-content: center;
@@ -97,7 +97,7 @@
     transition: opacity .15s linear;
 }
 .overlay:hover {
-    opacity: 100%;
+    opacity: 1;
     background-color: rgba(0, 0, 0, 0.516);
 
 }
