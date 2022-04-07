@@ -151,9 +151,10 @@
 
 .body {
     background: linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%);
-    min-height: 100vh;
+    /* height: 100vh; */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
+    margin: 0 auto;
 }
