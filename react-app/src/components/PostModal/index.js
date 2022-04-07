@@ -64,7 +64,7 @@ export default function PostModal({ postId }) {
             <div className='post-modal__right'>
                 <div id='post-info'>
                     <div className='post-header'>
-                        <div className='post-icon' style={{ minWidth: '50px', width: '50px' }}>
+                        <div className='post-icon' style={{ minWidth: '50px', width: '50px', height: '50px' }}>
                             <ProfileIcon user={post.user} />
                         </div>
 
@@ -97,15 +97,15 @@ export default function PostModal({ postId }) {
                             })}
                         </div>
                         :
-                        <p>Leave the first comment!</p>
+                        <span style={{ color: 'var(--color-gray)', fontSize: '14px' }}>Be the first to leave a comment!</span>
                     }
                 </div>
 
                 <div id='likes-div'>
                     <div id='likes-div-icons'>
                         {!isLiked
-                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ "fontSize": "20px" }} onClick={() => toggleLike()} />
-                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ "color": "red", "fontSize": "20px" }} onClick={() => toggleLike()} />
+                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }} onClick={() => toggleLike()} />
+                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)",  }} onClick={() => toggleLike()} />
                         }
 
                         <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />

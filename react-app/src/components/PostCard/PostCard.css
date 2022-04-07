@@ -39,7 +39,7 @@
 
 
 .like-icon {
-    color: var(--color-purple);
+    color: var(--color-red);
     font-size: 20px;
     padding: 0 6px;
     
@@ -50,10 +50,13 @@
     transform: scale(1.1);
 }
 .comment-icon {
-    color: var(--color-apricot);
-    font-size: 20px;
+    color: var(--color-gray);
+    font-size: 22px;
     padding: 0 6px;
     cursor: pointer;
+    
+    position: relative;
+    top: -1px;
 }
 
 .post-like, .post-comment {
@@ -70,7 +73,6 @@
 **********************************************************/
 .post-div {
     width: 32%;
-    /* height: 100%; */
     transition: opacity .15s linear;
     position: relative;
 }
