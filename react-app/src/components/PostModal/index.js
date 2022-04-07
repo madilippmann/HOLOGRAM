@@ -23,14 +23,16 @@ export default function PostModal({ postId }) {
     // let comments = useSelector(state => state.posts[postId].comments)
     let sessionUser = useSelector(state => state.session.user);
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [likes, setLikes] = useState([])
+    const [isLoaded, setIsLoaded] = useState(true);
+    const [likes, setLikes] = useState(Object.values(post?.postLikes))
+    const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
+
     const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
-    const [orderedComments, setOrderedComments] = useState([]);
 
+    React.useEffect(() => { console.log('RENDERED POST MODAL: ', post) }, [])
 
 
     useEffect(() => {
@@ -41,6 +43,7 @@ export default function PostModal({ postId }) {
     useEffect(() => {
         setLikes(() => Object.values(post.postLikes))
         setIsLiked(() => !isLiked);
+        console.log('Post Likes: ', likes)
     }, [post.postLikes])
 
     const deletePost = async () => {

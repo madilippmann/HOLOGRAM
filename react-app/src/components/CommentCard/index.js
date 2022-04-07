@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,6 @@ import './CommentCard.css'
 export default function CommentCard({ post, comment }) {
 	const dispatch = useDispatch();
 	let sessionUser = useSelector(state => state.session.user);
-	
 
 	const deleteComment = (commentId) => {
 		if (window.confirm('Are you sure you would like to delete your comment?')) {
