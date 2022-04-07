@@ -15,23 +15,23 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ProfilePostCard from '../PostCard/ProfilePostCard';
 
-
+import { sortByCreatedAt } from '../../utils';
 
 function ProfilePage() {
     const { handle } = useParams();
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
-    const user = useSelector(state => state.user);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const [isFollowed, setIsFollowed] = useState();
     const postImageRef = useRef();
 
+    const sessionUser = useSelector(state => state.session.user);
+    const user = useSelector(state => state.user);
+    let posts = useSelector(state => state.posts);
+
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isFollowed, setIsFollowed] = useState();
     const [showFollowers, setShowFollowers] = useState(false)
     const [showFollowings, setShowFollowings] = useState(false)
+    const [orderedPosts, setOrderedPosts] = useState([])
 
-    let posts = useSelector(state => state.posts);
-    const orderedPosts = [...posts?.allPosts].reverse()
 
     useEffect(() => {
         (async () => {
@@ -44,15 +44,15 @@ function ProfilePage() {
         })()
     }, [dispatch]);
 
+    useEffect(() => {
+        setOrderedPosts(() => sortByCreatedAt(Object.values(posts)));
+    }, [posts])
 
     const openFollowers = () => {
-
         if (showFollowers) return;
         document.querySelector('.sessionUser-followers')
         setShowFollowers(true);
-
     }
-
 
     useEffect(() => {
         // if (showFollowings) setShowFollowings(() => false)
@@ -84,7 +84,7 @@ function ProfilePage() {
         if (!showFollowings) return;
 
         const closeFollowings = () => {
-            document.querySelector('.ser-followings')
+            document.querySelector('.sessionUser-followings')
             setShowFollowings(false);
         };
 
@@ -106,8 +106,6 @@ function ProfilePage() {
         const follow = await dispatch(userActions.toggleUserFollow(user.id));
         await dispatch(sessionActions.fetchUser(sessionUser.handle));
         setIsFollowed(() => !isFollowed);
-        console.log("FOLLOW: ", isFollowed)
-
     }
 
 
@@ -146,7 +144,7 @@ function ProfilePage() {
                         </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <p>{posts.allPosts.length} posts</p>
+                        <p>{orderedPosts.length} posts</p>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'

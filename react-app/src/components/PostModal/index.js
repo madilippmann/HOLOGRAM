@@ -13,27 +13,35 @@ import { faHeart, faMessage, faComment as emptyComment } from '@fortawesome/free
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
+import { sortByCreatedAt } from '../../utils';
 
 export default function PostModal({ postId }) {
     const dispatch = useDispatch();
     const history = useHistory();
+
     let post = useSelector(state => state.posts[postId]);
+    // let comments = useSelector(state => state.posts[postId].comments)
     let sessionUser = useSelector(state => state.session.user);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
-    const [editCaption, toggleEditCaption] = useState(false);
-    const [likeCount, setLikeCount] = useState(post?.postLikes.length);
+
+    const [isLoaded, setIsLoaded] = useState(true);
+    const [likes, setLikes] = useState(Object.values(post.postLikes))
+    const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
+
+    const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
+    const [editCaption, setEditCaption] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(postsActions.fetchComments(postId));
-            await dispatch(postsActions.fetchPostLikes(postId));
-            setIsLoaded(true);
-        })()
-    }, [dispatch]);
 
+    useEffect(() => {
+        setOrderedComments(() => sortByCreatedAt(Object.values(post.comments)))
+    }, [post.comments])
+
+    // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
+    useEffect(() => {
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
+    }, [post.postLikes])
 
     const deletePost = async () => {
         if (window.confirm('Are you sure you want to delete your post?')) {
@@ -42,12 +50,8 @@ export default function PostModal({ postId }) {
         }
     }
 
-    const toggleLike = (e) => {
-        // PURPOSE: this should have the store force a rerender of this component since the
-        // post will be updated after toggling the like, since we are
-        // subscribed to this specific post in the store
-        dispatch(postsActions.togglePostLike(postId));
-        setIsLiked(() => !isLiked);
+    const toggleLike = async () => {
+        await dispatch(postsActions.togglePostLike(postId));
     }
 
 
@@ -72,11 +76,11 @@ export default function PostModal({ postId }) {
                             <div className='post-details'>
                                 <h4 className='post-user-handle'>{post.user.handle}</h4>
                                 {/* <span className='post-caption' id={`caption-${post.id}`}>{post.caption}</span> */}
-                                <EditPostForm post={post} editCaption={editCaption} toggleEditCaption={() => toggleEditCaption(!editCaption)} />
+                                <EditPostForm post={post} editCaption={editCaption} setEditCaption={() => setEditCaption(!editCaption)} />
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
-                                    <FontAwesomeIcon id='' icon={faEdit} onClick={() => toggleEditCaption(!editCaption)} />
+                                    <FontAwesomeIcon id='' icon={faEdit} onClick={() => setEditCaption(!editCaption)} />
                                     <FontAwesomeIcon icon={faTrash} onClick={() => deletePost()} />
 
                                 </div>
@@ -86,10 +90,10 @@ export default function PostModal({ postId }) {
                 </div>
 
                 <div className='comment-section'>
-                    {post.comments.allComments.length > 0
+                    {orderedComments.length > 0
                         ? (
                             <>
-                                {post.comments.allComments.map(comment => {
+                                {orderedComments.map(comment => {
                                     return (
                                         <div key={comment.id} className='single-comment'>
                                             <CommentCard post={post} comment={comment} />
@@ -107,47 +111,23 @@ export default function PostModal({ postId }) {
                     <div id='likes-div-icons'>
                         {!isLiked
                             ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
-                                onClick={() => {
-                                    toggleLike();
-                                    setLikeCount(prev => prev + 1);
-                                }}
+                                onClick={toggleLike}
                             />
                             : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)", }}
-                                onClick={() => {
-                                    toggleLike();
-                                    setLikeCount(prev => prev - 1);
-                                }}
+                                onClick={toggleLike}
                             />
                         }
 
                         <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />
                     </div>
-                    <span id='post-like-count'>{likeCount} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</span>
+                    <span id='post-like-count'>{likes.length} {likes?.length === 1 ? 'like' : 'likes'}</span>
                     <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
                 </div>
 
                 <div id='create-comment'>
                     <CommentForm postId={postId} />
-                    {/* <input id='new-comment' value={newComment} onChange={(e) => {setNewComment(() => e.target.value)}}/> */}
                 </div>
             </div>
-
-
-            {/* {post.userId === sessionUser.id &&
-                <button
-                    type='button'
-                    onClick={() => deletePost()}
-                >
-                    Delete Post
-                </button>
-            }
-
-            <h2># of Likes: {post.likes.allLikes.length}</h2>
-            {isLiked
-                ? <button onClick={toggleLike}>unlike</button>
-                : <button onClick={toggleLike}>like</button>
-            } */}
-
 
         </div>
     );
