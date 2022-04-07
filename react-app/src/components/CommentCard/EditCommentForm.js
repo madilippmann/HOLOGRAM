@@ -8,17 +8,14 @@ function EditCommentForm() {
     const dispatch = useDispatch();
     const { commentId, postId } = useParams()
     const comment = useSelector(state => state.posts[postId].comments[commentId])
-    // const [isLoaded, setIsLoaded] = useState(false);
     const [content, setContent] = useState(comment?.content);
     const [validationErrors, setValidationErrors] = useState([])
     const [showErrors, setShowErrors] = useState(false);
 
-
-
     useEffect(() => {
         const errors = [];
-        if (!content.length) errors.push('please type something before commenting');
-        if (content.length > 255) errors.push('comment must be less than 255 characters')
+        if (!content.length) errors.push('!length');
+        if (content.length > 255) errors.push('length>255')
 
         setValidationErrors(errors);
     }, [content]);
@@ -44,19 +41,20 @@ function EditCommentForm() {
             });
     }
 
-    return (
-            <form onSubmit={onSubmit} className="edit-comment-form">
-                <label htmlFor='content'>Caption</label>
-                <input
-                    type='text'
-                    id='content'
-                    name='content'
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
 
-                <button type='submit'>submit</button>
-            </form>
+    return (
+        <form onSubmit={onSubmit} className="edit-comment-form">
+            <label htmlFor='content'>Caption</label>
+            <input
+                type='text'
+                id='edit-comment-content'
+                name='content'
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+            />
+
+            <button type='submit'>submit</button>
+        </form>
     );
 }
 
