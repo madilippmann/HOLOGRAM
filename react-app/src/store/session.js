@@ -117,6 +117,7 @@ export const signUp = (firstName, lastName, handle, email, password) => async (d
 
 
 export const editUser = ({ firstName, lastName, bio, userId }) => async dispatch => {
+  console.log('HERE')
   const res = await fetch(`/api/users/${userId}/`, {
     method: "PUT",
     headers: {

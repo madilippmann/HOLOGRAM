@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import defaultProfileImage from '../../static/default-profile-image.png'
 
@@ -12,10 +13,10 @@ import './SettingsPage.css';
 function SettingsPage() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const user = useSelector(state => state.session.user);
-    const [newFirstName, setNewFirstName] = useState(user.firstName);
-    const [newLastName, setNewLastName] = useState(user.lastName);
-    const [newBio, setNewBio] = useState(user.bio || '');
+    const sessionUser = useSelector(state => state.session.user);
+    const [newFirstName, setNewFirstName] = useState(sessionUser.firstName);
+    const [newLastName, setNewLastName] = useState(sessionUser.lastName);
+    const [newBio, setNewBio] = useState(sessionUser.bio || '');
     const [newProfileImageUrl, setNewProfileImageUrl] = useState('');
 
     const updateProfile = async (e) => {
@@ -24,19 +25,21 @@ function SettingsPage() {
             firstName: newFirstName,
             lastName: newLastName,
             bio: newBio,
-            userId: user.id
+            userId: sessionUser.id
             // newProfileImageUrl: newProfileImageUrl
         }
 
+        console.log(user);
+
         await dispatch(sessionActions.editUser(user));
-        return history.push(`/${user.handle}`);
+        return history.push(`/${sessionUser.handle}`);
     }
 
     return (
         <>
             <form onSubmit={updateProfile} id='settings-form'>
                 <div className='profile-picture-container-settings-page'>
-                    <img className='profile-picture-settings-page' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile`} />
+                    <img className='profile-picture-settings-page' src={sessionUser.profileImageUrl !== '/default-profile-image.png' ? sessionUser.profileImageUrl : defaultProfileImage} alt={`${sessionUser.firstName}'s profile`} />
                 </div>
                 <label htmlFor='new-first-name'>First Name</label>
                 <br/>
