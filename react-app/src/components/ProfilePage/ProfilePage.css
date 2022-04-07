@@ -228,3 +228,11 @@ button.follow-new-post-button.different-padding {
 .follows-profile:hover {
     color: var(--color-purple);
 }
+
+.add-hover {
+    transition: color .15s ease-in-out;
+}
+
+.add-hover:hover {
+    color: var(--color-purple);
+}

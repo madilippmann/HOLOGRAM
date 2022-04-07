@@ -110,7 +110,7 @@ const NavBar = () => {
 					<div className="nav__stats">
 						<div className='sessionUser-followers'>
 							<button
-								className='remove-button-styling stack'
+								className='remove-button-styling stack add-hover '
 								type='button'
 								onClick={openFollowers}
 							>
@@ -128,7 +128,7 @@ const NavBar = () => {
 						</div>
 						<div className='sessionUser-followings'>
 							<button
-								className='remove-button-styling stack'
+								className='remove-button-styling stack add-hover'
 								type='button'
 								onClick={openFollowings}
 							>
