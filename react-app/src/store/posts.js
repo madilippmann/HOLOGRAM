@@ -72,14 +72,6 @@ const removeComment = (postId, commentId) => {
 
 // LIKES
 
-const loadLikes = (likes, postId) => {
-    return {
-        type: LOAD_LIKES,
-        likes,
-        postId
-    }
-}
-
 const addLike = (like) => {
     return {
         type: ADD_LIKE,
@@ -245,16 +237,6 @@ export const togglePostLike = (postId) => async dispatch => {
     }
 }
 
-export const fetchPostLikes = (postId) => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}/likes/`);
-
-    if (res.ok) {
-        const likes = await res.json();
-        // what if there are no likes?
-        dispatch(loadLikes(likes, postId));
-        return likes;
-    }
-}
 
 
 // REDUCER ************************************************
@@ -341,21 +323,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
 
         // LIKES ***********************************************************
-
-        // case LOAD_LIKES:  {
-        //     const postId = action.postId
-
-        //     return {
-        //         ...state,
-        //         [postId]: {
-        //             ...state[postId],
-        //             postLikes: {
-        //                 ...normalizeOneLevel(action.likes),
-        //             }
-        //         }
-        //     }
-
-        // }
 
         case ADD_LIKE: {
             const postId = action.like.postId
