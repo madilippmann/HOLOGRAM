@@ -14,7 +14,7 @@ import PageNotFound from './components/PageNotFound';
 import ProfilePage from './components/ProfilePage/index.js';
 import SignUpPage from './components/SignUpPage';
 import SearchPage from './components/SearchPage';
-
+import SettingsPage from './components/SettingsPage';
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -72,6 +72,10 @@ function App() {
 
 					<ProtectedRoute path='/:handle' exact={true} >
 						<ProfilePage />
+					</ProtectedRoute>
+
+					<ProtectedRoute path='/users/settings' exact={true} >
+						<SettingsPage />
 					</ProtectedRoute>
 
 					<Route>

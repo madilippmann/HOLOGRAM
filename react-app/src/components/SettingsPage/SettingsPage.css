@@ -1,0 +1,17 @@
+#settings-form {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: auto;
+    border: 2px solid red;
+}
+
+.profile-picture-container-settings-page {
+    margin: auto;
+    width: 20%;
+    overflow: hidden;
+}
+
+.profile-picture-settings-page {
+    border-radius: 100%;
+    width: 100%;
+}

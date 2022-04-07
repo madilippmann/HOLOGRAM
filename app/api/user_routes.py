@@ -1,6 +1,8 @@
-from flask import Blueprint, jsonify, session
+from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
-from app.models import User, Post
+from app.api.utils import validation_errors_to_error_messages
+from app.forms import UpdateUserForm
+from app.models import User, Post, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -44,3 +46,25 @@ def get_follows(userId):
         "following": [user.to_dict() for user in user.following]
     }
     return jsonify(follows)
+
+
+@user_routes.route('/<int:userId>/', methods=['PUT'])
+@login_required
+def update_profile(userId):
+    print('\n\n\n', userId, '\n\n\n')
+
+    form = UpdateUserForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        user = User.query.filter(User.id == userId).first()
+
+        user.firstName = form.data['firstName']
+        user.lastName = form.data['lastName']
+        user.bio = form.data['bio']
+
+        db.session.commit()
+        print('\n\n\nsuccess\n\n\n')
+        return user.session_to_dict()
+
+    print('\n\n\nfailed\n\n\n')
+    return { 'errors': validation_errors_to_error_messages(form.errors)}, 401

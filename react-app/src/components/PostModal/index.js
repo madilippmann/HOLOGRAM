@@ -47,7 +47,7 @@ export default function PostModal({ postId }) {
         // post will be updated after toggling the like, since we are
         // subscribed to this specific post in the store
         dispatch(postsActions.togglePostLike(postId));
-        setIsLiked(() => !isLiked);
+        setIsLiked(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
     }
 
 
