@@ -24,9 +24,9 @@ export default function PostModal({ postId }) {
     let sessionUser = useSelector(state => state.session.user);
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
+    const [likes, setLikes] = useState([])
+    const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, toggleEditCaption] = useState(false);
-    const [likeCount, setLikeCount] = useState(post?.postLikes.length);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [orderedComments, setOrderedComments] = useState([]);
@@ -43,6 +43,12 @@ export default function PostModal({ postId }) {
         setOrderedComments(() => sortByCreatedAt(Object.values(post.comments)))
     }, [post.comments])
 
+    // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
+    useEffect(() => {
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => !isLiked);
+    }, [post.postLikes])
+
     const deletePost = async () => {
         if (window.confirm('Are you sure you want to delete your post?')) {
             await dispatch(postsActions.deletePost(post.id))
@@ -50,12 +56,8 @@ export default function PostModal({ postId }) {
         }
     }
 
-    const toggleLike = (e) => {
-        // PURPOSE: this should have the store force a rerender of this component since the
-        // post will be updated after toggling the like, since we are
-        // subscribed to this specific post in the store
+    const toggleLike = () => {
         dispatch(postsActions.togglePostLike(postId));
-        setIsLiked(() => !isLiked);
     }
 
 
@@ -115,47 +117,23 @@ export default function PostModal({ postId }) {
                     <div id='likes-div-icons'>
                         {!isLiked
                             ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
-                                onClick={() => {
-                                    toggleLike();
-                                    setLikeCount(prev => prev + 1);
-                                }}
+                                onClick={toggleLike}
                             />
                             : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)", }}
-                                onClick={() => {
-                                    toggleLike();
-                                    setLikeCount(prev => prev - 1);
-                                }}
+                                onClick={toggleLike}
                             />
                         }
 
                         <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />
                     </div>
-                    <span id='post-like-count'>{likeCount} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</span>
+                    <span id='post-like-count'>{likes.length} {likes?.length === 1 ? 'like' : 'likes'}</span>
                     <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
                 </div>
 
                 <div id='create-comment'>
                     <CommentForm postId={postId} />
-                    {/* <input id='new-comment' value={newComment} onChange={(e) => {setNewComment(() => e.target.value)}}/> */}
                 </div>
             </div>
-
-
-            {/* {post.userId === sessionUser.id &&
-                <button
-                    type='button'
-                    onClick={() => deletePost()}
-                >
-                    Delete Post
-                </button>
-            }
-
-            <h2># of Likes: {post.likes.allLikes.length}</h2>
-            {isLiked
-                ? <button onClick={toggleLike}>unlike</button>
-                : <button onClick={toggleLike}>like</button>
-            } */}
-
 
         </div>
     );
