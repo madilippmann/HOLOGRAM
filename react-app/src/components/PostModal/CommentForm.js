@@ -29,6 +29,9 @@ function CommentForm({ postId }) {
 		}
 
 		dispatch(postsActions.createComment(comment))
+			.then(_ => {
+				setContent('');
+			})
 			.catch(async (res) => {
 				const data = await res.json();
 				if (data && data.errors) {
