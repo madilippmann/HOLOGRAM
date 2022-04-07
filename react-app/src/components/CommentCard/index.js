@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import * as postsActions from '../../store/posts'
+import ProfileIcon from '../ProfileIcon/index';
 import './CommentCard.css'
 
 export default function CommentCard({ post, comment }) {
@@ -17,8 +18,10 @@ export default function CommentCard({ post, comment }) {
 
 	return (
 		<div className='comment-container'>
-			<img className='comment-profile-image' alt={comment.user.handle} src={comment.user.profileImageUrl} />
-			
+			<div style={{ width: '30px', height: '30px' }}>
+				<ProfileIcon user={comment.user} />
+			</div>
+
 			<div className='comment-body'>
 				<div className='handle-and-comment-content'>
 					<span className='comment-user-handle'>{comment.user.handle}</span>
@@ -26,7 +29,7 @@ export default function CommentCard({ post, comment }) {
 				</div>
 
 			</div>
-			
+
 			{comment.user.id === sessionUser.id &&
 				<div className='edit-and-delete-buttons'>
 					<FontAwesomeIcon icon={faEdit} id='edit-comment-button' onClick={() => deleteComment(comment.id)} />
