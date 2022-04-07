@@ -16,7 +16,7 @@ function SettingsPage() {
     const [newFirstName, setNewFirstName] = useState(user.firstName);
     const [newLastName, setNewLastName] = useState(user.lastName);
     const [newBio, setNewBio] = useState(user.bio || '');
-    // const [newProfileImageUrl, setNewProfileImageUrl] = useState(user.profileImageUrl);
+    const [newProfileImageUrl, setNewProfileImageUrl] = useState('');
 
     const updateProfile = async (e) => {
         e.preventDefault();
@@ -48,7 +48,7 @@ function SettingsPage() {
                 <br/>
                 <label htmlFor='new-bio'>Bio</label>
                 <br/>
-                <input type='text' value={newBio} id='new-bio' onChange={e => setNewBio(e.target.value)} />
+                <textarea value={newBio} id='new-bio' onChange={e => setNewBio(e.target.value)} />
                 <br/>
                 <button type='submit'>Update</button>
             </form>

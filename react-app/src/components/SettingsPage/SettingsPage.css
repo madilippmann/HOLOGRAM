@@ -5,9 +5,31 @@
     border: 2px solid red;
 }
 
-#settings-form > input {
+#settings-form > input, label, textarea {
     width: 20%;
     margin: auto;
+    border-radius: 5px;
+}
+
+#settings-form > input {
+    height: 30px;
+    border: 2px solid gray;
+    font-size: 12px;
+}
+
+#settings-form > textarea {
+    resize: none;
+    height: 100px;
+    font-size: 14px;
+}
+
+#settings-form > button {
+    width: 20%;
+    margin: auto;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
 }
 
 .profile-picture-container-settings-page {
