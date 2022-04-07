@@ -224,3 +224,7 @@ button.follow-new-post-button.different-padding {
     color: rgba(0, 0, 0, 0.736);
 }
 
+
+.follows-profile:hover {
+    color: var(--color-purple);
+}

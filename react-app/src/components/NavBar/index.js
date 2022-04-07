@@ -25,12 +25,6 @@ const NavBar = () => {
 
 	}
 
-	useEffect(() => {
-		(async () => {
-			// await
-			console.log(sessionUser.followers)
-		})()
-	}, [])
 
 	useEffect(() => {
 		// if (showFollowings) setShowFollowings(() => false)
