@@ -15,7 +15,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ProfilePostCard from '../PostCard/ProfilePostCard';
 
-
+import { sortByCreatedAt } from '../../utils';
 
 function ProfilePage() {
     const { handle } = useParams();
@@ -31,7 +31,8 @@ function ProfilePage() {
     const [showFollowings, setShowFollowings] = useState(false)
 
     let posts = useSelector(state => state.posts);
-    const orderedPosts = [...posts?.allPosts].reverse()
+    const orderedPosts = sortByCreatedAt(Object.values(posts));
+    // const orderedPosts = [...posts?.allPosts].reverse()
 
     useEffect(() => {
         (async () => {
@@ -146,7 +147,7 @@ function ProfilePage() {
                         </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <p>{posts.allPosts.length} posts</p>
+                        <p>{orderedPosts.length} posts</p>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'
