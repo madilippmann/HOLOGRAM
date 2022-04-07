@@ -20,17 +20,9 @@ export default function SignUpPage() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		document.body.style.background = "linear-gradient(135deg, rgba(122,123,255,1) 12%, rgba(255,201,181,1) 91%)";
-		document.body.style.minHeight = "100vh"
-		document.body.style.display = "flex"
-		document.body.style.justifyContent = "center"
-		document.body.style.alignItems = "center"
-		document.body.style.width = "100vw"
+		document.body.classList.add('body')
 		return () => {
-			document.body.style.backgroundColor = "rgb(252, 248, 247)";
-			document.body.style.background = "rgb(252, 248, 247)";
-			document.body.style.minHeight = "1200px"
-
+			document.body.classList.remove('body')
 		};
 	}, []);
 

@@ -27,6 +27,7 @@ def user(handle):
 @user_routes.route('/<int:id>/posts/')
 @login_required
 def user_profile(id):
+
     posts = Post.query.filter(Post.userId == id).all()
     posts = [post.to_dict() for post in posts]
     return jsonify(posts)
