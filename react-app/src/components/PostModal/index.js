@@ -22,7 +22,7 @@ export default function PostModal({ postId }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, toggleEditCaption] = useState(false);
-    const [likeCount, setLikeCount] = useState(post?.likes?.allLikes?.length);
+    const [likeCount, setLikeCount] = useState(post?.postLikes.length);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
 
@@ -87,7 +87,7 @@ export default function PostModal({ postId }) {
 
                 <div className='comment-section'>
                     {post?.comments?.allComments?.length > 0 ?
-                        <div>
+                        <>
                             {post?.comments?.allComments?.map(comment => {
                                 return (
                                     <div key={comment.id} className='single-comment'>
@@ -95,7 +95,7 @@ export default function PostModal({ postId }) {
                                     </div>
                                 )
                             })}
-                        </div>
+                        </>
                         :
                         <span style={{ color: 'var(--color-gray)', fontSize: '14px' }}>Be the first to leave a comment!</span>
                     }
@@ -104,18 +104,28 @@ export default function PostModal({ postId }) {
                 <div id='likes-div'>
                     <div id='likes-div-icons'>
                         {!isLiked
-                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }} onClick={() => toggleLike()} />
-                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)",  }} onClick={() => toggleLike()} />
+                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
+                                onClick={() => {
+                                    toggleLike();
+                                    setLikeCount(prev => prev + 1);
+                                }}
+                            />
+                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)", }}
+                                onClick={() => {
+                                    toggleLike();
+                                    setLikeCount(prev => prev - 1);
+                                }}
+                            />
                         }
 
                         <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />
                     </div>
-                    <span id='post-like-count'>{post.likes?.allLikes?.length} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</span>
+                    <span id='post-like-count'>{likeCount} {post.likes?.allLikes?.length === 1 ? 'like' : 'likes'}</span>
                     <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
                 </div>
 
                 <div id='create-comment'>
-                    <CommentForm />
+                    <CommentForm postId={postId} />
                     {/* <input id='new-comment' value={newComment} onChange={(e) => {setNewComment(() => e.target.value)}}/> */}
                 </div>
             </div>

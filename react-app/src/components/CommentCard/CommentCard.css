@@ -1,39 +1,45 @@
-.comment-info {
-    display: flex;
-    flex-flow: row nowrap;
+.comment-container {
     width: 100%;
-}
-
-.comment-top-half {
+    min-height: 50px;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-end;
-    width: 80%;
-    position: relative;
-    padding-left: 10px;
-    font-size: 13px;
 }
-
+/* PROF IMG */
 .comment-profile-image {
     width: 30px;
     height: 30px;
     border-radius: 20px;
 }
 
+
+.comment-body {
+    width: 80%;
+    padding: 0 10px;
+    
+    font-size: 13px;
+    
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
 .handle-and-comment-content {
     display: flex;
     flex-flow: column nowrap;
 }
-
 .comment-user-handle {
     font-weight: 500;
 }
-
-#edit-comment-button, #delete-comment-button {
-    margin-right: 10px;
+.comment-text {
+    padding: 0 0 10px;
 }
 
+
 .edit-and-delete-buttons {
+    font-size: 12px;
+    cursor: pointer;
     display: flex;
-    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 8px;
 }

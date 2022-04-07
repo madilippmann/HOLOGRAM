@@ -6,87 +6,77 @@ import Picker from 'emoji-picker-react';
 import * as postsActions from '../../store/posts'
 import './CommentForm.css';
 
-function CommentForm() {
-  const dispatch = useDispatch();
-  // TODO PASS IN postId AS PROP TO COMMENT COMPONENT TO USE AS ARG FOR createComment THUNK
-  const { postId } = useParams();
-  // const user = useSelector(state => state.session);
-  // const post = useSelector(state => state.posts[postId]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [content, setContent] = useState('');
-  const [validationErrors, setValidationErrors] = useState([])
-  const [showErrors, setShowErrors] = useState(false);
+function CommentForm({ postId }) {
+	const dispatch = useDispatch();
+	const [content, setContent] = useState('');
+	const [validationErrors, setValidationErrors] = useState([])
+	const [showErrors, setShowErrors] = useState(false);
 
+	useEffect(() => {
+		const errors = [];
+		if (!content.length) errors.push('please type something before commenting');
+		if (content.length > 255) errors.push('comment must be less than 255 characters')
 
-  useEffect(() => {
-    (async () => {
-      await dispatch(postsActions.fetchPost(postId))
-    })();
-    setIsLoaded(() => true);
-  }, [dispatch])
+		setValidationErrors(errors);
+	}, [content]);
 
-  useEffect(() => {
-    const errors = [];
-    if (!content.length) errors.push('please type something before commenting');
-    if (content.length > 255) errors.push('comment must be less than 255 characters')
+	const onSubmit = (e) => {
+		e.preventDefault();
+		if (validationErrors.length) return setShowErrors(true);
 
-    setValidationErrors(errors);
-  }, [content]);
+		const comment = {
+			content, postId
+		}
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (validationErrors.length) return setShowErrors(true);
+		dispatch(postsActions.createComment(comment))
+			.then(_ => {
+				setContent('');
+			})
+			.catch(async (res) => {
+				const data = await res.json();
+				if (data && data.errors) {
+					setValidationErrors(data.errors);
+					setShowErrors(true);
+				}
+			});
+	}
 
-    const comment = {
-      content, postId
-    }
+	const onEmojiClick = (event, emojiObject) => {
+		console.log(emojiObject.emoji);
+		let temp = content + emojiObject.emoji;
+		setContent(temp)
+		console.log('onEmojiClick ~ temp', temp);
+		console.log(content)
+	};
 
-    dispatch(postsActions.createComment(comment))
-      .then(async comment => {
-        return;
-      })
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setValidationErrors(data.errors);
-          setShowErrors(true);
-        }
-      });
-  }
+	
+	return (
+		<div id='comment-form-wrapper'>
+			<form onSubmit={onSubmit}>
+				<input
+					id='comment-input'
+					name='content'
+					value={content}
+					maxLength={255}
+					onChange={(e) => setContent(e.target.value)}
+					placeholder='add a comment'
+					autoComplete='off'
+				/>
+				{/* <Picker onEmojiClick={onEmojiClick} /> */}
 
-  const onEmojiClick = (event, emojiObject) => {
-    console.log(emojiObject.emoji);
-    let temp = content + emojiObject.emoji;
-    setContent(temp)
-    console.log('onEmojiClick ~ temp', temp);
-    console.log(content)
-  };
+				<button type='submit' id='comment-submit'>post</button>
+			</form>
 
-  return !isLoaded ? null : (
-    <div id='comment-form-wrapper'>
-      <form onSubmit={onSubmit}>
-        <input
-          id='comment-input'
-          name='content'
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder='add a comment'
-        />
-        {/* <Picker onEmojiClick={onEmojiClick} /> */}
+			{!showErrors ? null : (
+				<ul>
+					{validationErrors.map(err => (
+						<li key={err}>{err}</li>
+					))}
+				</ul>
+			)}
 
-        <button type='submit' id='comment-submit'>post</button>
-      </form>
-
-      {!showErrors ? null : (
-        <ul>
-          {validationErrors.map(err => (
-            <li key={err}>{err}</li>
-          ))}
-        </ul>
-      )}
-      
-    </div>
-  );
+		</div>
+	);
 }
 
 export default CommentForm;

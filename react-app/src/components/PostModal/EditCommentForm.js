@@ -37,9 +37,6 @@ function EditCommentForm() {
         }
 
         dispatch(postsActions.editComment(comment))
-            .then(async comment => {
-                return;
-            })
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {

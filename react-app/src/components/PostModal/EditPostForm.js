@@ -35,9 +35,6 @@ function EditPostForm({ post, editCaption, toggleEditCaption }) {
         }
 
         dispatch(postsActions.editPost(post))
-            .then(async post => {
-                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-            })
             .catch(async (res) => {
                 console.log(res);
                 const data = res
