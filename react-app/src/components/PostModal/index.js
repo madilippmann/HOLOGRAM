@@ -43,7 +43,9 @@ export default function PostModal({ postId }) {
     useEffect(() => {
         setLikes(() => Object.values(post.postLikes))
         setIsLiked(() => !isLiked);
-        console.log('Post Likes: ', likes)
+        console.log(`Post ${post.id} Modal Likes: `, likes)
+        console.log(`Post ${post.id} Modal isLiked: `, isLiked)
+
     }, [post.postLikes])
 
     const deletePost = async () => {
@@ -112,7 +114,7 @@ export default function PostModal({ postId }) {
 
                 <div id='likes-div'>
                     <div id='likes-div-icons'>
-                        {!isLiked
+                        {isLiked
                             ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
                                 onClick={toggleLike}
                             />

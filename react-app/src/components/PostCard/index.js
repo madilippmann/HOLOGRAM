@@ -13,14 +13,16 @@ import { sortByCreatedAt } from '../../utils';
 export default function PostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const [likes, setLikes] = useState([])
+    const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [isLiked, setIsLiked] = useState(likes?.find(like => like.userId === sessionUser.id) ? true : false);
-    const [comments, setComments] = useState([])
+    const [comments, setComments] = useState(Object.values(post.comments))
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
         setLikes(() => Object.values(post.postLikes))
         setIsLiked(() => !isLiked);
+        console.log(`Post ${post.id} Card Likes: `, likes)
+        console.log(`Post ${post.id} Card isLiked: `, isLiked)
     }, [post.postLikes])
 
     useEffect(() => {
@@ -50,11 +52,11 @@ export default function PostCard({ post }) {
                     {isLiked
                         ? (
                             <span onClick={toggleLike}
-                            ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likes.length}</span>
+                            ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likes.length}</span>
                         )
                         : (
                             <span onClick={toggleLike}
-                            ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likes.length}</span>
+                            ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likes.length}</span>
                         )
                     }
                     <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{comments.length}</span>
