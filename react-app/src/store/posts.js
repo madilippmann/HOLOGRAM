@@ -232,7 +232,7 @@ const postsReducer = (state = {}, action) => {
 
         case LOAD_POSTS: {
             return {
-                ...state,
+                // ...state,
                 ...normalizePosts(action.posts),
             };
         }
