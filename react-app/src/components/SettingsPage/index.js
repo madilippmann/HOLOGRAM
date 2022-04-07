@@ -3,13 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import defaultProfileImage from '../../static/default-profile-image.png'
+import LoadingBar, { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 import * as sessionActions from '../../store/session';
 import './SettingsPage.css';
 import ProfileIcon from '../ProfileIcon';
-
-//TODO profileImage, first name, last name, bio
 
 function SettingsPage() {
     const dispatch = useDispatch();
@@ -42,6 +40,9 @@ function SettingsPage() {
         e.preventDefault();
 
         if (validationErrors.length) return validationErrors(true);
+
+        dispatch(showLoading());
+
         const url = await s3upload(uploadFile)
         const user = {
             firstName: newFirstName,
@@ -51,25 +52,25 @@ function SettingsPage() {
             profileImageUrl: url
         }
 
-        console.log(user);
-
         await dispatch(sessionActions.editUser(user));
+
+        dispatch(hideLoading());
+
         return history.push(`/${sessionUser.handle}`);
     }
 
     return (
         <>
             <form onSubmit={updateProfile} id='settings-form'>
-                <div className='profile-picture-container-settings-page'>
+                <LoadingBar style={{ backgroundColor: 'var(--color-apricot)', height: '12px', maxWidth: '500px', position: 'absolute', top: '0', left: '0', right: '0', margin: '0 auto' }} updateTime={100} progressIncrease={5} maxProgress={95} />
+                {/* <div className='profile-picture-container-settings-page'>
                     <ProfileIcon user={sessionUser} />
-                </div>
+                </div> */}
 
                 <div id='upload-and-preview-section'>
-					<div
-						id='preview'
-					>
+					<div id='preview'>
 						{uploadFile &&
-							<img src={URL.createObjectURL(uploadFile)} alt='image preview' id='image-preview' />
+							<img src={URL.createObjectURL(uploadFile)} alt='preview' id='image-preview' />
 						}
 					</div>
 

@@ -39,3 +39,8 @@
     height: 100px;
     overflow: hidden;
 }
+
+#settings-form > #upload-and-preview-section {
+    display: flex;
+    flex-flow: column nowrap;
+}
