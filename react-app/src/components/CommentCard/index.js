@@ -29,7 +29,7 @@ export default function CommentCard({ post, comment }) {
 
 			<div className='comment-body'>
 				{showEdit ? (
-					<EditCommentForm />
+					<EditCommentForm comment={comment} showEdit={setShowEdit} />
 				) : (
 					<div className='handle-and-comment-content'>
 						<span className='comment-user-handle'>{comment.user.handle}</span>
@@ -40,7 +40,7 @@ export default function CommentCard({ post, comment }) {
 
 			{comment.user.id === sessionUser.id &&
 				<div className='edit-and-delete-buttons'>
-					<FontAwesomeIcon icon={faEdit} id='edit-comment-button' onClick={() => /* setShowEdit(!showEdit) */ window.alert('Sorry! This feature is under construction')} />
+					<FontAwesomeIcon icon={faEdit} id='edit-comment-button' onClick={() => setShowEdit(!showEdit)} />
 					<FontAwesomeIcon icon={faTrash} id='delete-comment-button' onClick={() => deleteComment(comment.id)} />
 				</div>
 			}

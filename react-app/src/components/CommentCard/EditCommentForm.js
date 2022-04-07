@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
+import './EditCommentForm.css';
 
-function EditCommentForm() {
+function EditCommentForm({ comment, setShowEdit }) {
     const dispatch = useDispatch();
-    const { commentId, postId } = useParams()
-    const comment = useSelector(state => state.posts[postId].comments[commentId])
-    const [content, setContent] = useState(comment?.content);
+    // const { commentId, postId } = useParams()
+    // const comment = useSelector(state => state.posts[postId].comments[commentId])
+    const [content, setContent] = useState(comment.content);
     const [validationErrors, setValidationErrors] = useState([])
     const [showErrors, setShowErrors] = useState(false);
 
@@ -26,12 +27,15 @@ function EditCommentForm() {
         if (validationErrors.length) return setShowErrors(true);
 
         const comment = {
-            id: commentId,
+            id: comment.id,
             content,
-            postId
+            postId: comment.postId
         }
 
         dispatch(postsActions.editComment(comment))
+            .then(_ => {
+                setShowEdit(false);
+            })
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -44,16 +48,18 @@ function EditCommentForm() {
 
     return (
         <form onSubmit={onSubmit} className="edit-comment-form">
-            <label htmlFor='content'>Caption</label>
-            <input
+            <textarea
                 type='text'
-                id='edit-comment-content'
+                id='edit-comment-input'
                 name='content'
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
             />
 
-            <button type='submit'>submit</button>
+            <div id='edit-comment-button-container'>
+                <button type='button' id='cancel-edit-comment'>cancel</button>
+                <button type='submit' id='submit-edit-comment' style={{ color: 'var(--color-purple)' }}>submit</button>
+            </div>
         </form>
     );
 }
