@@ -217,7 +217,7 @@ export const togglePostLike = (postId) => async dispatch => {
 
 
 // REDUCER ************************************************
-const postsReducer = (state = { allPosts: [] }, action) => {
+const postsReducer = (state = {}, action) => {
 
     let newState;
 

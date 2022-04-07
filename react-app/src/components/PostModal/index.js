@@ -13,18 +13,23 @@ import { faHeart, faMessage, faComment as emptyComment } from '@fortawesome/free
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
+import { sortByCreatedAt } from '../../utils';
 
 export default function PostModal({ postId }) {
     const dispatch = useDispatch();
     const history = useHistory();
+
     let post = useSelector(state => state.posts[postId]);
+    // let comments = useSelector(state => state.posts[postId].comments)
     let sessionUser = useSelector(state => state.session.user);
+
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(post?.likes?.allLikes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, toggleEditCaption] = useState(false);
     const [likeCount, setLikeCount] = useState(post?.postLikes.length);
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [orderedComments, setOrderedComments] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -34,6 +39,9 @@ export default function PostModal({ postId }) {
         })()
     }, [dispatch]);
 
+    useEffect(() => {
+        setOrderedComments(() => sortByCreatedAt(Object.values(post.comments)))
+    }, [post.comments])
 
     const deletePost = async () => {
         if (window.confirm('Are you sure you want to delete your post?')) {
@@ -86,10 +94,10 @@ export default function PostModal({ postId }) {
                 </div>
 
                 <div className='comment-section'>
-                    {post.comments.allComments.length > 0
+                    {orderedComments.length > 0
                         ? (
                             <>
-                                {post.comments.allComments.map(comment => {
+                                {orderedComments.map(comment => {
                                     return (
                                         <div key={comment.id} className='single-comment'>
                                             <CommentCard post={post} comment={comment} />
