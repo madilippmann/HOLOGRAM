@@ -86,18 +86,20 @@ export default function PostModal({ postId }) {
                 </div>
 
                 <div className='comment-section'>
-                    {post?.comments?.allComments?.length > 0 ?
-                        <>
-                            {post?.comments?.allComments?.map(comment => {
-                                return (
-                                    <div key={comment.id} className='single-comment'>
-                                        <CommentCard post={post} comment={comment} />
-                                    </div>
-                                )
-                            })}
-                        </>
-                        :
-                        <span style={{ color: 'var(--color-gray)', fontSize: '14px' }}>Be the first to leave a comment!</span>
+                    {post.comments.allComments.length > 0
+                        ? (
+                            <>
+                                {post.comments.allComments.map(comment => {
+                                    return (
+                                        <div key={comment.id} className='single-comment'>
+                                            <CommentCard post={post} comment={comment} />
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        ) : (
+                            <span style={{ color: 'var(--color-gray)', fontSize: '14px' }}>Be the first to leave a comment!</span>
+                        )
                     }
                 </div>
 

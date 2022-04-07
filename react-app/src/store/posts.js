@@ -233,7 +233,7 @@ export const deleteComment = (commentId, postId) => async dispatch => {
     });
 
     if (res.ok) {
-        const { commentId } = await res.json();
+        const commentId = await res.json();
         dispatch(removeComment(postId, commentId));
         return { postId, commentId };
     }
@@ -354,7 +354,8 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         case REMOVE_COMMENT: {
             // this takes care of deleting from the "allComments" array...
             const allComments = state[action.postId].comments.allComments
-            allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)), 1)
+            const bruh = allComments.splice(allComments.indexOf(allComments.find(comment => comment.id === action.commentId)), 1)
+            console.log(bruh);
 
             newState = {
                 ...state,
