@@ -340,29 +340,22 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             return newState
         }
 
-        // COMMENTS ***********************************************************
+        // LIKES ***********************************************************
 
-        case LOAD_LIKES: {
-            // need to load likes on Post Page load so that 'isLiked' can be set properly.
-            // 'isLiked' is not getting set properly since the like cant be found inside the post in store on refresh.
-            // the like is there once ADD_LIKE is ran, but goes away on refresh, since the 'likes' property hasn't been set yet
-            // the 'postLikes' property inside a post in the store is from the Post.to_dict() method:
-            // TODO: should probably get rid of this once LOAD_LIKES is implemented, maybe?
-            // FYI 'postLikes' does have the new like once you like a post and refresh
+        // case LOAD_LIKES:  {
+        //     const postId = action.postId
 
-            const postId = action.postId
+        //     return {
+        //         ...state,
+        //         [postId]: {
+        //             ...state[postId],
+        //             postLikes: {
+        //                 ...normalizeOneLevel(action.likes),
+        //             }
+        //         }
+        //     }
 
-            return {
-                ...state,
-                [postId]: {
-                    ...state[postId],
-                    postLikes: {
-                        ...normalizeOneLevel(action.likes),
-                    }
-                }
-            }
-
-        }
+        // }
 
         case ADD_LIKE: {
             const postId = action.like.postId
@@ -371,8 +364,8 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                 ...state,
                 [postId]: {
                     ...state[postId],
-                    likes: {
-                        ...state[postId].likes,
+                    postLikes: {
+                        ...state[postId].postLikes,
                         [action.like.id]: action.like,
                     }
                 }
@@ -380,32 +373,19 @@ const postsReducer = (state = { allPosts: [] }, action) => {
         }
 
         case REMOVE_LIKE: {
-            // this takes care of deleting from the "allLikes" array...
-            // console.log('State: ', state[action.postId])
-            // console.log('Likes: ', state[action.postId].likes)
-            // console.log('All Likes: ', state[action.postId].likes.allLikes)
-            if (state[action.postId].likes) {
-                let allLikes = state[action.postId].likes.allLikes
-                allLikes.splice(allLikes.indexOf(allLikes.find(like => like.id === action.likeId)), 1);
 
-                newState = {
-                    ...state,
-                    [action.postId]: {
-                        ...state[action.postId],
-                        likes: {
-                            ...state[action.postId].likes,
-                            allLikes
-                        }
+            newState = {
+                ...state,
+                [action.postId]: {
+                    ...state[action.postId],
+                    postLikes: {
+                        ...state[action.postId].postLikes
                     }
                 }
-                delete newState[action.postId].likes[action.likeId];
-                return newState;
-            } else {
-                return { ...state }
             }
 
-            // and this takes care of deleting from the normalized "likes" object
-
+            delete newState[action.postId].postLikes[action.likeId];
+            return newState;
         }
 
         default: {
