@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import Picker from 'emoji-picker-react';
 
-
 import * as postsActions from '../../store/posts'
+import './CommentForm.css';
 
 function CommentForm() {
   const dispatch = useDispatch();
@@ -63,19 +63,18 @@ function CommentForm() {
   };
 
   return !isLoaded ? null : (
-    <div>
+    <div id='comment-form-wrapper'>
       <form onSubmit={onSubmit}>
-        {/* <label htmlFor='content'>Comment</label> */}
-        <textarea
-          id='content'
+        <input
+          id='comment-input'
           name='content'
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder='add a commen...t'
+          placeholder='add a comment'
         />
         {/* <Picker onEmojiClick={onEmojiClick} /> */}
 
-        <button type='submit'>post</button>
+        <button type='submit' id='comment-submit'>post</button>
       </form>
 
       {!showErrors ? null : (
@@ -85,6 +84,7 @@ function CommentForm() {
           ))}
         </ul>
       )}
+      
     </div>
   );
 }
