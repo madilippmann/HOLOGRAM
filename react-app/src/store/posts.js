@@ -24,12 +24,6 @@ const addPost = (post) => {
     }
 }
 
-const loadPost = (post) => {
-    return {
-        type: LOAD_POST,
-        post
-    }
-}
 
 const loadPosts = (posts) => {
     return {
@@ -104,15 +98,6 @@ const removeLike = (postId, likeId) => {
 // THUNK ACTION CREATORS **********************************
 
 //POSTS THUNKS
-export const fetchPost = postId => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}/`);
-
-    if (res.ok) {
-        const post = await res.json();
-        dispatch(loadPost(post));
-        return post;
-    }
-}
 
 export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
     let res;
@@ -287,14 +272,6 @@ const postsReducer = (state = { allPosts: [] }, action) => {
             return newState;
         }
 
-        case LOAD_POST: {
-            const newState = {
-                ...state,
-            };
-            newState[action.post.id] = action.post;
-            return newState;
-        }
-
         case LOAD_POSTS: {
             return {
                 ...state,
@@ -379,7 +356,7 @@ const postsReducer = (state = { allPosts: [] }, action) => {
                 ...state,
                 [postId]: {
                     ...state[postId],
-                    likes: {
+                    postLikes: {
                         ...normalizeOneLevel(action.likes),
                     }
                 }
