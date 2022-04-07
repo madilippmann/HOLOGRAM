@@ -90,6 +90,7 @@
 /* COMMENT SECTION */
 .comment-section {
     padding: 16px;
+    height: 0px;
     border-bottom: 1px solid var(--color-gray);
     overflow-y: scroll;
     display: flex;

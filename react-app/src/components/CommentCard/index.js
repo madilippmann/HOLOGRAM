@@ -22,7 +22,7 @@ export default function CommentCard({ post, comment }) {
 			<div className='comment-body'>
 				<div className='handle-and-comment-content'>
 					<span className='comment-user-handle'>{comment.user.handle}</span>
-					<span className='comment-text comment-bottom-half'>{comment.content}</span>
+					<span className='comment-text'>{comment.content}</span>
 				</div>
 
 			</div>

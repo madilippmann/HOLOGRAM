@@ -57,6 +57,7 @@ function CommentForm({ postId }) {
 					id='comment-input'
 					name='content'
 					value={content}
+					maxLength={255}
 					onChange={(e) => setContent(e.target.value)}
 					placeholder='add a comment'
 					autoComplete='off'

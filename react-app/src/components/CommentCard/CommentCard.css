@@ -4,6 +4,13 @@
     display: flex;
     flex-flow: row nowrap;
 }
+/* PROF IMG */
+.comment-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+}
+
 
 .comment-body {
     width: 80%;
@@ -16,20 +23,18 @@
     position: relative;
 }
 
-.comment-profile-image {
-    width: 30px;
-    height: 30px;
-    border-radius: 20px;
-}
 
 .handle-and-comment-content {
     display: flex;
     flex-flow: column nowrap;
 }
-
 .comment-user-handle {
     font-weight: 500;
 }
+.comment-text {
+    padding: 0 0 10px;
+}
+
 
 .edit-and-delete-buttons {
     font-size: 12px;
