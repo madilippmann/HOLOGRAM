@@ -1,16 +1,36 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as emptyHeart, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons';
 import PostModalPopup from '../Modals/PostModalPopup';
 import ProfileIcon from '../ProfileIcon';
+import * as postsActions from '../../store/posts';
 import './PostCard.css'
+import { sortByCreatedAt } from '../../utils';
 
 export default function PostCard({ post }) {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    
+    const [likes, setLikes] = useState(Object.values(post.postLikes))
+    const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
+    const [comments, setComments] = useState(Object.values(post.comments))
+
+    // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
+    useEffect(() => {
+        setLikes(() => Object.values(post.postLikes))
+        setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
+    }, [post.postLikes])
+
+    useEffect(() => {
+        setComments(sortByCreatedAt(Object.values(post.comments)))
+    }, [post.comments])
+
+    const toggleLike = async (e) => {
+        await dispatch(postsActions.togglePostLike(post.id));
+    }
+
     return (
         <div className='single-feed-post' key={post.id}>
             <div className='post-image-div'>
@@ -27,15 +47,28 @@ export default function PostCard({ post }) {
                 </div>
 
                 <div className='post-like-and-comment-count'>
-                    {post.postLikes.find(like => like.userId === sessionUser.id)
+                    {/* <button type='button' onClick={(e) => toggleLike(post.id)} className={`like-button`}>
+                            {isLiked
+                                ? (
+                                    <FontAwesomeIcon icon={fullHeart} className={`like-icon`} />
+                                )
+                                : (
+                                    <FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />
+                                )
+                            }
+                        </button> */}
+
+                    {!isLiked
                         ? (
-                            <span><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{post.postLikes.length}</span>
+                            <span onClick={toggleLike}
+                            ><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{likes.length}</span>
                         )
                         : (
-                            <span><FontAwesomeIcon icon={emptyHeart} className={`like-icon`} />{post.postLikes.length}</span>
+                            <span onClick={toggleLike}
+                            ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likes.length}</span>
                         )
                     }
-                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{post.postLikes.length}</span>
+                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{comments.length}</span>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar";
 
@@ -7,13 +8,70 @@ import { faHouse, faCirclePlus, faEnvelope } from '@fortawesome/free-solid-svg-i
 import './NavBar.css';
 import NavProfileButton from "../NavProfileButton";
 
+import defaultProfileImage from '../../static/default-profile-image.png'
 import logo from '../../static/hologram-logo.png'
+import FollowsList from "../FollowsList";
 
 const NavBar = () => {
-	const user = useSelector(state => state.session.user);
+	const sessionUser = useSelector(state => state.session.user);
+	const [showFollowers, setShowFollowers] = useState(false)
+	const [showFollowings, setShowFollowings] = useState(false)
+
+	const openFollowers = () => {
+
+		if (showFollowers) return;
+		document.querySelector('.sessionUser-followers')
+		setShowFollowers(true);
+
+	}
 
 
-	return !user ? null : (
+	useEffect(() => {
+		// if (showFollowings) setShowFollowings(() => false)
+		if (!showFollowers) return;
+
+		const closeFollowers = () => {
+			document.querySelector('.sessionUser-followers')
+			setShowFollowers(false);
+		};
+
+		document.addEventListener('click', closeFollowers);
+
+		return () => {
+			setShowFollowers(false);
+			document.removeEventListener("click", closeFollowers);
+		}
+
+	}, [showFollowers]);
+
+
+	const openFollowings = () => {
+		if (showFollowings) return;
+		document.querySelector('.sessionUser-following')
+		setShowFollowings(true);
+	}
+
+	useEffect(() => {
+		// if (showFollowers) setShowFollowers(() => false)
+		if (!showFollowings) return;
+
+		const closeFollowings = () => {
+			document.querySelector('.sessionUser-followings')
+			setShowFollowings(false);
+		};
+
+		document.addEventListener('click', closeFollowings);
+
+		return () => {
+			setShowFollowings(false);
+			document.removeEventListener("click", closeFollowings);
+		}
+
+	}, [showFollowings]);
+
+
+
+	return !sessionUser ? null : (
 		<div id="navbar">
 			<div className="navbar-container">
 				<div className="nav__left">
@@ -50,17 +108,44 @@ const NavBar = () => {
 					</div>
 
 					<div className="nav__stats">
-						<div>
-							<span>2.5k</span>
-							<small>followers</small>
+						<div className='sessionUser-followers'>
+							<button
+								className='remove-button-styling stack add-hover '
+								type='button'
+								onClick={openFollowers}
+							>
+								<span>{sessionUser?.followers.length}</span>
+								<small>followers</small>
+							</button>
+
+							{showFollowers && (
+								<div className="follows-dropdown">
+									<div className='followers-list'>
+										<FollowsList follows={sessionUser?.followers} />
+									</div>
+								</div>
+							)}
 						</div>
-						<div>
-							<span>2.3k</span>
-							<small>following</small>
+						<div className='sessionUser-followings'>
+							<button
+								className='remove-button-styling stack add-hover'
+								type='button'
+								onClick={openFollowings}
+							>
+								<span>{sessionUser?.following.length}</span>
+								<small>following</small>
+							</button>
+							{showFollowings && (
+								<div className="follows-dropdown">
+									<div className='followings-list'>
+										<FollowsList follows={sessionUser?.following} />
+									</div>
+								</div>
+							)}
 						</div>
 					</div>
 
-					<NavProfileButton user={user} />
+					<NavProfileButton user={sessionUser} />
 				</div>
 			</div>
 		</div>

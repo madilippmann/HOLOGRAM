@@ -6,11 +6,11 @@ import * as postsActions from '../../store/posts'
 
 import './EditPostForm.css';
 
-function EditPostForm({ post, editCaption, toggleEditCaption }) {
+function EditPostForm({ post, editCaption, setEditCaption }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session);
-    const postId = post.id;
+
     // const [isLoaded, setIsLoaded] = useState(false);
     const [caption, setCaption] = useState(post.caption);
     const [validationErrors, setValidationErrors] = useState([])
@@ -27,17 +27,14 @@ function EditPostForm({ post, editCaption, toggleEditCaption }) {
         e.preventDefault();
         if (validationErrors.length) return setShowErrors(true);
 
-        toggleEditCaption();
+        setEditCaption();
 
         const post = {
-            id: postId,
+            id: post.id,
             caption
         }
 
         dispatch(postsActions.editPost(post))
-            .then(async post => {
-                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-            })
             .catch(async (res) => {
                 console.log(res);
                 const data = res
@@ -58,7 +55,7 @@ function EditPostForm({ post, editCaption, toggleEditCaption }) {
                     onChange={(e) => setCaption(e.target.value)}
                 />
                 <div id='edit-caption-submit-and-cancel-buttons'>
-                    <button type='button' id='cancel-caption-button' onClick={() => toggleEditCaption()}>Cancel</button>
+                    <button type='button' id='cancel-caption-button' onClick={() => setEditCaption()}>Cancel</button>
                     <button type='submit' id='save-caption-button'>Save</button>
                 </div>
             </form>
@@ -72,7 +69,7 @@ function EditPostForm({ post, editCaption, toggleEditCaption }) {
             )}
         </div>
     )
-    :
+        :
         <span className='post-caption'>{caption}</span>
 }
 

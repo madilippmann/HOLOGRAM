@@ -24,3 +24,14 @@ class Comment(db.Model):
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
+
+    def to_dict_lite(self):
+        return {
+            'id': self.id,
+            'postId': self.postId,
+            'userId': self.userId,
+            'content': self.content,
+            'user': self.user.to_dict_lite(),
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
+        }
