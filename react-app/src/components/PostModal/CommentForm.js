@@ -6,10 +6,8 @@ import Picker from 'emoji-picker-react';
 import * as postsActions from '../../store/posts'
 import './CommentForm.css';
 
-function CommentForm() {
+function CommentForm({ postId }) {
 	const dispatch = useDispatch();
-	// TODO PASS IN postId AS PROP TO COMMENT COMPONENT TO USE AS ARG FOR createComment THUNK
-	const { postId } = useParams();
 	// const user = useSelector(state => state.session);
 	// const post = useSelector(state => state.posts[postId]);
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -17,13 +15,6 @@ function CommentForm() {
 	const [validationErrors, setValidationErrors] = useState([])
 	const [showErrors, setShowErrors] = useState(false);
 
-
-	useEffect(() => {
-		(async () => {
-			await dispatch(postsActions.fetchPost(postId))
-		})();
-		setIsLoaded(() => true);
-	}, [dispatch])
 
 	useEffect(() => {
 		const errors = [];
@@ -59,7 +50,7 @@ function CommentForm() {
 		console.log(content)
 	};
 
-	return !isLoaded ? null : (
+	return (
 		<div id='comment-form-wrapper'>
 			<form onSubmit={onSubmit}>
 				<input
