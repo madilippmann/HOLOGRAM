@@ -14,7 +14,7 @@ function FeedPage() {
 
     let posts = useSelector(state => state.posts);
 
-    const [allPosts, setAllPosts] = useState([]);
+    const [orderedPosts, setOrderedPosts] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -24,13 +24,13 @@ function FeedPage() {
     }, [dispatch]);
 
     useEffect(() => {
-        setAllPosts(() => sortByCreatedAt(Object.values(posts)));
+        setOrderedPosts(() => sortByCreatedAt(Object.values(posts)));
     }, [posts])
 
     const postsForListOne = [], postsForListTwo = [], postsForListThree = [];
     let counter = 0;
 
-    for (let post of allPosts) {
+    for (let post of orderedPosts) {
         switch (counter) {
             case 0:
                 postsForListOne.push(post);
