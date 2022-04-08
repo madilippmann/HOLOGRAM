@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -14,6 +14,26 @@ export default function CommentCard({ post, comment }) {
 	let sessionUser = useSelector(state => state.session.user);
 	const [showEdit, setShowEdit] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
+	const [tick, setTick] = useState(+(comment.timeElapsed.split(' ')[0]) + 1);
+
+	useEffect(() => {
+	  let timer;
+	  
+	  if (tick === 59) {
+		timer = setTimeout(() => {
+		  comment.timeElapsed = '1 minute ago';
+		  setTick(60);
+		}, 1000);
+		return;
+	  }
+	  
+	  if (comment.timeElapsed.endsWith('seconds ago') || comment.timeElapsed.endsWith('second ago')) {
+		timer = setTimeout(() => setTick(prev => prev + 1), 1000);
+		comment.timeElapsed = `${tick + 1} seconds ago`;
+	  }
+	  
+	  return () => clearTimeout(timer);
+	}, [comment, tick]);
 
 	const deleteComment = (commentId) => {
 		if (window.confirm('Are you sure you would like to delete your comment?')) {
