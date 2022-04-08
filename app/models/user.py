@@ -24,6 +24,9 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
+    messages = db.relationship('Message', back_populates='user')
+    threads = db.relationship('Thread', secondary=users_threads, back_populates="user")
+
     followers = db.relationship(
     # this relationship allows you to access both the collection of users
     # that follow a given user (with user.followers), and the collection
@@ -35,8 +38,6 @@ class User(db.Model, UserMixin):
         backref=db.backref("following", lazy="dynamic"),
         lazy="dynamic"
     )
-
-    threads = db.relationship('Thread', secondary=users_threads, back_populates="user")
 
     # threads = db.relationship(
     #     "Thread",

@@ -12,7 +12,7 @@ class Message(db.Model):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     thread = db.relationship('Thread', back_populates='messages')
-    user = db.relationship('User', back_populates='postLikes')
+    user = db.relationship('User', back_populates='messages')
 
     def to_dict(self):
         return {
