@@ -8,6 +8,8 @@ import LoadingBar, { showLoading, hideLoading } from 'react-redux-loading-bar';
 import * as sessionActions from '../../store/session';
 import './SettingsPage.css';
 
+import defaultProfileImage from '../../static/default-profile-image.png'
+
 function SettingsPage() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -17,23 +19,24 @@ function SettingsPage() {
     const [newBio, setNewBio] = useState(sessionUser.bio || '');
     const [uploadFile, setUploadFile] = useState(null);
     const [validationErrors, setValidationErrors] = useState([]);
+    const profileImage = sessionUser.profileImageUrl !== '/default-profile-image.png' ? sessionUser.profileImageUrl : defaultProfileImage
 
     useEffect(() => {
-		const errors = [];
-		if (!uploadFile) errors.push('Please choose an image first before uploading.')
-		setValidationErrors(errors);
-	}, [uploadFile]);
+        const errors = [];
+        if (!uploadFile) errors.push('Please choose an image first before uploading.')
+        setValidationErrors(errors);
+    }, [uploadFile]);
 
     const s3upload = async (file) => {
-		if (!file) return console.log('upload a file first');
-		const formData = new FormData()
+        if (!file) return console.log('upload a file first');
+        const formData = new FormData()
 
-		formData.append('file', file)
+        formData.append('file', file)
 
-		const res = await axios.post("/api/s3/upload/", formData);
+        const res = await axios.post("/api/s3/upload/", formData);
 
-		return res.data
-	}
+        return res.data
+    }
 
     const updateProfile = async (e) => {
         e.preventDefault();
@@ -67,9 +70,9 @@ function SettingsPage() {
                 </div> */}
                 <div id='left'>
                     <p>Update profile image</p>
-                    <div id='upload-and-preview-section' style={{ 'display':'block' }}>
+                    <div id='upload-and-preview-section' style={{ 'display': 'block' }}>
                         <div id='preview' style={{ 'border': 'none' }}>
-                            <img src={uploadFile ? URL.createObjectURL(uploadFile) : sessionUser.profileImageUrl } alt='preview' id='image-preview' />
+                            <img src={uploadFile ? URL.createObjectURL(uploadFile) : profileImage} alt='preview' id='image-preview' />
                         </div>
 
                         <div id='upload'>
@@ -93,17 +96,17 @@ function SettingsPage() {
 
                 <div id='update-page-input-fields'>
                     <p>Update information</p>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <label htmlFor='new-first-name'>First Name</label>
                     <input type='text' value={newFirstName} id='new-first-name' onChange={e => setNewFirstName(e.target.value)} />
-                    <br/>
+                    <br />
                     <label htmlFor='new-last-name'>Last Name</label>
                     <input type='text' value={newLastName} id='new-last-name' onChange={e => setNewLastName(e.target.value)} />
-                    <br/>
+                    <br />
                     <label htmlFor='new-bio'>Bio</label>
                     <textarea value={newBio} id='new-bio' onChange={e => setNewBio(e.target.value)} />
-                    <br/>
+                    <br />
                     <button type='submit' id='update-button'>Update</button>
                 </div>
             </form>
