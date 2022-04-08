@@ -107,8 +107,6 @@ function ProfilePage() {
         setIsFollowed(() => !isFollowed);
     }
 
-
-
     return !isLoaded ? null : (
         <div id='profile-page'>
             <div className='profile-page user-header'>
