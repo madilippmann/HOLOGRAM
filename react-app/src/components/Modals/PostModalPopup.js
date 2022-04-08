@@ -46,7 +46,7 @@ export default function PostModalPopup({ postImageRef, post, blurImage }) {
 				src={post.postImageUrl}
 				style={blurImage ? { filter: 'blur(3px)' } : {}}
 				id='post-image'
-				// ref={postImageRef}
+				ref={postImageRef}
 				alt={`${post.user.handle}'s avatar`}
 				onClick={() => {
 					window.scrollTo({ top: 0, left: 0, });
