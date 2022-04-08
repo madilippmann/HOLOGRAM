@@ -65,6 +65,7 @@ export default function CreatePostPage() {
 
 	const cancelUpload = (e) => {
 		if (window.confirm('Are you sure you want to cancel your upload?')) {
+			window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 			history.push('/');
 		}
 	}

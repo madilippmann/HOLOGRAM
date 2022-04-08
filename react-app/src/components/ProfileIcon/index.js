@@ -7,11 +7,14 @@ import './ProfileIcon.css'
 
 export default function ProfileIcon({ user }) {
     const history = useHistory();
-    
+
     return (
-        <div 
-            className='profile-icon-border' 
-            onClick={(e) => history.push(`/${user.handle}`)}
+        <div
+            className='profile-icon-border'
+            onClick={(e) => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                return history.push(`/${user.handle}`);
+            }}
         >
             <img
                 className='profile-icon'
