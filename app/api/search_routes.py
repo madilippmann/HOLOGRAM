@@ -8,9 +8,11 @@ search_routes = Blueprint('search', __name__)
 @search_routes.route('/<query>')
 def search(query):
     posts = Post.query.filter(Post.caption.ilike(f"%{query}%")).all()
-    users = Post.query.filter(or_(User.handle.ilike(f"{query}"), User.firstName.ilike(f"{query}"), User.lastName.ilike(f"{query}"))).all()
+    users = User.query.filter(or_(User.handle.ilike(f"%{query}%"), User.firstName.ilike(f"%{query}%"), User.lastName.ilike(f"%{query}%"))).all()
     postsList = [post.to_dict_lite() for post in posts]
     usersList = [user.to_dict_lite() for user in users]
     
     print("\n\n", postsList + usersList, '\n\n')
+    # print("\n\n", usersList, '\n\n')
+    # return jsonify(postsList + usersList)
     return jsonify(postsList + usersList)

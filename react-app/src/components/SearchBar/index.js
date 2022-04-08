@@ -53,7 +53,7 @@ export default function SearchBar() {
 	
 	useEffect(() => {
 		(async () => {
-			const res = await dispatch(fetchQuery('demo'));
+			const res = await dispatch(fetchQuery('an'));
 			console.log(res);
 		})()
 	}, [query]);
