@@ -2,7 +2,10 @@ import { normalizeThreads, normalizeOneLevel } from "./utils";
 
 // ACTION VARIABLES ***************************************
 const ADD_THREAD = 'messages/ADD_THREAD';
-const LOAD_THREADS = 'messages/LOAD_THREADS'
+const LOAD_THREAD = 'messages/LOAD_THREAD'
+
+const LOAD_THREAD_PREVIEWS = 'messages/LOAD_THREAD_PREVIEWS'
+
 const ADD_MESSAGE = 'messages/ADD_MESSAGE'
 // const LOAD_MESSAGES = 'messages/LOAD_MESSAGES';
 
@@ -14,10 +17,10 @@ const addThread = (thread) => {
     };
 };
 
-const loadThreads = (threads) => {
+const loadThread = (thread) => {
     return {
         type: LOAD_THREADS,
-        threads
+        thread
     }
 }
 
@@ -52,12 +55,12 @@ export const createThread = (users) => async (dispatch) => {
     }
 };
 
-export const fetchThreads = () => async (dispatch) => {
-    const res = await fetch(`/api/threads/`);
+export const fetchThread = (threadId) => async (dispatch) => {
+    const res = await fetch(`/api/threads/${threadId}`);
 
     if (res.ok) {
         const threads = await res.json();
-        dispatch(loadThreads(threads));
+        dispatch(loadThread(thread));
         return;
     }
 };
@@ -89,8 +92,43 @@ export const createMessage = (message) => async (dispatch) => {
 //     }
 // }
 
+state = {
+    thread: {
+        id: 1,
+        name: 'Name1, Name2',
+        updatedAt: messages[0].createdAt,
+        messages: [
+            {
+                id: 1,
+                userId: 2,
+                user: user.to_dict_lite(),
+                threadId: 1,
+                content: 'This is the message',
+                updatedAt: new Date()
+            },
+        ]
+    },
+
+    threadPreviews: [
+        {
+            id: 1,
+            name: 'Name1, Name2',
+            preview: 'This is the message'
+        },
+    ]
+}
+
+// Get all thread ids for user
+//  Query for first message from each thread id
+
+//  user is in 5 threads
+//  get first message from each of those 5 threads
+//  threads = Threads.query.filter(Thread.userId == sessionUserId).orderBy(thread.updatedAt)
+// threadPreviews = [thread.messages[0].content for thread in threads]
+
+
 // REDUCER ************************************************
-const messagesReducer = (state = {}, action) => {
+const threadsReducer = (state = { thread: {}, threadPreviews: [] }, action) => {
 
     switch (action.type) {
         case ADD_THREAD: {
@@ -129,4 +167,4 @@ const messagesReducer = (state = {}, action) => {
     }
 };
 
-export default messagesReducer;
+export default threadsReducer;
