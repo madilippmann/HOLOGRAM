@@ -21,11 +21,11 @@ function SettingsPage() {
     const [validationErrors, setValidationErrors] = useState([]);
     const profileImage = sessionUser.profileImageUrl !== '/default-profile-image.png' ? sessionUser.profileImageUrl : defaultProfileImage
 
-    useEffect(() => {
-        const errors = [];
-        if (!uploadFile) errors.push('Please choose an image first before uploading.')
-        setValidationErrors(errors);
-    }, [uploadFile]);
+    // useEffect(() => {
+    //     const errors = [];
+    //     if (!uploadFile) errors.push('Please choose an image first before uploading.')
+    //     setValidationErrors(errors);
+    // }, [uploadFile]);
 
     const s3upload = async (file) => {
         if (!file) return console.log('upload a file first');
