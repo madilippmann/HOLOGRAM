@@ -96,7 +96,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: background .05s, color .05s;
+  transition: background .15s;
 }
 .search-item:hover {
   background: rgb(179, 179, 249);

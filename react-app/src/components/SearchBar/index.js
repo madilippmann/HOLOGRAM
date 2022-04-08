@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faUser, faImage, faImagePortrait } from '@fortawesome/free-solid-svg-icons';
 import './SearchBar.css';
 
 import Fuse from 'fuse.js';
@@ -99,13 +99,15 @@ export default function SearchBar() {
 						if (result.item.hasOwnProperty('handle')) {
 							return (
 								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-									{result.item.handle}
+									<FontAwesomeIcon icon={faUser} style={{ color: 'var(--color-dark-gray)' }} />
+									&nbsp;&nbsp; {result.item.handle}
 								</span>
 							)
 						} else if (result.item.hasOwnProperty('caption')) {
 							return (
 								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-									{result.item.caption}
+									<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
+									&nbsp;&nbsp; {result.item.caption}
 								</span>
 							)
 						}
