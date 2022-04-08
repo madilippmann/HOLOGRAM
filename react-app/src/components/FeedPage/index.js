@@ -51,12 +51,15 @@ function FeedPage() {
 
 
     return !isLoaded ? null : (
+        <>
+            <div id='all-posts'>
+                <FeedColumn column={postsForListOne} />
+                <FeedColumn column={postsForListTwo} />
+                <FeedColumn column={postsForListThree} />
+            </div>
 
-        <div id='all-posts'>
-            <FeedColumn column={postsForListOne} />
-            <FeedColumn column={postsForListTwo} />
-            <FeedColumn column={postsForListThree} />
-        </div>
+            {orderedPosts.length === 0 && <p className='no-feed-posts' >No posts to show</p>}
+        </>
 
     );
 }
