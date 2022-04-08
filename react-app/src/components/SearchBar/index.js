@@ -95,9 +95,9 @@ export default function SearchBar() {
 			</form>
 
 			{showMenu && (
-				<div className='search_filter' /*onClick={closeMenu}*/>
+				<div className='search-filter'>
 
-					<div id="search_message" onClick={onSubmit}>press enter to search for "{query}"...</div>
+					<div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
 					{results.map((result, i) => (
 						<span key={i} onClick={() => history.push(`/posts/${result.item.id}`)} className="search-item">
 							{result.item.id}

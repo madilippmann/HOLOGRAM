@@ -31,8 +31,8 @@
 
 /* search menu pop up thing ***********************
 **************************************************/
-.search_filter {
-  width: 280px;
+.search-filter {
+  width: 300px;
   max-height: 400px;
   margin: 0;
   border: 2px solid var(--color-light-gray);
@@ -46,24 +46,24 @@
   overflow-y: scroll;
   
   position: absolute;
-  left: 50%;
   top: 70px;
-  transform: translate(-50%, -50%);
+  top: 50px; left: 0; right: 0;
+  margin: 0 auto;
   z-index: 10;
   
   flex-direction: column;
   align-items: center;
 }
-.search_filter::-webkit-scrollbar {
+.search-filter::-webkit-scrollbar {
   width: 0px;
 }
-.search_filter::-webkit-scrollbar-thumb {
+.search-filter::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0);
 }
 
 
 
-#search_message {
+#search-message {
   width: 100%;
   min-height: 10px;
   padding: 10px;
@@ -102,6 +102,7 @@
 }
 
 
+/* do you need this here to cover all bases? */
 .search_filter * {
   white-space: nowrap;
   overflow: hidden;
