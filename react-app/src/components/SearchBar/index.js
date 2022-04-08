@@ -8,6 +8,7 @@ import './SearchBar.css';
 
 import Fuse from 'fuse.js';
 import { fetchQuery } from '../../store/search';
+import PostModalPopup from '../Modals/PostModalPopup';
 const options = {
 	includeScore: true,
 	findAllMatches: true,
@@ -89,7 +90,7 @@ export default function SearchBar() {
 					onClick={openMenu}
 					onKeyPress={openMenu}
 				/>
-				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }}></FontAwesomeIcon>
+				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }} />
 			</form>
 
 			{showMenu && (
@@ -105,10 +106,11 @@ export default function SearchBar() {
 							)
 						} else if (result.item.hasOwnProperty('caption')) {
 							return (
-								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-									<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
-									&nbsp;&nbsp; {result.item.caption}
-								</span>
+								<PostModalPopup key={i} isSearchItem={true} post={result.item} />
+								// <span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+								// 	<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
+								// 	&nbsp;&nbsp; {result.item.caption}
+								// </span>
 							)
 						}
 					})}
