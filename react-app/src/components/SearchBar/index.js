@@ -121,16 +121,16 @@ export default function SearchBar() {
 				<div className='search-filter'>
 					<div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
 					{results.map((result, i) => {
-						{
-							result.item.handle !== undefined && (
+						console.log(result.item.hasOwnProperty('handle'));
+						if (result.item.hasOwnProperty('handle')) {
+							return (
 								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
 									{result.item.handle}
 								</span>
 							)
-						}
-						{
-							result.item.caption !== undefined && (
-								<span key={i} onClick={() => history.push(`/posts/${result.item.id}`)} className="search-item">
+						} else if (result.item.hasOwnProperty('caption')) {
+							return (
+								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
 									{result.item.caption}
 								</span>
 							)
