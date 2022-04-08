@@ -35,7 +35,6 @@
 	cursor: pointer;
 	box-shadow: none;
 	transition: box-shadow .15s ease-in-out, transform .2s ease-in-out;
-
 }
 
 #post-image:hover {
