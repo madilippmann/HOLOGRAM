@@ -52,21 +52,30 @@ function EditPostForm({ post, editCaption, setEditCaption }) {
                     id='caption-input'
                     name='caption'
                     value={caption}
+                    style={caption.length > 255 ? { borderColor: 'red' } : {}}
                     onChange={(e) => setCaption(e.target.value)}
                 />
-                <div id='edit-caption-submit-and-cancel-buttons'>
-                    <button type='button' id='cancel-caption-button' onClick={() => setEditCaption()}>Cancel</button>
-                    <button type='submit' id='save-caption-button'>Save</button>
+                
+                <div id='edit-caption-lower'>
+                    <small style={caption.length > 255 ? { color: 'red' } : {}}
+                    >{caption.length}/255</small>
+                    <div id='edit-post-button-container'>
+                        <button type='button' id='cancel-caption-button' onClick={() => setEditCaption()}>Cancel</button>
+                        <button type='submit' 
+                            id='save-caption-button'
+                            style={{ cursor: validationErrors.length ? 'not-allowed' : 'pointer' }}
+                        >Save</button>
+                    </div>
                 </div>
             </form>
 
-            {!showErrors ? null : (
+            {/* {!showErrors ? null : (
                 <ul>
                     {validationErrors.map(err => (
                         <li key={err}>{err}</li>
                     ))}
                 </ul>
-            )}
+            )} */}
         </div>
     )
         :
