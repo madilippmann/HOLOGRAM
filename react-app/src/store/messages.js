@@ -1,3 +1,5 @@
+import { normalizeThreads, normalizeOneLevel } from "./utils";
+
 // ACTION VARIABLES ***************************************
 const ADD_THREAD = 'messages/ADD_THREAD';
 const LOAD_THREADS = 'messages/LOAD_THREADS'
@@ -5,10 +7,10 @@ const ADD_MESSAGE = 'messages/ADD_MESSAGE'
 // const LOAD_MESSAGES = 'messages/LOAD_MESSAGES';
 
 // ACTION CREATORS ****************************************
-const addThread = (users) => {
+const addThread = (thread) => {
     return {
-        type: ADD_USER,
-        users
+        type: ADD_THREAD,
+        thread
     };
 };
 
@@ -26,12 +28,12 @@ const addMessage = (message) => {
     }
 }
 
-const loadMessages = (threadId) => {
-    return {
-        type: LOAD_MESSAGES,
-        threadId
-    }
-}
+// const loadMessages = (threadId) => {
+//     return {
+//         type: LOAD_MESSAGES,
+//         threadId
+//     }
+// }
 
 // THUNK ACTION CREATORS **********************************
 export const createThread = (users) => async (dispatch) => {
@@ -77,15 +79,15 @@ export const createMessage = (message) => async (dispatch) => {
 }
 
 
-export const fetchMessages = (threadId) => async (dispatch) => {
-    const res = await fetch(`/api/threads/${threadId}/`);
+// export const fetchMessages = (threadId) => async (dispatch) => {
+//     const res = await fetch(`/api/threads/${threadId}/`);
 
-    if (res.ok) {
-        const messages = await res.json();
-        dispatch(loadMessages(messages));
-        return;
-    }
-}
+//     if (res.ok) {
+//         const messages = await res.json();
+//         dispatch(loadMessages(messages));
+//         return;
+//     }
+// }
 
 // REDUCER ************************************************
 const messagesReducer = (state = {}, action) => {
@@ -94,11 +96,18 @@ const messagesReducer = (state = {}, action) => {
         case ADD_THREAD: {
             return {
                 ...state,
-                [action.thread.id]: action.thread
-            };
-        }
+                [action.thread.id]: {
+                    threadParticipants: {
+                        ...normalizeOneLevel(action.thread.threadParticipants)
+                    },
+                    messages: [...thread.messages]
+                }
+            }
+        };
+
 
         case LOAD_THREADS: {
+            gi
 
             return {
                 ...normalizeThreads(action.threads)
