@@ -55,10 +55,11 @@
   align-items: center;
 }
 .search-filter::-webkit-scrollbar {
-  width: 0px;
+  width: 6px;
 }
 .search-filter::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--color-gray);
+  border-radius: 25px;
 }
 
 

@@ -96,14 +96,12 @@ export default function SearchBar() {
 
 			{showMenu && (
 				<div className='search-filter'>
-
 					<div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
 					{results.map((result, i) => (
 						<span key={i} onClick={() => history.push(`/posts/${result.item.id}`)} className="search-item">
 							{result.item.id}
 						</span>
 					))}
-
 				</div>
 			)}
 		</div>
