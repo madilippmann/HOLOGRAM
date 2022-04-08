@@ -48,7 +48,13 @@
     position: relative;
     top: -1px;
     transform: scale(1.1);
+    transition: color .2s ease-in-out;
 }
+
+.like-icon:hover {
+    color: rgb(206, 54, 54)
+}
+
 .comment-icon {
     color: var(--color-gray);
     font-size: 22px;

@@ -49,7 +49,8 @@ export default function NavProfileButton({ user }) {
 		<div className="nav-profile-button" onClick={openMenu}>
 			<img
 				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
-				alt="profile-picture"
+				alt="profile preview"
+
 			/>
 
 			{showMenu && (
