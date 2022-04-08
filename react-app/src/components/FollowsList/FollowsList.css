@@ -17,6 +17,7 @@
 
 .follows-avatar-image {
 	width: 30px;
+    height: 30px;
     padding: 1px;
     border-radius: 100%;
 }
