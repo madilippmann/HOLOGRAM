@@ -1,4 +1,5 @@
 // import { csrfFetch } from "./csrf"; // ??? WILL WE BE DOING CSRF FETCHES AGAIN ???
+import { getTimeElapsed } from "../utils";
 import { normalizePosts } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_POST = 'posts/ADD_POST';
@@ -225,6 +226,7 @@ const postsReducer = (state = {}, action) => {
 
         case ADD_POST: {
             const newState = { ...state };
+            action.post.timeElapsed = getTimeElapsed(action.post.createdAt);
             newState[action.post.id] = { ...action.post };
 
             return newState;
@@ -238,7 +240,6 @@ const postsReducer = (state = {}, action) => {
         }
 
         case REMOVE_POST: {
-
             newState = {
                 ...state,
             };
@@ -250,6 +251,8 @@ const postsReducer = (state = {}, action) => {
         // COMMENTS ***********************************************************
         case ADD_COMMENT: {
             const postId = action.comment.postId
+            action.comment.timeElapsed = getTimeElapsed(action.comment.createdAt);
+
 
             return {
                 ...state,
@@ -264,7 +267,6 @@ const postsReducer = (state = {}, action) => {
         }
 
         case REMOVE_COMMENT: {
-
             newState = {
                 ...state,
                 [action.postId]: {
