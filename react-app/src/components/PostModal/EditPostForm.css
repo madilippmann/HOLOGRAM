@@ -62,9 +62,13 @@
     font-size: 12px;
     font-family: inherit;
     font-weight: 400;
-    color: var(--color-black)
 }
 
 #cancel-caption-button:hover, #save-caption-button:hover {
     cursor: pointer;
+}
+
+#save-caption-button {
+    background-color: var(--color-purple);
+    color: white;
 }
