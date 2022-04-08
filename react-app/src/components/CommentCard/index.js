@@ -13,6 +13,7 @@ export default function CommentCard({ post, comment }) {
 	const dispatch = useDispatch();
 	let sessionUser = useSelector(state => state.session.user);
 	const [showEdit, setShowEdit] = useState(false);
+	const [showButtons, setShowButtons] = useState(false);
 
 	const deleteComment = (commentId) => {
 		if (window.confirm('Are you sure you would like to delete your comment?')) {
@@ -22,8 +23,8 @@ export default function CommentCard({ post, comment }) {
 
 
 	return (
-		<div className='comment-container'>
-			<div style={{ width: '30px', height: '30px' }}>
+		<div className='comment-container' onMouseEnter={() => setShowButtons(true)} onMouseLeave={() => setShowButtons(false)}>
+			<div style={{ width: '30px', height: '30px', minWidth: '30px', minHeight: '30px' }}>
 				<ProfileIcon user={comment.user} />
 			</div>
 
@@ -32,13 +33,16 @@ export default function CommentCard({ post, comment }) {
 					<EditCommentForm comment={comment} setShowEdit={setShowEdit} />
 				) : (
 					<div className='handle-and-comment-content'>
-						<span className='comment-user-handle'>{comment.user.handle}</span>
+						<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+							<span className='comment-user-handle'>{comment.user.handle}</span>
+							<span style={{ color: 'var(--color-gray)' }}>{comment.timeElapsed}</span>
+						</div>
 						<span className='comment-text'>{comment.content}</span>
 					</div>
 				)}
 			</div>
 
-			{comment.user.id === sessionUser.id &&
+			{comment.user.id === sessionUser.id && showButtons &&
 				<div className='edit-and-delete-buttons'>
 					<FontAwesomeIcon icon={faEdit} id='edit-comment-button' onClick={() => setShowEdit(!showEdit)} />
 					<FontAwesomeIcon icon={faTrash} id='delete-comment-button' onClick={() => deleteComment(comment.id)} />

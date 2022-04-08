@@ -238,7 +238,6 @@ const postsReducer = (state = {}, action) => {
         }
 
         case REMOVE_POST: {
-
             newState = {
                 ...state,
             };
@@ -264,7 +263,6 @@ const postsReducer = (state = {}, action) => {
         }
 
         case REMOVE_COMMENT: {
-
             newState = {
                 ...state,
                 [action.postId]: {
