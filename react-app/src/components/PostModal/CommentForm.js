@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import Picker from 'emoji-picker-react';
+import { useDispatch } from 'react-redux';
+// import Picker from 'emoji-picker-react';
 
 import * as postsActions from '../../store/posts'
 import './CommentForm.css';
@@ -40,13 +39,13 @@ function CommentForm({ postId }) {
 			});
 	}
 
-	const onEmojiClick = (event, emojiObject) => {
-		console.log(emojiObject.emoji);
-		let temp = content + emojiObject.emoji;
-		setContent(temp)
-		console.log('onEmojiClick ~ temp', temp);
-		console.log(content)
-	};
+	// const onEmojiClick = (event, emojiObject) => {
+	// 	console.log(emojiObject.emoji);
+	// 	let temp = content + emojiObject.emoji;
+	// 	setContent(temp)
+	// 	console.log('onEmojiClick ~ temp', temp);
+	// 	console.log(content)
+	// };
 
 
 	return (

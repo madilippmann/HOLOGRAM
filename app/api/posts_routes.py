@@ -19,6 +19,7 @@ def get_feed_posts():
 
     return jsonify(posts)
 
+
 # CHECK don't think we need this
 @posts_routes.route('/<int:postId>/')
 def get_post(postId):

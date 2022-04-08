@@ -11,7 +11,7 @@ const FollowsList = ({ follows }) => {
                     <Link to={`/${follow.handle}`}>
                         <div key={follow.id} className='selected-dropdown-user'>
                             <div className='user-profile-avatar'>
-                                <img className='follows-avatar-image' src={follow.profileImageUrl !== '/default-profile-image.png' ? follow.profileImageUrl : defaultProfileImage} />
+                                <img className='follows-avatar-image' src={follow.profileImageUrl !== '/default-profile-image.png' ? follow.profileImageUrl : defaultProfileImage} alt='preview' />
                             </div>
                             <div className='justify-left'>
                                 <p className='follows-name'>{follow.firstName} {follow.lastName}</p>

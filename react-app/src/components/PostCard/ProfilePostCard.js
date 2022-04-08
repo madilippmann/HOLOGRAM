@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 
@@ -8,7 +7,7 @@ import './PostCard.css'
 import PostModalPopup from '../Modals/PostModalPopup';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fullHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faMessage as emptyComment } from '@fortawesome/free-regular-svg-icons';
 
 
