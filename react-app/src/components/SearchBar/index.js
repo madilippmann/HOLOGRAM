@@ -25,14 +25,12 @@ const options = {
 export default function SearchBar() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const postModalPopupRef = useRef();
 	const searchMenuRef = useRef();
 	const searchInputRef = useRef();
 	const posts = useSelector(state => Object.values(state.posts));
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState(!posts.length ? [] : posts);
 	const [showMenu, setShowMenu] = useState(false);
-	console.log(showMenu);
 
 	useEffect(() => {
 		if (!query) return;
@@ -91,7 +89,6 @@ export default function SearchBar() {
 		e.preventDefault();
 		if (!query) return;
 		setShowMenu(false);
-		//   return history.push(`/search/${query}`)
 	}
 
 
@@ -122,11 +119,7 @@ export default function SearchBar() {
 							)
 						} else if (result.item?.hasOwnProperty('caption')) {
 							return (
-								<PostModalPopup key={i} isSearchItem={true} post={result.item} postModalPopupRef={postModalPopupRef} />
-								// <span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-								// 	<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
-								// 	&nbsp;&nbsp; {result.item.caption}
-								// </span>
+								<PostModalPopup key={i} isSearchItem={true} post={result.item} />
 							)
 						}
 					})}

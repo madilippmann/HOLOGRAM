@@ -5,7 +5,7 @@ import Modal from '.';
 import PostModal from '../PostModal/index.js';
 
 
-export default function PostModalPopup({ postImageRef, post, blurImage, isSearchItem, postModalPopupRef }) {
+export default function PostModalPopup({ postImageRef, post, blurImage, isSearchItem }) {
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
@@ -45,7 +45,7 @@ export default function PostModalPopup({ postImageRef, post, blurImage, isSearch
 		<>
 			{isSearchItem
 				? (
-					<span onClick={() => setShowModal(true)} className="search-item" ref={postModalPopupRef}>
+					<span onClick={() => setShowModal(true)} className="search-item">
 						<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
 						&nbsp;&nbsp; {post.caption}
 					</span>
