@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import sortByCreatedAt from '../../utils.js';
+import { sortByCreatedAt } from '../../utils.js';
 
 const MessagesSidebar = ({ threads }) => {
 
@@ -9,7 +9,8 @@ const MessagesSidebar = ({ threads }) => {
             <div className='new-message-thread'>
                 Start new message Message
             </div>
-            <div className='message-thread-list'>
+            {/* FIX FIX FIXPUT IN ANOTHER COMPONENT */}
+            {/* <div className='message-thread-list'>
                 {threads.map(thread => {
                     const threadParticipants = Object.values(thread.threadParticipants)
                     const threadParticipantNames = thread.threadParticipants.map(participant => participant.firstName);
@@ -41,7 +42,7 @@ const MessagesSidebar = ({ threads }) => {
                     )
                 })}
 
-            </div>
+            </div> */}
         </div>
     );
 }

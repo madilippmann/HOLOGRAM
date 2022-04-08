@@ -11,7 +11,7 @@ import PageNotFound from './components/PageNotFound';
 import ProfilePage from './components/ProfilePage/index.js';
 import SignUpPage from './components/SignUpPage';
 import SearchPage from './components/SearchPage';
-
+import MessagePage from './components/MessagePage';
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -54,6 +54,11 @@ function App() {
 
 					<ProtectedRoute path='/:handle' exact={true} >
 						<ProfilePage />
+					</ProtectedRoute>
+
+					{/* FIX FIX FIX make routes dynamic */}
+					<ProtectedRoute path='/messages' exact={true} >
+						<MessagePage />
 					</ProtectedRoute>
 
 					<Route>
