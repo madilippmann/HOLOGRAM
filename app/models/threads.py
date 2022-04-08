@@ -20,6 +20,7 @@ class Thread(db.Model):
             'id': self.id,
             'name': self.name,
             'messages': self.messages.to_dict(),
+            'threadParticipants': [participant.to_dict() for participant in self.threadParticipants],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
@@ -29,6 +30,7 @@ class Thread(db.Model):
             'id': self.id,
             'name': self.name,
             'messages': self.messages.to_dict_lite(),
+            'threadParticipants': [participant.to_dict() for participant in self.threadParticipants],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }

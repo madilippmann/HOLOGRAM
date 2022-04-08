@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
     messages = db.relationship('Message', back_populates='user')
-    threads = db.relationship('Thread', secondary=users_threads, back_populates="user")
+    threads = db.relationship('Thread', secondary=users_threads, back_populates="threadParticipants")
 
     followers = db.relationship(
     # this relationship allows you to access both the collection of users
