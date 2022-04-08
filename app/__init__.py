@@ -45,7 +45,7 @@ app.register_blueprint(s3_routes, url_prefix='/api/s3')
 db.init_app(app)
 Migrate(app, db)
 
-socketio.init_app(app)
+socketio = SocketIO(app)
 # Application Security
 CORS(app)
 

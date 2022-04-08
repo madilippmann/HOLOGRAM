@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 import postsReducer from './posts';
 import session from './session'
 import userReducer from './user';
+import messagesReducer from './messages'
 import { loadingBarReducer } from 'react-redux-loading-bar';
 
 const rootReducer = combineReducers({
 	session,
 	posts: postsReducer,
 	user: userReducer,
+	messages: messagesReducer,
 	loadingBar: loadingBarReducer
 });
 
