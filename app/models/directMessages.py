@@ -2,8 +2,8 @@ from .db import db
 from sqlalchemy.sql import func
 
 
-class Message(db.Model):
-    __tablename__ = 'messages'
+class DirectMessage(db.Model):
+    __tablename__ = 'directMessages'
 
     id = db.Column(db.Integer, primary_key=True)
     threadId = db.Column(db.Integer, db.ForeignKey('threads.id'), nullable=False)
@@ -11,8 +11,8 @@ class Message(db.Model):
     createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
-    thread = db.relationship('Thread', back_populates='messages')
-    user = db.relationship('User', back_populates='messages')
+    thread = db.relationship('Thread', back_populates='directMessages')
+    user = db.relationship('User', back_populates='directMessages')
 
     def to_dict(self):
         return {

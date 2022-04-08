@@ -1,4 +1,6 @@
-from .db import db, users_threads
+from .db import db
+from .users_threads import users_threads
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from .threadParticipants import users_threads
@@ -24,7 +26,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
-    messages = db.relationship('Message', back_populates='user')
+    directMessages = db.relationship('DirectMessage', back_populates='user')
     threads = db.relationship('Thread', secondary=users_threads, back_populates="user")
 
     followers = db.relationship(
