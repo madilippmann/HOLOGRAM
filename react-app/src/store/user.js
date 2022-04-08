@@ -59,7 +59,6 @@ export const toggleUserFollow = (followedId) => async (dispatch) => {
 
 // REDUCER ************************************************
 const userReducer = (state = {}, action) => {
-  let newState;
 
   switch (action.type) {
     case ADD_USER: {

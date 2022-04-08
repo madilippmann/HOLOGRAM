@@ -28,6 +28,7 @@ Mako = "==1.1.4"
 pylint = "*"
 boto3 = "*"
 requests = "*"
+flask-socketio = "*"
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"

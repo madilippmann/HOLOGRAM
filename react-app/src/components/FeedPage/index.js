@@ -13,7 +13,6 @@ function FeedPage() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let posts = useSelector(state => state.posts);
-
     const [orderedPosts, setOrderedPosts] = useState([]);
 
     useEffect(() => {
