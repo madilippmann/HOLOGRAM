@@ -68,7 +68,7 @@ export default function PostCard({ post }) {
                             ><FontAwesomeIcon icon={fullHeart} className={`like-icon`} />{likes.length}</span>
                         )
                     }
-                    <span><FontAwesomeIcon icon={emptyComment} className={`comment-icon`} />{comments.length}</span>
+                    <span><FontAwesomeIcon style={{ cursor: 'default' }} icon={emptyComment} className={`comment-icon`} />{comments.length}</span>
                 </div>
             </div>
         </div>

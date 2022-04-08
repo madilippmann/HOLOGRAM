@@ -100,8 +100,8 @@ const NavBar = () => {
 						<Link to='/posts/new'>
 							<FontAwesomeIcon icon={faCirclePlus} className='nav__icon' />
 						</Link>
-						{/* TODO Change route to /messages */}
-						<Link to={`/messages`}>
+						{/* FIX FIX FIX Change route to /messages */}
+						<Link to={`/`}>
 							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
 						</Link>
 					</div>
