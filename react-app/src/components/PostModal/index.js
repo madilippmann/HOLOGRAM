@@ -29,6 +29,8 @@ export default function PostModal({ postId }) {
 
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
+    const [tick, setTick] = useState(+(post?.timeElapsed.split(' ')[0]) + 1);
+    
     const [newComment, setNewComment] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
 
@@ -49,6 +51,25 @@ export default function PostModal({ postId }) {
             return history.push('/')
         }
     }
+
+	useEffect(() => {
+	  let timer;
+	  
+	  if (tick === 59) {
+		timer = setTimeout(() => {
+		  post.timeElapsed = '1 minute ago';
+		  setTick(60);
+		}, 1000);
+		return;
+	  }
+	  
+	  if (post.timeElapsed.endsWith('seconds ago') || post.timeElapsed.endsWith('second ago')) {
+		timer = setTimeout(() => setTick(prev => prev + 1), 1000);
+		post.timeElapsed = `${tick + 1} seconds ago`;
+	  }
+	  
+	  return () => clearTimeout(timer);
+	}, [post, tick]);
 
     const toggleLike = async () => {
         await dispatch(postsActions.togglePostLike(postId));
@@ -75,8 +96,11 @@ export default function PostModal({ postId }) {
                         <div className='post-details-container'>
                             <div className='post-details'>
                                 <h4 className='post-user-handle'>{post.user.handle}</h4>
-                                {/* <span className='post-caption' id={`caption-${post.id}`}>{post.caption}</span> */}
-                                <EditPostForm post={post} editCaption={editCaption} setEditCaption={() => setEditCaption(!editCaption)} />
+                                {editCaption
+                                    ? <EditPostForm post={post} setEditCaption={setEditCaption} />
+                                    : <span className='post-caption'>{post.caption}</span>
+                                }
+                                
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
@@ -121,7 +145,7 @@ export default function PostModal({ postId }) {
                         <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />
                     </div>
                     <span id='post-like-count'>{likes.length} {likes?.length === 1 ? 'like' : 'likes'}</span>
-                    <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
+                    <small id='date-posted' style={{ color: 'var(--color-gray)', fontSize: '12px' }}>{post.timeElapsed}</small>
                 </div>
 
                 <div id='create-comment'>
