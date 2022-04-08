@@ -75,8 +75,11 @@ export default function PostModal({ postId }) {
                         <div className='post-details-container'>
                             <div className='post-details'>
                                 <h4 className='post-user-handle'>{post.user.handle}</h4>
-                                {/* <span className='post-caption' id={`caption-${post.id}`}>{post.caption}</span> */}
-                                <EditPostForm post={post} editCaption={editCaption} setEditCaption={() => setEditCaption(!editCaption)} />
+                                {editCaption
+                                    ? <EditPostForm post={post} setEditCaption={setEditCaption} />
+                                    : <span className='post-caption'>{post.caption}</span>
+                                }
+                                
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
