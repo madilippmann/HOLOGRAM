@@ -30,9 +30,9 @@ export default function PostModal({ postId }) {
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
     const [tick, setTick] = useState(+(post?.timeElapsed.split(' ')[0]) + 1);
-    
-    const [newComment, setNewComment] = useState('');
-    const [chosenEmoji, setChosenEmoji] = useState(null);
+
+    // const [newComment, setNewComment] = useState('');
+    // const [chosenEmoji, setChosenEmoji] = useState(null);
 
 
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function PostModal({ postId }) {
 
 	useEffect(() => {
 	  let timer;
-	  
+
 	  if (tick === 59) {
 		timer = setTimeout(() => {
 		  post.timeElapsed = '1 minute ago';
@@ -62,12 +62,12 @@ export default function PostModal({ postId }) {
 		}, 1000);
 		return;
 	  }
-	  
+
 	  if (post.timeElapsed.endsWith('seconds ago') || post.timeElapsed.endsWith('second ago')) {
 		timer = setTimeout(() => setTick(prev => prev + 1), 1000);
 		post.timeElapsed = `${tick + 1} seconds ago`;
 	  }
-	  
+
 	  return () => clearTimeout(timer);
 	}, [post, tick]);
 
@@ -100,7 +100,7 @@ export default function PostModal({ postId }) {
                                     ? <EditPostForm post={post} setEditCaption={setEditCaption} />
                                     : <span className='post-caption'>{post.caption}</span>
                                 }
-                                
+
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
