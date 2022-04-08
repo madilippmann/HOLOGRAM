@@ -52,14 +52,15 @@ function App() {
 						<SearchPage />
 					</ProtectedRoute>
 
-					<ProtectedRoute path='/:handle' exact={true} >
-						<ProfilePage />
-					</ProtectedRoute>
-
 					{/* FIX FIX FIX make routes dynamic */}
 					<ProtectedRoute path='/messages' exact={true} >
 						<MessagePage />
 					</ProtectedRoute>
+
+					<ProtectedRoute path='/:handle' exact={true} >
+						<ProfilePage />
+					</ProtectedRoute>
+
 
 					<Route>
 						<PageNotFound />

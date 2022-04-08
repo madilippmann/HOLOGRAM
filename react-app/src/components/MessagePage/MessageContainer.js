@@ -4,22 +4,25 @@ import MessagesSidebar from './MessagesSidebar';
 
 
 const MessageContainer = () => {
-    const sessionUser = useSelector(state => state.sessionUser)
+    const sessionUser = useSelector(state => state.session.user)
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('');
-    const [disabled, setDisableSend] = useState(true)
+    const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
-        if (message.length === 0 || message.length > 2000) setDisableSend(() => false)
+        if (message.length !== 0 && message.length <= 2000) setDisabled(() => false);
+        else setDisabled(() => true);
     }, [message])
 
     const onSubmit = (e) => {
+        e.preventDefault()
+
         const newMessage = {
             handle: sessionUser.handle,
             content: message
         }
 
-        setMessages((prev) => prev.append(newMessage))
+        setMessages((prev) => [newMessage, ...prev])
     }
 
     return (
@@ -42,9 +45,9 @@ const MessageContainer = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     value={message}
                     placeholder='start message...'
-                    disabled={disabled}
+
                 />
-                <button type='submit' id='message-submit'>send</button>
+                <button type='submit' id='message-submit' disabled={disabled}>send</button>
 
             </form>
         </div>
