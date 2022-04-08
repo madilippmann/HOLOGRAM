@@ -15,7 +15,6 @@
   background-color: white;
   border-radius: 4px;
 
-  position: relative;
   display: flex;
   align-items: center;
 }
@@ -25,26 +24,15 @@
   
   border: none;
 
-  background-color: transparent;
   color: black;
-  outline: transparent;
+  outline: none;
 }
 
 
 /* search menu pop up thing ***********************
 **************************************************/
-#search_bg {
-  position: absolute;
-  top: 90px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-
 .search_filter {
   width: 280px;
-  /* height: 32px; */
   max-height: 400px;
   margin: 0;
   border: 2px solid var(--color-light-gray);

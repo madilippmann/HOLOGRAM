@@ -51,10 +51,28 @@ export default function SearchBar() {
 
 		// return () => clearTimeout(timer);
 	}, [query]);
-
-	const closeMenu = (e) => {
-		setShowMenu(false);
-	}
+	
+	const openMenu = () => {
+		if (showMenu) return;
+		document.querySelector('.search');
+		setShowMenu(true);
+	};
+	
+	useEffect(() => {
+		if (!showMenu) return;
+		
+		const closeMenu = () => {
+			document.querySelector('.search');
+			setShowMenu(false);
+		};
+		
+		document.addEventListener('click', closeMenu);
+		
+		return () => {
+			setShowMenu(false);
+			document.removeEventListener("click", closeMenu);
+		}
+	}, [showMenu]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -71,23 +89,21 @@ export default function SearchBar() {
 					className=""
 					value={query}
 					onChange={e => setQuery(e.target.value)}
-					onFocus={e => setShowMenu(true)}
+					onClick={openMenu}
 				/>
 				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }}></FontAwesomeIcon>
 			</form>
 
 			{showMenu && (
-				<div id="search_bg" onClick={closeMenu}>
-					<div className='search_filter' onClick={closeMenu}>
+				<div className='search_filter' /*onClick={closeMenu}*/>
 
-						<div id="search_message" onClick={onSubmit}>press enter to search for "{query}"...</div>
-						{results.map((result, i) => (
-							<span key={i} onClick={() => history.push(`/posts/${result.item.id}`)} className="search-item">
-								{result.item.id}
-							</span>
-						))}
+					<div id="search_message" onClick={onSubmit}>press enter to search for "{query}"...</div>
+					{results.map((result, i) => (
+						<span key={i} onClick={() => history.push(`/posts/${result.item.id}`)} className="search-item">
+							{result.item.id}
+						</span>
+					))}
 
-					</div>
 				</div>
 			)}
 		</div>
