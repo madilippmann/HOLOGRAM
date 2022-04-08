@@ -101,7 +101,7 @@ const NavBar = () => {
 							<FontAwesomeIcon icon={faCirclePlus} className='nav__icon' />
 						</Link>
 						{/* TODO Change route to /messages */}
-						<Link to={`/`}>
+						<Link to={`/messages`}>
 							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
 						</Link>
 					</div>

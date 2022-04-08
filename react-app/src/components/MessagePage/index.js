@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from "socket.io-client";
 
 import MessageContainer from './MessageContainer';
-import MessagesSidebar from './MessagesSidebar';
+// import MessagesSidebar from './MessagesSidebar';
 
 import { threads } from './fakeThreads.js';
 
