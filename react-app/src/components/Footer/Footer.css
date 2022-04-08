@@ -7,10 +7,19 @@ footer {
   text-align: center;
   display: flex;
   flex-flow: row nowrap;
-  background-color: var(--color-footer-background);
-  background-color: #e5e5e5;
 	background-color: rgb(255, 242, 239);
-  z-index: 5;
+  z-index: 100;
+}
+
+#footer-background {
+  height: 50px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 110;
+  background-color: rgba(0, 0, 0, 0.53);
+  filter: blur(3px);
 }
 
 #information-button {

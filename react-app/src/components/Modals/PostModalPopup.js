@@ -8,13 +8,21 @@ export default function PostModalPopup({ postImageRef, post }) {
 
 	useEffect(() => {
 		// const root = document.getElementById('root');
-		const profilePageBody = document.getElementById('profile-page');
-		const feedPageBody = document.getElementById('all-posts');
 		const navbar = document.getElementById('navbar');
+		const footer = document.getElementById('footer');
+		const footerBackground = document.getElementById('footer-background');
+		const feedPageBody = document.getElementById('all-posts');
+		const profilePageBody = document.getElementById('profile-page');
 		if (showModal) {
+			// NOTE: blurring the root element will cause the navbar to move positions
 			// root.classList.add('blur');	
+			
 			navbar.classList.add('blur');
 			navbar.style.opacity = '0.2';
+			
+			footer.classList.add('blur');
+			footerBackground.classList.remove('hidden');
+			
 			feedPageBody?.classList.add('blur');	
 			profilePageBody?.classList.add('blur');	
 		}
@@ -22,6 +30,10 @@ export default function PostModalPopup({ postImageRef, post }) {
 		return () => {
 			navbar.classList.remove('blur');	
 			navbar.style.opacity = '1';
+			
+			footer.classList.remove('blur');
+			footerBackground.classList.add('hidden');
+			
 			feedPageBody?.classList.remove('blur');	
 			profilePageBody?.classList.remove('blur');	
 		}

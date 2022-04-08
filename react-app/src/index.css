@@ -80,3 +80,8 @@ h4 {
 .blur {
     filter: blur(3px);
 }
+
+
+.hidden {
+    opacity: 0;
+}
