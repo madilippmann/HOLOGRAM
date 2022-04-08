@@ -19,7 +19,7 @@ export default function ProfileIcon({ user }) {
             <img
                 className='profile-icon'
 				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
-                alt="profile-picture"
+                alt="profile preview"
             />
         </div>
     )
