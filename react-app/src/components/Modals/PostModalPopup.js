@@ -7,10 +7,24 @@ export default function PostModalPopup({ postImageRef, post }) {
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
-		const root = document.getElementById('root');
-		if (showModal) root.classList.add('blur')
-
-		return () => root.classList.remove('blur');
+		// const root = document.getElementById('root');
+		const profilePageBody = document.getElementById('profile-page');
+		const feedPageBody = document.getElementById('all-posts');
+		const navbar = document.getElementById('navbar');
+		if (showModal) {
+			// root.classList.add('blur');	
+			navbar.classList.add('blur');
+			navbar.style.opacity = '0.2';
+			feedPageBody?.classList.add('blur');	
+			profilePageBody?.classList.add('blur');	
+		}
+		
+		return () => {
+			navbar.classList.remove('blur');	
+			navbar.style.opacity = '1';
+			feedPageBody?.classList.remove('blur');	
+			profilePageBody?.classList.remove('blur');	
+		}
 	}, [showModal])
 
 	return (

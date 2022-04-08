@@ -111,7 +111,7 @@ function ProfilePage() {
 
 
     return !isLoaded ? null : (
-        <div>
+        <div id='profile-page'>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
                     <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile picture`} />

@@ -65,9 +65,18 @@ h4 {
     margin: 0;
 }
 
+#root {
+    /* filter: blur(2px); */
+}
+
 
 
 /* REUSABLE CLASS RULES */
 .red-outline {
     border: 1px solid red;
+}
+
+
+.blur {
+    filter: blur(3px);
 }

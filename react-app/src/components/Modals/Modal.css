@@ -26,6 +26,7 @@
 	overflow: hidden;
 
 	background-color: var(--color-white);
+    box-shadow: rgba(0, 0, 0, 0.411) 0px 10px 30px 10px;
 
 	position: relative;
 }
@@ -38,6 +39,6 @@
 }
 
 #post-image:hover {
-	transform: scale(1.005);
+	transform: scale(1.004);
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
