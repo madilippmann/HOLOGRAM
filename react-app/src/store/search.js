@@ -26,7 +26,7 @@ export const fetchQuery = query => async dispatch => {
 
 
 // REDUCER ************************************************
-export default searchReducer = (state = [], action) => {
+const searchReducer = (state = [], action) => {
   let newState;
   switch (action.type) {
     case LOAD_SEARCH: {
@@ -39,3 +39,5 @@ export default searchReducer = (state = [], action) => {
     }
   }
 };
+
+export default searchReducer;
