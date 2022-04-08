@@ -45,7 +45,7 @@ export default function PostModalPopup({ postImageRef, post, blurImage }) {
 			<img
 				src={post.postImageUrl}
 				style={blurImage ? { filter: 'blur(3px)' } : {}}
-				id='profile-post-image'
+				id='post-image'
 				// ref={postImageRef}
 				alt={`${post.user.handle}'s avatar`}
 				onClick={() => {
