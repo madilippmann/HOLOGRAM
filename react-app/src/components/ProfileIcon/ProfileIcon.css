@@ -4,7 +4,7 @@
     padding: 1px;
     border-radius: 100%;
     border: 1px solid var(--color-purple);
-
+    overflow: hidden;
     cursor: pointer;
 }
 
