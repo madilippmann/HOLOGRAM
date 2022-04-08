@@ -43,7 +43,26 @@ export default function SearchBar() {
 		if (results.length < 20) {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
-				const fuse = new Fuse(dbQueryResults, options);
+				
+				// FOR FILTERING OUT DUPLICATES
+				const postsSet = new Set();
+				const usersSet = new Set();
+				results.forEach(item => {
+					if (item.item.caption !== undefined) postsSet.add(item.item.id);
+					if (item.item.handle !== undefined) usersSet.add(item.item.id);
+				});
+				const newResults = dbQueryResults.filter(item => {
+					// for posts
+					if (item.caption !== undefined) {
+						if (!postsSet.has(item.id)) return true;
+					}
+					// for users
+					if (item.handle !== undefined) {
+						if (!postsSet.has(item.id)) return true;
+					}
+				})
+				
+				const fuse = new Fuse(newResults, options);
 				const fuseResults = fuse.search(query);
 				setResults(prevResults => fuseResults.concat(prevResults))
 			}, 400);
