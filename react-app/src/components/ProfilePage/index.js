@@ -143,7 +143,7 @@ function ProfilePage() {
                         </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <p>{orderedPosts.length} posts</p>
+                        <div><button type='button' style={{border: 'none', backgroundColor: 'transparent'}}><p>{orderedPosts.length} posts</p></button></div>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'
