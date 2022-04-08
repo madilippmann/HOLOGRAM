@@ -1,11 +1,12 @@
+import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import Modal from '.';
 import PostModal from '../PostModal/index.js';
 
 
-export default function PostModalPopup({ postImageRef, post, blurImage }) {
+export default function PostModalPopup({ postImageRef, post, blurImage, isSearchItem, postModalPopupRef }) {
 	const [showModal, setShowModal] = useState(false);
-	
 
 	useEffect(() => {
 		// const root = document.getElementById('root');
@@ -42,17 +43,22 @@ export default function PostModalPopup({ postImageRef, post, blurImage }) {
 
 	return (
 		<>
-			<img
-				src={post.postImageUrl}
-				style={blurImage ? { filter: 'blur(3px)' } : {}}
-				id='post-image'
-				ref={postImageRef}
-				alt={`${post.user.handle}'s avatar`}
-				onClick={() => {
-					window.scrollTo({ top: 0, left: 0, });
-					setShowModal(true)
-				}}
-			/>
+			{isSearchItem
+				? (
+					<span onClick={() => setShowModal(true)} className="search-item" ref={postModalPopupRef}>
+						<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
+						&nbsp;&nbsp; {post.caption}
+					</span>
+				) : (
+					<img
+						src={post.postImageUrl}
+						style={blurImage ? { filter: 'blur(3px)' } : {}}
+						id='post-image'
+						ref={postImageRef}
+						alt={`${post.user.handle}'s avatar`}
+						onClick={() => setShowModal(true)}
+					/>
+				)}
 
 			{showModal && (
 				<Modal closeModal={() => setShowModal(false)}>
