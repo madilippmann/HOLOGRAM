@@ -6,17 +6,6 @@
   align-items: center;
 }
 
-#search_bg {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0);
-}
-
-
-
 .search__form {
   width: 260px;
   height: 30px;
@@ -26,6 +15,7 @@
   background-color: white;
   border-radius: 4px;
 
+  position: relative;
   display: flex;
   align-items: center;
 }
@@ -41,14 +31,27 @@
 }
 
 
-/* search menu pop up thing */
+/* search menu pop up thing ***********************
+**************************************************/
+#search_bg {
+  position: absolute;
+  top: 90px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
 .search_filter {
   width: 280px;
-  height: 32px;
+  /* height: 32px; */
   max-height: 400px;
   margin: 0;
   border: 2px solid var(--color-light-gray);
   border-radius: 4px;
+  
+  font-size: 14px;
+  color: var(--color-dark-gray);
   
   background-color: var(--color-white);
   overflow-x: hidden;
@@ -73,30 +76,23 @@
 
 
 #search_message {
-  width: 260px;
+  width: 100%;
   min-height: 10px;
-  letter-spacing: 1.5px;
   padding: 10px;
   
-  font-size: 12px;
-  color: var(--color-text-less-light);
+  cursor: pointer;
+  color: var(--color-gray);
+  background: none;
+  
   
   display: flex;
   align-items: center;
   justify-content: flex-start;
-}
-#search_message:hover {
-  background: var(--color-button-purple);
+  transition: background .15s ease-in-out;
 }
 
 
-.search_filter li {
-  padding: 0 5px;
-  letter-spacing: 1.5px;
-}
-
-.search_filter li,
-.search_filter li a {
+.search-item {
   width: 100%;
   max-width: 514px;
   min-height: 36px;
@@ -106,18 +102,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  background: none;
   
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: background .05s, color .05s;
 }
-.search_filter li a span {
+.search-item:hover {
+  background: rgb(179, 179, 249);
+}
+
+
+.search_filter * {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.search_filter *:hover {
-  background: #FFFF5D;
-  color: black;
 }

@@ -10,8 +10,6 @@ const loadSearch = (results) => {
   }
 }
 
-
-
 // THUNK ACTION CREATORS **********************************
 export const fetchQuery = query => async dispatch => {
   const res = await fetch(`/api/search/${query}`);
@@ -22,8 +20,6 @@ export const fetchQuery = query => async dispatch => {
     return results;
   }
 }
-
-
 
 // REDUCER ************************************************
 const searchReducer = (state = [], action) => {
