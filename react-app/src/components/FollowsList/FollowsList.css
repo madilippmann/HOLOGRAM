@@ -53,6 +53,6 @@
 
 .follows-handle {
     font-size: 10px;
-    opacity: 80%;
+    opacity: .8;
     font-style: italic;
 }

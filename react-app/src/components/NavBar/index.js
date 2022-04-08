@@ -8,7 +8,6 @@ import { faHouse, faCirclePlus, faEnvelope } from '@fortawesome/free-solid-svg-i
 import './NavBar.css';
 import NavProfileButton from "../NavProfileButton";
 
-import defaultProfileImage from '../../static/default-profile-image.png'
 import logo from '../../static/hologram-logo.png'
 import FollowsList from "../FollowsList";
 
