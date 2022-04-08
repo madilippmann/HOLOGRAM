@@ -27,6 +27,7 @@ const searchReducer = (state = [], action) => {
     switch (action.type) {
         
         case LOAD_SEARCH: {
+            // remove duplicates here
             return [...state, ...action.results];
         }
 
