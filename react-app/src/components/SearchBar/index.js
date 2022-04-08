@@ -56,7 +56,7 @@ export default function SearchBar() {
 			const res = await dispatch(fetchQuery('lorem'));
 			console.log(res);
 		})()
-	}, []);
+	}, [query]);
 	
 	const openMenu = () => {
 		if (showMenu) return;

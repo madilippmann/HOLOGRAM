@@ -7,4 +7,4 @@ search_routes = Blueprint('search', __name__)
 # ROUTES ##################################################################################
 @search_routes.route('/<query>')
 def search(query):
-    return 'bruh'
+    return jsonify('bruh')
