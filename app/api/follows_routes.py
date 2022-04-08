@@ -26,7 +26,6 @@ def toggle_following():
 
     if follow:
       # DELETE FOLLOW
-      print('\n\n\n', followedUser.followers, '\n\n\n')
       followedUser.followers.remove(sessionUser)
       sessionUser.following.remove(followedUser)
 

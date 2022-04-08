@@ -52,7 +52,6 @@ def get_follows(userId):
 @user_routes.route('/<int:userId>/', methods=['PUT'])
 @login_required
 def update_profile(userId):
-    print('\n\n\n', userId, '\n\n\n')
 
     form = UpdateUserForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -65,8 +64,6 @@ def update_profile(userId):
         user.profileImageUrl = form.data['profileImageUrl']
 
         db.session.commit()
-        print('\n\n\nsuccess\n\n\n')
         return user.session_to_dict()
 
-    print('\n\n\nfailed\n\n\n')
     return { 'errors': validation_errors_to_error_messages(form.errors)}, 401
