@@ -50,6 +50,7 @@ export default function NavProfileButton({ user }) {
 			<img
 				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
 				alt="profile preview"
+
 			/>
 
 			{showMenu && (
