@@ -62,7 +62,7 @@ export default function NavProfileButton({ user }) {
 						</NavLink>
 					</div>
 					<div>
-						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 310)}>
+						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 0)}>
 							settings&nbsp;&nbsp;
 							<FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
 						</NavLink>
