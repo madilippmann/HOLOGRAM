@@ -25,38 +25,19 @@ export default function SearchBar() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const posts = useSelector(state => Object.values(state.posts));
-	// const dbQueryResults = useSelector(state => state.search);
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState(!posts.length ? [] : posts);
 	const [showMenu, setShowMenu] = useState(false);
-	console.log(results);
-
 
 	useEffect(() => {
 		if (!query) return;
-
-		// let timer;
-		// if (dbQueryResults.length < 20 && query.length > 1) {
-		// 	timer = setTimeout(async () => {
-		// 		const dbResults = await dispatch(fetchQuery(query));
-		// 		const fuse = new Fuse(dbResults, options);
-		// 		const fuseResults = fuse.search(query);
-		// 		setResults(fuseResults);
-		// 	}, 400);
-
-		// } else {
-		// 	const fuse = new Fuse(dbQueryResults, options);
-		// 	const fuseResults = fuse.search(query);
-		// 	setResults(fuseResults);
-		// }
-
-		let timer;
 
 		const fuse = new Fuse(posts, options);
 		const stateResults = fuse.search(query);
 		setResults(stateResults);
 
-		if (results.length < 20 && query.length > 1) {
+		let timer;
+		if (results.length < 20) {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
 				const fuse = new Fuse(dbQueryResults, options);
@@ -67,13 +48,6 @@ export default function SearchBar() {
 
 		return () => clearTimeout(timer);
 	}, [query]);
-
-	// useEffect(() => {
-	// 	(async () => {
-	// 		const res = await dispatch(fetchQuery('an'));
-	// 		console.log(res);
-	// 	})()
-	// }, [query]);
 
 	const openMenu = () => {
 		if (showMenu) return;
@@ -122,18 +96,21 @@ export default function SearchBar() {
 				<div className='search-filter'>
 					<div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
 					{results.map((result, i) => {
-						console.log(result.item.hasOwnProperty('handle'));
 						if (result.item.hasOwnProperty('handle')) {
 							return (
-								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-									{result.item.handle}
-								</span>
+								<>
+									<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+										{result.item.handle}
+									</span>
+								</>
 							)
 						} else if (result.item.hasOwnProperty('caption')) {
 							return (
-								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-									{result.item.caption}
-								</span>
+								<>
+									<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+										{result.item.caption}
+									</span>
+								</>
 							)
 						}
 					})}
