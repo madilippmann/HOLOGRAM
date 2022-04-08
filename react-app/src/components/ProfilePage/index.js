@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
@@ -110,7 +110,7 @@ function ProfilePage() {
 
 
     return !isLoaded ? null : (
-        <div>
+        <div id='profile-page'>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
                     <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`} />

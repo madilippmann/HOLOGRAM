@@ -114,7 +114,7 @@
     height: 100px;
     padding: 12px;
     border-bottom: 1px solid var(--color-gray);
-    
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -126,22 +126,25 @@
 }
 
 #post-like-count {
-    margin: 4px 0 8px;    
+    margin: 4px 0 8px;
 }
 #date-posted {
     /* margin: 8px 0; */
 }
 
 #like-button {
-    /* color: var(--color-red);  */
+    color: var(--color-red);
 }
 
 
+#like-button:hover {
+    color: rgb(206, 54, 54);
+}
 
 #create-comment {
     height: 48px;
     width: 100%;
-    
+
     display: flex;
     align-items: center;
 }

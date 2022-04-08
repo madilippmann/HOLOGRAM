@@ -11,12 +11,16 @@ export default function ProfileIcon({ user }) {
     return (
         <div
             className='profile-icon-border'
-            onClick={(e) => history.push(`/${user.handle}`)}
+            onClick={(e) => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                return history.push(`/${user.handle}`);
+            }}
+
         >
             <img
                 className='profile-icon'
 				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
-                alt="profile"
+                alt="profile preview"
             />
         </div>
     )
