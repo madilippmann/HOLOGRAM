@@ -63,25 +63,8 @@
   border-radius: 25px;
 }
 
-
-
+span.search-item,
 #search-message {
-  width: 100%;
-  min-height: 10px;
-  padding: 10px;
-  
-  cursor: pointer;
-  color: var(--color-gray);
-  background: none;
-  
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  transition: background .15s ease-in-out;
-}
-
-
-span.search-item {
   width: 100%;
   min-height: 36px;
   padding: 10px 6px;
@@ -97,4 +80,7 @@ span.search-item {
 }
 .search-item:hover {
   background: rgb(179, 179, 249);
+}
+#search-message {
+  color: var(--color-gray);
 }
