@@ -35,14 +35,14 @@ export default function SearchBar() {
 		const fuse = new Fuse(posts, options);
 		const stateResults = fuse.search(query);
 		setResults(stateResults);
-
+		
 		let timer;
 		if (results.length < 20) {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
 				const fuse = new Fuse(dbQueryResults, options);
 				const fuseResults = fuse.search(query);
-				setResults(prevResults => prevResults.concat(fuseResults));
+				setResults(prevResults => fuseResults.concat(prevResults))
 			}, 400);
 		}
 
@@ -98,19 +98,15 @@ export default function SearchBar() {
 					{results.map((result, i) => {
 						if (result.item.hasOwnProperty('handle')) {
 							return (
-								<>
-									<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-										{result.item.handle}
-									</span>
-								</>
+								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+									{result.item.handle}
+								</span>
 							)
 						} else if (result.item.hasOwnProperty('caption')) {
 							return (
-								<>
-									<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-										{result.item.caption}
-									</span>
-								</>
+								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+									{result.item.caption}
+								</span>
 							)
 						}
 					})}
