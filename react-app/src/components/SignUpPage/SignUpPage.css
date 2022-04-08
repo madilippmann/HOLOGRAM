@@ -55,7 +55,7 @@
 }
 
 .login-link:hover {
-    opacity: 80%;
+    opacity: .8;
 }
 
 .signup-login-form {

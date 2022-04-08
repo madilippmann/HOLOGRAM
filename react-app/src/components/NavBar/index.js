@@ -8,7 +8,6 @@ import { faHouse, faCirclePlus, faEnvelope } from '@fortawesome/free-solid-svg-i
 import './NavBar.css';
 import NavProfileButton from "../NavProfileButton";
 
-import defaultProfileImage from '../../static/default-profile-image.png'
 import logo from '../../static/hologram-logo.png'
 import FollowsList from "../FollowsList";
 
@@ -101,7 +100,7 @@ const NavBar = () => {
 						<Link to='/posts/new'>
 							<FontAwesomeIcon icon={faCirclePlus} className='nav__icon' />
 						</Link>
-						{/* TODO Change route to /messages */}
+						{/* FIX FIX FIX Change route to /messages */}
 						<Link to={`/`}>
 							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
 						</Link>
