@@ -15,6 +15,7 @@ export default function ProfileIcon({ user }) {
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
                 return history.push(`/${user.handle}`);
             }}
+
         >
             <img
                 className='profile-icon'

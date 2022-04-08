@@ -108,11 +108,13 @@ button.follow-new-post-button.different-padding {
 /*****************************************************************/
 
 .user-posts {
+    display: flex;
     flex-direction: row;
     /* flex-basis: 20%; */
     flex-wrap: wrap;
 
     justify-content: space-between;
+    /* justify-content: flex-start; */
     row-gap: 20px;
     /* gap: 20px; */
     padding-top: 20px;
