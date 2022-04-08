@@ -51,24 +51,24 @@ export default function PostModal({ postId }) {
         }
     }
 
-	useEffect(() => {
-	  let timer;
+    useEffect(() => {
+        let timer;
 
-	  if (tick === 59) {
-		timer = setTimeout(() => {
-		  post.timeElapsed = '1 minute ago';
-		  setTick(60);
-		}, 1000);
-		return;
-	  }
+        if (tick === 59) {
+            timer = setTimeout(() => {
+                post.timeElapsed = '1 minute ago';
+                setTick(60);
+            }, 1000);
+            return;
+        }
 
-	  if (post.timeElapsed.endsWith('seconds ago') || post.timeElapsed.endsWith('second ago')) {
-		timer = setTimeout(() => setTick(prev => prev + 1), 1000);
-		post.timeElapsed = `${tick + 1} seconds ago`;
-	  }
+        if (post.timeElapsed.endsWith('seconds ago') || post.timeElapsed.endsWith('second ago')) {
+            timer = setTimeout(() => setTick(prev => prev + 1), 1000);
+            post.timeElapsed = `${tick + 1} seconds ago`;
+        }
 
-	  return () => clearTimeout(timer);
-	}, [post, tick]);
+        return () => clearTimeout(timer);
+    }, [post, tick]);
 
     const toggleLike = async () => {
         await dispatch(postsActions.togglePostLike(postId));
@@ -136,7 +136,7 @@ export default function PostModal({ postId }) {
                             ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
                                 onClick={toggleLike}
                             />
-                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)", }}
+                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px" }}
                                 onClick={toggleLike}
                             />
                         }
