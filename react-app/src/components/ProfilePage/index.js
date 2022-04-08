@@ -186,7 +186,7 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => (
-                    <ProfilePostCard post={post} />
+                    <ProfilePostCard post={post} key={post.id}/>
                 ))}
                 {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
             </div>

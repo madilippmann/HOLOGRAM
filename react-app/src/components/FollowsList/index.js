@@ -8,8 +8,8 @@ const FollowsList = ({ follows }) => {
         <>
             {follows.map((follow) => {
                 return (
-                    <Link to={`/${follow.handle}`}>
-                        <div key={follow.id} className='selected-dropdown-user'>
+                    <Link to={`/${follow.handle}`} key={follow.id}>
+                        <div className='selected-dropdown-user'>
                             <div className='user-profile-avatar'>
                                 <img className='follows-avatar-image' src={follow.profileImageUrl !== '/default-profile-image.png' ? follow.profileImageUrl : defaultProfileImage} alt='preview' />
                             </div>
