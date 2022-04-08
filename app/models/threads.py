@@ -12,7 +12,7 @@ class Thread(db.Model):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     messages = db.relationship('Message', back_populates='thread')
-    threadParticipants = db.relationship('User', secondary=users_threads, back_populates='threads')
+    users = db.relationship('User', secondary=users_threads, back_populates='threads')
 
 
     def to_dict(self):
@@ -20,7 +20,7 @@ class Thread(db.Model):
             'id': self.id,
             'name': self.name,
             'messages': self.messages.to_dict(),
-            'threadParticipants': [participant.to_dict() for participant in self.threadParticipants],
+            'users': [user.to_dict() for user in self.users],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
@@ -30,7 +30,7 @@ class Thread(db.Model):
             'id': self.id,
             'name': self.name,
             'messages': self.messages.to_dict_lite(),
-            'threadParticipants': [participant.to_dict() for participant in self.threadParticipants],
+            'users': [user.to_dict() for user in self.users],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }

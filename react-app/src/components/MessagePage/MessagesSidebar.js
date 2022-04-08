@@ -12,25 +12,25 @@ const MessagesSidebar = ({ threads }) => {
             {/* FIX FIX FIXPUT IN ANOTHER COMPONENT */}
             {/* <div className='message-thread-list'>
                 {threads.map(thread => {
-                    const threadParticipants = Object.values(thread.threadParticipants)
-                    const threadParticipantNames = thread.threadParticipants.map(participant => participant.firstName);
-                    const participantNameString = threadParticipantNames.join(', ');
+                    const users = Object.values(thread.users)
+                    const userNames = thread.users.map(participant => participant.firstName);
+                    const participantNameString = userNames.join(', ');
 
                     const [messages, setMessages] = useState(sortByCreatedAt(Object.values(thread.meesages)))
 
                     return (
                         <div className='message-thread-container'>
                             <div>
-                                {threadParticipants.length === 1 &&
+                                {users.length === 1 &&
                                     <div className='overlapped-avatars'>
-                                        <img className='avatar-1' src={threadParticipants[0].profileImageUrl} alt={threadParticipants[0].handle} />
-                                        <img class='avatar-2' src={threadParticipants[1].profileImageUrl} alt={threadParticipants[1].handle} />
+                                        <img className='avatar-1' src={users[0].profileImageUrl} alt={users[0].handle} />
+                                        <img class='avatar-2' src={users[1].profileImageUrl} alt={users[1].handle} />
                                     </div>
                                 }
 
-                                {threadParticipants.length > 1 &&
+                                {users.length > 1 &&
                                     <div>
-                                        <img className='single-avatar' src={threadParticipants[0].profileImageUrl} alt={threadParticipants[0].handle} />
+                                        <img className='single-avatar' src={users[0].profileImageUrl} alt={users[0].handle} />
                                     </div>
                                 }
                             </div>

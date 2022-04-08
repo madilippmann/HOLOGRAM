@@ -21,8 +21,8 @@ def seed():
     seed_comments()
     seed_postLikes()
     seed_follows()
-    seed_messages()
     seed_threads()
+    seed_messages()
     seed_users_threads()
     # Add other seed functions here
 
@@ -31,8 +31,8 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_messages()
-    undo_threads()
     undo_users_threads()
+    undo_threads()
     undo_follows()
     undo_postLikes()
     undo_comments()

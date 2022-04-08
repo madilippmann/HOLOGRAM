@@ -32,8 +32,8 @@ export const normalizeThreads = (threadsArr) => {
         thread.timeElapsed = getTimeElapsed(thread.updatedAt);
         obj[thread.id] = thread;
 
-        obj[thread.id].threadParticipants = {
-            ...normalizeOneLevel(thread.threadParticipants),
+        obj[thread.id].users = {
+            ...normalizeOneLevel(thread.users),
         }
 
         obj[thread.id].messages = [...thread.messages]

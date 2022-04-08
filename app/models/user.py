@@ -3,7 +3,7 @@ from .users_threads import users_threads
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-# from .threadParticipants import users_threads
+# from .users import users_threads
 from .follows import follows
 from sqlalchemy.sql import func
 
@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
     messages = db.relationship('Message', back_populates='user')
-    threads = db.relationship('Thread', secondary=users_threads, back_populates="threadParticipants")
+    threads = db.relationship('Thread', secondary=users_threads, back_populates="users")
 
     followers = db.relationship(
     # this relationship allows you to access both the collection of users

@@ -98,8 +98,8 @@ const messagesReducer = (state = {}, action) => {
                 ...state,
                 [action.thread.id]: {
                     ...action.thread,
-                    threadParticipants: {
-                        ...normalizeOneLevel(action.thread.threadParticipants)
+                    users: {
+                        ...normalizeOneLevel(action.thread.users)
                     }
                 }
             }
