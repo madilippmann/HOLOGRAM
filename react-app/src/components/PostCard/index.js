@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as fullHeart, faCommentAlt as fullComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fullHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons';
 import PostModalPopup from '../Modals/PostModalPopup';
 import ProfileIcon from '../ProfileIcon';

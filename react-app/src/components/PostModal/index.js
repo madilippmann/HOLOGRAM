@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 import CommentCard from '../CommentCard';
@@ -8,8 +8,8 @@ import ProfileIcon from '../ProfileIcon';
 import CommentForm from './CommentForm';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit, faHeart as faHeartSolid, faComment } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faMessage, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons'
+import { faTrash, faEdit, faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons'
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
@@ -23,14 +23,11 @@ export default function PostModal({ postId }) {
     // let comments = useSelector(state => state.posts[postId].comments)
     let sessionUser = useSelector(state => state.session.user);
 
-    const [isLoaded, setIsLoaded] = useState(true);
     const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
 
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
-    const [newComment, setNewComment] = useState('');
-    const [chosenEmoji, setChosenEmoji] = useState(null);
 
 
     useEffect(() => {
@@ -39,14 +36,14 @@ export default function PostModal({ postId }) {
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
-        setLikes(() => Object.values(post.postLikes))
+        setLikes(() => Object.values(post.postLikes));
         setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
     }, [post.postLikes])
 
     const deletePost = async () => {
         if (window.confirm('Are you sure you want to delete your post?')) {
-            await dispatch(postsActions.deletePost(post.id))
-            return history.push('/')
+            await dispatch(postsActions.deletePost(post.id));
+            return history.push('/');
         }
     }
 
@@ -56,7 +53,7 @@ export default function PostModal({ postId }) {
 
 
 
-    return !isLoaded ? null : (
+    return (
         <div className='post-modal-wrapper'>
             <div className='post-image-wrapper'>
                 <img
@@ -79,7 +76,7 @@ export default function PostModal({ postId }) {
                                     ? <EditPostForm post={post} setEditCaption={setEditCaption} />
                                     : <span className='post-caption'>{post.caption}</span>
                                 }
-                                
+
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
