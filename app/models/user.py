@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, users_threads
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from .threadParticipants import users_threads
@@ -35,6 +35,8 @@ class User(db.Model, UserMixin):
         backref=db.backref("following", lazy="dynamic"),
         lazy="dynamic"
     )
+
+    threads = db.relationship('Thread', secondary=users_threads, back_populates="user")
 
     # threads = db.relationship(
     #     "Thread",

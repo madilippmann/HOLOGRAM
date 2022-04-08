@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, users_threads
 from sqlalchemy.sql import func
 
 
@@ -11,6 +11,8 @@ class Thread(db.Model):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     messages = db.relationship('Message', back_populates='thread')
+    threadParticipants = db.relationship('User', secondary=users_threads, back_populates='threads')
+
 
     def to_dict(self):
         return {

@@ -11,7 +11,6 @@ class Message(db.Model):
     createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
-
     thread = db.relationship('Thread', back_populates='messages')
     user = db.relationship('User', back_populates='postLikes')
 
