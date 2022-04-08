@@ -113,6 +113,7 @@ export default function SearchBar() {
 					value={query}
 					onChange={e => setQuery(e.target.value)}
 					onClick={openMenu}
+					onKeyPress={openMenu}
 				/>
 				<FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }}></FontAwesomeIcon>
 			</form>
