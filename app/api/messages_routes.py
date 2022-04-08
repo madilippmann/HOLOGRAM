@@ -55,15 +55,15 @@ def create_message(threadId):
 
 
 
-@messages_routes.route('/:threadId/')
-def create_message(threadId):
-    id = int(session['_user_id'])
+# @messages_routes.route('/:threadId/')
+# def create_message(threadId):
+#     id = int(session['_user_id'])
 
-    message = request.get_json(force=True)
+#     message = request.get_json(force=True)
 
-    print('\n\n\n\n\n', message, '\n\n\n')
+#     print('\n\n\n\n\n', message, '\n\n\n')
 
-    return jsonify(posts)
+#     return jsonify(posts)
 
 
 

@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
 
-    directMessages = db.relationship('DirectMessage', back_populates='user')
+    messages = db.relationship('Message', back_populates='user')
     threads = db.relationship('Thread', secondary=users_threads, back_populates="user")
 
     followers = db.relationship(

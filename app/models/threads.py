@@ -11,7 +11,7 @@ class Thread(db.Model):
     createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
-    directMessages = db.relationship('DirectMessage', back_populates='thread')
+    messages = db.relationship('Message', back_populates='thread')
     threadParticipants = db.relationship('User', secondary=users_threads, back_populates='threads')
 
 
@@ -19,7 +19,7 @@ class Thread(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'directMessages': self.messages.to_dict(),
+            'messages': self.messages.to_dict(),
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
@@ -28,7 +28,7 @@ class Thread(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'directMessages': self.messages.to_dict_lite(),
+            'messages': self.messages.to_dict_lite(),
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
