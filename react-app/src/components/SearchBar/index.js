@@ -45,12 +45,18 @@ export default function SearchBar() {
 		// const fuse = new Fuse(dbQueryResults, options);
 		const fuse = new Fuse(posts, options);
 		const fuseResults = fuse.search(query);
-		console.log(fuseResults);
 		setResults(fuseResults);
 		// }
 
 		// return () => clearTimeout(timer);
 	}, [query]);
+	
+	useEffect(() => {
+		(async () => {
+			const res = await dispatch(fetchQuery('lorem'));
+			console.log(res);
+		})()
+	}, []);
 	
 	const openMenu = () => {
 		if (showMenu) return;
