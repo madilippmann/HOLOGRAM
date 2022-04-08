@@ -13,6 +13,7 @@ import { faHeart, faMessage, faComment as emptyComment } from '@fortawesome/free
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
+
 import { sortByCreatedAt } from '../../utils';
 
 export default function PostModal({ postId }) {
@@ -26,7 +27,6 @@ export default function PostModal({ postId }) {
     const [isLoaded, setIsLoaded] = useState(true);
     const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
-
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
     const [newComment, setNewComment] = useState('');
@@ -120,6 +120,7 @@ export default function PostModal({ postId }) {
 
                         <FontAwesomeIcon icon={emptyComment} id='comment-icon' style={{ fontSize: "20px" }} />
                     </div>
+
                     <span id='post-like-count'>{likes.length} {likes?.length === 1 ? 'like' : 'likes'}</span>
                     <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
                 </div>
