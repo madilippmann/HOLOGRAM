@@ -63,7 +63,6 @@ function EditCommentForm({ comment, setShowEdit }) {
                     <button type='submit'
                         id='submit-edit-comment'
                         style={{ color: 'var(--color-purple)', cursor: validationErrors.length ? 'not-allowed' : 'pointer' }}
-
                     >submit</button>
                 </div>
             </div>
