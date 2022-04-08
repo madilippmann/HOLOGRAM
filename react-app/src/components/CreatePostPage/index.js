@@ -81,7 +81,7 @@ export default function CreatePostPage() {
 						style={validationErrors.includes('Please choose an image first before uploading.') && showErrors ? { border: '1.4px solid red' } : {}}
 					>
 						{uploadFile &&
-							<img src={URL.createObjectURL(uploadFile)} alt='image preview' id='image-preview' />
+							<img src={URL.createObjectURL(uploadFile)} alt='preview' id='image-preview' />
 						}
 					</div>
 
