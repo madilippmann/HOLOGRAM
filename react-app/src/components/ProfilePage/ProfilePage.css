@@ -30,6 +30,8 @@
 .profile-picture {
     border-radius: 100%;
     width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
 .flex-space-between {
@@ -40,7 +42,6 @@
     flex-direction: column;
     width: 40%;
 }
-
 
 .posts-followers-following-div, .handle-follow-options-div {
     display: flex;

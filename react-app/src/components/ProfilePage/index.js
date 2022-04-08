@@ -20,7 +20,6 @@ import { sortByCreatedAt } from '../../utils';
 function ProfilePage() {
     const { handle } = useParams();
     const dispatch = useDispatch();
-    const postImageRef = useRef();
 
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
@@ -103,7 +102,7 @@ function ProfilePage() {
     }
 
     const toggleFollow = async () => {
-        const follow = await dispatch(userActions.toggleUserFollow(user.id));
+        await dispatch(userActions.toggleUserFollow(user.id));
         await dispatch(sessionActions.fetchUser(sessionUser.handle));
         setIsFollowed(() => !isFollowed);
     }
@@ -114,7 +113,7 @@ function ProfilePage() {
         <div>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
-                    <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile picture`} />
+                    <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`} />
                 </div>
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
@@ -144,7 +143,7 @@ function ProfilePage() {
                         </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <p>{orderedPosts.length} posts</p>
+                        <div><button type='button' style={{border: 'none', backgroundColor: 'transparent'}}><p>{orderedPosts.length} posts</p></button></div>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'
