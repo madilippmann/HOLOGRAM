@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 import CommentCard from '../CommentCard';
@@ -8,8 +8,8 @@ import ProfileIcon from '../ProfileIcon';
 import CommentForm from './CommentForm';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit, faHeart as faHeartSolid, faComment } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faMessage, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons'
+import { faTrash, faEdit, faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faComment as emptyComment } from '@fortawesome/free-regular-svg-icons'
 import EditPostForm from './EditPostForm';
 import './PostModal.css'
 
@@ -24,13 +24,14 @@ export default function PostModal({ postId }) {
     // let comments = useSelector(state => state.posts[postId].comments)
     let sessionUser = useSelector(state => state.session.user);
 
-    const [isLoaded, setIsLoaded] = useState(true);
     const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
-    const [newComment, setNewComment] = useState('');
-    const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [tick, setTick] = useState(+(post?.timeElapsed.split(' ')[0]) + 1);
+
+    // const [newComment, setNewComment] = useState('');
+    // const [chosenEmoji, setChosenEmoji] = useState(null);
 
 
     useEffect(() => {
@@ -39,16 +40,35 @@ export default function PostModal({ postId }) {
 
     // TODO Add likes dropdown to post modal - need user info from all likes in post.postLikes
     useEffect(() => {
-        setLikes(() => Object.values(post.postLikes))
+        setLikes(() => Object.values(post.postLikes));
         setIsLiked(() => Object.values(post.postLikes).find(like => like.userId === sessionUser.id) ? true : false);
     }, [post.postLikes])
 
     const deletePost = async () => {
         if (window.confirm('Are you sure you want to delete your post?')) {
-            await dispatch(postsActions.deletePost(post.id))
-            return history.push('/')
+            await dispatch(postsActions.deletePost(post.id));
+            return history.push('/');
         }
     }
+
+	useEffect(() => {
+	  let timer;
+
+	  if (tick === 59) {
+		timer = setTimeout(() => {
+		  post.timeElapsed = '1 minute ago';
+		  setTick(60);
+		}, 1000);
+		return;
+	  }
+
+	  if (post.timeElapsed.endsWith('seconds ago') || post.timeElapsed.endsWith('second ago')) {
+		timer = setTimeout(() => setTick(prev => prev + 1), 1000);
+		post.timeElapsed = `${tick + 1} seconds ago`;
+	  }
+
+	  return () => clearTimeout(timer);
+	}, [post, tick]);
 
     const toggleLike = async () => {
         await dispatch(postsActions.togglePostLike(postId));
@@ -56,7 +76,7 @@ export default function PostModal({ postId }) {
 
 
 
-    return !isLoaded ? null : (
+    return (
         <div className='post-modal-wrapper'>
             <div className='post-image-wrapper'>
                 <img
@@ -75,8 +95,11 @@ export default function PostModal({ postId }) {
                         <div className='post-details-container'>
                             <div className='post-details'>
                                 <h4 className='post-user-handle'>{post.user.handle}</h4>
-                                {/* <span className='post-caption' id={`caption-${post.id}`}>{post.caption}</span> */}
-                                <EditPostForm post={post} editCaption={editCaption} setEditCaption={() => setEditCaption(!editCaption)} />
+                                {editCaption
+                                    ? <EditPostForm post={post} setEditCaption={setEditCaption} />
+                                    : <span className='post-caption'>{post.caption}</span>
+                                }
+
                             </div>
                             {sessionUser.id !== post.user.id ? null : (
                                 <div className='post-buttons'>
@@ -122,7 +145,7 @@ export default function PostModal({ postId }) {
                     </div>
 
                     <span id='post-like-count'>{likes.length} {likes?.length === 1 ? 'like' : 'likes'}</span>
-                    <small id='date-posted' style={{ fontStyle: 'italic', }}>{post.createdAt.split(' ').slice(1, 4).join(' ')}</small>
+                    <small id='date-posted' style={{ color: 'var(--color-gray)', fontSize: '12px' }}>{post.timeElapsed}</small>
                 </div>
 
                 <div id='create-comment'>

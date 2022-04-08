@@ -65,6 +65,7 @@ export default function CreatePostPage() {
 
 	const cancelUpload = (e) => {
 		if (window.confirm('Are you sure you want to cancel your upload?')) {
+			window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 			history.push('/');
 		}
 	}
@@ -80,7 +81,7 @@ export default function CreatePostPage() {
 						style={validationErrors.includes('Please choose an image first before uploading.') && showErrors ? { border: '1.4px solid red' } : {}}
 					>
 						{uploadFile &&
-							<img src={URL.createObjectURL(uploadFile)} alt='image preview' id='image-preview' />
+							<img src={URL.createObjectURL(uploadFile)} alt='preview' id='image-preview' />
 						}
 					</div>
 

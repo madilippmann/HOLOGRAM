@@ -1,14 +1,10 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import './SearchBar.css';
 
 export default function SearchBar() {
-	const dispatch = useDispatch();
-	const history = useHistory();
 	const [query, setQuery] = useState('');
 	const [showMenu, setShowMenu] = useState(false);
 
@@ -20,7 +16,6 @@ export default function SearchBar() {
 	  e.preventDefault();
 	  if (!query) return;
 	  setShowMenu(false);
-	//   return history.push(`/search/${query}`)
 	}
 
 

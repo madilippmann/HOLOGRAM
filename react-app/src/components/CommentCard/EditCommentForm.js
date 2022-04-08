@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import * as postsActions from '../../store/posts'
 import './EditCommentForm.css';
@@ -63,7 +62,6 @@ function EditCommentForm({ comment, setShowEdit }) {
                     <button type='submit'
                         id='submit-edit-comment'
                         style={{ color: 'var(--color-purple)', cursor: validationErrors.length ? 'not-allowed' : 'pointer' }}
-
                     >submit</button>
                 </div>
             </div>
