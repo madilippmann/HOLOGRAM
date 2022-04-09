@@ -29,7 +29,7 @@ def user(handle):
 @user_routes.route('/<int:id>/posts/')
 @login_required
 def user_profile(id):
-
+    print(session, 'aklsjhdflkasdf\n\n\n')
     posts = Post.query.filter(Post.userId == id).all()
     posts = [post.to_dict() for post in posts]
     return jsonify(posts)
@@ -43,8 +43,8 @@ def get_follows(userId):
     """
     user = User.query.get(userId)
     follows = {
-        "followers": [user.to_dict() for user in user.followers],
-        "following": [user.to_dict() for user in user.following]
+        "followers": [user.to_dict_lite() for user in user.followers],
+        "following": [user.to_dict_lite() for user in user.following]
     }
     return jsonify(follows)
 

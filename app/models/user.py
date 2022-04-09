@@ -9,6 +9,8 @@ from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+    
+    sids = {}
 
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(50), nullable=False)
@@ -115,3 +117,6 @@ class User(db.Model, UserMixin):
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
         }
+
+    
+    

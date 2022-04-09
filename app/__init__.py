@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_socketio import SocketIO, emit, send, join_room, leave_room
 from .models import db, User
 from .api.user_routes import user_routes
@@ -61,8 +61,13 @@ CORS(app)
 
 # SOCKETS
 
-@socketio.on('connect')
+@socketio.on('connect', namespace='/messages')
 def test_connect(auth):
+    # print(session, 'sess\n\n\n')
+    # userId = session["_user_id"]
+    # User.sids[userId] = request.sid
+    # print(User.sids)
+    
     emit('my response', {'data': 'Connected'})
 
 @socketio.on('disconnect')
@@ -72,11 +77,11 @@ def test_disconnect():
 
 @socketio.on('message', namespace='/messages')
 def handle_message(message):
-    print('\n\n\n', message, '\n\n\n')
     print('\n\n\n', request.sid, '\n\n\n')
+    
+    print(User.sids)
 
     emit('message', message, broadcast=True)
-    # send(message, broadcast=True)
     return None
 
 # @socketio.on('join')

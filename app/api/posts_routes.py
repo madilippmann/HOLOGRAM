@@ -12,7 +12,7 @@ def get_feed_posts():
     id = int(session['_user_id'])
 
     sessionUser = User.query.get(id)
-    userIds = [user.to_dict()['id'] for user in sessionUser.following]
+    userIds = [user.id for user in sessionUser.following]
 
     posts = Post.query.filter(or_(Post.userId.in_(userIds), Post.userId == id)).order_by(desc(Post.createdAt)).all()
     posts = [post.to_dict() for post in posts]
