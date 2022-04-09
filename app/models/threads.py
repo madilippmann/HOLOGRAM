@@ -19,8 +19,8 @@ class Thread(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'messages': self.messages.to_dict(),
-            'users': [user.to_dict() for user in self.users],
+            'messages': [message.to_dict_lite() for message in self.messages],
+            'users': [user.to_dict_lite() for user in self.users],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
@@ -29,8 +29,8 @@ class Thread(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'messages': self.messages.to_dict_lite(),
-            'users': [user.to_dict() for user in self.users],
+            'messages': [message.to_dict_lite() for message in self.messages],
+            'users': [user.to_dict_lite() for user in self.users],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }

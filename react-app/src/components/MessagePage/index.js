@@ -16,7 +16,7 @@ const MessagePage = () => {
     // need to get most recent thread
     const dispatch = useDispatch();
     // const threadPreviews = useSelector(state => state.threadPreviews)
-    // const thread = useSelector(state => state.thread)
+    const thread = useSelector(state => state.thread)
     const sessionUser = useSelector(state => state.session.user)
     
     const [currThreadId, setCurrThreadId] = useState(1);
@@ -24,23 +24,26 @@ const MessagePage = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [disabled, setDisabled] = useState(true);
-    // const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     // useEffect(() => {
     //     (async () => {
     //         const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews())
-    //         setActiveThreadId(() => threadPreviews[0].id)
+    //         setCurrThreadId(() => threadPreviews[0].id)
     //         await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
-    //         setIsLoaded(true)
+    //         setIsLoaded(true);
     //     })()
-
+    
     // }, [dispatch])
 
-    // useEffect(() => {
-    //     dispatch(threadsActions.fetchThread(activeThreadId));
-    // }, [activeThreadId])
+    useEffect(() => {
+        (async () => {
+            await dispatch(threadsActions.fetchThread(activeThreadId));
+            setIsLoaded(true);
+        })()
+    }, [activeThreadId])
     
-
+    
     // start listening to the socket on page load
     useEffect(() => {
         socket.on('message', message => {
@@ -80,7 +83,7 @@ const MessagePage = () => {
     }
 
 
-    return /*!isLoaded ? null :*/ (
+    return !isLoaded ? null : (
         <div id='messages-page-container'>
             <div id='messages-sidebar'>
                 <MessagesSidebar currThreadId={currThreadId} setCurrThreadId={setCurrThreadId} /*threadPreviews={threadPreviews}*/ />

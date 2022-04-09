@@ -56,7 +56,7 @@ export const createThread = (users) => async (dispatch) => {
 };
 
 export const fetchThread = (threadId) => async (dispatch) => {
-    const res = await fetch(`/api/threads/${threadId}`);
+    const res = await fetch(`/api/threads/${threadId}/`);
 
     if (res.ok) {
         const thread = await res.json();

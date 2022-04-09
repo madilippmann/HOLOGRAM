@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm
-from app.models import db, Post, User
+from app.models import db, Post, User, Thread
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc, or_
 from flask_socketio import emit, send
@@ -10,25 +10,17 @@ from app.forms import CreateMessageForm
 
 threads_routes = Blueprint('threads', __name__)
 
-# if os.environ.get('FLASK_ENV') == 'production':
-#     origin = 'https://hologram--app.herokuapp.com'
-# else:
-#     origin = "*"
-
-
-# socketio = SocketIO(cors_allowed_origins=origin)
-
 # ROUTES ##################################################################################
-@threads_routes.route('/')
-def get_threads():
-    sessionUserId = session['__user_id']
-    return
+@threads_routes.route('/:threadId/')
+def get_thread(threadId):
+    thread = Thread.query.get(threadId)
+    return jsonify(thread.to_dict())
+
 
 @threads_routes.route('/', methods=['POST'])
 def create_thread():
 
     return
-
 
 
 @threads_routes.route('/:threadId/', methods=['POST'])
