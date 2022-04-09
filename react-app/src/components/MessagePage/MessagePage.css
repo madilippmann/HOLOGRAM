@@ -1,0 +1,13 @@
+#messages-page-container {
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+#messages-sidebar {
+    border: 1px solid red;
+}
+
+#messages-container {
+    border: 1px solid blue;
+    
+}

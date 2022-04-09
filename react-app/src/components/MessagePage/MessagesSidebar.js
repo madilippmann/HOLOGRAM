@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { sortByCreatedAt } from '../../utils.js';
+import './MessagesSidebar.css';
 
 const MessagesSidebar = ({ threads }) => {
 
     // Remember to setActiveThreadId onClick
 
     return (
-        <div className='messages-sidebar'>
+        <>
+            <h2>Messages Sidebar/Thread Selector</h2>
+            
             <div className='new-message-thread'>
-                Start new message Message
+                [new message thread creator goes here]
             </div>
+            
             {/* FIX FIX FIXPUT IN ANOTHER COMPONENT */}
             {/* <div className='message-thread-list'>
                 {threads.map(thread => {
@@ -44,7 +48,7 @@ const MessagesSidebar = ({ threads }) => {
                 })}
 
             </div> */}
-        </div>
+        </>
     );
 }
 

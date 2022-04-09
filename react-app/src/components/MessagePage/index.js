@@ -6,6 +6,7 @@ import MessagesSidebar from './MessagesSidebar';
 // import { threads } from './fakeThreads.js';
 
 import * as threadsActions from '../../store/threads.js';
+import './MessagePage.css';
 
 
 const MessagePage = () => {
@@ -33,12 +34,12 @@ const MessagePage = () => {
 
 
     return /*!isLoaded ? null :*/ (
-        <div>
-            {/* <div>
-                <MessagesSidebar activeThreadId={activeThreadId} setActiveThreadId={setActiveThreadId} threadPreviews={threadPreviews} />
-            </div> */}
+        <div id='messages-page-container'>
+            <div id='messages-sidebar'>
+                <MessagesSidebar /*activeThreadId={activeThreadId} setActiveThreadId={setActiveThreadId} threadPreviews={threadPreviews}*/ />
+            </div>
 
-            <div>
+            <div id='messages-container'>
                 <MessageContainer thread={null} />
             </div>
         </div>

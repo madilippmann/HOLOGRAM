@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MessagesSidebar from './MessagesSidebar';
 import * as threadsActions from '../../store/threads.js';
-
+import './MessageContainer.css'
 import io from 'socket.io-client';
-
 const socket = io.connect(`http://localhost:5001/`)
 
 const MessageContainer = ({ thread }) => {
@@ -60,8 +59,8 @@ const MessageContainer = ({ thread }) => {
     }
 
     return (
-        <div>
-            <h2>Messages</h2>
+        <>
+            <h2>Messages Container</h2>
             
             <h4>Current Room: {currRoom}</h4>
 
@@ -115,7 +114,7 @@ const MessageContainer = ({ thread }) => {
                 <button type='submit' id='message-submit' disabled={disabled}>send</button>
 
             </form>
-        </div>
+        </>
     );
 }
 
