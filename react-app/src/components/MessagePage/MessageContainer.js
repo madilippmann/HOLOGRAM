@@ -5,18 +5,18 @@ import * as threadsActions from '../../store/threads.js';
 
 import io from 'socket.io-client';
 
-const socket = io.connect(`http://localhost:5001/messages/`)
+const socket = io.connect(`http://localhost:5001/`)
 
 const MessageContainer = ({ thread }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user)
 
-    const [room, setRoom] = useState(1)
+    // const [room, setRoom] = useState(1)
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const [messages, setMessages] = useState({ 1: [], 2: [] })
+    const [messages, setMessages] = useState([])
 
 
     useEffect(() => {
@@ -24,40 +24,58 @@ const MessageContainer = ({ thread }) => {
         else setDisabled(() => true);
     }, [message])
 
+    // useEffect(() => {
+    //     console.log('MESSAGES: ', messages)
+    // }, [messages])
+
+
     useEffect(() => {
-        console.log('MESSAGES: ', messages)
+        console.log('entered')
     }, [messages])
 
-
-    useEffect(() => { getMessage() }, [messages.length])
+    // useEffect(() => { getMessage() }, [messages.length])
 
     // FIX so that we track previous room and current room (since we will have more than 2 rooms)
+    // useEffect(() => {
+    //     console.log('CURRENT ROOM: ', room)
+    //     leaveRoom(room === 1 ? 2 : 1);
+    //     joinRoom(room);
+    // }, [room]);
     useEffect(() => {
-        console.log('CURRENT ROOM: ', room)
-        leaveRoom(room === 1 ? 2 : 1);
-        joinRoom(room);
-    }, [room]);
+        socket.on('message', message => {
+            setMessages((messages) => [...messages, message.content])
+            console.log('Messages: ', messages)
 
+            // setMessages(prev => {
+            //     prev[room] = [...prev[room], message.content]
+            //     return prev
+            // })
+        })
+
+        return (() => socket.disconnect())
+    }, [])
 
     const getMessage = () => {
-        socket.on('message', message => {
-            setMessages(prev => {
-                prev[room] = [...prev[room], message.content]
-                return prev
-            })
-            console.log('Messages: ', messages)
-        })
+        // socket.on('message', message => {
+        //     console.log('Messages: ', messages)
+        //     setMessages((messages) => [...messages, message.content])
+
+        //     // setMessages(prev => {
+        //     //     prev[room] = [...prev[room], message.content]
+        //     //     return prev
+        //     // })
+        // })
     }
 
 
 
-    const leaveRoom = (room) => {
-        socket.emit("leave", { room });
-    };
+    // const leaveRoom = (room) => {
+    //     socket.emit("on_leave", { handle: sessionUser.handle, room });
+    // };
 
-    const joinRoom = (room) => {
-        socket.emit("join", { room });
-    };
+    // const joinRoom = (room) => {
+    //     socket.emit("on_join", { handle: sessionUser.handle, room });
+    // };
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -69,9 +87,14 @@ const MessageContainer = ({ thread }) => {
         }
 
         // SEND STUFF TO SOCKET
-        socket.emit('message', newMessage)
+        // socket.emit('message', newMessage)
+        socket.send(newMessage)
         console.log(message)
         // setMessages((messages) => [...messages, message])
+        // setMessages(prev => {
+        //     prev[room] = [...prev[room], newMessage.content]
+        //     return prev
+        // })
         setMessage(() => '')
     }
 
@@ -79,7 +102,7 @@ const MessageContainer = ({ thread }) => {
         <div>
             <h2>Messages</h2>
 
-            <button
+            {/* <button
                 type='button'
                 value={room}
                 onClick={() => {
@@ -87,10 +110,10 @@ const MessageContainer = ({ thread }) => {
                 }}
             >
                 {room}
-            </button>
+            </button> */}
 
             <div>
-                {messages[room].map((message, i) => {
+                {messages.map((message, i) => {
                     return (
                         <div key={i}>
                             <p>{message}</p>

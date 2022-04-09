@@ -16,7 +16,7 @@ from .api.s3_routes import s3_routes
 from .api.threads_routes import threads_routes
 from .api.search_routes import search_routes
 
-from .socketio import socketio
+from app.socketio import socketio
 
 from .seeds import seed_commands
 
@@ -53,7 +53,6 @@ db.init_app(app)
 Migrate(app, db)
 
 socketio.init_app(app)
-
 # Application Security
 CORS(app)
 
