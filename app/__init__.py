@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, current_user
-from flask_socketio import SocketIO, emit, send, join_room, leave_room
+from flask_socketio import SocketIO
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
@@ -15,6 +15,8 @@ from .api.follows_routes import follows_routes
 from .api.s3_routes import s3_routes
 from .api.threads_routes import threads_routes
 from .api.search_routes import search_routes
+
+from .socketio import socketio
 
 from .seeds import seed_commands
 
@@ -50,60 +52,10 @@ app.register_blueprint(search_routes, url_prefix='/api/search')
 db.init_app(app)
 Migrate(app, db)
 
-if os.environ.get('FLASK_ENV') == 'production':
-    origin = 'https://hologram--app.herokuapp.com'
-else:
-    origin = "*"
-
-
-socketio = SocketIO(app, cors_allowed_origins=origin)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
-
-# SOCKETS
-
-@socketio.on('connect', namespace='/messages')
-def test_connect(auth):
-    # print(session, 'sess\n\n\n')
-    # userId = session["_user_id"]
-    # User.sids[userId] = request.sid
-    # print(User.sids)
-    
-    emit('my response', {'data': 'Connected'})
-
-@socketio.on('disconnect')
-def test_disconnect():
-    print('Client disconnected')
-
-
-@socketio.on('message', namespace='/messages')
-def handle_message(message):
-    print('\n\n\n', request.sid, '\n\n\n')
-    
-    print(User.sids)
-
-    emit('message', message, broadcast=True)
-    return None
-
-# @socketio.on('join')
-# def on_join(data):
-#     username = data['username']
-#     room = data['room']
-#     join_room(room)
-#     send(username + ' has entered the room.', to=room)
-
-# @socketio.on('leave')
-# def on_leave(data):
-#     username = data['username']
-#     room = data['room']
-#     leave_room(room)
-#     send(username + ' has left the room.', to=room)
-
-
-
-
-
 
 
 # Since we are deploying with Docker and Flask,
