@@ -31,14 +31,13 @@ const MessageContainer = ({ thread }) => {
             setMessages((messages) => [...messages, message.content])
             console.log('messages inside the socket.on: ', messages)
         })
-
+        
         return (() => socket.disconnect())
     }, []);
     
     // join the room
     useEffect(() => {
-        // socket.emit("on_join", { handle: sessionUser.handle, room: "room1" });
-        socket.emit("on_join", { room: "room1" });
+        socket.emit("on_join", { handle: sessionUser.handle, room: "room1" });
     }, []);
     
     // const leaveRoom = (room) => {

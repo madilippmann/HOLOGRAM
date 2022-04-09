@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit, send, join_room, leave_room
-from flask import request, session
+from flask import request, session, jsonify
 from .models import User
 import os
 
@@ -14,12 +14,12 @@ socketio = SocketIO(cors_allowed_origins="*", logger=True, engineio_logger=True)
 
 @socketio.on('connect')
 def test_connect(auth):
-    emit('my_response', {'data': 'Connected'})
+    print('\n\n INSIDE OF CONNECT \n\n')
+    emit('my_response', broadcast=True)
 
 @socketio.on('message')
 def handle_message(message):
     emit('message', message, broadcast=True)
-    return None
 
 @socketio.on('disconnect')
 def test_disconnect():
