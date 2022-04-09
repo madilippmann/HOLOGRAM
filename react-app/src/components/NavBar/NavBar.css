@@ -21,6 +21,17 @@
 
 }
 
+#nav-background {
+	height: 66px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 110;
+	background-color: rgba(0, 0, 0, 0.5);
+	filter: blur(4px);
+}
+
 
 /* NAV LEFT */
 .nav__left {

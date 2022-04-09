@@ -25,14 +25,12 @@ const options = {
 export default function SearchBar() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const postModalPopupRef = useRef();
 	const searchMenuRef = useRef();
 	const searchInputRef = useRef();
 	const posts = useSelector(state => Object.values(state.posts));
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState(!posts.length ? [] : posts);
 	const [showMenu, setShowMenu] = useState(false);
-	console.log(showMenu);
 
 	useEffect(() => {
 		if (!query) return;
@@ -45,7 +43,26 @@ export default function SearchBar() {
 		if (results.length < 20) {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
-				const fuse = new Fuse(dbQueryResults, options);
+				
+				// FOR FILTERING OUT DUPLICATES
+				const postsSet = new Set();
+				const usersSet = new Set();
+				results.forEach(item => {
+					if (item.item.caption !== undefined) postsSet.add(item.item.id);
+					if (item.item.handle !== undefined) usersSet.add(item.item.id);
+				});
+				const newResults = dbQueryResults.filter(item => {
+					// for posts
+					if (item.caption !== undefined) {
+						if (!postsSet.has(item.id)) return true;
+					}
+					// for users
+					if (item.handle !== undefined) {
+						if (!postsSet.has(item.id)) return true;
+					}
+				})
+				
+				const fuse = new Fuse(newResults, options);
 				const fuseResults = fuse.search(query);
 				setResults(prevResults => fuseResults.concat(prevResults))
 			}, 400);
@@ -91,7 +108,6 @@ export default function SearchBar() {
 		e.preventDefault();
 		if (!query) return;
 		setShowMenu(false);
-		//   return history.push(`/search/${query}`)
 	}
 
 	const goToProfile = (handle) => {
@@ -126,11 +142,7 @@ export default function SearchBar() {
 							)
 						} else if (result.item?.hasOwnProperty('caption')) {
 							return (
-								<PostModalPopup key={i} isSearchItem={true} post={result.item} postModalPopupRef={postModalPopupRef} />
-								// <span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
-								// 	<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
-								// 	&nbsp;&nbsp; {result.item.caption}
-								// </span>
+								<PostModalPopup key={i} isSearchItem={true} post={result.item} />
 							)
 						}
 					})}

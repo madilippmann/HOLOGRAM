@@ -7,6 +7,7 @@ import './FeedPage.css';
 import FeedColumn from './FeedColumn';
 
 import { sortByCreatedAt } from '../../utils';
+import LoadingSpinner from '../LoadingSpinner';
 
 function FeedPage() {
     const dispatch = useDispatch();
@@ -49,7 +50,7 @@ function FeedPage() {
     }
 
 
-    return !isLoaded ? null : (
+    return !isLoaded ? <LoadingSpinner /> : (
         <>
             <div id='all-posts'>
                 <FeedColumn column={postsForListOne} />

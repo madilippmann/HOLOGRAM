@@ -12,7 +12,4 @@ def search(query):
     postsList = [post.to_dict_lite() for post in posts]
     usersList = [user.to_dict_lite() for user in users]
     
-    print("\n\n", postsList + usersList, '\n\n')
-    # print("\n\n", usersList, '\n\n')
-    # return jsonify(postsList + usersList)
     return jsonify(postsList + usersList)
