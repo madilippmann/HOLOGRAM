@@ -2,18 +2,58 @@ import { useState, useEffect } from 'react';
 import { sortByCreatedAt } from '../../utils.js';
 import './MessagesSidebar.css';
 
-const MessagesSidebar = ({ threads }) => {
+
+const MessagesSidebar = ({ currThreadId, setCurrThreadId }) => {
 
     // Remember to setActiveThreadId onClick
+
 
     return (
         <>
             <h2>Messages Sidebar/Thread Selector</h2>
-            
+
             <div className='new-message-thread'>
                 [new message thread creator goes here]
             </div>
+
+            <div>
+                <button
+                    type='button'
+                    value={currThreadId}
+                    onClick={() => setCurrThreadId(1)}
+                >
+                    Room 1
+                </button>
+            </div>
+            <div>
+                <button
+                    type='button'
+                    value={currThreadId}
+                    onClick={() => setCurrThreadId(2)}
+                >
+                    Room 2
+                </button>
+            </div>
+            <div>
+                <button
+                    type='button'
+                    value={currThreadId}
+                    onClick={() => setCurrThreadId(3)}
+                >
+                    Room 3
+                </button>
+            </div>
+            <div>
+                <button
+                    type='button'
+                    value={currThreadId}
+                    onClick={() => setCurrThreadId(4)}
+                >
+                    Room 4
+                </button>
+            </div>
             
+
             {/* FIX FIX FIXPUT IN ANOTHER COMPONENT */}
             {/* <div className='message-thread-list'>
                 {threads.map(thread => {
