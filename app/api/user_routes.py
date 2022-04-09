@@ -18,7 +18,7 @@ def users():
 @login_required
 def user(handle):
     user = User.query.filter(User.handle == handle).first()
-    print(user.to_dict())
+    
     if user:
         if user.id == int(session['_user_id']):
             return user.session_to_dict()
@@ -29,7 +29,6 @@ def user(handle):
 @user_routes.route('/<int:id>/posts/')
 @login_required
 def user_profile(id):
-    print(session, 'aklsjhdflkasdf\n\n\n')
     posts = Post.query.filter(Post.userId == id).all()
     posts = [post.to_dict() for post in posts]
     return jsonify(posts)
