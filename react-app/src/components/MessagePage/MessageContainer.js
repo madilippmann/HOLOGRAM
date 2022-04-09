@@ -12,7 +12,7 @@ const MessageContainer = ({ thread }) => {
     const sessionUser = useSelector(state => state.session.user)
 
     const [prevRoom, setPrevRoom] = useState(1);
-    const [newRoom, setNewRoom] = useState(1);
+    const [currRoom, setCurrRoom] = useState(1);
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -39,9 +39,9 @@ const MessageContainer = ({ thread }) => {
     // leave old room and join new room
     useEffect(() => {
         socket.emit("on_leave", { handle: sessionUser.handle, room: prevRoom });
-        socket.emit("on_join", { handle: sessionUser.handle, room: newRoom });
-        setPrevRoom(newRoom);
-    }, [newRoom]);
+        socket.emit("on_join", { handle: sessionUser.handle, room: currRoom });
+        setPrevRoom(currRoom);
+    }, [currRoom]);
     
     
 
@@ -50,7 +50,7 @@ const MessageContainer = ({ thread }) => {
 
         const newMessage = {
             content: message,
-            room: newRoom,
+            room: currRoom,
             // threadId: activeThreadId,
             // userId: sessionUser.id
         }
@@ -62,13 +62,36 @@ const MessageContainer = ({ thread }) => {
     return (
         <div>
             <h2>Messages</h2>
+            
+            <h4>Current Room: {currRoom}</h4>
 
             <button
                 type='button'
-                value={newRoom}
-                onClick={() => setNewRoom(prev => prev === 1 ? 2 : 1)}
+                value={currRoom}
+                onClick={() => setCurrRoom(1)}
             >
-                Room: {newRoom} (Click to switch)
+                Room 1
+            </button>
+            <button
+                type='button'
+                value={currRoom}
+                onClick={() => setCurrRoom(2)}
+            >
+                Room 2
+            </button>
+            <button
+                type='button'
+                value={currRoom}
+                onClick={() => setCurrRoom(3)}
+            >
+                Room 3
+            </button>
+            <button
+                type='button'
+                value={currRoom}
+                onClick={() => setCurrRoom(4)}
+            >
+                Room 4
             </button>
 
             <div>
