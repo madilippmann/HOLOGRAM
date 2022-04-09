@@ -11,19 +11,22 @@ else:
 
 socketio = SocketIO(cors_allowed_origins="*", logger=True, engineio_logger=True)
 
-
+# CONNECTION STUFF
 @socketio.on('connect')
 def test_connect(auth):
     print('\n\n INSIDE OF CONNECT \n\n')
     emit('my_response', broadcast=True)
 
-@socketio.on('message')
-def handle_message(message):
-    emit('message', message, broadcast=True)
-
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
+
+
+# MESSAGE
+@socketio.on('message')
+def handle_message(data):
+    print(data)
+    send(data, room=data["room"])
 
 
 # ROOM STUFF

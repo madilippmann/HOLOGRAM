@@ -29,8 +29,8 @@ const MessageContainer = ({ thread }) => {
     // start listening to the socket on page load
     useEffect(() => {
         socket.on('message', message => {
+            console.log('message inside the socket.on: ', message)
             setMessages((messages) => [...messages, message.content])
-            console.log('messages inside the socket.on: ', messages)
         })
         
         return (() => socket.disconnect())
@@ -50,6 +50,7 @@ const MessageContainer = ({ thread }) => {
 
         const newMessage = {
             content: message,
+            room: newRoom,
             // threadId: activeThreadId,
             // userId: sessionUser.id
         }
