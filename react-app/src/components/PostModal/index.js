@@ -133,10 +133,10 @@ export default function PostModal({ postId }) {
                 <div id='likes-div'>
                     <div id='likes-div-icons'>
                         {!isLiked
-                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px" }}
+                            ? <FontAwesomeIcon icon={faHeart} id='like-button' style={{ fontSize: "20px", cursor: 'pointer' }}
                                 onClick={toggleLike}
                             />
-                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px" }}
+                            : <FontAwesomeIcon icon={faHeartSolid} id='like-button' style={{ fontSize: "20px", color: "var(--color-red)", cursor: 'pointer' }}
                                 onClick={toggleLike}
                             />
                         }

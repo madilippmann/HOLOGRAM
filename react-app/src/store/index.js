@@ -3,14 +3,22 @@ import thunk from 'redux-thunk';
 import postsReducer from './posts';
 import session from './session'
 import userReducer from './user';
+<<<<<<< HEAD
 import threadsReducer from './threads'
+=======
+import searchReducer from './search';
+>>>>>>> main
 import { loadingBarReducer } from 'react-redux-loading-bar';
 
 const rootReducer = combineReducers({
 	session,
 	posts: postsReducer,
 	user: userReducer,
+<<<<<<< HEAD
 	threads: threadsReducer,
+=======
+	search: searchReducer,
+>>>>>>> main
 	loadingBar: loadingBarReducer
 });
 

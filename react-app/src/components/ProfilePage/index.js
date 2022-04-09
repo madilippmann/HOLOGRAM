@@ -107,8 +107,6 @@ function ProfilePage() {
         setIsFollowed(() => !isFollowed);
     }
 
-
-
     return !isLoaded ? null : (
         <div id='profile-page'>
             <div className='profile-page user-header'>
@@ -143,7 +141,7 @@ function ProfilePage() {
                         </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <p>{orderedPosts.length} posts</p>
+                        <div><button type='button' style={{border: 'none', backgroundColor: 'transparent', padding: '0'}}><p>{orderedPosts.length} posts</p></button></div>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'

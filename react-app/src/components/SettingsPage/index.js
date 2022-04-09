@@ -21,11 +21,11 @@ function SettingsPage() {
     const [validationErrors, setValidationErrors] = useState([]);
     const profileImage = sessionUser.profileImageUrl !== '/default-profile-image.png' ? sessionUser.profileImageUrl : defaultProfileImage
 
-    useEffect(() => {
-        const errors = [];
-        if (!uploadFile) errors.push('Please choose an image first before uploading.')
-        setValidationErrors(errors);
-    }, [uploadFile]);
+    // useEffect(() => {
+    //     const errors = [];
+    //     if (!uploadFile) errors.push('Please choose an image first before uploading.')
+    //     setValidationErrors(errors);
+    // }, [uploadFile]);
 
     const s3upload = async (file) => {
         if (!file) return console.log('upload a file first');
@@ -58,6 +58,7 @@ function SettingsPage() {
 
         dispatch(hideLoading());
 
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         return history.push(`/${sessionUser.handle}`);
     }
 

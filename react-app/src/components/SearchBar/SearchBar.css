@@ -6,17 +6,6 @@
   align-items: center;
 }
 
-#search_bg {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0);
-}
-
-
-
 .search__form {
   width: 260px;
   height: 30px;
@@ -35,89 +24,63 @@
   
   border: none;
 
-  background-color: transparent;
   color: black;
-  outline: transparent;
+  outline: none;
 }
 
 
-/* search menu pop up thing */
-.search_filter {
-  width: 280px;
-  height: 32px;
-  max-height: 400px;
+/* search menu pop up thing ***********************
+**************************************************/
+.search-filter {
+  width: 300px;
+  max-width: 300px;
+  max-height: 280px;
   margin: 0;
+  padding: 0;
   border: 2px solid var(--color-light-gray);
   border-radius: 4px;
+  
+  font-size: 14px;
+  color: var(--color-dark-gray);
   
   background-color: var(--color-white);
   overflow-x: hidden;
   overflow-y: scroll;
   
   position: absolute;
-  left: 50%;
   top: 70px;
-  transform: translate(-50%, -50%);
+  top: 50px; left: 0; right: 0;
+  margin: 0 auto;
   z-index: 10;
-  
-  flex-direction: column;
-  align-items: center;
-}
-.search_filter::-webkit-scrollbar {
-  width: 0px;
-}
-.search_filter::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0);
-}
-
-
-
-#search_message {
-  width: 260px;
-  min-height: 10px;
-  letter-spacing: 1.5px;
-  padding: 10px;
-  
-  font-size: 12px;
-  color: var(--color-text-less-light);
-  
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
 }
-#search_message:hover {
-  background: var(--color-button-purple);
+.search-filter::-webkit-scrollbar {
+  width: 6px;
 }
-
-
-.search_filter li {
-  padding: 0 5px;
-  letter-spacing: 1.5px;
+.search-filter::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray);
+  border-radius: 25px;
 }
 
-.search_filter li,
-.search_filter li a {
+span.search-item,
+#search-message {
   width: 100%;
-  max-width: 514px;
   min-height: 36px;
-  padding: 0 5px;
+  padding: 10px 6px;
   
   text-align: left;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
-  display: flex;
-  align-items: center;
+  white-space: nowrap;
+  background: none;
   cursor: pointer;
-  transition: background .05s, color .05s;
+  
+  transition: background .15s;
 }
-.search_filter li a span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.search-item:hover {
+  background: rgb(179, 179, 249);
 }
-.search_filter *:hover {
-  background: #FFFF5D;
-  color: black;
+#search-message {
+  color: var(--color-gray);
 }
