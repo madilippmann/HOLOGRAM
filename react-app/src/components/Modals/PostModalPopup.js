@@ -11,6 +11,7 @@ export default function PostModalPopup({ postImageRef, post, blurImage, isSearch
 	useEffect(() => {
 		// const root = document.getElementById('root');
 		const navbar = document.getElementById('navbar');
+		const navBackground = document.getElementById('nav-background')
 		const footer = document.getElementById('footer');
 		const footerBackground = document.getElementById('footer-background');
 		const feedPageBody = document.getElementById('all-posts');
@@ -20,18 +21,18 @@ export default function PostModalPopup({ postImageRef, post, blurImage, isSearch
 			// root.classList.add('blur');	
 
 			navbar.classList.add('blur');
-			navbar.style.opacity = '0.2';
-
+			navBackground.classList.remove('hidden');
+			
 			footer.classList.add('blur');
 			footerBackground.classList.remove('hidden');
-
+			
 			feedPageBody?.classList.add('blur');
 			profilePageBody?.classList.add('blur');
 		}
-
+		
 		return () => {
 			navbar.classList.remove('blur');
-			navbar.style.opacity = '1';
+			navBackground.classList.add('hidden');
 
 			footer.classList.remove('blur');
 			footerBackground.classList.add('hidden');

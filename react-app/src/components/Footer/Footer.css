@@ -12,13 +12,13 @@ footer {
 }
 
 #footer-background {
-  height: 50px;
+  height: 52px;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   z-index: 110;
-  background-color: rgba(0, 0, 0, 0.53);
+  background-color: rgba(0, 0, 0, 0.6);
   filter: blur(3px);
 }
 
