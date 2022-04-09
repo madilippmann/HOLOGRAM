@@ -32,6 +32,10 @@ function ProfilePage() {
     const [showFollowings, setShowFollowings] = useState(false)
     const [orderedPosts, setOrderedPosts] = useState([])
 
+    useEffect(() => {
+        console.log(user);
+    }, [user])
+
 
     useEffect(() => {
         (async () => {

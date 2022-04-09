@@ -14,7 +14,7 @@ const FollowsList = ({ follows }) => {
                         onClick={() => {
                             window.scroll(0, 0);
                             history.push(`/${follow.handle}`);
-                            window.location.reload(false);
+                            // window.location.reload(false);
                         }}
                         style={{border: 'none', backgroundColor:'white'}}
                         key={follow.id}

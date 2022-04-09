@@ -43,7 +43,7 @@ export default function SearchBar() {
 		if (results.length < 20) {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
-				
+
 				// FOR FILTERING OUT DUPLICATES
 				const postsSet = new Set();
 				const usersSet = new Set();
@@ -61,7 +61,7 @@ export default function SearchBar() {
 						if (!postsSet.has(item.id)) return true;
 					}
 				})
-				
+
 				const fuse = new Fuse(newResults, options);
 				const fuseResults = fuse.search(query);
 				setResults(prevResults => fuseResults.concat(prevResults))
@@ -112,7 +112,7 @@ export default function SearchBar() {
 
 	const goToProfile = (handle) => {
 		history.push(`/${handle}`);
-		window.location.reload(false);
+		// window.location.reload(false);
 	}
 
 	return (
