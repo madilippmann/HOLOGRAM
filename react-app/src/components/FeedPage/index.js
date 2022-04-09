@@ -14,6 +14,7 @@ function FeedPage() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let posts = useSelector(state => state.posts);
+    console.log('FeedPage ~ posts', posts);
     const [orderedPosts, setOrderedPosts] = useState([]);
 
     useEffect(() => {
@@ -52,18 +53,17 @@ function FeedPage() {
 
     return !isLoaded ? <LoadingSpinner /> : (
         <>
-            {posts.length !== 0 ?
+            {Object.values(posts).length > 0 ?
                 <div id='all-posts'>
                     <FeedColumn column={postsForListOne} />
                     <FeedColumn column={postsForListTwo} />
                     <FeedColumn column={postsForListThree} />
                 </div>
             :
-            <div id='lonely' style={{height: '50%'}}>
-                <p className='no-feed-posts'>Make some friends you lonely piece of shit, waste of space, sack of garbage</p>
-                <img style={{height: '700px', margin: 'auto'}} src='https://i.guim.co.uk/img/media/adaffe11119963f6e7046e3fe1d3de1a251fc943/190_532_4878_2927/master/4878.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=db4ea6e3ea43d0ea612bd39ba3982816' alt='temp'/>
-                <p className='no-feed-posts'>You look more lonely than her</p>
-            </div>
+                <>
+                    <h2 className='no-feed-posts' style={{fontWeight: 'bolder', fontSize: '25px'}}>Welcome to Hologram</h2>
+                    <h4 className='no-feed-posts'>Follow people to start seeing the photos they share</h4>
+                </>
             }
         </>
     );
