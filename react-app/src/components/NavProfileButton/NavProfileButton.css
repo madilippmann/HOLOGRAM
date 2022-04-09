@@ -24,6 +24,10 @@
   padding: 2px;
 }
 
+#temp {
+  font-family: inherit;
+}
+
 
 /* NAV DROPDOWN */
 .profile_nav_dropdown {

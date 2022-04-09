@@ -94,6 +94,10 @@ export default function SearchBar() {
 		//   return history.push(`/search/${query}`)
 	}
 
+	const goToProfile = (handle) => {
+		history.push(`/${handle}`);
+		window.location.reload(false);
+	}
 
 	return (
 		<div className='search'>
@@ -115,7 +119,7 @@ export default function SearchBar() {
 					{results.map((result, i) => {
 						if (result.item?.hasOwnProperty('handle')) {
 							return (
-								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+								<span key={i} onClick={() => goToProfile(result.item.handle)} className="search-item">
 									<FontAwesomeIcon icon={faUser} style={{ color: 'var(--color-dark-gray)' }} />
 									&nbsp;&nbsp; {result.item.handle}
 								</span>

@@ -56,7 +56,11 @@ export default function NavProfileButton({ user }) {
 			{showMenu && (
 				<div className="profile_nav_dropdown">
 					<div>
-						<NavLink to={`/${user.handle}`} onClick={() => window.scrollTo(0, 0)}>
+						<NavLink to={`/${user.handle}`} id='temp' onClick={() => {
+							// window.scrollTo(0, 0);
+							// history.push(`/${user.handle}`);
+							// window.location.reload(false);
+						}} style={{border: 'none', backgroundColor: 'transparent'}}>
 							profile&nbsp;&nbsp;
 							<FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
 						</NavLink>
