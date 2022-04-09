@@ -111,9 +111,18 @@ state = {
 
     threadPreviews: [
         {
-            id: 1,
-            name: 'Name1, Name2',
-            preview: 'This is the message'
+            threadId: 1,
+            name: 'Name4, Name6',
+            preview: 'This is the message',
+            threadName: thread.name,
+            profileImage: messages[0].user.profileImageUrl
+        },
+        {
+            threadId: 2,
+            name: 'Name3, Name5',
+            preview: 'This is the message',
+            threadName: thread.name,
+            profileImage: messages[0].user.profileImageUrl
         },
     ]
 }
@@ -124,7 +133,11 @@ state = {
 //  user is in 5 threads
 //  get first message from each of those 5 threads
 //  threads = Threads.query.filter(Thread.userId == sessionUserId).orderBy(thread.updatedAt)
-// threadPreviews = [thread.messages[0].content for thread in threads]
+// threadPreviews = [(thread.messages[0].content, ) for thread in threads]
+
+// REMINDER - notif dots in sidebar
+
+
 
 
 // REDUCER ************************************************
