@@ -25,29 +25,24 @@ def handle_message(message):
 def test_disconnect():
     print('Client disconnected')
 
+
 # ROOM STUFF
 @socketio.on('on_join')
 def on_join(data):
     handle = data['handle']
     room = data['room']
-    print('\n\n\n\nHANDLE, THEN ROOM: ', handle, room,'\n\n\n\n')
+    print('\n\n\n\n', 'HANDLE', handle, 'JOINING: ', room,'\n\n\n\n')
     join_room(room)
-    
-    # data = {
-    #     ['content']: f"{handle} has entered the room."
-    # }
-
     emit('open_room', {'room': room}, broadcast=True)
 
+@socketio.on('on_leave')
+def on_leave(data):
+    handle = data['handle']
+    room = data['room']
 
-# @socketio.on('on_leave')
-# def on_leave(data):
-#     handle = data['handle']
-#     room = data['room']
-
-#     print('\n\n\n\nLEAVING:', handle, room,'\n\n\n\n')
-#     leave_room(room)
-#     emit(handle + ' has left the room.', to=room)
+    print('\n\n\n\n', 'HANDLE', handle, 'LEAVING: ', room,'\n\n\n\n')
+    leave_room(room)
+    emit(handle + ' has left the room.', to=room)
 
 
 

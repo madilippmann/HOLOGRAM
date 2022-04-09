@@ -11,7 +11,8 @@ const MessageContainer = ({ thread }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user)
 
-    // const [room, setRoom] = useState(1)
+    const [prevRoom, setPrevRoom] = useState(1);
+    const [newRoom, setNewRoom] = useState(1);
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -35,30 +36,14 @@ const MessageContainer = ({ thread }) => {
         return (() => socket.disconnect())
     }, []);
     
-    // join the room
+    // leave old room and join new room
     useEffect(() => {
-        socket.emit("on_join", { handle: sessionUser.handle, room: "room1" });
-    }, []);
+        socket.emit("on_leave", { handle: sessionUser.handle, room: prevRoom });
+        socket.emit("on_join", { handle: sessionUser.handle, room: newRoom });
+        setPrevRoom(newRoom);
+    }, [newRoom]);
     
-    // const leaveRoom = (room) => {
-    //     socket.emit("on_leave", { handle: sessionUser.handle, room });
-    // };
-
-
-    const getMessage = () => {
-        // socket.on('message', message => {
-        //     console.log('Messages: ', messages)
-        //     setMessages((messages) => [...messages, message.content])
-
-        //     // setMessages(prev => {
-        //     //     prev[room] = [...prev[room], message.content]
-        //     //     return prev
-        //     // })
-        // })
-    }
-
     
-
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -77,15 +62,13 @@ const MessageContainer = ({ thread }) => {
         <div>
             <h2>Messages</h2>
 
-            {/* <button
+            <button
                 type='button'
-                value={room}
-                onClick={() => {
-                    setRoom(prev => prev === 1 ? 2 : 1)
-                }}
+                value={newRoom}
+                onClick={() => setNewRoom(prev => prev === 1 ? 2 : 1)}
             >
-                {room}
-            </button> */}
+                Room: {newRoom} (Click to switch)
+            </button>
 
             <div>
                 {messages.map((message, i) => {
