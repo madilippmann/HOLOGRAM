@@ -16,6 +16,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProfilePostCard from '../PostCard/ProfilePostCard';
 
 import { sortByCreatedAt } from '../../utils';
+import LoadingSpinner from '../LoadingSpinner';
 
 function ProfilePage() {
     const { handle } = useParams();
@@ -107,7 +108,7 @@ function ProfilePage() {
         setIsFollowed(() => !isFollowed);
     }
 
-    return !isLoaded ? null : (
+    return !isLoaded ? <LoadingSpinner /> : (
         <div id='profile-page'>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
