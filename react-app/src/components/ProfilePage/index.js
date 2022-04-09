@@ -28,23 +28,18 @@ function ProfilePage() {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [isFollowed, setIsFollowed] = useState();
-    const [showFollowers, setShowFollowers] = useState(false)
-    const [showFollowings, setShowFollowings] = useState(false)
-    const [orderedPosts, setOrderedPosts] = useState([])
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
-
+    const [showFollowers, setShowFollowers] = useState(false);
+    const [showFollowings, setShowFollowings] = useState(false);
+    const [orderedPosts, setOrderedPosts] = useState([]);
+    // const [userId, setUserId] = useState(user.id);
 
     useEffect(() => {
         (async () => {
             const user = await dispatch(userActions.fetchUser(handle));
             await dispatch(postsActions.fetchPosts('profile', user.id));
-            setIsLoaded(true);
+            // setUserId(user.id);
             setIsFollowed(() => sessionUser?.following.find(followed => followed.id === user?.id) ? true : false)
-
-
+            setIsLoaded(true);
         })()
     }, [dispatch]);
 

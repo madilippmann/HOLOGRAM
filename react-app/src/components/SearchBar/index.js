@@ -112,7 +112,7 @@ export default function SearchBar() {
 
 	const goToProfile = (handle) => {
 		history.push(`/${handle}`);
-		// window.location.reload(false);
+		window.location.reload(false);
 	}
 
 	return (
