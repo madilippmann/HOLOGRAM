@@ -16,44 +16,35 @@ const MessageContainer = ({ thread }) => {
     const [disabled, setDisabled] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const [messages, setMessages] = useState([])
+    const [messages, setMessages] = useState([]);
 
 
+    // disabling the send button when no text
     useEffect(() => {
         if (message.length !== 0 && message.length <= 2000) setDisabled(() => false);
         else setDisabled(() => true);
-    }, [message])
+    }, [message]);
 
-    // useEffect(() => {
-    //     console.log('MESSAGES: ', messages)
-    // }, [messages])
-
-
-    useEffect(() => {
-        console.log('entered')
-    }, [messages])
-
-    // useEffect(() => { getMessage() }, [messages.length])
-
-    // FIX so that we track previous room and current room (since we will have more than 2 rooms)
-    // useEffect(() => {
-    //     console.log('CURRENT ROOM: ', room)
-    //     leaveRoom(room === 1 ? 2 : 1);
-    //     joinRoom(room);
-    // }, [room]);
+    // start listening to the socket on page load
     useEffect(() => {
         socket.on('message', message => {
             setMessages((messages) => [...messages, message.content])
-            console.log('Messages: ', messages)
-
-            // setMessages(prev => {
-            //     prev[room] = [...prev[room], message.content]
-            //     return prev
-            // })
+            console.log('messages inside the socket.on: ', messages)
         })
 
         return (() => socket.disconnect())
-    }, [])
+    }, []);
+    
+    // join the room
+    useEffect(() => {
+        // socket.emit("on_join", { handle: sessionUser.handle, room: "room1" });
+        socket.emit("on_join", { room: "room1" });
+    }, []);
+    
+    // const leaveRoom = (room) => {
+    //     socket.emit("on_leave", { handle: sessionUser.handle, room });
+    // };
+
 
     const getMessage = () => {
         // socket.on('message', message => {
@@ -67,15 +58,8 @@ const MessageContainer = ({ thread }) => {
         // })
     }
 
+    
 
-
-    // const leaveRoom = (room) => {
-    //     socket.emit("on_leave", { handle: sessionUser.handle, room });
-    // };
-
-    // const joinRoom = (room) => {
-    //     socket.emit("on_join", { handle: sessionUser.handle, room });
-    // };
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -86,15 +70,7 @@ const MessageContainer = ({ thread }) => {
             // userId: sessionUser.id
         }
 
-        // SEND STUFF TO SOCKET
-        // socket.emit('message', newMessage)
         socket.send(newMessage)
-        console.log(message)
-        // setMessages((messages) => [...messages, message])
-        // setMessages(prev => {
-        //     prev[room] = [...prev[room], newMessage.content]
-        //     return prev
-        // })
         setMessage(() => '')
     }
 

@@ -14,7 +14,7 @@ socketio = SocketIO(cors_allowed_origins="*", logger=True, engineio_logger=True)
 
 @socketio.on('connect')
 def test_connect(auth):
-    emit('my response', {'data': 'Connected'})
+    emit('my_response', {'data': 'Connected'})
 
 @socketio.on('message')
 def handle_message(message):
