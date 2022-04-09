@@ -3,6 +3,7 @@ import { sortByCreatedAt } from '../../utils.js';
 
 const MessagesSidebar = ({ threads }) => {
 
+    // Remember to setActiveThreadId onClick
 
     return (
         <div className='messages-sidebar'>

@@ -1,39 +1,59 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MessagesSidebar from './MessagesSidebar';
+import * as threadsActions from '../../store/threads.js';
 
+import io from 'socket.io-client';
 
-const MessageContainer = () => {
+const socket = io.connect('http://localhost:5001/messages')
+
+const MessageContainer = ({ thread }) => {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user)
-    const [messages, setMessages] = useState([])
+
     const [message, setMessage] = useState('');
-    const [disabled, setDisabled] = useState(true)
+    const [disabled, setDisabled] = useState(true);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const [messages, setMessages] = useState([])
 
     useEffect(() => {
         if (message.length !== 0 && message.length <= 2000) setDisabled(() => false);
         else setDisabled(() => true);
     }, [message])
 
+    useEffect(() => { getMessage() }, [messages.length])
+
+    const getMessage = () => {
+        socket.on('message', message => {
+            setMessages([...messages, message.content]);
+        })
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
 
         const newMessage = {
-            handle: sessionUser.handle,
-            content: message
+            content: message,
+            // threadId: activeThreadId,
+            // userId: sessionUser.id
         }
 
-        setMessages((prev) => [newMessage, ...prev])
+        // SEND STUFF TO SOCKET
+        socket.emit('message', newMessage)
+        console.log(message)
+        // setMessages((messages) => [...messages, message])
+        setMessage(() => '')
     }
 
     return (
         <div>
             <h2>Messages</h2>
             <div>
-                {messages.map((message) => {
+                {messages.map((message, i) => {
                     return (
-                        <div>
-                            <p>{message.handle}</p>
-                            <p>{message.content}</p>
+                        <div key={i}>
+                            <p>{message}</p>
                         </div>
                     );
                 })}

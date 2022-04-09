@@ -3,35 +3,35 @@ from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Post, User
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc, or_
-from flask_socketio import SocketIO
+from flask_socketio import emit, send
 import os
 
 from app.forms import CreateMessageForm
 
-messages_routes = Blueprint('messsages', __name__)
+threads_routes = Blueprint('threads', __name__)
 
-if os.environ.get('FLASK_ENV') == 'production':
-    origin = 'https://hologram--app.herokuapp.com'
-else:
-    origin = "*"
+# if os.environ.get('FLASK_ENV') == 'production':
+#     origin = 'https://hologram--app.herokuapp.com'
+# else:
+#     origin = "*"
 
 
-socketio = SocketIO(cors_allowed_origins=origin)
+# socketio = SocketIO(cors_allowed_origins=origin)
 
 # ROUTES ##################################################################################
-@messages_routes.route('/')
+@threads_routes.route('/')
 def get_threads():
     sessionUserId = session['__user_id']
     return
 
-@messages_routes.route('/', methods=['POST'])
+@threads_routes.route('/', methods=['POST'])
 def create_thread():
-    new
+
     return
 
 
 
-@messages_routes.route('/:threadId/', methods=['POST'])
+@threads_routes.route('/:threadId/', methods=['POST'])
 def create_message(threadId):
 
     form = CreateMessageForm()
@@ -55,7 +55,7 @@ def create_message(threadId):
 
 
 
-# @messages_routes.route('/:threadId/')
+# @threads_routes.route('/:threadId/')
 # def create_message(threadId):
 #     id = int(session['_user_id'])
 
@@ -69,11 +69,6 @@ def create_message(threadId):
 
 
 # SOCKETS ##################################################################################
-
-@socketio.on('message')
-def handle_message(message):
-    send(message)
-
 
 # @socketio.on('join')
 # def on_join(data):

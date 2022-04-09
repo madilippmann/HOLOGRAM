@@ -19,7 +19,7 @@ const addThread = (thread) => {
 
 const loadThread = (thread) => {
     return {
-        type: LOAD_THREADS,
+        type: LOAD_THREAD,
         thread
     }
 }
@@ -59,7 +59,7 @@ export const fetchThread = (threadId) => async (dispatch) => {
     const res = await fetch(`/api/threads/${threadId}`);
 
     if (res.ok) {
-        const threads = await res.json();
+        const thread = await res.json();
         dispatch(loadThread(thread));
         return;
     }
@@ -82,6 +82,8 @@ export const createMessage = (message) => async (dispatch) => {
 }
 
 
+export const fetchThreadPreviews = () => async (dispatch) => { }
+
 // export const fetchMessages = (threadId) => async (dispatch) => {
 //     const res = await fetch(`/api/threads/${threadId}/`);
 
@@ -92,40 +94,40 @@ export const createMessage = (message) => async (dispatch) => {
 //     }
 // }
 
-state = {
-    thread: {
-        id: 1,
-        name: 'Name1, Name2',
-        updatedAt: messages[0].createdAt,
-        messages: [
-            {
-                id: 1,
-                userId: 2,
-                user: user.to_dict_lite(),
-                threadId: 1,
-                content: 'This is the message',
-                updatedAt: new Date()
-            },
-        ]
-    },
+// state = {
+//     thread: {
+//         id: 1,
+//         name: 'Name1, Name2',
+//         updatedAt: messages[0].createdAt,
+//         messages: [
+//             {
+//                 id: 1,
+//                 userId: 2,
+//                 user: user.to_dict_lite(),
+//                 threadId: 1,
+//                 content: 'This is the message',
+//                 updatedAt: new Date()
+//             },
+//         ]
+//     },
 
-    threadPreviews: [
-        {
-            threadId: 1,
-            name: 'Name4, Name6',
-            preview: 'This is the message',
-            threadName: thread.name,
-            profileImage: messages[0].user.profileImageUrl
-        },
-        {
-            threadId: 2,
-            name: 'Name3, Name5',
-            preview: 'This is the message',
-            threadName: thread.name,
-            profileImage: messages[0].user.profileImageUrl
-        },
-    ]
-}
+//     threadPreviews: [
+//         {
+//             threadId: 1,
+//             name: 'Name4, Name6',
+//             preview: 'This is the message',
+//             threadName: thread.name,
+//             profileImage: messages[0].user.profileImageUrl
+//         },
+//         {
+//             threadId: 2,
+//             name: 'Name3, Name5',
+//             preview: 'This is the message',
+//             threadName: thread.name,
+//             profileImage: messages[0].user.profileImageUrl
+//         },
+//     ]
+// }
 
 // Get all thread ids for user
 //  Query for first message from each thread id
@@ -134,6 +136,10 @@ state = {
 //  get first message from each of those 5 threads
 //  threads = Threads.query.filter(Thread.userId == sessionUserId).orderBy(thread.updatedAt)
 // threadPreviews = [(thread.messages[0].content, ) for thread in threads]
+// lastUpdate = thread.messages[-1].createdAt
+
+//
+
 
 // REMINDER - notif dots in sidebar
 
@@ -147,32 +153,35 @@ const threadsReducer = (state = { thread: {}, threadPreviews: [] }, action) => {
         case ADD_THREAD: {
             return {
                 ...state,
-                [action.thread.id]: {
+                thread: {
                     ...action.thread,
-                    users: {
-                        ...normalizeOneLevel(action.thread.users)
-                    }
+                    users: { ...normalizeOneLevel(action.thread.users) }
                 }
             }
         };
 
 
-        case LOAD_THREADS: {
+        case LOAD_THREAD: {
 
             return {
-                ...normalizeThreads(action.threads)
+                ...state,
+                thread: {
+                    ...action.thread,
+                    messages: [...action.thread.messages],
+                    users: { ...normalizeOneLevel(action.thread.users) }
+                }
             }
         }
 
         case ADD_MESSAGE: {
             return {
                 ...state,
-                [action.message.threadId]: {
-                    messages: [action.message, ...state[action.message.threadId].messages]
+                thread: {
+                    ...state.thread,
+                    messages: [action.message, ...state.thread.messages],
                 }
             }
         }
-
 
         default: {
             return state;
