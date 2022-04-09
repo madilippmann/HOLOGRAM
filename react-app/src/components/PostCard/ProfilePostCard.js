@@ -15,7 +15,8 @@ export default function ProfilePostCard({ post }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const postImageRef = useRef();
-    const [blurImage, setBlurImage] = useState(false);
+    // const [blurImage, setBlurImage] = useState(false);
+    const blurImage = true;
     const [likes, setLikes] = useState(Object.values(post.postLikes))
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
 

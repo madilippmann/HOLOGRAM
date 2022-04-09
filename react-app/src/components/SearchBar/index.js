@@ -43,7 +43,7 @@ export default function SearchBar() {
 		if (results.length < 20) {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
-				
+
 				// FOR FILTERING OUT DUPLICATES
 				const postsSet = new Set();
 				const usersSet = new Set();
@@ -61,7 +61,7 @@ export default function SearchBar() {
 						if (!postsSet.has(item.id)) return true;
 					}
 				})
-				
+
 				const fuse = new Fuse(newResults, options);
 				const fuseResults = fuse.search(query);
 				setResults(prevResults => fuseResults.concat(prevResults))
@@ -110,6 +110,10 @@ export default function SearchBar() {
 		setShowMenu(false);
 	}
 
+	const goToProfile = (handle) => {
+		history.push(`/${handle}`);
+		window.location.reload(false);
+	}
 
 	return (
 		<div className='search'>
@@ -131,7 +135,7 @@ export default function SearchBar() {
 					{results.map((result, i) => {
 						if (result.item?.hasOwnProperty('handle')) {
 							return (
-								<span key={i} onClick={() => history.push(`/${result.item.handle}`)} className="search-item">
+								<span key={i} onClick={() => goToProfile(result.item.handle)} className="search-item">
 									<FontAwesomeIcon icon={faUser} style={{ color: 'var(--color-dark-gray)' }} />
 									&nbsp;&nbsp; {result.item.handle}
 								</span>

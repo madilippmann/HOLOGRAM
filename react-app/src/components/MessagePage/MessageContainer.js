@@ -31,7 +31,7 @@ const MessageContainer = () => {
             <div>
                 {messages.map((message) => {
                     return (
-                        <div>
+                        <div key={message.id}>
                             <p>{message.handle}</p>
                             <p>{message.content}</p>
                         </div>

@@ -28,19 +28,18 @@ function ProfilePage() {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [isFollowed, setIsFollowed] = useState();
-    const [showFollowers, setShowFollowers] = useState(false)
-    const [showFollowings, setShowFollowings] = useState(false)
-    const [orderedPosts, setOrderedPosts] = useState([])
-
+    const [showFollowers, setShowFollowers] = useState(false);
+    const [showFollowings, setShowFollowings] = useState(false);
+    const [orderedPosts, setOrderedPosts] = useState([]);
+    // const [userId, setUserId] = useState(user.id);
 
     useEffect(() => {
         (async () => {
             const user = await dispatch(userActions.fetchUser(handle));
             await dispatch(postsActions.fetchPosts('profile', user.id));
-            setIsLoaded(true);
+            // setUserId(user.id);
             setIsFollowed(() => sessionUser?.following.find(followed => followed.id === user?.id) ? true : false)
-
-
+            setIsLoaded(true);
         })()
     }, [dispatch]);
 
@@ -187,7 +186,7 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => (
-                    <ProfilePostCard post={post} />
+                    <ProfilePostCard post={post} key={post.id}/>
                 ))}
                 {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
             </div>
