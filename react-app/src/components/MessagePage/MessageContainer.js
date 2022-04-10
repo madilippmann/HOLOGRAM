@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTimeElapsed } from '../../utils';
 import './MessageContainer.css'
+
 import defaultProfileImage from '../../static/default-profile-image.png'
+
+
 const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, disabled }) => {
     const sessionUser = useSelector(state => state.session.user);
 
@@ -30,14 +33,17 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
             <div id='messages-map'>
                 {messages.map((message) => {
                     return (
-                        <div key={message.id} className={message.userId === sessionUser.id ? 'me' : 'friend'}>
+                        <div key={message.id} id='message-container' className={message.userId === sessionUser.id ? 'me' : 'friend'}>
                             <div className='message__name-and-date'>
-                                <h4>{message.user.firstName}</h4>
-                                <h6>{getTimeElapsed(message.createdAt)}</h6>
+                                <h4 className='message__name'>{message.user.firstName}</h4>
+                                <h6 className='message__date'>{getTimeElapsed(message.createdAt)}</h6>
                             </div>
                             <div className='message-and-avatar'>
                                 <div className='message__avatar'>
-                                    <img src={message.user.profileImageUrl !== 'default-profile-image.png' ? message.user.profileImageUrl : defaultProfileImage} alt='user-avatar' />
+                                    <img
+                                        src={message.user.profileImageUrl !== '/default-profile-image.png' ? message.user.profileImageUrl : defaultProfileImage}
+                                        alt="profile preview"
+                                    />
                                 </div>
                                 <p className='message__content'>{message.content}</p>
                             </div>

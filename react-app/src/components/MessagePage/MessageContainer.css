@@ -11,12 +11,17 @@
 /* HEADER *********************************/
 .messages-header {
     /* height: 20%;   */
+    background-color: ;
 }
 .messages-inner-container h2 {
     margin: 0;
 }
 
 /* MESSAGES ****************************/
+#message-container {
+    padding-top: 10px;
+}
+
 #messages-map {
     height: 80%;
     padding: 16px;
@@ -26,20 +31,30 @@
     flex-direction: column;
 }
 
-#messages-map .me, .me .message__name-and-date {
+#messages-map .me {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
 
-
-#messages-map .friend, .friend .message__name-and-date {
+#messages-map .friend {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
+.me .message__name-and-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.friend .message__name-and-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 
 #messages-map p {
     margin-top: 0;
@@ -48,7 +63,9 @@
 
 
 #messages-map .message__name-and-date {
-    padding: px 0;
+    padding: 0;
+    margin-bottom: 7px;
+
 }
 
 #messages-map .message__name-and-date * {
@@ -56,6 +73,27 @@
     padding: 0;
 }
 
+#messages-map .me .message__name-and-date  {
+    position: relative;
+    right: 48px;
+}
+
+#messages-map .friend .message__name-and-date {
+    position: relative;
+    left: 48px;
+}
+
+
+
+.message__name {
+    font-size: 12px;
+    color: rgb(150, 150, 150);
+}
+
+.message__date {
+    color: rgb(180, 180, 180);
+
+}
 
 .message-and-avatar {
     display: flex;
@@ -71,12 +109,34 @@
     color: var(--color-black);
     border-radius: 15px;
     padding: 10px;
+    font-size: 14px;
 }
 
 .me .message__content {
     background-color: rgb(206, 206, 255);
 
 }
+
+.message__avatar {
+    margin-bottom: 13px;
+}
+
+.me .message__avatar {
+    margin-left: 5px;
+}
+
+.friend .message__avatar {
+    margin-right: 5px;
+}
+
+
+.message__avatar img {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    object-fit: cover;
+    padding: 2px;
+  }
 
 /* FORM ***********************************/
 .message-form {
