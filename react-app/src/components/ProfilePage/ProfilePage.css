@@ -40,7 +40,7 @@
 }
 .user-info-container {
     flex-direction: column;
-    width: 40%;
+    max-width: 440px;
 }
 
 .posts-followers-following-div, .handle-follow-options-div {
