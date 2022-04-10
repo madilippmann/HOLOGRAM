@@ -17,7 +17,6 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
 
     const threadUserNames = () => {
         let users = Object.values(thread.users)
-        console.log('USERS: ', users)
         const names = users.map(user => user.firstName)
         return names.join(', ')
     }
@@ -61,12 +60,6 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
                         placeholder='start message...'
 
                     />
-                    {/* {message.length ?
-                        <button type='submit' id='message-submit' disabled={disabled}>
-                            <UilMessage size='25' />
-                        </button>
-                        : null
-                    } */}
 
                     <button type='submit' id='message-submit' disabled={disabled} className={`${disabled}`}>
                         <UilMessage size='25' id='send-icon' />
