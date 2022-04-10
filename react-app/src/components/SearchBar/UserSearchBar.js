@@ -42,22 +42,9 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
                 const dbQueryResults = await dispatch(fetchQuery(query, true));
 
                 // FOR FILTERING OUT DUPLICATES
-                // const postsSet = new Set();
                 const usersSet = new Set();
-                results.forEach(item => {
-                    // if (item.item.caption !== undefined) postsSet.add(item.item.id);
-                    if (item.item.handle !== undefined) usersSet.add(item.item.id);
-                });
-                const newResults = dbQueryResults.filter(item => {
-                    // // for posts
-                    // if (item.caption !== undefined) {
-                    // 	if (!postsSet.has(item.id)) return true;
-                    // }
-                    // // for users
-                    if (item.handle !== undefined) {
-                        if (!usersSet.has(item.id)) return true;
-                    }
-                })
+                results.forEach(item => usersSet.add(item.item.id));
+                const newResults = dbQueryResults.filter(item => !usersSet.has(item.id));
 
                 const fuse = new Fuse(newResults, options);
                 const fuseResults = fuse.search(query);
