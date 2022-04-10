@@ -112,12 +112,19 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
         setSelectedUsers(selectedUsers => {
             return [...selectedUsers, user];
         });
+        
+        setShowMenu(false);
+    }
+    
+    const onSubmit = e => {
+        e.preventDefault();
+        addToSelectedUsers(results[0].item);
     }
 
 
     return (
         <div className='search user-search-wrapper'>
-            <form className="search__form user-search">
+            <form className="search__form user-search" onSubmit={onSubmit}>
                 <input type="text" placeholder="search"
                     id='user-search-input'
                     value={query}
