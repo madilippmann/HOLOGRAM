@@ -1,3 +1,4 @@
+from audioop import reverse
 from concurrent.futures import thread
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm
@@ -48,9 +49,9 @@ def get_thread_previews():
     user = User.query.get(sessionUserId)
 
     threads_array = [thread for thread in user.threads]
-    threads_array.sort(key=lambda thread: thread.messages[-1].createdAt)
+    threads_array.sort(key=lambda thread: thread.messages[-1].createdAt, reverse=True)
 
-    # print("\n\n\nayayayay", [thread.messages[-1].id for thread in threads_array], "\n\n\nayayayay")
+    # print("\n\n\n", [thread.messages[-1].createdAt for thread in threads_array], "\n\n\\n")
 
     threadPreviews = [{
         "threadId": thread.id,

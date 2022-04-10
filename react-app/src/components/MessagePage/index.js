@@ -31,6 +31,7 @@ const MessagePage = () => {
     useEffect(() => {
         (async () => {
             const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews());
+            console.log(threadPreviews);
             // setCurrThreadId(() => threadPreviews[0].id);
             // // do this here or leave it in the other use effect??
             // await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
