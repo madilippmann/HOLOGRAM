@@ -37,8 +37,6 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
     return (
         <>
-            {/* <h2 style={{ margin: 0 }}>Messages Sidebar/Thread Selector</h2> */}
-
             <div className='new-message-thread'>
                 <div className='user-search'>
                     <UserSearchBar userIds={userIds} setUserIds={setUserIds} setSelectedUsers={setSelectedUsers} />
