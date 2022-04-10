@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm
-from app.models import db, Post, User, Thread
+from app.models import db, Thread, Message
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc, or_
 from flask_socketio import emit, send
@@ -18,24 +18,23 @@ def get_thread(threadId):
 
 
 
-@threads_routes.route('/:threadId/', methods=['POST'])
+@threads_routes.route('/<int:threadId>/', methods=["POST"])
 def create_message(threadId):
-
     form = CreateMessageForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         data = {
+            "threadId": threadId,
             "userId": session['_user_id'],
-            "threadId": form.data["caption"],
             "content": form.data["content"],
         }
 
         message = Message(**data)
         db.session.add(message)
         db.session.commit()
-        return jsonify(message.to_dict())
+        return jsonify(message.to_dict_lite())
 
     print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

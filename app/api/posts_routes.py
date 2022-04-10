@@ -7,13 +7,16 @@ from sqlalchemy import desc, or_
 posts_routes = Blueprint('posts', __name__)
 
 # ROUTES ##################################################################################
+
+
 @posts_routes.route('/')
 def get_feed_posts():
     id = int(session['_user_id'])
     sessionUser = User.query.get(id)
     userIds = [user.id for user in sessionUser.following]
 
-    posts = Post.query.filter(or_(Post.userId.in_(userIds), Post.userId == id)).order_by(desc(Post.createdAt)).all()
+    posts = Post.query.filter(or_(Post.userId.in_(
+        userIds), Post.userId == id)).order_by(desc(Post.createdAt)).all()
     posts = [post.to_dict() for post in posts]
 
     return jsonify(posts)
@@ -22,12 +25,13 @@ def get_feed_posts():
 # CHECK don't think we need this
 @posts_routes.route('/<int:postId>/')
 def get_post(postId):
-  post = Post.query.get(postId).to_dict()
-  return jsonify(post)
+    post = Post.query.get(postId).to_dict()
+    return jsonify(post)
 
 
 @posts_routes.route('/', methods=["POST"])
 def create_post():
+    print('\n\n\n outside IF!!! \n\n\n')
     form = CreatePostForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -67,12 +71,12 @@ def edit_post(postId):
 
 @posts_routes.route('/<int:postId>/', methods=["DELETE"])
 def delete_post(postId):
-  post = Post.query.get(postId)
-  userId = session['_user_id']
+    post = Post.query.get(postId)
+    userId = session['_user_id']
 
-  if post.to_dict()['userId'] == int(userId):
-    db.session.delete(post)
-    db.session.commit()
-    return jsonify(postId)
-  else:
-    return jsonify('invalid'), 401
+    if post.to_dict()['userId'] == int(userId):
+        db.session.delete(post)
+        db.session.commit()
+        return jsonify(postId)
+    else:
+        return jsonify('invalid'), 401

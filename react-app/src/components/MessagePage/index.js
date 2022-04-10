@@ -50,7 +50,7 @@ const MessagePage = () => {
     useEffect(() => {
         socket.on('message', message => {
             console.log('message inside the socket.on: ', message)
-            setMessages((messages) => [...messages, message.content])
+            setMessages((messages) => [...messages, message])
         })
 
         return (() => socket.disconnect())
@@ -70,16 +70,17 @@ const MessagePage = () => {
     }, [message]);
 
     // for message form submit
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
 
-        const newMessage = {
+        let newMessage = {
+            threadId: currThreadId,
+            userId: sessionUser.id,
             content: message,
-            room: currThreadId,
-            // threadId: activeThreadId,
-            // userId: sessionUser.id
         }
-
+        
+        newMessage = await dispatch(threadsActions.createMessage(newMessage));
+        newMessage.room = currThreadId;
         socket.send(newMessage)
         setMessage(() => '')
     }

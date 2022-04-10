@@ -26,7 +26,7 @@ def test_disconnect():
 # MESSAGE
 @socketio.on('message')
 def handle_message(data):
-    print(data)
+    print("\n\n\n NEW MESSAGE: ", data, "\n\n\n")
     send(data, room=data["room"])
 
 
