@@ -71,27 +71,27 @@ const NavBar = () => {
 
 
 	return !sessionUser ? null : (
-		<div id="navbar">
-			<div className="navbar-container">
-				<div className="nav__left">
-					<Link to='/'>
-						<div className="logo-wrapper">
-							<img src={logo}
-								alt="logo"
-								className="nav__logo"
-							/>
-							<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: 'rgb(215, 155, 134)' }}>gram</span></h1>
-						</div>
-					</Link>
+		<>
+			<div id='nav-background' className='hidden'>
+			</div>
 
-				</div>
+			<div id="navbar">
+				<div className="navbar-container">
+					<div className="nav__left">
+						<Link to='/'>
+							<div className="logo-wrapper">
+								<img src={logo}
+									alt="logo"
+									className="nav__logo"
+								/>
+								<h1><span style={{ color: 'var(--color-purple)' }}>holo</span><span style={{ color: 'rgb(215, 155, 134)' }}>gram</span></h1>
+							</div>
+						</Link>
+
+					</div>
 
 
-				<div className="search-bar">
-					<SearchBar />
-				</div>
-
-
+<<<<<<< HEAD
 				<div className="nav__right">
 					<div className="nav__buttons">
 						<Link to='/'>
@@ -104,50 +104,70 @@ const NavBar = () => {
 						<Link to={`/messages`}>
 							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
 						</Link>
+=======
+					<div className="search-bar">
+						<SearchBar />
+>>>>>>> main
 					</div>
 
-					<div className="nav__stats">
-						<div className='sessionUser-followers'>
-							<button
-								className='remove-button-styling stack add-hover '
-								type='button'
-								onClick={openFollowers}
-							>
-								<span>{sessionUser?.followers.length}</span>
-								<small>followers</small>
-							</button>
 
-							{showFollowers && (
-								<div className="follows-dropdown">
-									<div className='followers-list'>
-										<FollowsList follows={sessionUser?.followers} />
-									</div>
-								</div>
-							)}
+					<div className="nav__right">
+						<div className="nav__buttons">
+							<Link to='/'>
+								<FontAwesomeIcon icon={faHouse} className='nav__icon' />
+							</Link>
+							<Link to='/posts/new'>
+								<FontAwesomeIcon icon={faCirclePlus} className='nav__icon' />
+							</Link>
+							{/* FIX FIX FIX Change route to /messages */}
+							<Link to={`/`}>
+								<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
+							</Link>
 						</div>
-						<div className='sessionUser-followings'>
-							<button
-								className='remove-button-styling stack add-hover'
-								type='button'
-								onClick={openFollowings}
-							>
-								<span>{sessionUser?.following.length}</span>
-								<small>following</small>
-							</button>
-							{showFollowings && (
-								<div className="follows-dropdown">
-									<div className='followings-list'>
-										<FollowsList follows={sessionUser?.following} />
+
+						<div className="nav__stats">
+							<div className='sessionUser-followers'>
+								<button
+									className='remove-button-styling stack add-hover '
+									type='button'
+									onClick={openFollowers}
+								>
+									<span>{sessionUser?.followers.length}</span>
+									<small>followers</small>
+								</button>
+
+								{showFollowers && (
+									<div className="follows-dropdown">
+										<div className='followers-list'>
+											<FollowsList follows={sessionUser?.followers} />
+										</div>
 									</div>
-								</div>
-							)}
+								)}
+							</div>
+							<div className='sessionUser-followings'>
+								<button
+									className='remove-button-styling stack add-hover'
+									type='button'
+									onClick={openFollowings}
+								>
+									<span>{sessionUser?.following.length}</span>
+									<small>following</small>
+								</button>
+								{showFollowings && (
+									<div className="follows-dropdown">
+										<div className='followings-list'>
+											<FollowsList follows={sessionUser?.following} />
+										</div>
+									</div>
+								)}
+							</div>
 						</div>
+
+						<NavProfileButton user={sessionUser} />
 					</div>
-
-					<NavProfileButton user={sessionUser} />
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
