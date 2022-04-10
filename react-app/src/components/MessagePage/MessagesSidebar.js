@@ -12,6 +12,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     const dispatch = useDispatch();
     const usersFromSearch = useSelector(state => state.search);
     const [userIds, setUserIds] = useState(new Set());
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
     const createNewThread = async userIdArray => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
@@ -29,11 +30,16 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
             <div className='new-message-thread'>
                 <div className='user-search'>
-                    <UserSearchBar />
+                    <UserSearchBar userIds={userIds} setUserIds={setUserIds} setSelectedUsers={setSelectedUsers} />
                 </div>
 
                 <div id='selected-users'>
-                    <div>[selected users will go here]</div>
+                    {selectedUsers.map(user => (
+                        <span key={user.id} className="selected-user">
+                            {user.handle}
+                        </span>
+                    ))}
+                    
                     <button type='button' onClick={() => createNewThread(userIds)}>
                         create thread
                     </button>

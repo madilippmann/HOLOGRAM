@@ -20,11 +20,10 @@ const options = {
     ]
 }
 
-export default function UserSearchBar() {
+export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers }) {
     const dispatch = useDispatch();
-    const searchMenuRef = useRef();
+    // const searchMenuRef = useRef();
     const searchInputRef = useRef();
-    // const posts = useSelector(state => Object.values(state.posts));
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([] /* PUT USERS IN STATE IN HERE FOR TESTING W/O QUERY THUNK */);
     const [showMenu, setShowMenu] = useState(false);
@@ -70,7 +69,7 @@ export default function UserSearchBar() {
     }, [query]);
 
     const openMenu = () => {
-        if (showMenu) return;
+        // if (showMenu) return;
         document.querySelector('.search');
         setShowMenu(true);
     };
@@ -83,14 +82,13 @@ export default function UserSearchBar() {
             setShowMenu(() => !showMenu);
         };
 
-        const portal = document.getElementById('portal');
+        const dropdown = document.getElementById('user-search-dropdown');
         const listener = (e) => {
-            if (!searchMenuRef.current?.contains(e.target) && !portal.contains(e.target) && e.target !== searchInputRef.current) {
-                searchMenuRef.current.style.display = 'flex';
+            if (dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            } else if (!dropdown.contains(e.target) && e.target !== searchInputRef.current) {
+                dropdown.style.display = 'flex';
                 closeMenu();
-                console.log('in here');
-            } else if (searchMenuRef.current?.contains(e.target)) {
-                searchMenuRef.current.style.display = 'none';
             }
         }
 
@@ -101,6 +99,16 @@ export default function UserSearchBar() {
             document.removeEventListener("click", listener);
         }
     }, [showMenu]);
+
+    const addToSelectedUsers = user => {
+        if (userIds.has(user.id)) return;
+        
+        setUserIds(idSet => idSet.add(user.id));
+        setSelectedUsers(selectedUsers => {
+            selectedUsers.push(user);
+            return selectedUsers
+        });
+    }
 
 
     return (
@@ -118,11 +126,11 @@ export default function UserSearchBar() {
             </form>
 
             {showMenu && (
-                <div className='search-filter user-search' ref={searchMenuRef}>
+                <div id='user-search-dropdown' className='search-filter user-search'>
                     <div id="search-message">searching for "{query}"...</div>
 
                     {results.slice(0, 20).map((result, i) => (
-                        <span key={results.id} /* onClick={push result.item.handle to div in here} */ className="search-item">
+                        <span key={i} onClick={() => addToSelectedUsers(result.item)} className="search-item">
                             <div style={{ width: '42px', height: '42px' }}>
                                 <ProfileIcon user={result.item} />
                             </div>

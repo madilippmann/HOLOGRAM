@@ -16,6 +16,12 @@
     border: 1px solid green;    
 }
 
+.selected-user {
+    min-width: 50px;
+    display: flex;
+    border: 1px solid black;
+}
+
 
 /* THREAD PREVIEWS **********************/
 .thread-previews-container {

@@ -72,7 +72,7 @@ export default function SearchBar() {
 	}, [query]);
 
 	const openMenu = () => {
-		if (showMenu) return;
+		// if (showMenu) return;
 		document.querySelector('.search');
 		setShowMenu(true);
 	};
