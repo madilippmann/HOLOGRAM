@@ -17,12 +17,12 @@ const MessagePage = () => {
     // need to get most recent thread
     const dispatch = useDispatch();
     // const threadPreviews = useSelector(state => state.threadPreviews)
-    const thread = useSelector(state => state.thread)
-    // const threadPreviews = useSelector(state => state.thread.threadPreviews);
+    const thread = useSelector(state => state.threads.thread)
+    const threadPreviews = useSelector(state => state.threads.threadPreviews)
     const sessionUser = useSelector(state => state.session.user)
-    
-    const [currThreadId, setCurrThreadId] = useState(1);
-    const [prevThreadId, setPrevThreadId] = useState(1);
+
+    const [currThreadId, setCurrThreadId] = useState(0);
+    const [prevThreadId, setPrevThreadId] = useState(0);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [disabled, setDisabled] = useState(true);
@@ -31,24 +31,27 @@ const MessagePage = () => {
     useEffect(() => {
         (async () => {
             const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews());
-            console.log(threadPreviews);
-            // setCurrThreadId(() => threadPreviews[0].id);
             // // do this here or leave it in the other use effect??
-            // await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
-            // setIsLoaded(true);
-        })()
-    
-    }, [dispatch])
-
-    useEffect(() => {
-        (async () => {
-            const thread = await dispatch(threadsActions.fetchThread(currThreadId));
+            const thread = await dispatch(threadsActions.fetchThread(threadPreviews[0].threadId));
+            setCurrThreadId(() => threadPreviews[0].threadId);
+            setPrevThreadId(() => threadPreviews[0].threadId);
+            console.log("BRUH WHAT?",thread);
             setMessages(thread.messages)
             setIsLoaded(true);
         })()
-    }, [currThreadId])
-    
-    
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (isLoaded) {
+            (async () => {
+                console.log(currThreadId);
+                const thread = await dispatch(threadsActions.fetchThread(currThreadId));
+                setMessages(thread.messages)
+            })()
+        }
+    }, [currThreadId]);
+
+
     // start listening to the socket on page load
     useEffect(() => {
         socket.on('message', message => {
@@ -81,7 +84,7 @@ const MessagePage = () => {
             userId: sessionUser.id,
             content: message,
         }
-        
+
         newMessage = await dispatch(threadsActions.createMessage(newMessage));
         newMessage.room = currThreadId;
         socket.send(newMessage)

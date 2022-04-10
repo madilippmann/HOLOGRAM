@@ -16,43 +16,22 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                 [new message thread creator goes here]
             </div>
 
-            <div>
-                <button
-                    type='button'
-                    value={currThreadId}
-                    onClick={() => setCurrThreadId(1)}
-                >
-                    Room 1
-                </button>
-            </div>
-            <div>
-                <button
-                    type='button'
-                    value={currThreadId}
-                    onClick={() => setCurrThreadId(2)}
-                >
-                    Room 2
-                </button>
-            </div>
-            <div>
-                <button
-                    type='button'
-                    value={currThreadId}
-                    onClick={() => setCurrThreadId(3)}
-                >
-                    Room 3
-                </button>
-            </div>
-            <div>
-                <button
-                    type='button'
-                    value={currThreadId}
-                    onClick={() => setCurrThreadId(4)}
-                >
-                    Room 4
-                </button>
-            </div>
-            
+
+            {threadPreviews.map(preview => (
+                <div>
+                    <h4>{preview.threadName}</h4>
+                    <span>{preview.preview}</span>
+                    <button
+                        type='button'
+                        onClick={() => setCurrThreadId(preview.threadId)}
+                    >
+                        {preview.threadName}
+                    </button>
+
+                </div>
+            ))}
+
+
 
             {/* FIX FIX FIXPUT IN ANOTHER COMPONENT */}
             {/* <div className='message-thread-list'>

@@ -9,7 +9,7 @@ const MessageContainer = ({ messages, currThreadId, onSubmit, message, setMessag
     return (
         <>
             <h2>Messages Container</h2>
-            <h4>Current Room: {currThreadId}</h4>
+            <h4>Current Thread: {currThreadId}</h4>
 
             <div>
                 {messages.map((message, i) => {
