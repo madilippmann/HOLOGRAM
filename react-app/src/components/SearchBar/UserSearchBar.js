@@ -127,6 +127,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
             <form className="search__form user-search" onSubmit={onSubmit}>
                 <input type="text" placeholder="search"
                     id='user-search-input'
+                    autoComplete='off'
                     value={query}
                     onChange={e => setQuery(e.target.value)}
                     onClick={openMenu}
