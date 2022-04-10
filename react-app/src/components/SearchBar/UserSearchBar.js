@@ -22,10 +22,9 @@ const options = {
 
 export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers }) {
     const dispatch = useDispatch();
-    // const searchMenuRef = useRef();
-    const searchInputRef = useRef();
+    const sessionUser = useSelector(state => state.session.user);
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([] /* PUT USERS IN STATE IN HERE FOR TESTING W/O QUERY THUNK */);
+    const [results, setResults] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
@@ -42,27 +41,14 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
                 const dbQueryResults = await dispatch(fetchQuery(query, true));
 
                 // FOR FILTERING OUT DUPLICATES
-                // const postsSet = new Set();
                 const usersSet = new Set();
-                results.forEach(item => {
-                    // if (item.item.caption !== undefined) postsSet.add(item.item.id);
-                    if (item.item.handle !== undefined) usersSet.add(item.item.id);
-                });
-                const newResults = dbQueryResults.filter(item => {
-                    // // for posts
-                    // if (item.caption !== undefined) {
-                    // 	if (!postsSet.has(item.id)) return true;
-                    // }
-                    // // for users
-                    if (item.handle !== undefined) {
-                        if (!usersSet.has(item.id)) return true;
-                    }
-                })
+                results.forEach(item => usersSet.add(item.item.id));
+                const newResults = dbQueryResults.filter(item => !usersSet.has(item.id));
 
                 const fuse = new Fuse(newResults, options);
                 const fuseResults = fuse.search(query);
                 setResults(prevResults => fuseResults.concat(prevResults))
-            }, 400);
+            }, 300);
         }
 
         return () => clearTimeout(timer);
@@ -106,26 +92,33 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
     }, [showMenu]);
 
     const addToSelectedUsers = user => {
-        if (userIds.has(user.id)) return;
+        if (userIds.has(user.id) || user.id === sessionUser.id) return;
         
         setUserIds(idSet => idSet.add(user.id));
         setSelectedUsers(selectedUsers => {
             return [...selectedUsers, user];
         });
+        
+        setShowMenu(false);
+    }
+    
+    const onSubmit = e => {
+        e.preventDefault();
+        if (results[0]) addToSelectedUsers(results[0].item);
     }
 
 
     return (
         <div className='search user-search-wrapper'>
-            <form className="search__form user-search">
+            <form className="search__form user-search" onSubmit={onSubmit}>
                 <input type="text" placeholder="search"
                     id='user-search-input'
+                    autoComplete='off'
                     value={query}
                     onChange={e => setQuery(e.target.value)}
                     onClick={openMenu}
                     onFocus={openMenu}
                     onKeyPress={openMenu}
-                    ref={searchInputRef}
                 />
                 <FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }} />
             </form>

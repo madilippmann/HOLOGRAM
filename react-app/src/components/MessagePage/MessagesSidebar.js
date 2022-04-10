@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sortByCreatedAt } from '../../utils.js';
 import * as threadsActions from '../../store/threads.js';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import './MessagesSidebar.css';
 import UserSearchBar from '../SearchBar/UserSearchBar.js';
 
@@ -10,18 +11,28 @@ import UserSearchBar from '../SearchBar/UserSearchBar.js';
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
-    const usersFromSearch = useSelector(state => state.search);
+    // const usersFromSearch = useSelector(state => state.search);
     const [userIds, setUserIds] = useState(new Set());
     const [selectedUsers, setSelectedUsers] = useState([]);
 
-    const createNewThread = async userIdArray => {
+    const createNewThread = async () => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
-        const selectedUsers = userIdArray.map(userId => usersFromSearch.find(user => user.id === userId).firstName);
-        if (window.confirm(`Create thread with ${selectedUsers.join(', ')}?`)) {
-            const thread = await dispatch(threadsActions.createThread([8]));
+        const users = selectedUsers.map(user => user.firstName);
+        if (window.confirm(`Create a thread with ${users.join(', ')}?`)) {
+            const thread = await dispatch(threadsActions.createThread(Array.from(userIds)));
             await dispatch(threadsActions.fetchThreadPreviews());
             setCurrThreadId(thread.id);
+            setUserIds(new Set());
+            setSelectedUsers([]);
         }
+    }
+    
+    const removeFromSelectedUsers = userId => {
+        setUserIds(idSet => {
+            idSet.delete(userId);
+            return idSet;
+        });
+        setSelectedUsers(selectedUsers => selectedUsers.filter(user => user.id !== userId));
     }
 
     return (
@@ -37,12 +48,14 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                     <div className='selected-users-map'>
                         {selectedUsers.map(user => (
                             <span key={user.id} className="selected-user">
-                                {user.handle}
+                                {user.handle} <FontAwesomeIcon icon={faXmark} className='x-button' onClick={() => removeFromSelectedUsers(user.id)} />
                             </span>
                         ))}
                     </div>
 
-                    <button type='button' onClick={() => createNewThread(userIds)}>
+                    <button type='button'
+                        className='create-thread-button'
+                        onClick={createNewThread}>
                         create thread
                     </button>
                 </div>
@@ -50,8 +63,8 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
 
             <div className='thread-previews-container'>
-                {threadPreviews.map(preview => (
-                    <div className='thread-preview'>
+                {threadPreviews.map((preview, i) => (
+                    <div className='thread-preview' key={i}>
                         <h4>{preview.threadName}</h4>
                         <span className='line-clamp'>{preview.preview}</span>
                         <button
