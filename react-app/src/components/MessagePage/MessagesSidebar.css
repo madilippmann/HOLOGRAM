@@ -2,7 +2,8 @@
 .new-message-thread {
     width: 100%;
     height: 150px;
-    border: 1px solid purple;
+    padding: 16px;
+    background-color: var(--color-light-apricot);
     position: relative;
 }
 
@@ -11,7 +12,7 @@
 }
 
 #selected-users {
-    border: 1px solid green;
+    
 }
 
 .selected-users-map {
@@ -33,11 +34,8 @@
 
 
 .create-thread-button {
-    width: 110px;
-    height: 24px;
-
     position: absolute;
-    bottom: 0; right: 0;
+    top: 21px; right: 24px;
 }
 
 .x-button {

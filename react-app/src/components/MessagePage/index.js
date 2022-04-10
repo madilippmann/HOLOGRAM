@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MessageContainer from './MessageContainer';
 import MessagesSidebar from './MessagesSidebar';
+import LoadingSpinner from '../LoadingSpinner';
 
 import * as threadsActions from '../../store/threads.js';
 import './MessagePage.css';
@@ -93,7 +94,7 @@ const MessagePage = () => {
 
     
     // JSX *********************************************************
-    return !isLoaded ? null : (
+    return !isLoaded ? <LoadingSpinner /> : (
         <div id='messages-page-container'>
             <div id='messages-sidebar'>
                 <MessagesSidebar currThreadId={currThreadId} setCurrThreadId={setCurrThreadId} threadPreviews={threadPreviews} />

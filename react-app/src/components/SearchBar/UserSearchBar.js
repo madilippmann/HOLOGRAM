@@ -111,7 +111,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
     return (
         <div className='search user-search-wrapper'>
             <form className="search__form user-search" onSubmit={onSubmit}>
-                <input type="text" placeholder="search"
+                <input type="text" placeholder="add user..."
                     id='user-search-input'
                     autoComplete='off'
                     value={query}
@@ -120,7 +120,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
                     onFocus={openMenu}
                     onKeyPress={openMenu}
                 />
-                <FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }} />
+                {/* <FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }} /> */}
             </form>
 
             {showMenu && (

@@ -54,7 +54,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                     </div>
 
                     <button type='button'
-                        className='create-thread-button'
+                        className='create-thread-button follow-new-post-button false remove-button-styling different-padding'
                         onClick={createNewThread}>
                         create thread
                     </button>
