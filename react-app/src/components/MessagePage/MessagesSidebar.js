@@ -28,7 +28,10 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
                 <div id='selected-users'>
                     <div>[selected users will go here]</div>
-                    <button type='button' onClick={createNewThread}>create thread</button>
+                    <button type='button' onClick={createNewThread}>
+                        create thread
+                    </button>
+                    <div style={{ color: 'red' }}>(this is a hard coded value right now)</div>
                 </div>
             </div>
 
