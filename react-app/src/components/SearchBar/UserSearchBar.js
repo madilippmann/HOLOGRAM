@@ -121,7 +121,7 @@ export default function UserSearchBar() {
                 <div className='search-filter user-search' ref={searchMenuRef}>
                     <div id="search-message">searching for "{query}"...</div>
 
-                    {results.map((result, i) => (
+                    {results.slice(0, 20).map((result, i) => (
                         <span key={results.id} /* onClick={push result.item.handle to div in here} */ className="search-item">
                             <div style={{ width: '42px', height: '42px' }}>
                                 <ProfileIcon user={result.item} />

@@ -47,7 +47,10 @@ export default function PostModalPopup({ postImageRef, post, blurImage, isSearch
 				? (
 					<span onClick={() => setShowModal(true)} className="search-item">
 						<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
-						&nbsp;&nbsp; {post.caption}
+						<div className='item-details'>
+							<span>{post.caption}</span>
+							<small>{post.user.handle}</small>
+						</div>
 					</span>
 				) : (
 					<img
