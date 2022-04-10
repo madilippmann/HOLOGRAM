@@ -85,6 +85,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
         const dropdown = document.getElementById('user-search-dropdown');
         const listener = (e) => {
             if (dropdown.contains(e.target)) {
+                setQuery('');
                 dropdown.style.display = 'none';
             } else if (!dropdown.contains(e.target) && e.target !== searchInputRef.current) {
                 dropdown.style.display = 'flex';
@@ -105,8 +106,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
         
         setUserIds(idSet => idSet.add(user.id));
         setSelectedUsers(selectedUsers => {
-            selectedUsers.push(user);
-            return selectedUsers
+            return [...selectedUsers, user];
         });
     }
 
