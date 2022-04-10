@@ -17,7 +17,7 @@
 }
 
 /* MESSAGES ****************************/
-.messages-map {
+#messages-map {
     height: 80%;
     padding: 16px;
     overflow-y: scroll;
@@ -26,18 +26,18 @@
     flex-direction: column;
 }
 
-.messages-map .me {
+#messages-map .me {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
-.messages-map .friend {
+#messages-map .friend {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.messages-map p {
+#messages-map p {
     margin-top: 0;
     max-width: 60%;
 }

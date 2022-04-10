@@ -4,8 +4,7 @@ import './MessagesSidebar.css';
 
 
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
-
-    // Remember to setActiveThreadId onClick
+    // use currThreadId to highlight current thread w/CSS
 
 
     return (

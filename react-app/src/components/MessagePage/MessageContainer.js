@@ -6,6 +6,14 @@ import './MessageContainer.css'
 const MessageContainer = ({ thread, onSubmit, message, setMessage, disabled }) => {
     const sessionUser = useSelector(state => state.session.user);
 
+    // scroll messages to bottom on load
+    useEffect(() => {
+        const messagesMap = document.getElementById("messages-map");
+        messagesMap.scrollTop = messagesMap.scrollHeight - messagesMap.clientHeight;
+        console.log(messagesMap);
+    }, [])
+
+
     return (
         <div className='messages-inner-container'>
             <div className='messages-header'>
@@ -13,7 +21,7 @@ const MessageContainer = ({ thread, onSubmit, message, setMessage, disabled }) =
                 <h3>{thread.name}</h3>
             </div>
 
-            <div className='messages-map'>
+            <div id='messages-map'>
                 {thread.messages.map((message) => {
                     return (
                         <div key={message.id} className={message.userId === sessionUser.id ? 'me' : 'friend'}>
