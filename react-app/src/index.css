@@ -27,7 +27,7 @@
 
 body {
     max-width: 1280px;
-    min-height: 100vh;
+    min-height: 75vh;
     /* min-height: 1200px; */
     margin: 72px auto 60px;
     color: rgb(215, 155, 134);
