@@ -20,10 +20,13 @@
 }
 
 .selected-user {
-    padding: 10px;
+    padding: 0 10px;
     margin-right: 12px;
     font-size: 12px;
     background-color: var(--color-apricot);
+    
+    display: flex;
+    align-items: center;
 }
 
 .create-thread-button {
@@ -32,6 +35,20 @@
     
     position: absolute;
     bottom: 0; right: 0;
+}
+
+.x-button {
+    padding: 10px 10px 10px 10px;
+    transform: scale(1.1);
+    color: var(--color-dark-gray);
+    
+    position: relative;
+    top: 1px;
+    transition: color .2s;
+}
+.x-button:hover {
+    cursor: pointer;
+    color: var(--color-red)
 }
 
 

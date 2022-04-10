@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sortByCreatedAt } from '../../utils.js';
 import * as threadsActions from '../../store/threads.js';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import './MessagesSidebar.css';
 import UserSearchBar from '../SearchBar/UserSearchBar.js';
 
@@ -37,7 +39,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                     <div className='selected-users-map'>
                         {selectedUsers.map(user => (
                             <span key={user.id} className="selected-user">
-                                {user.handle}
+                                {user.handle} <FontAwesomeIcon icon={faXmark} className='x-button' />
                             </span>
                         ))}
                     </div>
