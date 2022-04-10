@@ -7,6 +7,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import './MessagesSidebar.css';
 import UserSearchBar from '../SearchBar/UserSearchBar.js';
 
+import defaultProfileImage from '../../static/default-profile-image.png'
 
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
@@ -69,8 +70,24 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                         id={`${preview.threadId === currThreadId}`}
                     >
                         <div className='thread-preview' key={i}>
-                            <h4>{preview.threadName}</h4>
-                            <span className='line-clamp'>{preview.preview}</span>
+                            {preview.numberOfUsers < 3 &&
+                                <div className='preview__avatar single'>
+                                    <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                </div>
+
+                            }
+                            {preview.numberOfUsers > 3 &&
+                                <div className='preview__avatar group'>
+                                    <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                    <div id='circle' />
+                                </div>
+
+                            }
+
+                            <div className='thread-name-and-preview'>
+                                <h4>{preview.threadName}</h4>
+                                <span className='line-clamp'>{preview.preview}</span>
+                            </div>
                         </div>
                     </button>
                 ))}
