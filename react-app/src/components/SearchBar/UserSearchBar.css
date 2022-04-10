@@ -1,0 +1,12 @@
+.user-search-wrapper {
+    width: 100%;
+}
+
+.search__form.user-search {
+    width: 100%;
+    height: 100%;
+}
+
+.search-filter.user-search {
+    top: 40px; left: 0; right: 0; margin: 0;
+}

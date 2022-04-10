@@ -4,6 +4,7 @@ import { sortByCreatedAt } from '../../utils.js';
 import * as threadsActions from '../../store/threads.js';
 
 import './MessagesSidebar.css';
+import UserSearchBar from '../SearchBar/UserSearchBar.js';
 
 
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
@@ -23,7 +24,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
             <div className='new-message-thread'>
                 <div className='user-search'>
-                    [new message thread creator goes here]
+                    <UserSearchBar />
                 </div>
 
                 <div id='selected-users'>

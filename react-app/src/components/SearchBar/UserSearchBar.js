@@ -55,7 +55,7 @@ export default function UserSearchBar() {
                     // }
                     // // for users
                     if (item.handle !== undefined) {
-                        if (!postsSet.has(item.id)) return true;
+                        if (!usersSet.has(item.id)) return true;
                     }
                 })
 
@@ -109,8 +109,8 @@ export default function UserSearchBar() {
 
 
     return (
-        <div className='search'>
-            <form className="search__form" onSubmit={onSubmit}>
+        <div className='search user-search-wrapper'>
+            <form className="search__form user-search" onSubmit={onSubmit}>
                 <input type="text" placeholder="search"
                     className=""
                     value={query}
@@ -123,7 +123,7 @@ export default function UserSearchBar() {
             </form>
 
             {showMenu && (
-                <div className='search-filter' ref={searchMenuRef}>
+                <div className='search-filter user-search' ref={searchMenuRef}>
                     <div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
                     {results.map((result, i) => (
                         <span key={results.id} /* onClick={push result.item.handle to div in here} */ className="search-item">
