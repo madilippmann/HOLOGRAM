@@ -39,7 +39,7 @@ export default function UserSearchBar() {
         let timer;
         if (results.length < 20) {
             timer = setTimeout(async () => {
-                const dbQueryResults = await dispatch(fetchQuery(query));
+                const dbQueryResults = await dispatch(fetchQuery(query, true));
 
                 // FOR FILTERING OUT DUPLICATES
                 // const postsSet = new Set();

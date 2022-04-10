@@ -9,4 +9,5 @@
 
 .search-filter.user-search {
     top: 40px; left: 0; right: 0; margin: 0;
+    height: auto;
 }

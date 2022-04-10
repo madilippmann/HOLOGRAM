@@ -16,7 +16,7 @@ def search(query):
     
     
 @search_routes.route('/users/<query>/')
-def search(query):
+def user_search(query):
     users = User.query.filter(or_(User.handle.ilike(f"%{query}%"), User.firstName.ilike(f"%{query}%"), User.lastName.ilike(f"%{query}%"))).all()
     usersList = [user.to_dict_lite() for user in users]
     
