@@ -46,7 +46,7 @@ function SettingsPage() {
 
 
         let user;
-        if(uploadFile) {
+        if (uploadFile) {
             user = {
                 firstName: newFirstName,
                 lastName: newLastName,
@@ -79,9 +79,7 @@ function SettingsPage() {
             <LoadingSpinner />
             <h2>Updating your infomation...</h2>
         </div>
-    )
-    :
-    (
+    ) : (
         <>
             <form onSubmit={updateProfile} id='settings-form'>
                 <div id='left'>
