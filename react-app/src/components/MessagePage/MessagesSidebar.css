@@ -4,7 +4,7 @@
     height: auto;
     padding: 16px;
     border-bottom: 6px solid rgb(208,208,255);
-    
+
     position: relative;
 }
 
@@ -13,12 +13,12 @@
 }
 
 #selected-users {
-    
+
 }
 
 .selected-users-map {
     padding-top: 4px;
-    
+
     display: flex;
     flex-wrap: wrap;
 }
@@ -28,7 +28,7 @@
     margin: 6px 0;
     margin-right: 12px;
     border-radius: 6px;
-    
+
     font-size: 12px;
     font-weight: 500;
     letter-spacing: .1px;
@@ -75,7 +75,8 @@
 
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+
 }
 
 .thread-previews-container::-webkit-scrollbar {
@@ -98,7 +99,7 @@
     width: 100%;
     background-color: transparent;
     border: none;
-    padding: 0 20px;
+    padding: 0 20px 0 10px;
     transition: background-color .15s ease-in-out;
 }
 
@@ -117,9 +118,18 @@
 
 
 .thread-name-and-preview {
+    margin-left: 25px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
+
+
+}
+
+.thread-name-and-preview.move-left {
+    position: relative;
+    right: 70px;
 }
 
 .preview__avatar > img{
@@ -131,17 +141,54 @@
 
 }
 
-
-
-.preview__avatar.single img {
-
+.thread-name-and-preview h4 {
+    margin-bottom: 5px;
+    color: rgb(99, 99, 99);
+    font-weight: 600;
 }
+
+.preview__avatar.group {
+    display: flex;
+    /* width: 40px; */
+}
+
+span.line-clamp {
+    color: grey;
+    text-align: left;
+    font-size: 11px;
+}
+
 
 .preview__avatar.group img{
+    z-index: 5;
+}
+
+
+div#circle1 {
+    z-index: 1;
+
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    padding: 2px;
+    background-color: rgb(170, 170, 170);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px;
+    position: relative;
+    right: 30px;
+    top: 2px;
 
 }
 
 
-div#circle {
+div#circle2 {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    padding: 2px;
+    background-color: rgb(200, 200, 200);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px;
+    position: relative;
+    right: 60px;
+    top: 2px;
 
 }

@@ -37,6 +37,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
         setSelectedUsers(selectedUsers => selectedUsers.filter(user => user.id !== userId));
     }
 
+    console.log(threadPreviews)
     return (
         <>
             <div className='new-message-thread'>
@@ -78,23 +79,32 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                     >
                         <div className='thread-preview' key={i}>
                             {preview.numberOfUsers < 3 &&
-                                <div className='preview__avatar single'>
-                                    <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                </div>
+                                <>
+                                    <div className='preview__avatar single'>
+                                        <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                    </div>
+                                    <div className='thread-name-and-preview'>
+                                        <h4>{preview.threadName}</h4>
+                                        <span className='line-clamp'>{preview.preview}</span>
+                                    </div>
+                                </>
 
                             }
-                            {preview.numberOfUsers > 3 &&
-                                <div className='preview__avatar group'>
-                                    <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                    <div id='circle' />
-                                </div>
+                            {preview.numberOfUsers >= 3 &&
+                                <>
+                                    <div className='preview__avatar group'>
+                                        <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                        <div id='circle1' />
+                                        <div id='circle2' />
+                                    </div>
+                                    <div className='thread-name-and-preview move-left'>
+                                        <h4>{preview.threadName}</h4>
+                                        <span className='line-clamp'>{preview.preview}</span>
+                                    </div>
+                                </>
 
                             }
 
-                            <div className='thread-name-and-preview'>
-                                <h4>{preview.threadName}</h4>
-                                <span className='line-clamp'>{preview.preview}</span>
-                            </div>
                         </div>
                     </button>
                 ))}
