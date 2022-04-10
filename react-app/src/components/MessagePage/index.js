@@ -100,7 +100,7 @@ const MessagePage = () => {
             </div>
 
             <div id='messages-container'>
-                <MessageContainer currThreadId={currThreadId} messages={messages} onSubmit={onSubmit} message={message} setMessage={setMessage} disabled={disabled} />
+                <MessageContainer thread={thread} onSubmit={onSubmit} message={message} setMessage={setMessage} disabled={disabled} />
             </div>
         </div>
     );

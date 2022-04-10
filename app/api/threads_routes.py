@@ -62,20 +62,3 @@ def get_thread_previews():
         for thread in threads_array]
 
     return jsonify(threadPreviews)
-
-
-# SOCKETS ##################################################################################
-
-# @socketio.on('join')
-# def on_join(data):
-#     username = data['username']
-#     room = data['room']
-#     join_room(room)
-#     send(username + ' has entered the room.', to=room)
-
-# @socketio.on('leave')
-# def on_leave(data):
-#     username = data['username']
-#     room = data['room']
-#     leave_room(room)
-#     send(username + ' has left the room.', to=room)
