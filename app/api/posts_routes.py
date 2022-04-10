@@ -10,7 +10,6 @@ posts_routes = Blueprint('posts', __name__)
 @posts_routes.route('/')
 def get_feed_posts():
     id = int(session['_user_id'])
-
     sessionUser = User.query.get(id)
     userIds = [user.id for user in sessionUser.following]
 

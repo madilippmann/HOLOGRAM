@@ -46,7 +46,6 @@ app.register_blueprint(postLikes_routes, url_prefix='/api/posts')
 app.register_blueprint(follows_routes, url_prefix='/api/follow')
 app.register_blueprint(s3_routes, url_prefix='/api/s3')
 app.register_blueprint(threads_routes, url_prefix='/api/threads')
-
 app.register_blueprint(search_routes, url_prefix='/api/search')
 
 db.init_app(app)

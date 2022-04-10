@@ -15,7 +15,7 @@ const MessageContainer = ({ messages, currThreadId, onSubmit, message, setMessag
                 {messages.map((message, i) => {
                     return (
                         <div key={i}>
-                            <p>{message}</p>
+                            <h4>{message.user.handle}</h4><span>{message.content}</span>
                         </div>
                     );
                 })}

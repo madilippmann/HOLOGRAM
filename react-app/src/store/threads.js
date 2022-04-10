@@ -61,7 +61,7 @@ export const fetchThread = (threadId) => async (dispatch) => {
     if (res.ok) {
         const thread = await res.json();
         dispatch(loadThread(thread));
-        return;
+        return thread;
     }
 };
 

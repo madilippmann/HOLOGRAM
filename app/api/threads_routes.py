@@ -4,23 +4,18 @@ from app.models import db, Post, User, Thread
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc, or_
 from flask_socketio import emit, send
-import os
-
 from app.forms import CreateMessageForm
+
 
 threads_routes = Blueprint('threads', __name__)
 
 # ROUTES ##################################################################################
-@threads_routes.route('/:threadId/')
+
+@threads_routes.route('/<int:threadId>/')
 def get_thread(threadId):
     thread = Thread.query.get(threadId)
     return jsonify(thread.to_dict())
 
-
-@threads_routes.route('/', methods=['POST'])
-def create_thread():
-
-    return
 
 
 @threads_routes.route('/:threadId/', methods=['POST'])

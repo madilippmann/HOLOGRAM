@@ -4,6 +4,7 @@ import MessageContainer from './MessageContainer';
 import MessagesSidebar from './MessagesSidebar';
 
 import * as threadsActions from '../../store/threads.js';
+import * as postsActions from '../../store/posts.js';
 import './MessagePage.css';
 
 import { threads } from './fakeThreads.js';
@@ -38,10 +39,11 @@ const MessagePage = () => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(threadsActions.fetchThread(activeThreadId));
+            const thread = await dispatch(threadsActions.fetchThread(currThreadId));
+            setMessages(thread.messages)
             setIsLoaded(true);
         })()
-    }, [activeThreadId])
+    }, [currThreadId])
     
     
     // start listening to the socket on page load
