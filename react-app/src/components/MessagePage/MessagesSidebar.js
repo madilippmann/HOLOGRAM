@@ -42,7 +42,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                         ))}
                     </div>
 
-                    <button type='button' onClick={() => createNewThread(userIds)}>
+                    <button type='button'
+                        className='create-thread-button'
+                        onClick={() => createNewThread(userIds)}>
                         create thread
                     </button>
                 </div>
