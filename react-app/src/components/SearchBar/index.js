@@ -140,7 +140,7 @@ export default function SearchBar() {
 								<span key={i} onClick={() => goToProfile(result.item.handle)} className="search-item">
 									<FontAwesomeIcon icon={faUser} style={{ color: 'var(--color-dark-gray)' }} />
 									<div className='item-details'>
-										<span>{result.item.handle}</span>
+										<span className='line-clamp'>{result.item.handle}</span>
 										<small>{result.item.firstName} {result.item.lastName}</small>
 									</div>
 								</span>
