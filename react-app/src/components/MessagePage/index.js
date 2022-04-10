@@ -4,10 +4,8 @@ import MessageContainer from './MessageContainer';
 import MessagesSidebar from './MessagesSidebar';
 
 import * as threadsActions from '../../store/threads.js';
-import * as postsActions from '../../store/posts.js';
 import './MessagePage.css';
 
-import { threads } from './fakeThreads.js';
 import io from 'socket.io-client';
 const socket = io.connect(`http://localhost:5001/`)
 
@@ -30,32 +28,50 @@ const MessagePage = () => {
 
     useEffect(() => {
         (async () => {
+            // fetch thread previews
             const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews());
-            // // do this here or leave it in the other use effect??
+            // fetch the thread that was most recently active
             const thread = await dispatch(threadsActions.fetchThread(threadPreviews[0].threadId));
+            // set initial socket room/thread variables
             setCurrThreadId(() => threadPreviews[0].threadId);
             setPrevThreadId(() => threadPreviews[0].threadId);
-            console.log("BRUH WHAT?",thread);
+            // set messages for MessageContainer to display on load
             setMessages(thread.messages)
             setIsLoaded(true);
         })()
     }, [dispatch]);
 
+    // fetch the new room's thread data
     useEffect(() => {
         if (isLoaded) {
             (async () => {
-                console.log(currThreadId);
                 const thread = await dispatch(threadsActions.fetchThread(currThreadId));
                 setMessages(thread.messages)
             })()
         }
     }, [currThreadId]);
+    
+    // for message form submit
+    const onSubmit = async (e) => {
+        e.preventDefault()
 
+        let newMessage = {
+            threadId: currThreadId,
+            userId: sessionUser.id,
+            content: message,
+        }
 
+        newMessage = await dispatch(threadsActions.createMessage(newMessage));
+        newMessage.room = currThreadId;
+        socket.send(newMessage)
+        setMessage(() => '')
+    }
+
+    
+    // SOCKETS *******************************************************
     // start listening to the socket on page load
     useEffect(() => {
         socket.on('message', message => {
-            console.log('message inside the socket.on: ', message)
             setMessages((messages) => [...messages, message])
         })
 
@@ -75,23 +91,8 @@ const MessagePage = () => {
         else setDisabled(() => true);
     }, [message]);
 
-    // for message form submit
-    const onSubmit = async (e) => {
-        e.preventDefault()
-
-        let newMessage = {
-            threadId: currThreadId,
-            userId: sessionUser.id,
-            content: message,
-        }
-
-        newMessage = await dispatch(threadsActions.createMessage(newMessage));
-        newMessage.room = currThreadId;
-        socket.send(newMessage)
-        setMessage(() => '')
-    }
-
-
+    
+    // JSX *********************************************************
     return !isLoaded ? null : (
         <div id='messages-page-container'>
             <div id='messages-sidebar'>
