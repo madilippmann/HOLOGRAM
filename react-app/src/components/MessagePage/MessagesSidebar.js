@@ -26,7 +26,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
             setSelectedUsers([]);
         }
     }
-    
+
     const removeFromSelectedUsers = userId => {
         setUserIds(idSet => {
             idSet.delete(userId);
@@ -62,17 +62,16 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
             <div className='thread-previews-container'>
                 {threadPreviews.map((preview, i) => (
-                    <div className='thread-preview' key={i}>
-                        <h4>{preview.threadName}</h4>
-                        <span className='line-clamp'>{preview.preview}</span>
-                        <button
-                            type='button'
-                            onClick={() => setCurrThreadId(preview.threadId)}
-                        >
-                            {preview.threadName}
-                        </button>
+                    <button
+                        type='button'
+                        onClick={() => setCurrThreadId(preview.threadId)}
+                    >
+                        <div className='thread-preview' key={i}>
+                            <h4>{preview.threadName}</h4>
+                            <span className='line-clamp'>{preview.preview}</span>
 
-                    </div>
+                        </div>
+                    </button>
                 ))}
             </div>
 
