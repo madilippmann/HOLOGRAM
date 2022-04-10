@@ -61,7 +61,7 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
 
                     />
 
-                    <button type='submit' id='message-submit' disabled={disabled} className={`${disabled}`}>
+                    <button type='submit' id='message-submit' disabled={disabled} className={`${disabled}`} style={!disabled ? { cursor: 'pointer' } : {}}>
                         <UilMessage size='25' id='send-icon' />
                     </button>
 
