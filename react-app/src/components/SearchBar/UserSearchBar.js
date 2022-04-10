@@ -19,7 +19,6 @@ const options = {
     ]
 }
 
-
 export default function UserSearchBar() {
     const dispatch = useDispatch();
     const searchMenuRef = useRef();
