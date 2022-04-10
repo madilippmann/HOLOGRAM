@@ -10,26 +10,28 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
     return (
         <>
-            <h2>Messages Sidebar/Thread Selector</h2>
+            <h2 style={{ margin: 0 }}>Messages Sidebar/Thread Selector</h2>
 
             <div className='new-message-thread'>
                 [new message thread creator goes here]
             </div>
 
 
-            {threadPreviews.map(preview => (
-                <div>
-                    <h4>{preview.threadName}</h4>
-                    <span>{preview.preview}</span>
-                    <button
-                        type='button'
-                        onClick={() => setCurrThreadId(preview.threadId)}
-                    >
-                        {preview.threadName}
-                    </button>
+            <div className='thread-previews-container'>
+                {threadPreviews.map(preview => (
+                    <div className='thread-preview'>
+                        <h4>{preview.threadName}</h4>
+                        <span className='line-clamp'>{preview.preview}</span>
+                        <button
+                            type='button'
+                            onClick={() => setCurrThreadId(preview.threadId)}
+                        >
+                            {preview.threadName}
+                        </button>
 
-                </div>
-            ))}
+                    </div>
+                ))}
+            </div>
 
 
 
