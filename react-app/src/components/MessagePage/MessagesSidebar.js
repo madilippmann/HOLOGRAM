@@ -12,7 +12,13 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
             <h2 style={{ margin: 0 }}>Messages Sidebar/Thread Selector</h2>
 
             <div className='new-message-thread'>
-                [new message thread creator goes here]
+                <div className='user-search'>
+                    [new message thread creator goes here]
+                </div>
+
+                <div id='selected-users'>
+                    [selected users will go here]
+                </div>
             </div>
 
 

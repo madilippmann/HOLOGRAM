@@ -5,11 +5,22 @@
     border: 1px solid purple;
 }
 
-.thread-previews-container {
-    padding: 8px 0;
+
+/* SEARCH ******************************/
+.user-search {
+    height: 50px;
+}
+
+#selected-users {
+    height: 100px;
+    border: 1px solid green;    
 }
 
 
+/* THREAD PREVIEWS **********************/
+.thread-previews-container {
+    padding: 8px 0;
+}
 
 .thread-preview {
     width: 100%;
