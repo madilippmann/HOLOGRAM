@@ -8,6 +8,7 @@ import './UserSearchBar.css';
 
 import Fuse from 'fuse.js';
 import { fetchQuery } from '../../store/search';
+import ProfileIcon from '../ProfileIcon';
 const options = {
     includeScore: true,
     findAllMatches: true,
@@ -101,16 +102,10 @@ export default function UserSearchBar() {
         }
     }, [showMenu]);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        if (!query) return;
-        setShowMenu(false);
-    }
-
 
     return (
         <div className='search user-search-wrapper'>
-            <form className="search__form user-search" onSubmit={onSubmit}>
+            <form className="search__form user-search">
                 <input type="text" placeholder="search"
                     className=""
                     value={query}
@@ -124,11 +119,17 @@ export default function UserSearchBar() {
 
             {showMenu && (
                 <div className='search-filter user-search' ref={searchMenuRef}>
-                    <div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
+                    <div id="search-message">searching for "{query}"...</div>
+
                     {results.map((result, i) => (
                         <span key={results.id} /* onClick={push result.item.handle to div in here} */ className="search-item">
-                            <FontAwesomeIcon icon={faUser} style={{ color: 'var(--color-dark-gray)' }} />
-                            &nbsp;&nbsp; {result.item.handle}
+                            <div style={{ width: '42px', height: '42px' }}>
+                                <ProfileIcon user={result.item} />
+                            </div>
+                            <div className='item-details'>
+                                <span>{result.item.handle}</span>
+                                <small>{result.item.firstName} {result.item.lastName}</small>
+                            </div>
                         </span>
                     ))}
                 </div>

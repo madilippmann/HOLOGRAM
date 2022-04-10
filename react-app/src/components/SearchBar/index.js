@@ -127,7 +127,8 @@ export default function SearchBar() {
 
 			{showMenu && (
 				<div className='search-filter' ref={searchMenuRef}>
-					<div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
+					<div id="search-message">searching for "{query}"...</div>
+					
 					{results.map((result, i) => {
 						if (result.item?.hasOwnProperty('handle')) {
 							return (
