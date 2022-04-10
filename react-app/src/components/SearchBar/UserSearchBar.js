@@ -62,7 +62,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
                 const fuse = new Fuse(newResults, options);
                 const fuseResults = fuse.search(query);
                 setResults(prevResults => fuseResults.concat(prevResults))
-            }, 400);
+            }, 300);
         }
 
         return () => clearTimeout(timer);
