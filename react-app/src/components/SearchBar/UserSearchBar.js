@@ -104,7 +104,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
     
     const onSubmit = e => {
         e.preventDefault();
-        if (results[0].item) addToSelectedUsers(results[0].item);
+        if (results[0]) addToSelectedUsers(results[0].item);
     }
 
 
