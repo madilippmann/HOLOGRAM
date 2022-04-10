@@ -34,12 +34,14 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                 </div>
 
                 <div id='selected-users'>
-                    {selectedUsers.map(user => (
-                        <span key={user.id} className="selected-user">
-                            {user.handle}
-                        </span>
-                    ))}
-                    
+                    <div className='selected-users-map'>
+                        {selectedUsers.map(user => (
+                            <span key={user.id} className="selected-user">
+                                {user.handle}
+                            </span>
+                        ))}
+                    </div>
+
                     <button type='button' onClick={() => createNewThread(userIds)}>
                         create thread
                     </button>
