@@ -11,8 +11,13 @@ const loadSearch = (results) => {
 }
 
 // THUNK ACTION CREATORS **********************************
-export const fetchQuery = query => async dispatch => {
-    const res = await fetch(`/api/search/${query}`);
+export const fetchQuery = (query, onlyUsers=false) => async dispatch => {
+    let res
+    if (onlyUsers) {
+        res = await fetch(`/api/search/users/${query}/`);
+    } else {
+        res = await fetch(`/api/search/${query}/`);
+    }
 
     if (res.ok) {
         const results = await res.json();
