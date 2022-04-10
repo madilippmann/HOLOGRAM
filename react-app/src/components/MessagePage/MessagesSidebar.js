@@ -63,8 +63,8 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
 
             <div className='thread-previews-container'>
-                {threadPreviews.map(preview => (
-                    <div className='thread-preview'>
+                {threadPreviews.map((preview, i) => (
+                    <div className='thread-preview' key={i}>
                         <h4>{preview.threadName}</h4>
                         <span className='line-clamp'>{preview.preview}</span>
                         <button
