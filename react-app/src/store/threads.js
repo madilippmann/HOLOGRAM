@@ -36,6 +36,16 @@ const loadThreadPreviews = (threadPreviews) => {
 }
 
 // THUNK ACTION CREATORS **********************************
+export const fetchThread = (threadId) => async (dispatch) => {
+    const res = await fetch(`/api/threads/${threadId}/`);
+
+    if (res.ok) {
+        const thread = await res.json();
+        dispatch(loadThread(thread));
+        return thread;
+    }
+};
+
 export const createThread = (users) => async (dispatch) => {
     const res = await fetch(`/api/threads/`, {
         method: "POST",
@@ -49,16 +59,6 @@ export const createThread = (users) => async (dispatch) => {
         const newThread = await res.json();
         dispatch(addThread(newThread));
         return newThread;
-    }
-};
-
-export const fetchThread = (threadId) => async (dispatch) => {
-    const res = await fetch(`/api/threads/${threadId}/`);
-
-    if (res.ok) {
-        const thread = await res.json();
-        dispatch(loadThread(thread));
-        return thread;
     }
 };
 

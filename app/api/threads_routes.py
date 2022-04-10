@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Thread, Message, User
 from app.api.utils import validation_errors_to_error_messages
-from sqlalchemy import desc, or_
+from sqlalchemy import desc, or_, in_
 from flask_socketio import emit, send
 from app.forms import CreateMessageForm
 
@@ -18,6 +18,37 @@ threads_routes = Blueprint('threads', __name__)
 def get_thread(threadId):
     thread = Thread.query.get(threadId)
     return jsonify(thread.to_dict())
+
+
+@threads_routes.route('/', methods=['POST'])
+def create_thread():
+    sessionUserId = int(session['_user_id'])
+    users = request.get_json()
+    if len(users) == 0: return jsonify('error: must send users to add to thread')
+
+    # TODO
+    # query for all users that are going to be in the thread
+    # make new thread with a name of the first names of the users in the thread
+    # append each user to the 'users' property of the new thread
+    # db.session.commit()
+    # return the newly created thread
+    # CHECK
+    # check the users property of the thread after adding the thread to every user
+    
+    users = User.query.filter(User.id.in_([sessionUserId, *users])).all()
+    
+    thread_name = ""
+    for user in users:
+        thread_name += f"{user.firstName}, "
+    
+    thread = Thread(name=thread_name[0:-2])
+    
+    for user in users:
+        thread.users.append(user)
+    db.session.commit()
+
+    print(thread.users)
+    return jsonify(thread)
 
 
 @threads_routes.route('/<int:threadId>/', methods=["POST"])
@@ -49,16 +80,13 @@ def get_thread_previews():
     user = User.query.get(sessionUserId)
 
     threads_array = [thread for thread in user.threads]
-    threads_array.sort(key=lambda thread: thread.messages[-1].createdAt, reverse=True)
-
-    # print("\n\n\n", [thread.messages[-1].createdAt for thread in threads_array], "\n\n\\n")
-
+    threads_array.sort(
+        key=lambda thread: thread.messages[-1].createdAt, reverse=True)
     threadPreviews = [{
         "threadId": thread.id,
         "threadName": thread.name,
         "preview": thread.messages[-1].content,
         "profileImage": thread.messages[-1].user.profileImageUrl
-    }
-        for thread in threads_array]
+    } for thread in threads_array]
 
     return jsonify(threadPreviews)

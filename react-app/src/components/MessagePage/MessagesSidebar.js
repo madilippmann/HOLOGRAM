@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { sortByCreatedAt } from '../../utils.js';
+import * as threadsActions from '../../store/threads.js';
+
 import './MessagesSidebar.css';
 
 
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
+    const dispatch = useDispatch();
 
+    const createNewThread = e =>  {
+        dispatch(threadsActions.createThread([3]))
+    }
 
     return (
         <>
@@ -17,7 +24,8 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                 </div>
 
                 <div id='selected-users'>
-                    [selected users will go here]
+                    <div>[selected users will go here]</div>
+                    <button type='button' onClick={createNewThread}>create thread</button>
                 </div>
             </div>
 

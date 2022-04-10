@@ -31,7 +31,6 @@ def get_post(postId):
 
 @posts_routes.route('/', methods=["POST"])
 def create_post():
-    print('\n\n\n outside IF!!! \n\n\n')
     form = CreatePostForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
