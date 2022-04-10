@@ -79,8 +79,8 @@ export const createMessage = (message) => async (dispatch) => {
 }
 
 
-export const fetchThreadPreviews = (userId) => async (dispatch) => {
-    const res = await fetch(`/api/threads/threadPreviews/${userId}`);
+export const fetchThreadPreviews = () => async (dispatch) => {
+    const res = await fetch(`/api/threads/threadPreviews/`);
     
     if (res.ok) {
         const threadPreviews = await res.json();

@@ -18,7 +18,7 @@ const MessagePage = () => {
     const dispatch = useDispatch();
     // const threadPreviews = useSelector(state => state.threadPreviews)
     const thread = useSelector(state => state.thread)
-    const threadPreviews = useSelector(state => state.thread.threadPreviews);
+    // const threadPreviews = useSelector(state => state.thread.threadPreviews);
     const sessionUser = useSelector(state => state.session.user)
     
     const [currThreadId, setCurrThreadId] = useState(1);
@@ -30,11 +30,11 @@ const MessagePage = () => {
 
     useEffect(() => {
         (async () => {
-            const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews(sessionUser.id));
-            setCurrThreadId(() => threadPreviews[0].id);
-            // do this here or leave it in the other use effect??
-            await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
-            setIsLoaded(true);
+            const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews());
+            // setCurrThreadId(() => threadPreviews[0].id);
+            // // do this here or leave it in the other use effect??
+            // await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
+            // setIsLoaded(true);
         })()
     
     }, [dispatch])

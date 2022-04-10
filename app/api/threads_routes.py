@@ -1,6 +1,7 @@
+from concurrent.futures import thread
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm
-from app.models import db, Thread, Message
+from app.models import db, Thread, Message, User
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc, or_
 from flask_socketio import emit, send
@@ -11,11 +12,11 @@ threads_routes = Blueprint('threads', __name__)
 
 # ROUTES ##################################################################################
 
+
 @threads_routes.route('/<int:threadId>/')
 def get_thread(threadId):
     thread = Thread.query.get(threadId)
     return jsonify(thread.to_dict())
-
 
 
 @threads_routes.route('/<int:threadId>/', methods=["POST"])
@@ -40,18 +41,26 @@ def create_message(threadId):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+@threads_routes.route('/threadPreviews/')
+def get_thread_previews():
+    sessionUserId = int(session['_user_id'])
 
-# @threads_routes.route('/:threadId/')
-# def create_message(threadId):
-#     id = int(session['_user_id'])
+    user = User.query.get(sessionUserId)
 
-#     message = request.get_json(force=True)
+    threads_array = [thread for thread in user.threads]
+    threads_array.sort(key=lambda thread: thread.messages[-1].createdAt)
 
-#     print('\n\n\n\n\n', message, '\n\n\n')
+    # print("\n\n\nayayayay", [thread.messages[-1].id for thread in threads_array], "\n\n\nayayayay")
 
-#     return jsonify(posts)
+    threadPreviews = [{
+        "threadId": thread.id,
+        "threadName": thread.name,
+        "preview": thread.messages[-1].content,
+        "profileImage": thread.messages[-1].user.profileImageUrl
+    }
+        for thread in threads_array]
 
-
+    return jsonify(threadPreviews)
 
 
 # SOCKETS ##################################################################################
