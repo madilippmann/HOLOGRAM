@@ -22,6 +22,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
             const thread = await dispatch(threadsActions.createThread(Array.from(userIds)));
             await dispatch(threadsActions.fetchThreadPreviews());
             setCurrThreadId(thread.id);
+            setUserIds(new Set());
             setSelectedUsers([]);
         }
     }

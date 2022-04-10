@@ -38,15 +38,21 @@ def create_thread():
     # check the users property of the thread after adding the thread to every user
 
     users = User.query.filter(User.id.in_([sessionUserId, *users])).all()
+    sessionUser = [user for user in users if user.id == sessionUserId][0]
+    otherUsers = [user for user in users if user.id != sessionUser.id]
 
-    thread_name = ""
-    for user in users:
-        thread_name += f"{user.firstName}, "
+    thread_name = None
+    if len(users) == 2: 
+        thread_name = otherUsers[0].firstName
+    else: 
+        thread_name = "You, "
+        for user in otherUsers:
+            thread_name += f"{user.firstName}, "
+        thread_name = thread_name[0:-2]
 
-    thread = Thread(name=thread_name[0:-2])
+    thread = Thread(name=thread_name)
     db.session.add(thread)
     db.session.commit()
-    sessionUser = [user for user in users if user.id == sessionUserId][0]
 
     # this message prevents threadPreviews route from erroring out due to no messages (list index out of range)
     initial_message = Message(
