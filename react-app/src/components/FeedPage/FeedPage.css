@@ -15,11 +15,13 @@
 
 
 .no-feed-posts {
+    font-family: inherit;
     padding-top: 15px;
     margin: auto;
     font-weight: 600;
-    font-style: italic;
+    /* font-style: italic; */
     font-size: larger;
     text-align: center;
     color: rgba(0, 0, 0, 0.736);
+    letter-spacing: 1px;
 }

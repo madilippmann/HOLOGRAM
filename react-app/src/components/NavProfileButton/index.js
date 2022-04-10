@@ -65,12 +65,12 @@ export default function NavProfileButton({ user }) {
 								window.location.reload(false);
 							}}
 							style={{border: 'none', backgroundColor: 'transparent', padding: '2px'}}>
-							<p style={{letterSpacing: '1px', fontSize: '13px'}}>profile&nbsp;&nbsp;<FontAwesomeIcon icon={faUser}></FontAwesomeIcon></p>
+							<p style={{letterSpacing: '1px', fontSize: '14.5px'}}>profile&nbsp;&nbsp;<FontAwesomeIcon icon={faUser}></FontAwesomeIcon></p>
 
 						</button>
 					</div>
 					<div>
-						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 0)}>
+						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 0)} style={{width: '100%'}}>
 							settings&nbsp;&nbsp;
 							<FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
 						</NavLink>

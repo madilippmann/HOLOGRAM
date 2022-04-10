@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import LoadingBar, { showLoading, hideLoading } from 'react-redux-loading-bar';
+import LoadingSpinner from '../LoadingSpinner';
 
 import * as sessionActions from '../../store/session';
 import './SettingsPage.css';
@@ -20,6 +20,7 @@ function SettingsPage() {
     const [uploadFile, setUploadFile] = useState(null);
     const [validationErrors, setValidationErrors] = useState([]);
     const profileImage = sessionUser.profileImageUrl !== '/default-profile-image.png' ? sessionUser.profileImageUrl : defaultProfileImage
+    const [showLoading, setShowLoading] = useState(false);
 
     // useEffect(() => {
     //     const errors = [];
@@ -40,35 +41,49 @@ function SettingsPage() {
 
     const updateProfile = async (e) => {
         e.preventDefault();
-
+        setShowLoading(true);
         if (validationErrors.length) return validationErrors(true);
 
-        dispatch(showLoading());
 
-        const url = await s3upload(uploadFile)
-        const user = {
-            firstName: newFirstName,
-            lastName: newLastName,
-            bio: newBio,
-            userId: sessionUser.id,
-            profileImageUrl: url
+        let user;
+        if(uploadFile) {
+            user = {
+                firstName: newFirstName,
+                lastName: newLastName,
+                bio: newBio,
+                userId: sessionUser.id,
+                profileImageUrl: await s3upload(uploadFile)
+            }
         }
+        else {
+            user = {
+                firstName: newFirstName,
+                lastName: newLastName,
+                bio: newBio,
+                userId: sessionUser.id,
+                profileImageUrl: sessionUser.profileImageUrl
+            }
+        }
+
 
         await dispatch(sessionActions.editUser(user));
 
-        dispatch(hideLoading());
+        setShowLoading(false);
 
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         return history.push(`/${sessionUser.handle}`);
     }
 
-    return (
+    return showLoading ? (
+        <div id='updating'>
+            <LoadingSpinner />
+            <h2>Updating your infomation...</h2>
+        </div>
+    )
+    :
+    (
         <>
             <form onSubmit={updateProfile} id='settings-form'>
-                <LoadingBar style={{ backgroundColor: 'var(--color-apricot)', height: '12px', maxWidth: '500px', position: 'absolute', top: '0', left: '0', right: '0', margin: '0 auto' }} updateTime={100} progressIncrease={5} maxProgress={95} />
-                {/* <div className='profile-picture-container-settings-page'>
-                    <ProfileIcon user={sessionUser} />
-                </div> */}
                 <div id='left'>
                     <p>Update profile image</p>
                     <div id='upload-and-preview-section' style={{ 'display': 'block' }}>

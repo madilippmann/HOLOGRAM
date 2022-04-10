@@ -5,7 +5,7 @@ import Modal from '.';
 import PostModal from '../PostModal/index.js';
 
 
-export default function PostModalPopup({ postImageRef, post, blurImage, isSearchItem }) {
+export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
@@ -18,18 +18,18 @@ export default function PostModalPopup({ postImageRef, post, blurImage, isSearch
 		const profilePageBody = document.getElementById('profile-page');
 		if (showModal) {
 			// NOTE: blurring the root element will cause the navbar to move positions
-			// root.classList.add('blur');	
+			// root.classList.add('blur');
 
 			navbar.classList.add('blur');
 			navBackground.classList.remove('hidden');
-			
+
 			footer.classList.add('blur');
 			footerBackground.classList.remove('hidden');
-			
+
 			feedPageBody?.classList.add('blur');
 			profilePageBody?.classList.add('blur');
 		}
-		
+
 		return () => {
 			navbar.classList.remove('blur');
 			navBackground.classList.add('hidden');
@@ -53,7 +53,6 @@ export default function PostModalPopup({ postImageRef, post, blurImage, isSearch
 				) : (
 					<img
 						src={post.postImageUrl}
-						style={blurImage ? { filter: 'blur(3px)' } : {}}
 						id='post-image'
 						ref={postImageRef}
 						alt={`${post.user.handle}'s avatar`}
