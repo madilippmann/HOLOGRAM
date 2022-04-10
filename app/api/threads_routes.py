@@ -42,9 +42,9 @@ def create_thread():
     otherUsers = [user for user in users if user.id != sessionUser.id]
 
     thread_name = None
-    if len(users) == 2: 
+    if len(users) == 2:
         thread_name = otherUsers[0].firstName
-    else: 
+    else:
         thread_name = "You, "
         for user in otherUsers:
             thread_name += f"{user.firstName}, "
@@ -100,11 +100,17 @@ def get_thread_previews():
     threads_array = [thread for thread in user.threads]
     threads_array.sort(
         key=lambda thread: thread.messages[-1].createdAt, reverse=True)
+
+    print('\n\n\n\n\n', len(threads_array[0].users))
     threadPreviews = [{
         "threadId": thread.id,
         "threadName": thread.name,
         "preview": thread.messages[-1].content,
-        "profileImage": thread.messages[-1].user.profileImageUrl
+        # "profileImage": thread.messages[-1].user.profileImageUrl,
+        "profileImage": thread.users[1].profileImageUrl,
+        "numberOfUsers": len(thread.users)
+
+
     } for thread in threads_array]
 
     return jsonify(threadPreviews)
