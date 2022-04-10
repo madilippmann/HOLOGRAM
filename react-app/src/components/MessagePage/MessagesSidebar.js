@@ -3,7 +3,7 @@ import { sortByCreatedAt } from '../../utils.js';
 import './MessagesSidebar.css';
 
 
-const MessagesSidebar = ({ currThreadId, setCurrThreadId }) => {
+const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
     // Remember to setActiveThreadId onClick
 

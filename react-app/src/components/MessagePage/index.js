@@ -18,6 +18,7 @@ const MessagePage = () => {
     const dispatch = useDispatch();
     // const threadPreviews = useSelector(state => state.threadPreviews)
     const thread = useSelector(state => state.thread)
+    const threadPreviews = useSelector(state => state.thread.threadPreviews);
     const sessionUser = useSelector(state => state.session.user)
     
     const [currThreadId, setCurrThreadId] = useState(1);
@@ -27,15 +28,16 @@ const MessagePage = () => {
     const [disabled, setDisabled] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews())
-    //         setCurrThreadId(() => threadPreviews[0].id)
-    //         await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
-    //         setIsLoaded(true);
-    //     })()
+    useEffect(() => {
+        (async () => {
+            const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews(sessionUser.id));
+            setCurrThreadId(() => threadPreviews[0].id);
+            // do this here or leave it in the other use effect??
+            await dispatch(threadsActions.fetchThread(threadPreviews[0].id));
+            setIsLoaded(true);
+        })()
     
-    // }, [dispatch])
+    }, [dispatch])
 
     useEffect(() => {
         (async () => {
@@ -89,7 +91,7 @@ const MessagePage = () => {
     return !isLoaded ? null : (
         <div id='messages-page-container'>
             <div id='messages-sidebar'>
-                <MessagesSidebar currThreadId={currThreadId} setCurrThreadId={setCurrThreadId} /*threadPreviews={threadPreviews}*/ />
+                <MessagesSidebar currThreadId={currThreadId} setCurrThreadId={setCurrThreadId} threadPreviews={threadPreviews} />
             </div>
 
             <div id='messages-container'>

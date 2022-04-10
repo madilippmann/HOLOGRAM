@@ -3,11 +3,8 @@ import { normalizeThreads, normalizeOneLevel } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_THREAD = 'messages/ADD_THREAD';
 const LOAD_THREAD = 'messages/LOAD_THREAD'
-
-const LOAD_THREAD_PREVIEWS = 'messages/LOAD_THREAD_PREVIEWS'
-
 const ADD_MESSAGE = 'messages/ADD_MESSAGE'
-// const LOAD_MESSAGES = 'messages/LOAD_MESSAGES';
+const LOAD_THREAD_PREVIEWS = 'messages/LOAD_THREAD_PREVIEWS'
 
 // ACTION CREATORS ****************************************
 const addThread = (thread) => {
@@ -31,12 +28,12 @@ const addMessage = (message) => {
     }
 }
 
-// const loadMessages = (threadId) => {
-//     return {
-//         type: LOAD_MESSAGES,
-//         threadId
-//     }
-// }
+const loadThreadPreviews = (threadPreviews) => {
+    return {
+        type: LOAD_THREAD_PREVIEWS,
+        threadPreviews
+    }
+}
 
 // THUNK ACTION CREATORS **********************************
 export const createThread = (users) => async (dispatch) => {
@@ -82,7 +79,15 @@ export const createMessage = (message) => async (dispatch) => {
 }
 
 
-export const fetchThreadPreviews = () => async (dispatch) => { }
+export const fetchThreadPreviews = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/threads/threadPreviews/${userId}`);
+    
+    if (res.ok) {
+        const threadPreviews = await res.json();
+        dispatch(loadThreadPreviews(threadPreviews));
+        return threadPreviews;
+    }
+}
 
 // export const fetchMessages = (threadId) => async (dispatch) => {
 //     const res = await fetch(`/api/threads/${threadId}/`);
@@ -160,7 +165,6 @@ const threadsReducer = (state = { thread: {}, threadPreviews: [] }, action) => {
             }
         };
 
-
         case LOAD_THREAD: {
 
             return {
@@ -180,6 +184,13 @@ const threadsReducer = (state = { thread: {}, threadPreviews: [] }, action) => {
                     ...state.thread,
                     messages: [action.message, ...state.thread.messages],
                 }
+            }
+        }
+        
+        case LOAD_THREAD_PREVIEWS: {
+            return {
+                ...state,
+                threadPreviews: action.threadPreviews,
             }
         }
 
