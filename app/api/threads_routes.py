@@ -22,6 +22,7 @@ def get_thread(threadId):
 
 @threads_routes.route('/', methods=['POST'])
 def create_thread():
+    print('INSIDE \n\n\n\n\n')
     sessionUserId = int(session['_user_id'])
     users = request.get_json()
     if len(users) == 0:
@@ -60,6 +61,7 @@ def create_thread():
         thread.users.append(user)
     db.session.commit()
 
+    print('\n\n\n THREAD', thread.to_dict(), '\n\n\n')
     return jsonify(thread.to_dict())
 
 

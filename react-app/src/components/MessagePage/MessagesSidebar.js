@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sortByCreatedAt } from '../../utils.js';
 import * as threadsActions from '../../store/threads.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,15 +11,16 @@ import UserSearchBar from '../SearchBar/UserSearchBar.js';
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
-    const usersFromSearch = useSelector(state => state.search);
+    // const usersFromSearch = useSelector(state => state.search);
     const [userIds, setUserIds] = useState(new Set());
     const [selectedUsers, setSelectedUsers] = useState([]);
 
-    const createNewThread = async userIdArray => {
+    const createNewThread = async () => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
-        const selectedUsers = userIdArray.map(userId => usersFromSearch.find(user => user.id === userId).firstName);
-        if (window.confirm(`Create thread with ${selectedUsers.join(', ')}?`)) {
-            const thread = await dispatch(threadsActions.createThread([8]));
+        const users = selectedUsers.map(user => user.firstName);
+        if (window.confirm(`Create a thread with ${users.join(', ')}?`)) {
+            console.log(userIds);
+            const thread = await dispatch(threadsActions.createThread(userIds));
             await dispatch(threadsActions.fetchThreadPreviews());
             setCurrThreadId(thread.id);
         }
@@ -54,7 +54,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
                     <button type='button'
                         className='create-thread-button'
-                        onClick={() => createNewThread(userIds)}>
+                        onClick={createNewThread}>
                         create thread
                     </button>
                 </div>

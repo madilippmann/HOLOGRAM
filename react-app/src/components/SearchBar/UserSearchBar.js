@@ -22,10 +22,9 @@ const options = {
 
 export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers }) {
     const dispatch = useDispatch();
-    // const searchMenuRef = useRef();
-    const searchInputRef = useRef();
+    const sessionUser = useSelector(state => state.session.user);
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([] /* PUT USERS IN STATE IN HERE FOR TESTING W/O QUERY THUNK */);
+    const [results, setResults] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
@@ -93,7 +92,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
     }, [showMenu]);
 
     const addToSelectedUsers = user => {
-        if (userIds.has(user.id)) return;
+        if (userIds.has(user.id) || user.id === sessionUser.id) return;
         
         setUserIds(idSet => idSet.add(user.id));
         setSelectedUsers(selectedUsers => {
@@ -105,7 +104,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
     
     const onSubmit = e => {
         e.preventDefault();
-        addToSelectedUsers(results[0].item);
+        if (results[0].item) addToSelectedUsers(results[0].item);
     }
 
 
@@ -120,7 +119,6 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
                     onClick={openMenu}
                     onFocus={openMenu}
                     onKeyPress={openMenu}
-                    ref={searchInputRef}
                 />
                 <FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }} />
             </form>
