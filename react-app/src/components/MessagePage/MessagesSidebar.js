@@ -19,10 +19,10 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
         const users = selectedUsers.map(user => user.firstName);
         if (window.confirm(`Create a thread with ${users.join(', ')}?`)) {
-            console.log(userIds);
-            const thread = await dispatch(threadsActions.createThread(userIds));
+            const thread = await dispatch(threadsActions.createThread(Array.from(userIds)));
             await dispatch(threadsActions.fetchThreadPreviews());
             setCurrThreadId(thread.id);
+            setSelectedUsers([]);
         }
     }
     
