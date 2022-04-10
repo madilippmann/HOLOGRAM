@@ -83,13 +83,17 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
         };
 
         const dropdown = document.getElementById('user-search-dropdown');
+        const searchInput = document.getElementById('user-search-input')
         const listener = (e) => {
             if (dropdown.contains(e.target)) {
                 setQuery('');
+                closeMenu();
                 dropdown.style.display = 'none';
-            } else if (!dropdown.contains(e.target) && e.target !== searchInputRef.current) {
+            } else if (!dropdown.contains(e.target) && e.target !== searchInput) {
                 dropdown.style.display = 'flex';
                 closeMenu();
+            } else if (e.target === searchInput) {
+                openMenu();
             }
         }
 
@@ -115,10 +119,11 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
         <div className='search user-search-wrapper'>
             <form className="search__form user-search">
                 <input type="text" placeholder="search"
-                    className=""
+                    id='user-search-input'
                     value={query}
                     onChange={e => setQuery(e.target.value)}
                     onClick={openMenu}
+                    onFocus={openMenu}
                     onKeyPress={openMenu}
                     ref={searchInputRef}
                 />

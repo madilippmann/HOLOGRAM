@@ -93,6 +93,7 @@ export default function SearchBar() {
 				console.log('in here');
 			} else if (searchMenuRef.current?.contains(e.target)) {
 				searchMenuRef.current.style.display = 'none';
+				closeMenu();
 			}
 		}
 
