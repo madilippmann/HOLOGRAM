@@ -91,23 +91,8 @@ const NavBar = () => {
 					</div>
 
 
-<<<<<<< HEAD
-				<div className="nav__right">
-					<div className="nav__buttons">
-						<Link to='/'>
-							<FontAwesomeIcon icon={faHouse} className='nav__icon' />
-						</Link>
-						<Link to='/posts/new'>
-							<FontAwesomeIcon icon={faCirclePlus} className='nav__icon' />
-						</Link>
-						{/* FIX FIX FIX Change route to /messages */}
-						<Link to={`/messages`}>
-							<FontAwesomeIcon icon={faEnvelope} className='nav__icon' />
-						</Link>
-=======
 					<div className="search-bar">
 						<SearchBar />
->>>>>>> main
 					</div>
 
 
