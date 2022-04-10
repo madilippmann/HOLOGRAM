@@ -30,6 +30,8 @@
     align-items: center;
 }
 
+
+
 .create-thread-button {
     width: 110px;
     height: 24px;
@@ -91,5 +93,19 @@
     width: 100%;
     background-color: transparent;
     border: none;
+    padding: 0 20px;
+    transition: background-color .15s ease-in-out;
+}
+
+
+.thread-previews-container button#true {
+    background-color: rgb(208, 208, 255);
+    border-right: 5px solid var(--color-purple);
+    border-right: 5px solid rgb(157, 157, 248);
+}
+
+
+.thread-previews-container button:hover {
+    background-color: rgb(225, 225, 249);
 
 }
