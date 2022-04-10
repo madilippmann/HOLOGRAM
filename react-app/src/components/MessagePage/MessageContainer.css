@@ -28,9 +28,13 @@
     /* height: 20%;   */
     background-color: rgba(255, 201, 181, .305);
     padding: 20px;
+    color: rgb(123, 123, 123);
 }
 .messages-inner-container h2 {
     margin: 0;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-size: 20px;
 }
 
 /* MESSAGES ****************************/
@@ -40,10 +44,11 @@
 }
 
 #messages-map {
-    height: 80%;
+    height: 100%;
     padding: 16px;
     overflow-y: scroll;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.40);
+    border: 2px solid rgba(255, 201, 181, 0.305);
 
 
     display: flex;
@@ -169,7 +174,8 @@
 }
 
 .input__container {
-    background-color: rgba(255, 255, 255, 0.924);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgba(255, 201, 181, 0.305);
     padding: 15px;
     display: flex;
     width: 100%;
