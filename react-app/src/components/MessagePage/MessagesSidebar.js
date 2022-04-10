@@ -79,7 +79,8 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                             {preview.numberOfUsers > 3 &&
                                 <div className='preview__avatar group'>
                                     <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                    <div id='circle' />
+                                    <div id='circle1' />
+                                    <div id='circle2' />
                                 </div>
 
                             }
