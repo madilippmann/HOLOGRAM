@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     padding: 16px;
-    border-bottom: 6px solid rgb(208,208,255);
+    border-bottom: 6px solid rgb(208, 208, 255);
 
     position: relative;
 }
@@ -12,9 +12,7 @@
     height: 40px;
 }
 
-#selected-users {
-
-}
+#selected-users {}
 
 .selected-users-map {
     padding-top: 4px;
@@ -43,7 +41,8 @@
 
 .create-thread-button {
     position: absolute;
-    top: 21px; right: 24px;
+    top: 21px;
+    right: 24px;
 }
 
 .x-button {
@@ -55,6 +54,7 @@
     top: 1px;
     transition: color .2s;
 }
+
 .x-button:hover {
     cursor: pointer;
     color: var(--color-red)
@@ -81,7 +81,7 @@
 
 .thread-previews-container::-webkit-scrollbar {
     width: 10px;
-  }
+}
 
 .thread-previews-container::-webkit-scrollbar-track {
     background: transparent;
@@ -132,7 +132,7 @@
     right: 70px;
 }
 
-.preview__avatar > img{
+.preview__avatar>img {
     width: 40px;
     height: 40px;
     border-radius: 100%;
@@ -159,7 +159,7 @@ span.line-clamp {
 }
 
 
-.preview__avatar.group img{
+.preview__avatar.group img {
     z-index: 5;
 }
 

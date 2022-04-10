@@ -51,9 +51,6 @@
     border: 4px solid rgba(157, 174, 252, 0.135);
     border-left: 0;
 
-
-
-
     display: flex;
     flex-direction: column;
 }
@@ -135,7 +132,7 @@
     background-color: rgb(238, 238, 238);
     color: var(--color-black);
     border-radius: 15px;
-    padding: 10px;
+    padding: 12px;
     font-size: 14px;
 }
 
