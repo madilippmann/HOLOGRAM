@@ -45,11 +45,18 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
                 <div id='selected-users'>
                     <div className='selected-users-map'>
-                        {selectedUsers.map(user => (
-                            <span key={user.id} className="selected-user">
-                                {user.handle} <FontAwesomeIcon icon={faXmark} className='x-button' onClick={() => removeFromSelectedUsers(user.id)} />
-                            </span>
-                        ))}
+                        {!selectedUsers.length
+                            ? <span style={{ fontSize: '14px', padding: '8px', color: 'gray' }}>search for someone to start a conversation...</span>
+                            : (
+                                <>
+                                    {selectedUsers.map(user => (
+                                        <span key={user.id} className="selected-user">
+                                            {user.handle} <FontAwesomeIcon icon={faXmark} className='x-button' onClick={() => removeFromSelectedUsers(user.id)} />
+                                        </span>
+                                    ))}
+                                </>
+                            )}
+
                     </div>
 
                     <button type='button'

@@ -23,9 +23,14 @@
 
 .selected-user {
     padding: 0 10px;
-    margin: 4px 0;
+    margin: 6px 0;
     margin-right: 12px;
+    border-radius: 6px;
+    
     font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .1px;
+    color: var(--color-dark-gray);
     background-color: var(--color-apricot);
     display: flex;
     align-items: center;

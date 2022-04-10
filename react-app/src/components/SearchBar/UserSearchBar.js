@@ -120,7 +120,6 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
                     onFocus={openMenu}
                     onKeyPress={openMenu}
                 />
-                {/* <FontAwesomeIcon icon={faSearch} style={{ color: 'var(--color-dark-gray)' }} /> */}
             </form>
 
             {showMenu && (
@@ -129,7 +128,7 @@ export default function UserSearchBar({ userIds, setUserIds, setSelectedUsers })
 
                     {results.slice(0, 20).map((result, i) => (
                         <span key={i} onClick={() => addToSelectedUsers(result.item)} className="search-item">
-                            <div style={{ width: '42px', height: '42px' }}>
+                            <div style={{ width: '42px', minWidth: '42px', height: '42px', maxHeight: '42px' }}>
                                 <ProfileIcon user={result.item} />
                             </div>
                             <div className='item-details'>
