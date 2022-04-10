@@ -1,7 +1,7 @@
 /* CONTAINERS ****************************/
 .messages-inner-container {
     height: 100%;
-        
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -21,25 +21,61 @@
     height: 80%;
     padding: 16px;
     overflow-y: scroll;
-    
+
     display: flex;
     flex-direction: column;
 }
 
-#messages-map .me {
+#messages-map .me, .me .message__name-and-date {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
-#messages-map .friend {
+
+
+
+#messages-map .friend, .friend .message__name-and-date {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
+
 #messages-map p {
     margin-top: 0;
     max-width: 60%;
+}
+
+
+#messages-map .message__name-and-date {
+    padding: px 0;
+}
+
+#messages-map .message__name-and-date * {
+    margin: 0;
+    padding: 0;
+}
+
+
+.message-and-avatar {
+    display: flex;
+    align-items: flex-end;
+}
+.me .message-and-avatar {
+    flex-direction: row-reverse;
+}
+
+
+.message__content {
+    background-color: rgb(238, 238, 238);
+    color: var(--color-black);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.me .message__content {
+    background-color: rgb(206, 206, 255);
+
 }
 
 /* FORM ***********************************/
