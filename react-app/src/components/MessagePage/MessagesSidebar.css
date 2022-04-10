@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     padding: 16px;
-    border-bottom: 6px solid rgb(208,208,255);
+    border-bottom: 2px solid rgb(157, 157, 248);
 
     position: relative;
 }
@@ -12,9 +12,7 @@
     height: 40px;
 }
 
-#selected-users {
 
-}
 
 .selected-users-map {
     padding-top: 4px;
@@ -80,7 +78,7 @@
 }
 
 .thread-previews-container::-webkit-scrollbar {
-    width: 10px;
+    width: 0px;
   }
 
 .thread-previews-container::-webkit-scrollbar-track {
@@ -130,6 +128,7 @@
 .thread-name-and-preview.move-left {
     position: relative;
     right: 70px;
+    width: calc(100% + 70px);
 }
 
 .preview__avatar > img{
@@ -150,6 +149,7 @@
 .preview__avatar.group {
     display: flex;
     /* width: 40px; */
+    /* width: calc(inherit + 70px) */
 }
 
 span.line-clamp {
