@@ -76,7 +76,7 @@
 
 .thread-previews-container::-webkit-scrollbar-thumb {
     /* background-color: #cc2424; */
-    background-color: #9d9d9d3b;
+    background-color: #d3d3d33b;
     border-radius: 10px;
     border: none;
 }

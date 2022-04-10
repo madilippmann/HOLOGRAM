@@ -27,6 +27,7 @@
 .messages-header {
     /* height: 20%;   */
     background-color: rgba(255, 201, 181, .305);
+    background-color: rgba(157, 174, 252, 0.135);
     padding: 20px;
     color: rgb(123, 123, 123);
 }
@@ -49,6 +50,8 @@
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, 0.40);
     border: 2px solid rgba(255, 201, 181, 0.305);
+    border: 4px solid rgba(157, 174, 252, 0.135);
+
 
 
     display: flex;
@@ -170,12 +173,13 @@
     height: 50px;
     display: flex;
     align-items: flex-end;
-    background-color: rgba(255, 201, 181, 0.305);
+    /* background-color: rgba(255, 201, 181, 0.305); */
 }
 
 .input__container {
     background-color: rgb(255, 255, 255);
     border: 2px solid rgba(255, 201, 181, 0.305);
+    border: 4px solid rgba(157, 174, 252, 0.135);
     padding: 15px;
     display: flex;
     width: 100%;
