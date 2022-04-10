@@ -37,7 +37,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
         setSelectedUsers(selectedUsers => selectedUsers.filter(user => user.id !== userId));
     }
 
-    console.log(threadPreviews)
+    
     return (
         <>
             <div className='new-message-thread'>
