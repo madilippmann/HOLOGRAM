@@ -9,7 +9,6 @@
 
 #messages-sidebar {
     width: 30%;
-    padding: 16px;
     height: 100%;
     /* border: 1px solid rgba(128, 128, 128, 0.513); */
     background-color: rgba(255, 201, 181, .305);
@@ -38,7 +37,6 @@
 }
 
 #messages-sidebar::-webkit-scrollbar-thumb {
-    /* background-color: #cc2424; */
     background-color: #9d9d9d14;
     border-radius: 10px;
     border: none;
