@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { sortByCreatedAt } from '../../utils.js';
 import * as threadsActions from '../../store/threads.js';
 
@@ -10,12 +10,17 @@ import UserSearchBar from '../SearchBar/UserSearchBar.js';
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
+    const usersFromSearch = useSelector(state => state.search);
+    const [userIds, setUserIds] = useState(new Set());
 
-    const createNewThread = async e => {
+    const createNewThread = async userIdArray => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
-        const thread = await dispatch(threadsActions.createThread([8]));
-        await dispatch(threadsActions.fetchThreadPreviews());
-        setCurrThreadId(thread.id);
+        const selectedUsers = userIdArray.map(userId => usersFromSearch.find(user => user.id === userId).firstName);
+        if (window.confirm(`Create thread with ${selectedUsers.join(', ')}?`)) {
+            const thread = await dispatch(threadsActions.createThread([8]));
+            await dispatch(threadsActions.fetchThreadPreviews());
+            setCurrThreadId(thread.id);
+        }
     }
 
     return (
@@ -29,10 +34,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
                 <div id='selected-users'>
                     <div>[selected users will go here]</div>
-                    <button type='button' onClick={createNewThread}>
+                    <button type='button' onClick={() => createNewThread(userIds)}>
                         create thread
                     </button>
-                    <div style={{ color: 'red' }}>(this is a hard coded value right now)</div>
                 </div>
             </div>
 
