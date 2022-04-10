@@ -58,7 +58,7 @@ export default function SearchBar() {
 					}
 					// for users
 					if (item.handle !== undefined) {
-						if (!postsSet.has(item.id)) return true;
+						if (!usersSet.has(item.id)) return true;
 					}
 				})
 				
