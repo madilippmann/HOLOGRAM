@@ -25,6 +25,14 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
             setCurrThreadId(thread.id);
         }
     }
+    
+    const removeFromSelectedUsers = userId => {
+        setUserIds(idSet => {
+            idSet.delete(userId);
+            return idSet;
+        });
+        setSelectedUsers(selectedUsers => selectedUsers.filter(user => user.id !== userId));
+    }
 
     return (
         <>
@@ -39,7 +47,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                     <div className='selected-users-map'>
                         {selectedUsers.map(user => (
                             <span key={user.id} className="selected-user">
-                                {user.handle} <FontAwesomeIcon icon={faXmark} className='x-button' />
+                                {user.handle} <FontAwesomeIcon icon={faXmark} className='x-button' onClick={() => removeFromSelectedUsers(user.id)} />
                             </span>
                         ))}
                     </div>
