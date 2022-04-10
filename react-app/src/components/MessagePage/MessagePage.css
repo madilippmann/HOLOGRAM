@@ -3,6 +3,7 @@
     /* max-height: 500px; */
 
     display: flex;
+    padding-top: 20px;
     /* grid-template-columns: 30% 70%; */
 }
 
@@ -10,16 +11,17 @@
     width: 30%;
     padding: 16px;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid rgba(128, 128, 128, 0.513); */
+    background-color: rgba(255, 201, 181, .305);
 
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 #messages-container {
     height: 100%;
     width: 70%;
     /* padding: 16px 32px; */
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     position: relative;
 
 }

@@ -1,7 +1,6 @@
 /* CONTAINERS ****************************/
 .messages-inner-container {
     height: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -37,12 +36,15 @@
 /* MESSAGES ****************************/
 #message-container {
     padding-top: 10px;
+
 }
 
 #messages-map {
     height: 80%;
     padding: 16px;
     overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.5);
+
 
     display: flex;
     flex-direction: column;
@@ -131,6 +133,9 @@
 
 .me .message__content {
     background-color: rgb(206, 206, 255);
+    background-color: rgb(141, 141, 244);
+
+    color: rgb(236, 236, 236);
 
 }
 

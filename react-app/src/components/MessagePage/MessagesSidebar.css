@@ -13,7 +13,7 @@
 
 #selected-users {
     height: 100px;
-    border: 1px solid green;    
+    border: 1px solid green;
     display: flex;
     flex-direction: column;
 }
@@ -21,7 +21,7 @@
 .selected-users-map {
     /* display: flex; */
     /* flex-direction: row; */
-    
+
 }
 
 .selected-user {
@@ -35,6 +35,8 @@
 /* THREAD PREVIEWS **********************/
 .thread-previews-container {
     padding: 8px 0;
+    overflow-y: auto;
+    width: 100%;
 }
 
 .thread-preview {

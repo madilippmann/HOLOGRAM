@@ -35,7 +35,8 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
                     return (
                         <div key={message.id} id='message-container' className={message.userId === sessionUser.id ? 'me' : 'friend'}>
                             <div className='message__name-and-date'>
-                                <h4 className='message__name'>{message.user.firstName}</h4>
+                                {message.userId !== sessionUser.id && <h4 className='message__name'>{message.user.firstName}</h4>}
+
                                 <h6 className='message__date'>{getTimeElapsed(message.createdAt)}</h6>
                             </div>
                             <div className='message-and-avatar'>
