@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './MessageContainer.css'
 
-const MessageContainer = ({ thread, onSubmit, message, setMessage, disabled }) => {
+const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, disabled }) => {
     const sessionUser = useSelector(state => state.session.user);
 
     // scroll messages to bottom on load
@@ -22,7 +22,7 @@ const MessageContainer = ({ thread, onSubmit, message, setMessage, disabled }) =
             </div>
 
             <div id='messages-map'>
-                {thread.messages.map((message) => {
+                {messages.map((message) => {
                     return (
                         <div key={message.id} className={message.userId === sessionUser.id ? 'me' : 'friend'}>
                             <h4>{message.user.handle}</h4>

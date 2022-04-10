@@ -2,9 +2,9 @@ from audioop import reverse
 from concurrent.futures import thread
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm
-from app.models import db, Thread, Message, User
+from app.models import db, Thread, Message, User, Message
 from app.api.utils import validation_errors_to_error_messages
-from sqlalchemy import desc, or_, in_
+# from sqlalchemy import in_
 from flask_socketio import emit, send
 from app.forms import CreateMessageForm
 
@@ -24,7 +24,8 @@ def get_thread(threadId):
 def create_thread():
     sessionUserId = int(session['_user_id'])
     users = request.get_json()
-    if len(users) == 0: return jsonify('error: must send users to add to thread')
+    if len(users) == 0:
+        return jsonify('error: must send users to add to thread')
 
     # TODO
     # query for all users that are going to be in the thread
@@ -34,21 +35,29 @@ def create_thread():
     # return the newly created thread
     # CHECK
     # check the users property of the thread after adding the thread to every user
-    
+
     users = User.query.filter(User.id.in_([sessionUserId, *users])).all()
-    
+
     thread_name = ""
     for user in users:
         thread_name += f"{user.firstName}, "
-    
+
     thread = Thread(name=thread_name[0:-2])
-    
+    sessionUser = [user for user in users if user.id == sessionUserId]
+    # this message prevents threadPreviews route from erroring out due to no messages (list index out of range)
+    initial_message = Message(
+        threadId=thread.id,
+        userId=sessionUserId,
+        content=f"HOLOGRAM: {sessionUser.firstName} {sessionUser.lastName} started a new message thread. Say hi!"
+    )
+    thread.messages.append(initial_message)
+
     for user in users:
         thread.users.append(user)
     db.session.commit()
 
-    print(thread.users)
-    return jsonify(thread)
+    print("\n\n", thread.users, "\n\n")
+    return jsonify(thread.to_dict())
 
 
 @threads_routes.route('/<int:threadId>/', methods=["POST"])

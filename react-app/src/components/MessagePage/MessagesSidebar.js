@@ -10,8 +10,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
 
-    const createNewThread = e =>  {
-        dispatch(threadsActions.createThread([3]))
+    const createNewThread = async e =>  {
+        const thread = await dispatch(threadsActions.createThread([3]))
+        console.log("FUCKING SAUCE",thread);
     }
 
     return (
