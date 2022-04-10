@@ -11,8 +11,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     const dispatch = useDispatch();
 
     const createNewThread = async e =>  {
-        const thread = await dispatch(threadsActions.createThread([4]))
-        console.log("FUCKING SAUCE",thread);
+        const thread = await dispatch(threadsActions.createThread([5]));
+        await dispatch(threadsActions.fetchThreadPreviews());
+        setCurrThreadId(thread.id);
     }
 
     return (
