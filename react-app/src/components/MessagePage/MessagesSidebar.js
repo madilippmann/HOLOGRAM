@@ -10,8 +10,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
 
-    const createNewThread = async e =>  {
-        const thread = await dispatch(threadsActions.createThread([5]));
+    const createNewThread = async e => {
+        // make sure users don't make the same thread twice? won't error out if they do, but just preference
+        const thread = await dispatch(threadsActions.createThread([8]));
         await dispatch(threadsActions.fetchThreadPreviews());
         setCurrThreadId(thread.id);
     }

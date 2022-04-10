@@ -27,7 +27,7 @@ def create_thread():
     if len(users) == 0:
         return jsonify('error: must send users to add to thread')
 
-    # TODO
+    # PLAN:
     # query for all users that are going to be in the thread
     # (OPTIONAL?) check in db for a thread that already has all of the specified users
     # make new thread with a name of the first names of the users in the thread
@@ -47,7 +47,7 @@ def create_thread():
     db.session.add(thread)
     db.session.commit()
     sessionUser = [user for user in users if user.id == sessionUserId][0]
-    
+
     # this message prevents threadPreviews route from erroring out due to no messages (list index out of range)
     initial_message = Message(
         threadId=thread.id,
