@@ -15,17 +15,11 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
         messagesMap.scrollTop = messagesMap.scrollHeight - messagesMap.clientHeight;
     }, [])
 
-    const threadUserNames = () => {
-        let users = Object.values(thread.users)
-        const names = users.map(user => user.firstName)
-        return names.join(', ')
-    }
-
 
     return (
         <div className='messages-inner-container'>
             <div className='messages-header'>
-                <h2 className='thread-name'>{threadUserNames()}</h2>
+                <h2 className='thread-name'>{thread.threadName}</h2>
             </div>
 
             <div id='messages-map'>
