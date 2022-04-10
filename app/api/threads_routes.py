@@ -29,6 +29,7 @@ def create_thread():
 
     # TODO
     # query for all users that are going to be in the thread
+    # (OPTIONAL?) check in db for a thread that already has all of the specified users
     # make new thread with a name of the first names of the users in the thread
     # append each user to the 'users' property of the new thread
     # db.session.commit()
@@ -43,20 +44,22 @@ def create_thread():
         thread_name += f"{user.firstName}, "
 
     thread = Thread(name=thread_name[0:-2])
-    sessionUser = [user for user in users if user.id == sessionUserId]
+    db.session.add(thread)
+    db.session.commit()
+    sessionUser = [user for user in users if user.id == sessionUserId][0]
+    
     # this message prevents threadPreviews route from erroring out due to no messages (list index out of range)
     initial_message = Message(
         threadId=thread.id,
         userId=sessionUserId,
-        content=f"HOLOGRAM: {sessionUser.firstName} {sessionUser.lastName} started a new message thread. Say hi!"
+        content=f"HOLOGRAM: {sessionUser.firstName} {sessionUser.lastName} started a new message thread with you. Say hi!"
     )
-    thread.messages.append(initial_message)
+    db.session.add(initial_message)
 
     for user in users:
         thread.users.append(user)
     db.session.commit()
 
-    print("\n\n", thread.users, "\n\n")
     return jsonify(thread.to_dict())
 
 
