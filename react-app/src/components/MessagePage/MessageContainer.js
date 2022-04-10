@@ -4,7 +4,7 @@ import { getTimeElapsed } from '../../utils';
 import './MessageContainer.css'
 
 import defaultProfileImage from '../../static/default-profile-image.png'
-
+import { UilMessage } from '@iconscout/react-unicons';
 
 const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, disabled }) => {
     const sessionUser = useSelector(state => state.session.user);
@@ -53,14 +53,27 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
             </div>
 
             <form onSubmit={onSubmit} className="message-form">
-                <input
-                    type='text'
-                    onChange={(e) => setMessage(e.target.value)}
-                    value={message}
-                    placeholder='start message...'
+                <div className='input__container'>
+                    <input
+                        type='text'
+                        onChange={(e) => setMessage(e.target.value)}
+                        value={message}
+                        placeholder='start message...'
 
-                />
-                <button type='submit' id='message-submit' disabled={disabled}>send</button>
+                    />
+                    {/* {message.length ?
+                        <button type='submit' id='message-submit' disabled={disabled}>
+                            <UilMessage size='25' />
+                        </button>
+                        : null
+                    } */}
+
+                    <button type='submit' id='message-submit' disabled={disabled} className={`${disabled}`}>
+                        <UilMessage size='25' id='send-icon' />
+                    </button>
+
+
+                </div>
 
             </form>
         </div>
