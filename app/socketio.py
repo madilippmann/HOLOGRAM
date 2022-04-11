@@ -4,12 +4,13 @@ from .models import User
 import os
 
 if os.environ.get('FLASK_ENV') == 'production':
-    origin = ['https://hologram--app.herokuapp.com', 'http://hologram--app.herokuapp.com']
+    origins = ['https://hologram--app.herokuapp.com', 'http://hologram--app.herokuapp.com']
 else:
-    origin = "*"
+    origins = "*"
 
 
-socketio = SocketIO(cors_allowed_origins="*", logger=True, engineio_logger=True, async_mode='eventlet')
+
+socketio = SocketIO(cors_allowed_origins=origins, async_mode='eventlet')
 
 
 # CONNECTION STUFF
