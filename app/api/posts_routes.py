@@ -9,15 +9,15 @@ posts_routes = Blueprint('posts', __name__)
 # ROUTES ##################################################################################
 
 
-@posts_routes.route('/')
-def get_feed_posts():
+@posts_routes.route('/pages/<int:pageNum>/')
+def get_feed_posts(pageNum):
     id = int(session['_user_id'])
     sessionUser = User.query.get(id)
     userIds = [user.id for user in sessionUser.following]
 
     posts = Post.query.filter(or_(Post.userId.in_(
-        userIds), Post.userId == id)).order_by(desc(Post.createdAt)).all()
-    posts = [post.to_dict() for post in posts]
+        userIds), Post.userId == id)).order_by(desc(Post.createdAt)).paginate(page=pageNum, per_page=9)
+    posts = [post.to_dict() for post in posts.items]
 
     return jsonify(posts)
 

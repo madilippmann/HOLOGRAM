@@ -79,11 +79,12 @@ const removeLike = (postId, likeId) => {
 
 //POSTS THUNKS
 
-export const fetchPosts = (type = 'feed', userId = null) => async dispatch => {
+export const fetchPosts = (type = 'feed', userId = null, page = 1) => async dispatch => {
     let res;
 
     if (type === 'feed') {
-        res = await fetch(`/api/posts/`);
+        // userId should is not specified because backend route will use session user
+        res = await fetch(`/api/posts/pages/${page}/`);
     } else if (type === 'profile') {
         res = await fetch(`/api/users/${userId}/posts/`);
     }
