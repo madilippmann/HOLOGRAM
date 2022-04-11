@@ -120,6 +120,7 @@
 }
 
 .message-and-avatar {
+    max-width: 80%;
     display: flex;
     align-items: flex-end;
 }
@@ -129,6 +130,7 @@
 
 
 .message__content {
+    box-sizing: content-box;
     background-color: rgb(238, 238, 238);
     color: var(--color-black);
     border-radius: 15px;
