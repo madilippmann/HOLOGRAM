@@ -11,3 +11,15 @@
 #loading-spinner {
     width: 120px;
 }
+
+#loading-spinner-container h4 {
+    width: 400px;
+    text-align: center;
+    position: fixed;
+    letter-spacing: 1px;
+    top: 115px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+
+}

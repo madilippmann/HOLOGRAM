@@ -9,6 +9,10 @@ import FeedColumn from './FeedColumn';
 import { sortByCreatedAt } from '../../utils';
 import LoadingSpinner from '../LoadingSpinner';
 
+import emptyFeedImage1 from '../../static/feed-empty-1.jpg'
+import emptyFeedImage2 from '../../static/feed-empty-2.jpg'
+import emptyFeedImage3 from '../../static/feed-empty-3.jpg'
+
 function FeedPage() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
@@ -20,7 +24,7 @@ function FeedPage() {
     useEffect(() => {
         (async () => {
             await dispatch(postsActions.fetchPosts('feed', null));
-            setIsLoaded(() => !isLoaded);
+            setIsLoaded(() => true);
         })()
     }, [dispatch]);
 
@@ -53,19 +57,19 @@ function FeedPage() {
     useEffect(() => {
         const scrolling_function = async () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 100) {
-                window.removeEventListener('scroll',scrolling_function);
+                window.removeEventListener('scroll', scrolling_function);
                 await dispatch(postsActions.fetchPosts('feed', null, nextPage));
                 setNextPage(prev => prev + 1);
             }
         }
-        
+
         window.addEventListener('scroll', scrolling_function);
-        
+
         return () => {
             window.removeEventListener('scroll', scrolling_function);
         }
     }, [nextPage]);
-    
+
     return !isLoaded ? <LoadingSpinner /> : (
         <div>
             {Object.values(posts).length > 0 ?
@@ -75,10 +79,24 @@ function FeedPage() {
                     <FeedColumn column={postsForListThree} />
                 </div>
                 :
-                <>
-                    <h2 className='no-feed-posts' style={{ fontWeight: 'bolder', fontSize: '25px' }}>Welcome to Hologram</h2>
-                    <h4 className='no-feed-posts'>Follow people to start seeing the photos they share</h4>
-                </>
+                <div id='empty-feed'>
+                    <div className='empty-feed-header'>
+                        <h2 className='no-feed-posts' style={{ fontWeight: 'bolder', fontSize: '25px', letterSpacing: '4px', fontStyle: 'italic' }}>welcome to hologram</h2>
+                        <h4 className='no-feed-posts' style={{ fontSize: '16px' }}>follow people to start seeing the photos they share</h4>
+                    </div>
+                    <img
+                        src={emptyFeedImage1}
+                        alt='friends'
+                    />
+                    <img
+                        src={emptyFeedImage3}
+                        alt='friends'
+                    />
+                    <img
+                        src={emptyFeedImage2}
+                        alt='friends'
+                    />
+                </div>
             }
         </div>
     );

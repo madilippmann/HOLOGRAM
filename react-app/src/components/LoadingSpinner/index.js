@@ -11,7 +11,7 @@ export default function LoadingSpinner() {
                 alt="loading-spinner"
                 id="loading-spinner"
             />
-
+            <h4>please wait while we load your page...</h4>
         </div>
     )
 }
