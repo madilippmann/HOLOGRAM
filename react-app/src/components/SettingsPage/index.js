@@ -74,10 +74,10 @@ function SettingsPage() {
         return history.push(`/${sessionUser.handle}`);
     }
 
-    return showLoading ? (
+    return !showLoading ? (
         <div id='updating'>
             <LoadingSpinner />
-            <h2>Updating your infomation...</h2>
+            {/* <h2>Updating your infomation...</h2> */}
         </div>
     ) : (
         <>
