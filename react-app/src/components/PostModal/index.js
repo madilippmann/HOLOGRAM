@@ -16,7 +16,7 @@ import './PostModal.css'
 
 import { sortByCreatedAt } from '../../utils';
 
-export default function PostModal({ postId }) {
+export default function PostModal({ postId, setShowModal }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -46,6 +46,7 @@ export default function PostModal({ postId }) {
 
     const deletePost = async () => {
         if (window.confirm('Are you sure you want to delete your post?')) {
+            setShowModal(false);
             await dispatch(postsActions.deletePost(post.id));
             return history.push('/');
         }
