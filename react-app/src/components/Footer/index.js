@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './Footer.css';
 
 export default function Footer() {
@@ -18,15 +20,31 @@ export default function Footer() {
 				 <ul>
  						<li>
 							Madi Lippmann
-							<a href='https://github.com/madilippmann'>
-								<img
-									className='link-logo'
-									src='https://i.pinimg.com/originals/48/e0/73/48e07378e01dd719c060c1f2f2b5cb00.png'
-									alt='github logo' />
+							<a href='https://github.com/madilippmann' target="_blank" rel="noreferrer">
+								<FontAwesomeIcon icon={faGithub} className='link-logo'/>
+							</a>
+							<a href='https://www.linkedin.com/in/madilippmann/' target="_blank" rel="noreferrer">
+								<FontAwesomeIcon icon={faLinkedin} className='link-logo'/>
 							</a>
 						</li>
- 						<li>Nick Esqueda</li>
- 						<li>Kevin Pravia Mayorga</li>
+ 						<li>
+							Nick Esqueda
+							<a href='https://github.com/nick-esqueda' target="_blank" rel="noreferrer">
+								<FontAwesomeIcon icon={faGithub} className='link-logo'/>
+							</a>
+							<a href='https://www.linkedin.com/in/nick-esqueda/' target="_blank" rel="noreferrer">
+								<FontAwesomeIcon icon={faLinkedin} className='link-logo'/>
+							</a>
+						</li>
+ 						<li>
+							Kevin Pravia Mayorga
+							<a href='https://github.com/reversalbino' target="_blank" rel="noreferrer">
+								<FontAwesomeIcon icon={faGithub} className='link-logo'/>
+							</a>
+							<a href='https://www.linkedin.com/in/kevin-pravia-mayorga-51380817a' target="_blank" rel="noreferrer">
+								<FontAwesomeIcon icon={faLinkedin} className='link-logo'/>
+							</a>
+						</li>
  					</ul>
  				</div>
  			</footer>
