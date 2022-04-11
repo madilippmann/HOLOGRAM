@@ -51,28 +51,22 @@ function FeedPage() {
     }
 
     useEffect(() => {
-        const scrolling_function = () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 100){
-                console.log("fetching more.........")
-                dispatch(postsActions.fetchPosts('feed', null, nextPage));
-                
-                setNextPage(prev => prev + 1);
+        const scrolling_function = async () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 100) {
+                console.log("fetching next page...")
                 window.removeEventListener('scroll',scrolling_function);
+                await dispatch(postsActions.fetchPosts('feed', null, nextPage));
+                setNextPage(prev => prev + 1);
             }
         }
+        
         window.addEventListener('scroll', scrolling_function);
+        
+        return () => {
+            window.removeEventListener('scroll', scrolling_function);
+        }
     }, [nextPage]);
     
-    // useEffect(() => {
-    //     const onScroll = function () {
-    //        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    //          console.log("you're at the bottom of the page")
-    //        }
-    //     }
-    //     window.addEventListener('scroll', onScroll)
-    //     return () => window.removeEventListener('scroll', onScroll)
-    //  }, [])
-
     return !isLoaded ? <LoadingSpinner /> : (
         <div>
             {Object.values(posts).length > 0 ?

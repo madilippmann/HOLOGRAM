@@ -15,8 +15,7 @@ def get_feed_posts(pageNum):
     sessionUser = User.query.get(id)
     userIds = [user.id for user in sessionUser.following]
 
-    posts = Post.query.filter(or_(Post.userId.in_(
-        userIds), Post.userId == id)).order_by(desc(Post.createdAt)).paginate(page=pageNum, per_page=9)
+    posts = Post.query.filter(Post.userId.in_(userIds)).order_by(desc(Post.createdAt)).paginate(page=pageNum, per_page=9, error_out=False)
     posts = [post.to_dict() for post in posts.items]
 
     return jsonify(posts)

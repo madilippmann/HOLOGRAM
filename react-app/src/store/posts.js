@@ -4,6 +4,7 @@ import { normalizePosts } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_POST = 'posts/ADD_POST';
 const LOAD_POSTS = 'posts/LOAD_POSTS';
+const LOAD_ADDITIONAL_POSTS = 'posts/LOAD_ADDITIONAL_POSTS';
 const REMOVE_POST = 'posts/REMOVE_POST';
 
 const ADD_COMMENT = 'comments/ADD_COMMENT';
@@ -25,6 +26,13 @@ const addPost = (post) => {
 const loadPosts = (posts) => {
     return {
         type: LOAD_POSTS,
+        posts
+    }
+}
+
+const loadAdditionalPosts = (posts) => {
+    return {
+        type: LOAD_ADDITIONAL_POSTS,
         posts
     }
 }
@@ -85,6 +93,12 @@ export const fetchPosts = (type = 'feed', userId = null, page = 1) => async disp
     if (type === 'feed') {
         // userId should is not specified because backend route will use session user
         res = await fetch(`/api/posts/pages/${page}/`);
+        if (res.ok) {
+            const posts = await res.json();
+            if (page === 1) dispatch(loadPosts(posts));
+            else dispatch(loadAdditionalPosts(posts));
+            return posts;
+        }
     } else if (type === 'profile') {
         res = await fetch(`/api/users/${userId}/posts/`);
     }
@@ -236,6 +250,13 @@ const postsReducer = (state = {}, action) => {
         case LOAD_POSTS: {
             return {
                 // ...state,
+                ...normalizePosts(action.posts),
+            };
+        }
+        
+        case LOAD_ADDITIONAL_POSTS: {
+            return {
+                ...state,
                 ...normalizePosts(action.posts),
             };
         }
