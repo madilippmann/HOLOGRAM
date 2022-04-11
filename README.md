@@ -43,12 +43,14 @@ HOLOGRAM was built using the following technologies:
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" style="width:75px;" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original-wordmark.svg" style="width:75px;" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg" style="width:75px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain-wordmark.svg" style="width:75px;" />
 
 
 
 ## Getting Started
 To see HOLOGRAM live, please click the link provided above.
 To run HOLOGRAM locally, please follow these steps:
+`DISCLAIMER: you must be able to create an AWS S3 bucket in order to properly store images/audio files that are uploaded to the site. Upload functionality will not work without it`
   <li>Clone the repository with  </li> 
   
     git clone https://github.com/madilippmann/HOLOGRAM.git
