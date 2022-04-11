@@ -7,9 +7,11 @@ import LoadingSpinner from '../LoadingSpinner';
 import * as threadsActions from '../../store/threads.js';
 import './MessagePage.css';
 
-import io from 'socket.io-client';
-const socket = io.connect(`http://localhost:5001/`)
+import { io } from 'socket.io-client';
 
+// const socket = io.connect(`http://localhost:5001/`)
+
+const socket = io()
 
 
 const MessagePage = () => {
@@ -51,7 +53,7 @@ const MessagePage = () => {
             })()
         }
     }, [currThreadId]);
-    
+
     // for message form submit
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -68,7 +70,7 @@ const MessagePage = () => {
         setMessage(() => '')
     }
 
-    
+
     // SOCKETS *******************************************************
     // start listening to the socket on page load
     useEffect(() => {
@@ -92,7 +94,7 @@ const MessagePage = () => {
         else setDisabled(() => true);
     }, [message]);
 
-    
+
     // JSX *********************************************************
     return !isLoaded ? <LoadingSpinner /> : (
         <div id='messages-page-container'>
