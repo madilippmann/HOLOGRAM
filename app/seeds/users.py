@@ -4,11 +4,11 @@ from app.models import db, User
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        firstName='Demo', lastName='User', handle='demo', email='demo@aa.io', password='password', privateStatus=False, profileImageUrl='/default-profile-image.png')
+        firstName='Demo', lastName='User', handle='demo', email='demo@aa.io', password='password', bio="Computer science is so fun 🙃", privateStatus=False, profileImageUrl='/default-profile-image.png')
     marnie = User(
-        firstName='Marnie', lastName='Marnie', handle='marnie', email='marnie@aa.io', password='password', privateStatus=False, profileImageUrl='/default-profile-image.png')
+        firstName='Marnie', lastName='Barnie', handle='marnie', email='marnie@aa.io', password='password', bio="I love you, you love me", privateStatus=False, profileImageUrl='/default-profile-image.png')
     bobbie = User(
-        firstName='Bobby', lastName='McFerrin', handle='bobbie', email='bobbie@aa.io', password='password', privateStatus=False, profileImageUrl='/default-profile-image.png')
+        firstName='Bobby', lastName='McFerrin', handle='bobbie', email='bobbie@aa.io', password='password', bio="Dang it Bobby", privateStatus=False, profileImageUrl='/default-profile-image.png')
 
     landen = User(firstName="Landen", lastName="Nat", handle="systems_annabelle", email="Aaliyah5@hotmail.com", password='password', bio="Repellendus quo sit est voluptatem est ratione qui sequi quos. Voluptate consequatur exercitationem ea itaque non qui sed voluptatem tenetur. Ab praesentium magnam.", profileImageUrl="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1.jpg", privateStatus=False)
 

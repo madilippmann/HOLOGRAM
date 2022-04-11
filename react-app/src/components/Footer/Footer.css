@@ -9,6 +9,7 @@ footer {
   flex-flow: row nowrap;
 	background-color: rgb(255, 242, 239);
   z-index: 100;
+
 }
 
 #footer-background {
@@ -54,5 +55,9 @@ footer {
 #languages ul li {
   list-style-type: none;
   font-size: 14px;
+  color: rgb(214, 153, 130);
+}
+
+#change {
   color: rgb(214, 153, 130);
 }
