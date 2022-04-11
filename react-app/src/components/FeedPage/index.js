@@ -53,7 +53,6 @@ function FeedPage() {
     useEffect(() => {
         const scrolling_function = async () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 100) {
-                console.log("fetching next page...")
                 window.removeEventListener('scroll',scrolling_function);
                 await dispatch(postsActions.fetchPosts('feed', null, nextPage));
                 setNextPage(prev => prev + 1);

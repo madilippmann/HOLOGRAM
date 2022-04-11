@@ -138,7 +138,6 @@ export const editPost = post => async dispatch => {
 
     if (res.ok) {
         const editedPost = await res.json();
-        console.log('editedPost', editedPost);
 
         dispatch(addPost(editedPost));
         return editedPost;

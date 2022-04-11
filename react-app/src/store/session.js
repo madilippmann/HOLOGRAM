@@ -117,7 +117,6 @@ export const signUp = (firstName, lastName, handle, email, password) => async (d
 
 
 export const editUser = ({ firstName, lastName, bio, userId, profileImageUrl }) => async dispatch => {
-  console.log('HERE')
   const res = await fetch(`/api/users/${userId}/`, {
     method: "PUT",
     headers: {
@@ -131,7 +130,6 @@ export const editUser = ({ firstName, lastName, bio, userId, profileImageUrl }) 
 
   if (res.ok) {
     const editedUser = await res.json();
-    console.log('editedUser', editedUser);
     dispatch(setUser(editedUser));
     return editedUser;
   }

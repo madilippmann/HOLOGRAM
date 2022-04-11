@@ -90,7 +90,6 @@ export default function SearchBar() {
 			if (!searchMenuRef.current?.contains(e.target) && !portal.contains(e.target) && e.target !== searchInputRef.current) {
 				searchMenuRef.current.style.display = 'flex';
 				closeMenu();
-				console.log('in here');
 			} else if (searchMenuRef.current?.contains(e.target)) {
 				searchMenuRef.current.style.display = 'none';
 				closeMenu();
