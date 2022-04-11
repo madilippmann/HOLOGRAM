@@ -10,7 +10,7 @@ else:
 
 
 
-socketio = SocketIO(cors_allowed_origins=origins, async_mode='eventlet')
+socketio = SocketIO(cors_allowed_origins=origins, logger=True, engineio_logger=True)
 
 
 # CONNECTION STUFF

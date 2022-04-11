@@ -1,3 +1,4 @@
+from distutils.log import debug
 import os
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
@@ -15,7 +16,7 @@ from .api.s3_routes import s3_routes
 from .api.threads_routes import threads_routes
 from .api.search_routes import search_routes
 
-from .socketio import socketio
+from app.socketio import socketio
 
 from .seeds import seed_commands
 
@@ -87,8 +88,3 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
-
-
-
-if __name__ == '__main__':
-    socketio.run(app)

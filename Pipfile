@@ -29,8 +29,8 @@ Mako = "==1.1.4"
 pylint = "*"
 boto3 = "*"
 requests = "*"
-eventlet = "~=0.30.2"
 gevent-websocket = "*"
+gevent = "*"
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"
