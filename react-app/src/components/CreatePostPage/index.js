@@ -89,7 +89,6 @@ export default function CreatePostPage() {
 						<label htmlFor='img' id='select-file-button'>SELECT IMAGE</label>
 						<input type="file" id="img" name="img" accept="image/*"
 							onChange={e => setUploadFile(() => {
-								console.log(e.target.files[0]);
 								return e.target.files[0];
 							})}
 							hidden

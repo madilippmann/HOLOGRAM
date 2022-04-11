@@ -66,6 +66,10 @@ footer {
   color: rgb(214, 153, 130);
 }
 
+#languages ul li a {
+  padding: 4px;
+}
+
 #change {
   color: rgb(214, 153, 130);
 }

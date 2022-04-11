@@ -44,27 +44,29 @@ export default function SearchBar() {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
 
-				// FOR FILTERING OUT DUPLICATES
-				const postsSet = new Set();
-				const usersSet = new Set();
-				results.forEach(item => {
-					if (item.item.caption !== undefined) postsSet.add(item.item.id);
-					if (item.item.handle !== undefined) usersSet.add(item.item.id);
-				});
-				const newResults = dbQueryResults.filter(item => {
-					// for posts
-					if (item.caption !== undefined) {
-						if (!postsSet.has(item.id)) return true;
-					}
-					// for users
-					if (item.handle !== undefined) {
-						if (!usersSet.has(item.id)) return true;
-					}
-				})
+				if (dbQueryResults) {
+					// FOR FILTERING OUT DUPLICATES
+					const postsSet = new Set();
+					const usersSet = new Set();
+					results.forEach(item => {
+						if (item.item.caption !== undefined) postsSet.add(item.item.id);
+						if (item.item.handle !== undefined) usersSet.add(item.item.id);
+					});
+					const newResults = dbQueryResults.filter(item => {
+						// for posts
+						if (item.caption !== undefined) {
+							if (!postsSet.has(item.id)) return true;
+						}
+						// for users
+						if (item.handle !== undefined) {
+							if (!usersSet.has(item.id)) return true;
+						}
+					})
 
-				const fuse = new Fuse(newResults, options);
-				const fuseResults = fuse.search(query);
-				setResults(prevResults => fuseResults.concat(prevResults))
+					const fuse = new Fuse(newResults, options);
+					const fuseResults = fuse.search(query);
+					setResults(prevResults => fuseResults.concat(prevResults))
+				}
 			}, 300);
 		}
 
@@ -87,13 +89,14 @@ export default function SearchBar() {
 
 		const portal = document.getElementById('portal');
 		const listener = (e) => {
-			if (!searchMenuRef.current?.contains(e.target) && !portal.contains(e.target) && e.target !== searchInputRef.current) {
-				searchMenuRef.current.style.display = 'flex';
-				closeMenu();
-				console.log('in here');
-			} else if (searchMenuRef.current?.contains(e.target)) {
-				searchMenuRef.current.style.display = 'none';
-				closeMenu();
+			if (searchMenuRef.current) {
+				if (!searchMenuRef.current?.contains(e.target) && !portal.contains(e.target) && e.target !== searchInputRef.current) {
+					searchMenuRef.current.style.display = 'flex';
+					closeMenu();
+				} else if (searchMenuRef.current?.contains(e.target)) {
+					searchMenuRef.current.style.display = 'none';
+					// closeMenu();
+				}
 			}
 		}
 
@@ -122,7 +125,7 @@ export default function SearchBar() {
 				<input type="text" placeholder="search"
 					className=""
 					value={query}
-					onChange={e => setQuery(e.target.value)}
+					onChange={e => setQuery(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}
 					onClick={openMenu}
 					onKeyPress={openMenu}
 					ref={searchInputRef}

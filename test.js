@@ -22,7 +22,3 @@ while(posts.length) {
             continue;
     }
 }
-
-console.log(groupOne);
-console.log(groupTwo);
-console.log(groupThree);

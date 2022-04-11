@@ -12,8 +12,8 @@ const MessageContainer = ({ thread, messages, onSubmit, message, setMessage, dis
     // scroll messages to bottom on load
     useEffect(() => {
         const messagesMap = document.getElementById("messages-map");
-        messagesMap.scrollTop = messagesMap.scrollHeight - messagesMap.clientHeight;
-    }, [])
+        messagesMap.scrollTop = messagesMap.scrollHeight;
+    }, [messages])
 
 
     return (
