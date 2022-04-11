@@ -18,7 +18,7 @@ def users():
 @login_required
 def user(handle):
     user = User.query.filter(User.handle == handle).first()
-    print(user.to_dict())
+    
     if user:
         if user.id == int(session['_user_id']):
             return user.session_to_dict()
@@ -29,7 +29,6 @@ def user(handle):
 @user_routes.route('/<int:id>/posts/')
 @login_required
 def user_profile(id):
-
     posts = Post.query.filter(Post.userId == id).all()
     posts = [post.to_dict() for post in posts]
     return jsonify(posts)
@@ -43,8 +42,8 @@ def get_follows(userId):
     """
     user = User.query.get(userId)
     follows = {
-        "followers": [user.to_dict() for user in user.followers],
-        "following": [user.to_dict() for user in user.following]
+        "followers": [user.to_dict_lite() for user in user.followers],
+        "following": [user.to_dict_lite() for user in user.following]
     }
     return jsonify(follows)
 
@@ -52,7 +51,6 @@ def get_follows(userId):
 @user_routes.route('/<int:userId>/', methods=['PUT'])
 @login_required
 def update_profile(userId):
-    print('\n\n\n', userId, '\n\n\n')
 
     form = UpdateUserForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -65,8 +63,6 @@ def update_profile(userId):
         user.profileImageUrl = form.data['profileImageUrl']
 
         db.session.commit()
-        print('\n\n\nsuccess\n\n\n')
         return user.session_to_dict()
 
-    print('\n\n\nfailed\n\n\n')
     return { 'errors': validation_errors_to_error_messages(form.errors)}, 401

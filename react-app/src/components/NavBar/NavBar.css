@@ -121,6 +121,10 @@ h1 {
 	position: relative;
 }
 
+.sessionUser-followers button, .sessionUser-followings button {
+	padding: 0;
+}
+
 .user-profile-avatar, .justify-left {
 	width: inherit;
 }

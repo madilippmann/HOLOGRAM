@@ -26,10 +26,8 @@ def toggle_following():
 
     if follow:
       # DELETE FOLLOW
-      print('\n\n\n', followedUser.followers, '\n\n\n')
       followedUser.followers.remove(sessionUser)
       sessionUser.following.remove(followedUser)
-
       db.session.commit()
       return jsonify({ "status": "deleted", "followerId": follow.get('followerId'), "followedId": follow.get('followedId') })
     else:

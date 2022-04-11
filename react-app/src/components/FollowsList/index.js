@@ -10,7 +10,6 @@ const FollowsList = ({ follows }) => {
             {follows.map((follow) => {
                 return (
                     <button
-                    // to={`/${follow.handle}`}
                         onClick={() => {
                             window.scroll(0, 0);
                             history.push(`/${follow.handle}`);

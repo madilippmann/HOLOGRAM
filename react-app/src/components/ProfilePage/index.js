@@ -136,12 +136,9 @@ function ProfilePage() {
                                 </button>
                             </Link>
                         }
-                        {/* <button className='remove-button-styling' type='button'>
-                            <FontAwesomeIcon icon={faEllipsis} />
-                        </button> */}
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <div><button type='button' style={{border: 'none', backgroundColor: 'transparent', padding: '0'}}><p>{orderedPosts.length} posts</p></button></div>
+                        <div><button type='button' style={{border: 'none', backgroundColor: 'transparent', paddingLeft: '0' }}><p><span style={{ fontSize: '18px' }}>{orderedPosts.length}</span> posts</p></button></div>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'
@@ -149,7 +146,7 @@ function ProfilePage() {
                                 onClick={openFollowers}
                             >
 
-                                <p className='follows-profile'>{user.followers.length} followers</p>
+                                <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.followers.length}</span> followers</p>
                             </button>
                             {showFollowers && (
                                 <div className="follows-dropdown">
@@ -165,7 +162,7 @@ function ProfilePage() {
                                 type='button'
                                 onClick={openFollowings}
                             >
-                                <p className='follows-profile'>{user.following.length} following</p>
+                                <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
                             </button>
                             {showFollowings && (
                                 <div className="follows-dropdown">

@@ -4,7 +4,7 @@ export const normalizePosts = (postsArr) => {
     return postsArr.reduce((obj, post) => {
         post.timeElapsed = getTimeElapsed(post.createdAt);
         obj[post.id] = post;
-        
+
         obj[post.id].comments = {
             ...normalizeOneLevel(post.comments),
         }
@@ -22,5 +22,22 @@ export const normalizeOneLevel = (dataArr) => {
         data.timeElapsed = getTimeElapsed(data.createdAt);
         obj[data.id] = data;
         return obj;
+    }, {})
+}
+
+
+
+export const normalizeThreads = (threadsArr) => {
+    return threadsArr.reduce((obj, thread) => {
+        thread.timeElapsed = getTimeElapsed(thread.updatedAt);
+        obj[thread.id] = thread;
+
+        obj[thread.id].users = {
+            ...normalizeOneLevel(thread.users),
+        }
+
+        obj[thread.id].messages = [...thread.messages]
+
+        return obj
     }, {})
 }

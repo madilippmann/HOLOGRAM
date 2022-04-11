@@ -1,12 +1,16 @@
 from .db import db
+from .users_threads import users_threads
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-# from .threadParticipants import users_threads
+# from .users import users_threads
 from .follows import follows
 from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+    
+    sids = {}
 
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(50), nullable=False)
@@ -23,6 +27,9 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', back_populates='user', cascade="all, delete")
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
     postLikes = db.relationship('PostLike', back_populates='user', cascade="all, delete")
+
+    messages = db.relationship('Message', back_populates='user')
+    threads = db.relationship('Thread', secondary=users_threads, back_populates="users")
 
     followers = db.relationship(
     # this relationship allows you to access both the collection of users
@@ -110,3 +117,6 @@ class User(db.Model, UserMixin):
             'profileImageUrl': self.profileImageUrl,
             'privateStatus': self.privateStatus,
         }
+
+    
+    

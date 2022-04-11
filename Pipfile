@@ -29,6 +29,7 @@ pylint = "*"
 boto3 = "*"
 requests = "*"
 flask-socketio = "*"
+eventlet = "*"
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"

@@ -134,6 +134,7 @@
 
 #like-button {
     color: var(--color-red);
+    transition: color .15s ease-in-out;
 }
 
 

@@ -58,21 +58,21 @@ export default function SearchBar() {
 					}
 					// for users
 					if (item.handle !== undefined) {
-						if (!postsSet.has(item.id)) return true;
+						if (!usersSet.has(item.id)) return true;
 					}
 				})
 
 				const fuse = new Fuse(newResults, options);
 				const fuseResults = fuse.search(query);
 				setResults(prevResults => fuseResults.concat(prevResults))
-			}, 400);
+			}, 300);
 		}
 
 		return () => clearTimeout(timer);
 	}, [query]);
 
 	const openMenu = () => {
-		if (showMenu) return;
+		// if (showMenu) return;
 		document.querySelector('.search');
 		setShowMenu(true);
 	};
@@ -93,6 +93,7 @@ export default function SearchBar() {
 				console.log('in here');
 			} else if (searchMenuRef.current?.contains(e.target)) {
 				searchMenuRef.current.style.display = 'none';
+				closeMenu();
 			}
 		}
 
@@ -131,13 +132,17 @@ export default function SearchBar() {
 
 			{showMenu && (
 				<div className='search-filter' ref={searchMenuRef}>
-					<div id="search-message" onClick={onSubmit}>press enter to search for "{query}"...</div>
-					{results.map((result, i) => {
+					<div id="search-message">searching for "{query}"...</div>
+
+					{results.slice(0, 20).map((result, i) => {
 						if (result.item?.hasOwnProperty('handle')) {
 							return (
 								<span key={i} onClick={() => goToProfile(result.item.handle)} className="search-item">
 									<FontAwesomeIcon icon={faUser} style={{ color: 'var(--color-dark-gray)' }} />
-									&nbsp;&nbsp; {result.item.handle}
+									<div className='item-details'>
+										<span className='line-clamp'>{result.item.handle}</span>
+										<small>{result.item.firstName} {result.item.lastName}</small>
+									</div>
 								</span>
 							)
 						} else if (result.item?.hasOwnProperty('caption')) {

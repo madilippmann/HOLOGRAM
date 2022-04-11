@@ -2,7 +2,7 @@ export const threads = {
     1: {
         id: 1,
         name: 'thread one',
-        threadParticipants: {
+        users: {
             1: {
                 id: 1,
                 userId: 7,

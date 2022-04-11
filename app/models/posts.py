@@ -34,9 +34,9 @@ class Post(db.Model):
             'userId': self.userId,
             'postImageUrl': self.postImageUrl,
             'caption': self.caption,
-            'postLikes': [postLike.to_dict() for postLike in self.postLikes],
-            'comments': [comment.to_dict() for comment in self.comments],
+            'postLikes': [postLike.to_dict_lite() for postLike in self.postLikes],
+            'comments': [comment.to_dict_lite() for comment in self.comments],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt,
-            'user': self.user.to_dict()
+            'user': self.user.to_dict_lite()
         }

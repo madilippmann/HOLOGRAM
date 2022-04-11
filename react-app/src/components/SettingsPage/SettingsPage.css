@@ -1,8 +1,8 @@
 #settings-form {
     display: flex;
     flex-flow: row nowrap;
-    margin: auto;
-    margin-top: 200px;
+    /* margin: auto; */
+    margin-top: 160px;
     justify-content: center;
     align-items: center;
 }
@@ -69,6 +69,11 @@
     border: none;
     font-size: 16px;
 }
+#settings-form > #update-page-input-fields > input:focus,
+#settings-form > #update-page-input-fields > textarea:focus {
+    border: 2px solid var(--color-purple);
+    outline: none;
+}
 
 .profile-picture-container-settings-page {
     margin: auto;
@@ -107,7 +112,12 @@
     cursor: pointer;
 }
 
-#updating {
-    text-align: center;
-    margin-top: 32%;
+#updating h2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    display: flex;
+    justify-content: center;
 }
