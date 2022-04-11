@@ -65,7 +65,7 @@ export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
 
 			{showModal && (
 				<Modal closeModal={() => setShowModal(false)}>
-					<PostModal postId={post.id} />
+					<PostModal postId={post.id} setShowModal={setShowModal} />
 				</Modal>
 			)}
 		</>
