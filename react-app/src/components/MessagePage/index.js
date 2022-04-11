@@ -9,9 +9,10 @@ import './MessagePage.css';
 
 import { io } from 'socket.io-client';
 
-// const socket = io.connect(`http://localhost:5001/`)
 
-const socket = io()
+// const socket = io.connect('http://localhost:5001/')
+const socket = io.connect()
+
 
 
 const MessagePage = () => {
@@ -28,6 +29,9 @@ const MessagePage = () => {
     const [messages, setMessages] = useState([]);
     const [disabled, setDisabled] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
+
+
+
 
     useEffect(() => {
         (async () => {
