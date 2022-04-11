@@ -13,7 +13,8 @@
 	box-shadow: rgba(0, 0, 0, 0.035) 0px 5px 5px;
 }
 .navbar-container {
-	width: 1280px;
+	width: 100%;
+	max-width: 1280px;
 	height: 100%;
 	margin: 0 auto;
 	display: flex;
