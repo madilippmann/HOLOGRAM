@@ -62,7 +62,7 @@ HOLOGRAM was built using the following technologies:
 
 ### Comments
 * Users can comment on posts
-* Users can update comments on psts
+* Users can update comments on posts
 * Users can delete comments
 
 ![image](https://user-images.githubusercontent.com/93935486/167233634-84d1f77e-a10b-4f62-a039-e160af40a67c.png)
