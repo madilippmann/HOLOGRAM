@@ -1,6 +1,6 @@
 // import { csrfFetch } from "./csrf"; // ??? WILL WE BE DOING CSRF FETCHES AGAIN ???
 import { getTimeElapsed } from "../utils";
-import { normalizePosts } from "./utils";
+import { normalizePosts, reNormalizePosts } from "./utils";
 // ACTION VARIABLES ***************************************
 const ADD_POST = 'posts/ADD_POST';
 const LOAD_POSTS = 'posts/LOAD_POSTS';
@@ -152,7 +152,7 @@ export const deletePost = (postId) => async dispatch => {
     if (res.ok) {
         const postId = await res.json();
         if (postId) {
-            dispatch(removePost(postId));
+            await dispatch(removePost(postId));
             return postId;
         }
     }
@@ -252,7 +252,7 @@ const postsReducer = (state = {}, action) => {
                 ...normalizePosts(action.posts),
             };
         }
-        
+
         case LOAD_ADDITIONAL_POSTS: {
             return {
                 ...state,
@@ -261,8 +261,9 @@ const postsReducer = (state = {}, action) => {
         }
 
         case REMOVE_POST: {
+            console.log('STATE: ', state)
             newState = {
-                ...state,
+                ...reNormalizePosts(state)
             };
 
             delete newState[action.postId];
