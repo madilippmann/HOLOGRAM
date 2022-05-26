@@ -77,7 +77,7 @@ function SettingsPage() {
     return showLoading ? (
         <div id='updating'>
             <LoadingSpinner />
-            <h2>Updating your infomation...</h2>
+            {/* <h2>Updating your infomation...</h2> */}
         </div>
     ) : (
         <>
