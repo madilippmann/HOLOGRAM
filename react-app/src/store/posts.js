@@ -245,7 +245,7 @@ const postsReducer = (state = {}, action) => {
                 comment.timeElapsed = getTimeElapsed(comment.createdAt)
             })
             newState[action.post.id] = { ...action.post };
-            g
+
             return newState;
         }
 
