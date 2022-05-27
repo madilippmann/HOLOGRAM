@@ -112,10 +112,13 @@ function ProfilePage() {
         <div id='profile-page'>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
-                    <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`}
-                        onClick={() => history.push(`/users/settings`)}
-                        style={{ cursor: "pointer" }}
-                    />
+                    {sessionUser.id === user.id ?
+                        <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`}
+                            onClick={() => history.push(`/users/settings`)}
+                            style={{ cursor: "pointer" }}
+                        /> :
+                        <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`} />
+                    }
                 </div>
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
