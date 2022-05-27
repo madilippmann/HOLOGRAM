@@ -122,7 +122,7 @@ export default function SearchBar() {
 	return (
 		<div className='search'>
 			<form className="search__form" onSubmit={onSubmit}>
-				<input type="text" placeholder="search"
+				<input type="text" placeholder="search for users..."
 					className=""
 					value={query}
 					onChange={e => setQuery(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}

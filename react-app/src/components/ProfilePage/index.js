@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 import * as userActions from '../../store/user'
@@ -21,6 +21,7 @@ import LoadingSpinner from '../LoadingSpinner';
 function ProfilePage() {
     const { handle } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
@@ -111,7 +112,10 @@ function ProfilePage() {
         <div id='profile-page'>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
-                    <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`} />
+                    <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`}
+                        onClick={() => history.push(`/users/settings`)}
+                        style={{ cursor: "pointer" }}
+                    />
                 </div>
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
@@ -138,7 +142,7 @@ function ProfilePage() {
                         }
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <div><button type='button' style={{cursor: 'default', border: 'none', backgroundColor: 'transparent', paddingLeft: '0' }}><p><span style={{ fontSize: '18px' }}>{orderedPosts.length}</span> posts</p></button></div>
+                        <div><button type='button' style={{ cursor: 'default', border: 'none', backgroundColor: 'transparent', paddingLeft: '0' }}><p><span style={{ fontSize: '18px' }}>{orderedPosts.length}</span> posts</p></button></div>
                         <div className='sessionUser-followers'>
                             <button
                                 className='remove-button-styling stack'
@@ -183,7 +187,7 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => (
-                    <ProfilePostCard post={post} key={post.id}/>
+                    <ProfilePostCard post={post} key={post.id} />
                 ))}
                 {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
             </div>
