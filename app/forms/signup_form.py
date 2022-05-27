@@ -21,9 +21,9 @@ def handle_exists(form, field):
 
 
 class SignUpForm(FlaskForm):
-    firstName = StringField('firstName', validators=[DataRequired()])
-    lastName = StringField('lastName', validators=[DataRequired()])
+    firstName = StringField('firstName', validators=[DataRequired(message='First name is required')])
+    lastName = StringField('lastName', validators=[DataRequired(message='Last name is required')])
     handle = StringField(
-        'handle', validators=[DataRequired(), handle_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
-    password = StringField('password', validators=[DataRequired()])
+        'handle', validators=[DataRequired(message="Handle is required"), handle_exists])
+    email = StringField('email', validators=[DataRequired(message="Email is required"), user_exists])
+    password = StringField('password', validators=[DataRequired(message="Password is required")])
