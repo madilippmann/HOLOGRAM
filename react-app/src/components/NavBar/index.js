@@ -111,14 +111,25 @@ const NavBar = () => {
 
 						<div className="nav__stats">
 							<div className='sessionUser-followers'>
-								<button
-									className='remove-button-styling stack add-hover '
-									type='button'
-									onClick={openFollowers}
-								>
-									<span>{sessionUser?.followers.length}</span>
-									<small>followers</small>
-								</button>
+
+								{sessionUser?.followers.length ?
+									<button
+										className='remove-button-styling stack add-hover '
+										type='button'
+										onClick={openFollowers}
+									>
+										<span>{sessionUser?.followers.length}</span>
+										<small>followers</small>
+									</button> :
+									<button
+										className='remove-button-styling stack'
+										type='button'
+										style={{ cursor: 'default' }}
+									>
+										<span>{sessionUser?.followers.length}</span>
+										<small>followers</small>
+									</button>
+								}
 
 								{showFollowers && (
 									<div className="follows-dropdown">
@@ -129,14 +140,25 @@ const NavBar = () => {
 								)}
 							</div>
 							<div className='sessionUser-followings'>
-								<button
-									className='remove-button-styling stack add-hover'
-									type='button'
-									onClick={openFollowings}
-								>
-									<span>{sessionUser?.following.length}</span>
-									<small>following</small>
-								</button>
+								{sessionUser?.following.length ?
+									<button
+										className='remove-button-styling stack add-hover'
+										type='button'
+										onClick={openFollowings}
+									>
+										<span>{sessionUser?.following.length}</span>
+										<small>following</small>
+									</button> :
+									<button
+										className='remove-button-styling stack'
+										type='button'
+										style={{ cursor: 'default' }}
+									>
+										<span>{sessionUser?.following.length}</span>
+										<small>following</small>
+									</button>
+
+								}
 								{showFollowings && (
 									<div className="follows-dropdown">
 										<div className='followings-list'>
