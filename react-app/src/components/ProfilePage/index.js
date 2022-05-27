@@ -147,14 +147,23 @@ function ProfilePage() {
                     <div className='posts-followers-following-div flex-gap flex'>
                         <div><button type='button' style={{ cursor: 'default', border: 'none', backgroundColor: 'transparent', paddingLeft: '0' }}><p><span style={{ fontSize: '18px' }}>{orderedPosts.length}</span> posts</p></button></div>
                         <div className='sessionUser-followers'>
-                            <button
-                                className='remove-button-styling stack'
-                                type='button'
-                                onClick={openFollowers}
-                            >
-
-                                <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.followers.length}</span> followers</p>
-                            </button>
+                            {user.followers.length ?
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    onClick={openFollowers}
+                                >
+                                    <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.followers.length}</span> followers</p>
+                                </button>
+                                :
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    style={{ cursor: 'default' }}
+                                >
+                                    <p ><span style={{ fontSize: '18px', cursor: 'default' }}>{user.followers.length}</span> followers</p>
+                                </button>
+                            }
                             {showFollowers && (
                                 <div className="follows-dropdown">
                                     <div className='followers-list'>
@@ -164,13 +173,25 @@ function ProfilePage() {
                             )}
                         </div>
                         <div className='sessionUser-followings'>
-                            <button
-                                className='remove-button-styling stack'
-                                type='button'
-                                onClick={openFollowings}
-                            >
-                                <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
-                            </button>
+                            {user.following.length ?
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    onClick={openFollowings}
+                                >
+                                    <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
+                                </button>
+
+                                :
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    style={{ cursor: 'default' }}
+                                >
+                                    <p ><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
+                                </button>
+
+                            }
                             {showFollowings && (
                                 <div className="follows-dropdown">
                                     <div className='followings-list'>
