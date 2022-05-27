@@ -65,10 +65,11 @@ export default function ProfilePostCard({ post }) {
                         <span>{likes.length}</span>
                     </div>
 
-                    <div className='centering-container comment-container'>
+                    <div className='centering-container comment-container'
+                        onClick={(e) => postImageRef.current.click()}
+                    >
                         <FontAwesomeIcon icon={emptyComment} className={`profile__post__icon comment-icon`} />
-                        {/* TODO ADD CORRECT COMMENT NUMBER */}
-                        <span>{post.comments.length}</span>
+                        <span>{Object.values(post.comments).length}</span>
                     </div>
                 </div>
             </div>
