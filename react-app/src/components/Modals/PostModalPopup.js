@@ -1,12 +1,14 @@
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Modal from '.';
 import PostModal from '../PostModal/index.js';
 
 
 export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
 	const [showModal, setShowModal] = useState(false);
+	const history = useHistory();
 
 	useEffect(() => {
 		// const root = document.getElementById('root');
@@ -40,13 +42,20 @@ export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
 			feedPageBody?.classList.remove('blur');
 			profilePageBody?.classList.remove('blur');
 		}
-	}, [showModal])
+	}, [showModal]);
+	
+	const redirectAndOpenModal = e => {
+		history.push(`/${post.user.handle}`);
+		setTimeout(() => {
+			setShowModal(true);
+		}, 500);
+	}
 
 	return (
 		<>
 			{isSearchItem
 				? (
-					<span onClick={() => setShowModal(true)} className="search-item">
+					<span onClick={redirectAndOpenModal} className="search-item">
 						<FontAwesomeIcon icon={faImage} style={{ color: 'var(--color-dark-gray)' }} />
 						<div className='item-details'>
 							<span>{post.caption}</span>
