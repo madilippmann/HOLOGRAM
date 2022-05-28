@@ -44,21 +44,21 @@ export default function SearchBar() {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
 
-				if (dbQueryResults) {
+				if (dbQueryResults.length) {
 					// FOR FILTERING OUT DUPLICATES
 					const postsSet = new Set();
 					const usersSet = new Set();
 					results.forEach(item => {
-						if (item.item.caption !== undefined) postsSet.add(item.item.id);
-						if (item.item.handle !== undefined) usersSet.add(item.item.id);
+						if (item?.item?.caption !== undefined) postsSet.add(item.item.id);
+						if (item?.item?.handle !== undefined) usersSet.add(item.item.id);
 					});
 					const newResults = dbQueryResults.filter(item => {
 						// for posts
-						if (item.caption !== undefined) {
+						if (item?.caption !== undefined) {
 							if (!postsSet.has(item.id)) return true;
 						}
 						// for users
-						if (item.handle !== undefined) {
+						if (item?.handle !== undefined) {
 							if (!usersSet.has(item.id)) return true;
 						}
 					})
