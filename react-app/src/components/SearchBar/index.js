@@ -122,7 +122,7 @@ export default function SearchBar() {
 	return (
 		<div className='search'>
 			<form className="search__form" onSubmit={onSubmit}>
-				<input type="text" placeholder="search for users..."
+				<input type="text" placeholder="search users or posts"
 					className=""
 					value={query}
 					onChange={e => setQuery(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}
@@ -135,7 +135,7 @@ export default function SearchBar() {
 
 			{showMenu && (
 				<div className='search-filter' ref={searchMenuRef}>
-					<div id="search-message">searching for "{query}"...</div>
+					{!results.length ? <div id="search-message">No results to show</div> : null}
 
 					{results.slice(0, 20).map((result, i) => {
 						if (result.item?.hasOwnProperty('handle')) {
