@@ -44,21 +44,21 @@ export default function SearchBar() {
 			timer = setTimeout(async () => {
 				const dbQueryResults = await dispatch(fetchQuery(query));
 
-				if (dbQueryResults) {
+				if (dbQueryResults.length) {
 					// FOR FILTERING OUT DUPLICATES
 					const postsSet = new Set();
 					const usersSet = new Set();
 					results.forEach(item => {
-						if (item.item.caption !== undefined) postsSet.add(item.item.id);
-						if (item.item.handle !== undefined) usersSet.add(item.item.id);
+						if (item?.item?.caption !== undefined) postsSet.add(item.item.id);
+						if (item?.item?.handle !== undefined) usersSet.add(item.item.id);
 					});
 					const newResults = dbQueryResults.filter(item => {
 						// for posts
-						if (item.caption !== undefined) {
+						if (item?.caption !== undefined) {
 							if (!postsSet.has(item.id)) return true;
 						}
 						// for users
-						if (item.handle !== undefined) {
+						if (item?.handle !== undefined) {
 							if (!usersSet.has(item.id)) return true;
 						}
 					})
@@ -122,7 +122,7 @@ export default function SearchBar() {
 	return (
 		<div className='search'>
 			<form className="search__form" onSubmit={onSubmit}>
-				<input type="text" placeholder="search"
+				<input type="text" placeholder="search users or posts"
 					className=""
 					value={query}
 					onChange={e => setQuery(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}
@@ -135,7 +135,7 @@ export default function SearchBar() {
 
 			{showMenu && (
 				<div className='search-filter' ref={searchMenuRef}>
-					<div id="search-message">searching for "{query}"...</div>
+					{!results.length ? <div id="search-message">No results to show</div> : null}
 
 					{results.slice(0, 20).map((result, i) => {
 						if (result.item?.hasOwnProperty('handle')) {

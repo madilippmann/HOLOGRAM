@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import * as postsActions from '../../store/posts'
 import * as userActions from '../../store/user'
@@ -21,6 +21,7 @@ import LoadingSpinner from '../LoadingSpinner';
 function ProfilePage() {
     const { handle } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
@@ -111,7 +112,13 @@ function ProfilePage() {
         <div id='profile-page'>
             <div className='profile-page user-header'>
                 <div className='profile-picture-container'>
-                    <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`} />
+                    {sessionUser.id === user.id ?
+                        <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`}
+                            onClick={() => history.push(`/users/settings`)}
+                            style={{ cursor: "pointer" }}
+                        /> :
+                        <img className='profile-picture' src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage} alt={`${user.firstName}'s profile preview`} />
+                    }
                 </div>
                 <div className='user-info-container flex-space-between '>
                     <div className='handle-follow-options-div '>
@@ -138,16 +145,25 @@ function ProfilePage() {
                         }
                     </div>
                     <div className='posts-followers-following-div flex-gap flex'>
-                        <div><button type='button' style={{border: 'none', backgroundColor: 'transparent', paddingLeft: '0' }}><p><span style={{ fontSize: '18px' }}>{orderedPosts.length}</span> posts</p></button></div>
+                        <div><button type='button' style={{ cursor: 'default', border: 'none', backgroundColor: 'transparent', paddingLeft: '0' }}><p><span style={{ fontSize: '18px' }}>{orderedPosts.length}</span> posts</p></button></div>
                         <div className='sessionUser-followers'>
-                            <button
-                                className='remove-button-styling stack'
-                                type='button'
-                                onClick={openFollowers}
-                            >
-
-                                <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.followers.length}</span> followers</p>
-                            </button>
+                            {user.followers.length ?
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    onClick={openFollowers}
+                                >
+                                    <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.followers.length}</span> followers</p>
+                                </button>
+                                :
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    style={{ cursor: 'default' }}
+                                >
+                                    <p ><span style={{ fontSize: '18px', cursor: 'default' }}>{user.followers.length}</span> followers</p>
+                                </button>
+                            }
                             {showFollowers && (
                                 <div className="follows-dropdown">
                                     <div className='followers-list'>
@@ -157,13 +173,25 @@ function ProfilePage() {
                             )}
                         </div>
                         <div className='sessionUser-followings'>
-                            <button
-                                className='remove-button-styling stack'
-                                type='button'
-                                onClick={openFollowings}
-                            >
-                                <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
-                            </button>
+                            {user.following.length ?
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    onClick={openFollowings}
+                                >
+                                    <p className='follows-profile add-hover'><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
+                                </button>
+
+                                :
+                                <button
+                                    className='remove-button-styling stack'
+                                    type='button'
+                                    style={{ cursor: 'default' }}
+                                >
+                                    <p ><span style={{ fontSize: '18px' }}>{user.following.length}</span> following</p>
+                                </button>
+
+                            }
                             {showFollowings && (
                                 <div className="follows-dropdown">
                                     <div className='followings-list'>
@@ -183,7 +211,7 @@ function ProfilePage() {
 
             <div className='post-image-div profile-page user-posts' >
                 {orderedPosts.map(post => (
-                    <ProfilePostCard post={post} key={post.id}/>
+                    <ProfilePostCard post={post} key={post.id} />
                 ))}
                 {orderedPosts.length === 0 && <p className='no-posts'>No posts to show</p>}
             </div>
