@@ -26,14 +26,15 @@ export default function SignUpPage() {
 		};
 	}, []);
 
-
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		if (password === repeatPassword) {
 			const data = await dispatch(signUp(firstName, lastName, handle, email, password));
 			if (data) {
 				setErrors(data)
-			}
+			} 
+		} else {
+			setErrors(() => [': Passwords do not match'])
 		}
 	};
 

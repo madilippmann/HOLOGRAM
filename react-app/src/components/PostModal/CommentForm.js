@@ -30,6 +30,8 @@ function CommentForm({ postId }) {
 		dispatch(postsActions.createComment(comment))
 			.then(_ => {
 				setContent('');
+				const commentsList = document.querySelector(".comment-section");
+				commentsList.scrollTop = 0;
 			})
 			.catch(async (res) => {
 				const data = await res.json();
@@ -38,6 +40,8 @@ function CommentForm({ postId }) {
 				}
 			});
 	}
+
+
 
 	// const onEmojiClick = (event, emojiObject) => {
 	// 	console.log(emojiObject.emoji);

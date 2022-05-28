@@ -241,6 +241,9 @@ const postsReducer = (state = {}, action) => {
         case ADD_POST: {
             const newState = { ...state };
             action.post.timeElapsed = getTimeElapsed(action.post.createdAt);
+            action.post.comments.forEach(comment => {
+                comment.timeElapsed = getTimeElapsed(comment.createdAt)
+            })
             newState[action.post.id] = { ...action.post };
 
             return newState;
