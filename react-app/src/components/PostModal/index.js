@@ -15,7 +15,6 @@ import './PostModal.css'
 
 
 import { sortByCreatedAt } from '../../utils';
-import { useModalContext } from '../../context/ModalContext';
 
 export default function PostModal({ postId, setShowModal }) {
     const dispatch = useDispatch();
