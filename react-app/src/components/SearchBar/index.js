@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUser, faImage, faImagePortrait } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import './SearchBar.css';
 
 import Fuse from 'fuse.js';
@@ -14,10 +14,10 @@ const options = {
 	findAllMatches: true,
 	useExtendedSearch: true,
 	keys: [
-		{ name: 'caption', weight: 0.9 },
-		{ name: 'handle', weight: 0.6 },
-		{ name: 'firstName', weight: 0.4 },
-		{ name: 'lastName', weight: 0.4 },
+		{ name: 'handle', weight: 2.0 },
+		{ name: 'firstName', weight: 1.5 },
+		{ name: 'lastName', weight: 1.0 },
+		{ name: 'caption', weight: 0.5 },
 	]
 }
 
@@ -27,48 +27,44 @@ export default function SearchBar() {
 	const history = useHistory();
 	const searchMenuRef = useRef();
 	const searchInputRef = useRef();
-	const posts = useSelector(state => Object.values(state.posts));
+	// const posts = useSelector(state => Object.values(state.posts));
 	const [query, setQuery] = useState('');
-	const [results, setResults] = useState(!posts.length ? [] : posts);
+	const [results, setResults] = useState([]);
 	const [showMenu, setShowMenu] = useState(false);
 
 	useEffect(() => {
 		if (!query) return;
 
-		const fuse = new Fuse(posts, options);
-		const stateResults = fuse.search(query);
-		setResults(stateResults);
-
 		let timer;
-		if (results.length < 20) {
-			timer = setTimeout(async () => {
-				const dbQueryResults = await dispatch(fetchQuery(query));
+		timer = setTimeout(async () => {
+			const dbQueryResults = await dispatch(fetchQuery(query));
 
-				if (dbQueryResults.length) {
-					// FOR FILTERING OUT DUPLICATES
-					const postsSet = new Set();
-					const usersSet = new Set();
-					results.forEach(item => {
-						if (item?.item?.caption !== undefined) postsSet.add(item.item.id);
-						if (item?.item?.handle !== undefined) usersSet.add(item.item.id);
-					});
-					const newResults = dbQueryResults.filter(item => {
-						// for posts
-						if (item?.caption !== undefined) {
-							if (!postsSet.has(item.id)) return true;
-						}
-						// for users
-						if (item?.handle !== undefined) {
-							if (!usersSet.has(item.id)) return true;
-						}
-					})
+			if (dbQueryResults.length) {
+				// FOR FILTERING OUT DUPLICATES
+				const postsSet = new Set();
+				const usersSet = new Set();
+				results.forEach(item => {
+					if (item?.item?.caption !== undefined) postsSet.add(item.item.id);
+					if (item?.item?.handle !== undefined) usersSet.add(item.item.id);
+				});
+				const newResults = dbQueryResults.filter(item => {
+					// for posts
+					if (item?.caption !== undefined) {
+						if (!postsSet.has(item.id)) return true;
+					}
+					// for users
+					if (item?.handle !== undefined) {
+						if (!usersSet.has(item.id)) return true;
+					}
+				})
 
+				setResults(prevResults => {
 					const fuse = new Fuse(newResults, options);
 					const fuseResults = fuse.search(query);
-					setResults(prevResults => fuseResults.concat(prevResults))
-				}
-			}, 300);
-		}
+					return fuseResults;
+				})
+			}
+		}, 300);
 
 		return () => clearTimeout(timer);
 	}, [query]);
