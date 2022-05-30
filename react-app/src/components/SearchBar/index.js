@@ -125,7 +125,7 @@ export default function SearchBar() {
 				<input type="text" placeholder="search users or posts"
 					className=""
 					value={query}
-					onChange={e => setQuery(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}
+					onChange={e => setQuery(e.target.value.replace(/[^a-zA-Z0-9\.\-\s]/g, ''))}
 					onClick={openMenu}
 					onKeyPress={openMenu}
 					ref={searchInputRef}
