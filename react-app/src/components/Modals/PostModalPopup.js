@@ -45,7 +45,9 @@ export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
 	}, [showModal]);
 
 	const redirectAndOpenModal = e => {
-		return history.push(`/${post.user.handle}`, { modalId: post.id })
+		history.push(`/${post.user.handle}`, { modalId: post.id })
+		window.location.reload();
+		return;
 	}
 
 
