@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ export default function PostModal({ postId, setShowModal }) {
     // let comments = useSelector(state => state.posts[postId].comments)
     let sessionUser = useSelector(state => state.session.user);
 
-    const [likes, setLikes] = useState(Object.values(post.postLikes))
+    const [likes, setLikes] = useState(Object.values(post?.postLikes))
     const [orderedComments, setOrderedComments] = useState(Object.values(post?.comments));
     const [isLiked, setIsLiked] = useState(likes.find(like => like.userId === sessionUser.id) ? true : false);
     const [editCaption, setEditCaption] = useState(false);
@@ -32,7 +32,6 @@ export default function PostModal({ postId, setShowModal }) {
 
     // const [newComment, setNewComment] = useState('');
     // const [chosenEmoji, setChosenEmoji] = useState(null);
-
 
     useEffect(() => {
         setOrderedComments(() => sortByCreatedAt(Object.values(post.comments)))
