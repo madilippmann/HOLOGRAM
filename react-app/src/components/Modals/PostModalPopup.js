@@ -1,13 +1,13 @@
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Modal from '.';
 import PostModal from '../PostModal/index.js';
 
 
 export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState(false)
 	const history = useHistory();
 
 	useEffect(() => {
@@ -43,13 +43,23 @@ export default function PostModalPopup({ postImageRef, post, isSearchItem }) {
 			profilePageBody?.classList.remove('blur');
 		}
 	}, [showModal]);
-	
+
 	const redirectAndOpenModal = e => {
-		history.push(`/${post.user.handle}`);
-		setTimeout(() => {
-			setShowModal(true);
-		}, 500);
+		console.log('ENTERED')
+		console.log('POST ID: ', post.id)
+
+		return history.push(`/${post.user.handle}`, { modalId: post.id })
+		// return <Redirect
+		// 	to={{
+		// 		pathname: `/${post.user.handle}`,
+		// 	}}
+		// />
+
+		// history.push(`/${post.user.handle}`);
+		// setTimeout(() => {
+		// }, 500);
 	}
+
 
 	return (
 		<>

@@ -17,11 +17,13 @@ import ProfilePostCard from '../PostCard/ProfilePostCard';
 
 import { sortByCreatedAt } from '../../utils';
 import LoadingSpinner from '../LoadingSpinner';
+import { useModalContext } from '../../context/ModalContext';
 
 function ProfilePage() {
     const { handle } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+    const { showModal, setShowModal } = useModalContext()
 
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
@@ -34,6 +36,11 @@ function ProfilePage() {
     const [orderedPosts, setOrderedPosts] = useState([]);
     // const [userId, setUserId] = useState(user.id);
 
+
+
+
+
+
     useEffect(() => {
         (async () => {
             const user = await dispatch(userActions.fetchUser(handle));
@@ -43,6 +50,14 @@ function ProfilePage() {
             setIsLoaded(true);
         })()
     }, [dispatch]);
+
+    useEffect(() => {
+        if (isLoaded && history.location.state && history.location.state.modalId) {
+            const id = document.querySelector(`.postId-${history.location.state.modalId}`)
+            id.click()
+            console.log('LOADED ID: ', id)
+        }
+    }, [isLoaded])
 
     useEffect(() => {
         setOrderedPosts(() => sortByCreatedAt(Object.values(posts)));
