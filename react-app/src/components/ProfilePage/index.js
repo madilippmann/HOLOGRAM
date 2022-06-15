@@ -32,17 +32,22 @@ function ProfilePage() {
     const [showFollowers, setShowFollowers] = useState(false);
     const [showFollowings, setShowFollowings] = useState(false);
     const [orderedPosts, setOrderedPosts] = useState([]);
-    // const [userId, setUserId] = useState(user.id);
 
     useEffect(() => {
         (async () => {
             const user = await dispatch(userActions.fetchUser(handle));
             await dispatch(postsActions.fetchPosts('profile', user.id));
-            // setUserId(user.id);
             setIsFollowed(() => sessionUser?.following.find(followed => followed.id === user?.id) ? true : false)
             setIsLoaded(true);
         })()
     }, [dispatch]);
+
+    useEffect(() => {
+        if (isLoaded && history.location.state && history.location.state.modalId) {
+            const id = document.querySelector(`.postId-${history.location.state.modalId}`)
+            id.click()
+        }
+    }, [isLoaded])
 
     useEffect(() => {
         setOrderedPosts(() => sortByCreatedAt(Object.values(posts)));
@@ -55,7 +60,6 @@ function ProfilePage() {
     }
 
     useEffect(() => {
-        // if (showFollowings) setShowFollowings(() => false)
         if (!showFollowers) return;
 
         const closeFollowers = () => {
@@ -80,7 +84,6 @@ function ProfilePage() {
     }
 
     useEffect(() => {
-        // if (showFollowers) setShowFollowers(() => false)
         if (!showFollowings) return;
 
         const closeFollowings = () => {

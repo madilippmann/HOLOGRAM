@@ -34,20 +34,15 @@ export default function ProfilePostCard({ post }) {
         <div
             key={post.id}
             className={`post-div`}
-        // onMouseEnter={e => setBlurImage(true)}
-        // onMouseLeave={e => setBlurImage(false)}
         >
             <div className='overlay'>
                 <div id='blur-overlay'
+                    className={`postId-${post.id}`}
                     onClick={(e) => {
                         if (e.currentTarget === e.target) {
                             postImageRef.current.click();
                         }
                     }}
-                // onMouseEnter={e => setBlurImage(true)}
-                // onMouseLeave={e => setBlurImage(false)}
-                // onMouseEnter={e => e.target.classList.add('blur')}
-                // onMouseLeave={e => e.target.classList.remove('blur')}
                 ></div>
 
                 <div className='overlay__button-container'>
