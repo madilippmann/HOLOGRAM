@@ -106,8 +106,7 @@ def get_thread_previews():
         "threadId": thread.id,
         "threadName": thread.name,
         "preview": thread.messages[-1].content,
-        # "profileImage": thread.messages[-1].user.profileImageUrl,
-        "profileImage": thread.users[1].profileImageUrl,
+        "profileImage": thread.users[0].profileImageUrl if len(thread.users) == 1 else thread.users[1].profileImageUrl,
         "numberOfUsers": len(thread.users)
 
 
