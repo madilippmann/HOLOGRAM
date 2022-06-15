@@ -50,27 +50,26 @@ export default function NavProfileButton({ user }) {
 			<img
 				src={user.profileImageUrl !== '/default-profile-image.png' ? user.profileImageUrl : defaultProfileImage}
 				alt="profile preview"
-
 			/>
 
 			{showMenu && (
 				<div className="profile_nav_dropdown">
 					<div>
 						<button
-						//  to={`/${user.handle}`}
-						 	id='temp'
+							//  to={`/${user.handle}`}
+							id='temp'
 							onClick={() => {
 								window.scrollTo(0, 0);
 								history.push(`/${user.handle}`);
 								window.location.reload(false);
 							}}
-							style={{border: 'none', backgroundColor: 'transparent', padding: '2px'}}>
-							<p style={{letterSpacing: '1px', fontSize: '14.5px'}}>profile&nbsp;&nbsp;<FontAwesomeIcon icon={faUser}></FontAwesomeIcon></p>
+							style={{ border: 'none', backgroundColor: 'transparent', padding: '2px' }}>
+							<p style={{ letterSpacing: '1px', fontSize: '14.5px' }}>profile&nbsp;&nbsp;<FontAwesomeIcon icon={faUser}></FontAwesomeIcon></p>
 
 						</button>
 					</div>
 					<div>
-						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 0)} style={{width: '100%'}}>
+						<NavLink to={`/users/settings`} onClick={() => window.scrollTo(0, 0)} style={{ width: '100%' }}>
 							settings&nbsp;&nbsp;
 							<FontAwesomeIcon icon={faGear}></FontAwesomeIcon>
 						</NavLink>

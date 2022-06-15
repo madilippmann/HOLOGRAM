@@ -8,7 +8,7 @@
     height: 100%;
     width: 100%;
     padding: 16px 0;
-    
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -27,15 +27,17 @@
 #preview {
     width: 500px;
     height: 500px;
-    
+
     object-fit: cover;
-    
+
     border: 1px solid var(--color-gray);
 }
 #preview img {
     width: 100%;
-
-    object-fit: cover;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     margin: auto;
 }
 
@@ -45,10 +47,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     position: absolute;
     bottom: 24px; left: 0; right: 0;
-    
+
 }
 
 #select-file-button {
@@ -58,11 +60,11 @@
     padding: 12px;
     border: none;
     border-radius: 8px;
-    
+
     font-size: 12px;
     background-color: var(--color-purple);
     cursor: pointer;
-    
+
     color: white;
     display: flex;
     justify-content: center;
@@ -73,7 +75,7 @@
 /* CAPTION/UPLOAD SECTION */
 .upload__bottom {
     height: 100%;
- 
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -84,7 +86,7 @@
     padding: 10px;
     border-radius: 4px;
     resize: none;
-    
+
     outline: none;
 }
 #caption:focus {
@@ -100,12 +102,12 @@
     padding: 12px;
     border: none;
     border-radius: 8px;
-    
+
     font-family: inherit;
     font-size: 14px;
     background-color: var(--color-purple);
     cursor: pointer;
-    
+
     color: white;
     display: flex;
     justify-content: center;
@@ -119,13 +121,13 @@
     padding: 12px;
     border: none;
     border-radius: 8px;
-    
+
     font-family: inherit;
     font-size: 14px;
     border: 1px solid var(--color-purple);
     background-color: transparent;
     cursor: pointer;
-    
+
     color: black;
     display: flex;
     justify-content: center;
@@ -142,7 +144,7 @@
 
 .error-container {
     padding: 16px;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
