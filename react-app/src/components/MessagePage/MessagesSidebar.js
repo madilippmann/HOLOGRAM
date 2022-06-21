@@ -9,18 +9,16 @@ import UserSearchBar from '../SearchBar/UserSearchBar.js';
 
 import defaultProfileImage from '../../static/default-profile-image.png'
 
-const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsLoaded }) => {
+const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
     // const usersFromSearch = useSelector(state => state.search);
     const [userIds, setUserIds] = useState(new Set());
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [errors, setErrors] = useState('');
     const [showErrors, setShowErrors] = useState(false);
     
-    
-
-
     const createNewThread = async () => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
         const users = selectedUsers.map(user => user.firstName);
@@ -47,6 +45,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsL
         });
         setSelectedUsers(selectedUsers => selectedUsers.filter(user => user.id !== userId));
     }
+    
 
     
     return (
@@ -85,41 +84,53 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsL
 
 
             <div className='thread-previews-container'>
-                {threadPreviews.map((preview, i) => (
-                    <button
-                        type='button'
-                        onClick={() => setCurrThreadId(preview.threadId)}
-                        id={`${preview.threadId === currThreadId}`}
-                    >
-                        <div className='thread-preview' key={i}>
-                            {preview.numberOfUsers < 3
-                                ? (
-                                    <>
-                                        <div className='preview__avatar single'>
-                                            <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                        </div>
-                                        <div className='thread-name-and-preview'>
-                                            <h4>{preview.threadName}</h4>
-                                            <span className='line-clamp'>{preview.preview}</span>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className='preview__avatar group'>
-                                            <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                            <div id='circle1' />
-                                            <div id='circle2' />
-                                        </div>
-                                        <div className='thread-name-and-preview move-left'>
-                                            <h4 className='line-clamp'>{preview.threadName}</h4>
-                                            <span className='line-clamp'>{preview.preview}</span>
-                                        </div>
-                                    </>
-                                )}
+                {threadPreviews.map((preview, i) => {
+                    console.log('hasdlkfjalkdjsfakjdfakjdf', preview.users);
+                    
+                    let threadName = []
+                    for (const username of preview.users) {
+                        if (username !== sessionUser.firstName) {
+                            threadName.push(username);
+                        }
+                    }
+                    threadName = threadName.join(', ');
+                    
+                    return (
+                        <button
+                            type='button'
+                            onClick={() => setCurrThreadId(preview.threadId)}
+                            id={`${preview.threadId === currThreadId}`}
+                        >
+                            <div className='thread-preview' key={i}>
+                                {preview.numberOfUsers < 3
+                                    ? (
+                                        <>
+                                            <div className='preview__avatar single'>
+                                                <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                            </div>
+                                            <div className='thread-name-and-preview'>
+                                                <h4>{threadName}</h4>
+                                                <span className='line-clamp'>{preview.preview}</span>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className='preview__avatar group'>
+                                                <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                                <div id='circle1' />
+                                                <div id='circle2' />
+                                            </div>
+                                            <div className='thread-name-and-preview move-left'>
+                                                <h4 className='line-clamp'>{preview.threadName}</h4>
+                                                <span className='line-clamp'>{preview.preview}</span>
+                                            </div>
+                                        </>
+                                    )}
 
-                        </div>
-                    </button>
-                ))}
+                            </div>
+                        </button>
+                    )
+                })}
             </div>
 
 

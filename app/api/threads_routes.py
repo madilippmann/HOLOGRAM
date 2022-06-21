@@ -26,17 +26,7 @@ def create_thread():
     users = request.get_json()
     if len(users) == 0:
         return jsonify('error: must send users to add to thread')
-
-    # PLAN:
-    # query for all users that are going to be in the thread
-    # (OPTIONAL?) check in db for a thread that already has all of the specified users
-    # make new thread with a name of the first names of the users in the thread
-    # append each user to the 'users' property of the new thread
-    # db.session.commit()
-    # return the newly created thread
-    # CHECK
-    # check the users property of the thread after adding the thread to every user
-
+        
     users = User.query.filter(User.id.in_([sessionUserId, *users])).all()
     sessionUser = [user for user in users if user.id == sessionUserId][0]
     otherUsers = [user for user in users if user.id != sessionUser.id]
@@ -45,7 +35,7 @@ def create_thread():
     if len(users) == 2:
         thread_name = otherUsers[0].firstName
     else:
-        thread_name = "You, "
+        thread_name = ""
         for user in otherUsers:
             thread_name += f"{user.firstName}, "
         thread_name = thread_name[0:-2]
@@ -101,15 +91,14 @@ def get_thread_previews():
     threads_array.sort(
         key=lambda thread: thread.messages[-1].createdAt, reverse=True)
 
-    print('\n\n\n\n\n', len(threads_array[0].users))
     threadPreviews = [{
         "threadId": thread.id,
         "threadName": thread.name,
         "preview": thread.messages[-1].content,
         "profileImage": thread.users[0].profileImageUrl if len(thread.users) == 1 else thread.users[1].profileImageUrl,
-        "numberOfUsers": len(thread.users)
-
-
+        "numberOfUsers": len(thread.users),
+        "users": [thread_user.to_dict_lite()["firstName"] for thread_user in thread.users]
+        
     } for thread in threads_array]
 
     return jsonify(threadPreviews)
