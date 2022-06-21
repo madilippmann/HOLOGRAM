@@ -87,13 +87,14 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                 {threadPreviews.map((preview, i) => {
                     console.log('hasdlkfjalkdjsfakjdfakjdf', preview.users);
                     
-                    let threadName = []
+                    let threadName = preview.users.length > 2 ? ["You"] : []
                     for (const username of preview.users) {
                         if (username !== sessionUser.firstName) {
+                            console.log(username, 'not equal');
                             threadName.push(username);
                         }
                     }
-                    threadName = threadName.join(', ');
+                    threadName = threadName.join(', '); // "Berta, a"
                     
                     return (
                         <button
@@ -121,7 +122,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                                                 <div id='circle2' />
                                             </div>
                                             <div className='thread-name-and-preview move-left'>
-                                                <h4 className='line-clamp'>{preview.threadName}</h4>
+                                                <h4 className='line-clamp'>{threadName}</h4>
                                                 <span className='line-clamp'>{preview.preview}</span>
                                             </div>
                                         </>
