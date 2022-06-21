@@ -9,7 +9,7 @@ import UserSearchBar from '../SearchBar/UserSearchBar.js';
 
 import defaultProfileImage from '../../static/default-profile-image.png'
 
-const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
+const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsLoaded }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
     // const usersFromSearch = useSelector(state => state.search);
@@ -26,6 +26,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
             setCurrThreadId(thread.id);
             setUserIds(new Set());
             setSelectedUsers([]);
+            window.location.reload(false);
         }
     }
 
