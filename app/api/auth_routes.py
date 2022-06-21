@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, Thread, Message, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -71,7 +71,13 @@ def sign_up():
             password=form.data['password'],
             privateStatus=False
         )
+        thread = Thread(name=f"{user.firstName} {user.lastName}")
+        user.threads.append(thread)
         db.session.add(user)
+        db.session.commit()
+        user = User.query.filter(User.email == form.data['email']).first()
+        welcome_message = Message(threadId=thread.id, userId=user.id, content="Welcome to Hologram!")
+        thread.messages.append(welcome_message)
         db.session.commit()
         login_user(user)
         return user.session_to_dict()

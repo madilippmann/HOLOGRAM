@@ -12,20 +12,29 @@ import defaultProfileImage from '../../static/default-profile-image.png'
 const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
     // use currThreadId to highlight current thread w/CSS
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
     // const usersFromSearch = useSelector(state => state.search);
     const [userIds, setUserIds] = useState(new Set());
     const [selectedUsers, setSelectedUsers] = useState([]);
-
-
+    const [errors, setErrors] = useState('');
+    const [showErrors, setShowErrors] = useState(false);
+    
     const createNewThread = async () => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
         const users = selectedUsers.map(user => user.firstName);
+        if (selectedUsers.length === 0) {
+            setErrors('Please select at least one user to start a thread with.');
+            setShowErrors(true);
+            return;
+        }
+        
         if (window.confirm(`Create a thread with ${users.join(', ')}?`)) {
             const thread = await dispatch(threadsActions.createThread(Array.from(userIds)));
             await dispatch(threadsActions.fetchThreadPreviews());
             setCurrThreadId(thread.id);
             setUserIds(new Set());
             setSelectedUsers([]);
+            window.location.reload(false);
         }
     }
 
@@ -36,6 +45,7 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
         });
         setSelectedUsers(selectedUsers => selectedUsers.filter(user => user.id !== userId));
     }
+    
 
     
     return (
@@ -48,7 +58,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
                 <div id='selected-users'>
                     <div className='selected-users-map'>
                         {!selectedUsers.length
-                            ? <span style={{ fontSize: '14px', padding: '8px', color: 'gray' }}>search for someone to start a conversation...</span>
+                            ? <span style={{ fontSize: '14px', padding: '8px', color: showErrors ? 'red' : 'gray' }}>
+                                { !showErrors ? "search for someone to start a conversation..." : errors }
+                                </span>
                             : (
                                 <>
                                     {selectedUsers.map(user => (
@@ -63,7 +75,8 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
                     <button type='button'
                         className='create-thread-button follow-new-post-button false remove-button-styling different-padding'
-                        onClick={createNewThread}>
+                        onClick={createNewThread}
+                    >
                         create thread
                     </button>
                 </div>
@@ -71,41 +84,51 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
 
             <div className='thread-previews-container'>
-                {threadPreviews.map((preview, i) => (
-                    <button
-                        type='button'
-                        onClick={() => setCurrThreadId(preview.threadId)}
-                        id={`${preview.threadId === currThreadId}`}
-                    >
-                        <div className='thread-preview' key={i}>
-                            {preview.numberOfUsers < 3
-                                ? (
-                                    <>
-                                        <div className='preview__avatar single'>
-                                            <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                        </div>
-                                        <div className='thread-name-and-preview'>
-                                            <h4>{preview.threadName}</h4>
-                                            <span className='line-clamp'>{preview.preview}</span>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className='preview__avatar group'>
-                                            <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
-                                            <div id='circle1' />
-                                            <div id='circle2' />
-                                        </div>
-                                        <div className='thread-name-and-preview move-left'>
-                                            <h4 className='line-clamp'>{preview.threadName}</h4>
-                                            <span className='line-clamp'>{preview.preview}</span>
-                                        </div>
-                                    </>
-                                )}
+                {threadPreviews.map((preview, i) => {
+                    let threadName = preview.users.length > 2 ? ["You"] : []
+                    for (const username of preview.users) {
+                        if (username !== sessionUser.firstName) {
+                            threadName.push(username);
+                        }
+                    }
+                    threadName = threadName.join(', ');
+                    
+                    return (
+                        <button
+                            type='button'
+                            onClick={() => setCurrThreadId(preview.threadId)}
+                            id={`${preview.threadId === currThreadId}`}
+                        >
+                            <div className='thread-preview' key={i}>
+                                {preview.numberOfUsers < 3
+                                    ? (
+                                        <>
+                                            <div className='preview__avatar single'>
+                                                <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                            </div>
+                                            <div className='thread-name-and-preview'>
+                                                <h4>{threadName}</h4>
+                                                <span className='line-clamp'>{preview.preview}</span>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className='preview__avatar group'>
+                                                <img src={preview.profileImage !== '/default-profile-image.png' ? preview.profileImage : defaultProfileImage} alt='user-avatar' />
+                                                <div id='circle1' />
+                                                <div id='circle2' />
+                                            </div>
+                                            <div className='thread-name-and-preview move-left'>
+                                                <h4 className='line-clamp'>{threadName}</h4>
+                                                <span className='line-clamp'>{preview.preview}</span>
+                                            </div>
+                                        </>
+                                    )}
 
-                        </div>
-                    </button>
-                ))}
+                            </div>
+                        </button>
+                    )
+                })}
             </div>
 
 

@@ -57,7 +57,7 @@ const MessagePage = () => {
             })()
         }
     }, [currThreadId]);
-
+    
     // for message form submit
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -72,6 +72,9 @@ const MessagePage = () => {
         newMessage.room = currThreadId;
         socket.send(newMessage)
         setMessage(() => '')
+        // setMessages(prev => {
+            
+        // });
     }
 
 

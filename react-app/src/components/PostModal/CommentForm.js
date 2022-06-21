@@ -40,17 +40,7 @@ function CommentForm({ postId }) {
 				}
 			});
 	}
-
-
-
-	// const onEmojiClick = (event, emojiObject) => {
-	// 	console.log(emojiObject.emoji);
-	// 	let temp = content + emojiObject.emoji;
-	// 	setContent(temp)
-	// 	console.log('onEmojiClick ~ temp', temp);
-	// 	console.log(content)
-	// };
-
+	
 
 	return (
 		<div id='comment-form-wrapper'>
@@ -63,7 +53,6 @@ function CommentForm({ postId }) {
 					placeholder='add a comment'
 					autoComplete='off'
 				/>
-				{/* <Picker onEmojiClick={onEmojiClick} /> */}
 
 				<button type='submit'
 					id='comment-submit'
