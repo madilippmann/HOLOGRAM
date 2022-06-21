@@ -39,11 +39,16 @@ export default function CommentCard({ post, comment }) {
 			dispatch(postsActions.deleteComment(commentId, post.id))
 		}
 	}
+	
+	const redirectAndRefresh = (e) => {
+		
+		window.location.reload(false);
+	}
 
 
 	return (
 		<div className='comment-container' onMouseEnter={() => setShowButtons(true)} onMouseLeave={() => setShowButtons(false)}>
-			<div style={{ width: '30px', height: '30px', minWidth: '30px', minHeight: '30px' }}>
+			<div style={{ width: '30px', height: '30px', minWidth: '30px', minHeight: '30px' }} onClick={redirectAndRefresh}>
 				<ProfileIcon user={comment.user} />
 			</div>
 
