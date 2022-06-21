@@ -15,11 +15,21 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsL
     // const usersFromSearch = useSelector(state => state.search);
     const [userIds, setUserIds] = useState(new Set());
     const [selectedUsers, setSelectedUsers] = useState([]);
+    const [errors, setErrors] = useState('');
+    const [showErrors, setShowErrors] = useState(false);
+    
+    
 
 
     const createNewThread = async () => {
         // make sure users don't make the same thread twice? won't error out if they do, but just preference
         const users = selectedUsers.map(user => user.firstName);
+        if (selectedUsers.length === 0) {
+            setErrors('Please select at least one user to start a thread with.');
+            setShowErrors(true);
+            return;
+        }
+        
         if (window.confirm(`Create a thread with ${users.join(', ')}?`)) {
             const thread = await dispatch(threadsActions.createThread(Array.from(userIds)));
             await dispatch(threadsActions.fetchThreadPreviews());
@@ -49,7 +59,9 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsL
                 <div id='selected-users'>
                     <div className='selected-users-map'>
                         {!selectedUsers.length
-                            ? <span style={{ fontSize: '14px', padding: '8px', color: 'gray' }}>search for someone to start a conversation...</span>
+                            ? <span style={{ fontSize: '14px', padding: '8px', color: showErrors ? 'red' : 'gray' }}>
+                                { !showErrors ? "search for someone to start a conversation..." : errors }
+                                </span>
                             : (
                                 <>
                                     {selectedUsers.map(user => (
@@ -64,7 +76,8 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews, setIsL
 
                     <button type='button'
                         className='create-thread-button follow-new-post-button false remove-button-styling different-padding'
-                        onClick={createNewThread}>
+                        onClick={createNewThread}
+                    >
                         create thread
                     </button>
                 </div>
