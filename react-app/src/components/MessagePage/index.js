@@ -37,7 +37,6 @@ const MessagePage = () => {
         (async () => {
             // fetch thread previews
             const threadPreviews = await dispatch(threadsActions.fetchThreadPreviews());
-            console.log(threadPreviews);
             // fetch the thread that was most recently active
             const thread = await dispatch(threadsActions.fetchThread(threadPreviews[0].threadId));
             // set initial socket room/thread variables
@@ -59,10 +58,6 @@ const MessagePage = () => {
         }
     }, [currThreadId]);
     
-    useEffect(() => {
-        console.log(messages);
-    }, [messages]);
-
     // for message form submit
     const onSubmit = async (e) => {
         e.preventDefault()

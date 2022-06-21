@@ -25,7 +25,6 @@ function FeedPage() {
         (async () => {
             await dispatch(postsActions.fetchPosts('feed', null));
             setIsLoaded(() => true);
-            console.log('POSTS AFTER DELETE: ', posts)
         })()
     }, [dispatch]);
 

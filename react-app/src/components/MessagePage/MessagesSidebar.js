@@ -85,16 +85,13 @@ const MessagesSidebar = ({ currThreadId, setCurrThreadId, threadPreviews }) => {
 
             <div className='thread-previews-container'>
                 {threadPreviews.map((preview, i) => {
-                    console.log('hasdlkfjalkdjsfakjdfakjdf', preview.users);
-                    
                     let threadName = preview.users.length > 2 ? ["You"] : []
                     for (const username of preview.users) {
                         if (username !== sessionUser.firstName) {
-                            console.log(username, 'not equal');
                             threadName.push(username);
                         }
                     }
-                    threadName = threadName.join(', '); // "Berta, a"
+                    threadName = threadName.join(', ');
                     
                     return (
                         <button

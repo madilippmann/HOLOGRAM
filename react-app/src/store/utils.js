@@ -2,7 +2,6 @@ import { getTimeElapsed } from "../utils";
 
 export const normalizePosts = (postsArr) => {
     return postsArr.reduce((obj, post) => {
-        console.log('POST: ', post)
         post.timeElapsed = getTimeElapsed(post.createdAt);
         obj[post.id] = post;
 

@@ -264,7 +264,6 @@ const postsReducer = (state = {}, action) => {
         }
 
         case REMOVE_POST: {
-            console.log('STATE: ', state)
             newState = {
                 ...reNormalizePosts(state)
             };
