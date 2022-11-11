@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.505c78e7.chunk.css",
+    "main.js": "/static/js/main.d8216933.chunk.js",
+    "main.js.map": "/static/js/main.d8216933.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.84ec8e64.js",
+    "runtime-main.js.map": "/static/js/runtime-main.84ec8e64.js.map",
+    "static/js/2.2f231d2e.chunk.js": "/static/js/2.2f231d2e.chunk.js",
+    "static/js/2.2f231d2e.chunk.js.map": "/static/js/2.2f231d2e.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.505c78e7.chunk.css.map": "/static/css/main.505c78e7.chunk.css.map",
+    "static/js/2.2f231d2e.chunk.js.LICENSE.txt": "/static/js/2.2f231d2e.chunk.js.LICENSE.txt",
+    "static/media/default-profile-image.1d0c42d3.png": "/static/media/default-profile-image.1d0c42d3.png",
+    "static/media/feed-empty-1.20b5a593.jpg": "/static/media/feed-empty-1.20b5a593.jpg",
+    "static/media/feed-empty-2.8f702fa5.jpg": "/static/media/feed-empty-2.8f702fa5.jpg",
+    "static/media/feed-empty-3.361cfde1.jpg": "/static/media/feed-empty-3.361cfde1.jpg",
+    "static/media/hologram-logo.257a8c2c.png": "/static/media/hologram-logo.257a8c2c.png",
+    "static/media/loading-sphere-colorbg.cf2833c4.gif": "/static/media/loading-sphere-colorbg.cf2833c4.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.84ec8e64.js",
+    "static/js/2.2f231d2e.chunk.js",
+    "static/css/main.505c78e7.chunk.css",
+    "static/js/main.d8216933.chunk.js"
+  ]
+}
